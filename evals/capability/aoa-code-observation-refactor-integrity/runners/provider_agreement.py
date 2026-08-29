@@ -15,6 +15,58 @@ SCHEMA_PATH = BUNDLE_ROOT / "schemas" / "provider-agreement.schema.json"
 REQUIRED_PROVIDERS = {"tree-sitter", "scip", "lsp"}
 
 
+def _normalized_observation_issue(observation: Any) -> str | None:
+    if not isinstance(observation, dict):
+        return "not_object"
+    if observation.get("capability_class") != "code-structure":
+        return "capability_class"
+    if observation.get("observation_kind") not in {"symbol", "relation"}:
+        return "observation_kind"
+    for field in ("observation_id", "semantic_key"):
+        if not isinstance(observation.get(field), str) or not observation[field]:
+            return field
+    subject = observation.get("subject")
+    if not isinstance(subject, dict) or any(
+        not isinstance(subject.get(field), str) or not subject[field]
+        for field in ("label", "qualified_name", "symbol_id", "symbol_kind")
+    ):
+        return "subject"
+    occurrence = observation.get("occurrence")
+    coordinate_fields = ("start_line", "start_column", "end_line", "end_column")
+    if not isinstance(occurrence, dict) or any(
+        not isinstance(occurrence.get(field), int) or occurrence[field] < 1
+        for field in coordinate_fields
+    ):
+        return "occurrence"
+    if (occurrence["end_line"], occurrence["end_column"]) < (
+        occurrence["start_line"],
+        occurrence["start_column"],
+    ):
+        return "occurrence_order"
+    confidence = observation.get("confidence")
+    value = confidence.get("value") if isinstance(confidence, dict) else None
+    if (
+        not isinstance(confidence, dict)
+        or confidence.get("evidence_class") != "observed"
+        or isinstance(value, bool)
+        or not isinstance(value, (int, float))
+        or not 0 < value <= 1
+    ):
+        return "confidence"
+    relation = observation.get("relation")
+    if observation["observation_kind"] == "symbol":
+        if relation is not None:
+            return "symbol_relation"
+    elif (
+        not isinstance(relation, dict)
+        or relation.get("kind") not in {"references", "calls"}
+        or not isinstance(relation.get("target_name"), str)
+        or not relation["target_name"]
+    ):
+        return "relation"
+    return None
+
+
 def _load(path: Path) -> Any:
     with path.open(encoding="utf-8") as handle:
         return json.load(handle)
@@ -34,7 +86,10 @@ def validate(path: Path) -> dict[str, Any]:
         key=lambda error: list(error.absolute_path),
     )
     issues = [
-        "schema:" + "/".join(str(part) for part in error.absolute_path) + ":" + error.message
+        "schema:"
+        + "/".join(str(part) for part in error.absolute_path)
+        + ":"
+        + error.message
         for error in schema_errors
     ]
     if schema_errors:
@@ -66,13 +121,22 @@ def validate(path: Path) -> dict[str, Any]:
         provider_id = envelope["provider"]["id"]
         lane = envelope["provider"].get("lane", {})
         admission = envelope.get("qualification", {}).get("machine_admission", {})
-        if lane.get("status") != "supplied_unadmitted" or admission.get("state") != "not_admitted":
+        if (
+            lane.get("status") != "supplied_unadmitted"
+            or admission.get("state") != "not_admitted"
+        ):
             issues.append(f"provider_not_bounded:{provider_id}")
         if envelope.get("parse_status") != "parsed":
             issues.append(f"provider_not_parsed:{provider_id}")
 
         provider_facts: set[str] = set()
-        for observation in envelope["observations"]:
+        for observation_index, observation in enumerate(envelope["observations"]):
+            observation_issue = _normalized_observation_issue(observation)
+            if observation_issue is not None:
+                issues.append(
+                    f"invalid_normalized_observation:{provider_id}:{observation_index}:{observation_issue}"
+                )
+                continue
             label = str(observation.get("subject", {}).get("label", ""))
             if not label:
                 continue
@@ -86,7 +150,8 @@ def validate(path: Path) -> dict[str, Any]:
 
     for required_fact in payload["required_facts"]:
         missing_fact = sorted(
-            provider for provider in REQUIRED_PROVIDERS
+            provider
+            for provider in REQUIRED_PROVIDERS
             if required_fact not in facts.get(provider, set())
         )
         if missing_fact:

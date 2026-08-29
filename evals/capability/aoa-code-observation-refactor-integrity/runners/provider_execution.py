@@ -59,10 +59,39 @@ def peak_resource_bytes() -> int:
 
 
 def source_index(tree: dict[str, list[str]]) -> dict[str, Any]:
-    imports: dict[str, list[str]] = {}
-    for path, source in contract.source_tree_text(tree).items():
-        imports[path] = sorted(contract.source_import_modules(path, source))
-    return {"symbols": contract.ast_symbol_records(tree), "imports": imports}
+    return contract.source_projection(tree)
+
+
+def delta_source_index(
+    before: dict[str, list[str]],
+    after: dict[str, list[str]],
+    invalidated: list[str],
+) -> dict[str, Any]:
+    """Build the incremental projection through reuse plus invalidation."""
+
+    before_index = source_index(before)
+    after_index = source_index(after)
+    invalidated_set = set(invalidated)
+    symbols = [
+        symbol
+        for symbol in before_index["symbols"]
+        if symbol["path"] not in invalidated_set and symbol["path"] in after
+    ]
+    symbols.extend(
+        symbol for symbol in after_index["symbols"] if symbol["path"] in invalidated_set
+    )
+    symbols.sort(
+        key=lambda symbol: (symbol["path"], symbol["start_line"], symbol["name"])
+    )
+    imports = {
+        path: (
+            after_index["imports"][path]
+            if path in invalidated_set
+            else before_index["imports"][path]
+        )
+        for path in sorted(after)
+    }
+    return {"symbols": symbols, "imports": imports}
 
 
 def projection_digest(index: dict[str, Any]) -> str:
@@ -161,21 +190,36 @@ def case_execution(
     before_keys = {symbol_key(symbol) for symbol in before_symbols}
     after_keys = {symbol_key(symbol) for symbol in after_symbols}
     added_symbols = sorted(
-        (symbol for symbol in after_symbols if symbol_key(symbol) in after_keys - before_keys),
+        (
+            symbol
+            for symbol in after_symbols
+            if symbol_key(symbol) in after_keys - before_keys
+        ),
         key=lambda symbol: symbol_key(symbol),
     )
     deleted_symbols = sorted(
-        (symbol for symbol in before_symbols if symbol_key(symbol) in before_keys - after_keys),
+        (
+            symbol
+            for symbol in before_symbols
+            if symbol_key(symbol) in before_keys - after_keys
+        ),
         key=lambda symbol: symbol_key(symbol),
     )
     full_rebuild = fixture_case["case_id"] == "delta-full-parity"
     universe = sorted(set(before) | set(after))
     invalidated = sorted(set([*changed, *added, *deleted, *dependency_impacted]))
     reused = [] if full_rebuild else sorted(set(universe) - set(invalidated))
-    indexed_epoch = before_epoch if fixture_case["case_id"] == "stale-index" else after_epoch
+    indexed_epoch = (
+        before_epoch if fixture_case["case_id"] == "stale-index" else after_epoch
+    )
     stale = fixture_case["case_id"] == "stale-index"
     full_projection = projection_digest(after_index) if full_rebuild else None
-    delta_projection = projection_digest(after_index) if full_rebuild else None
+    delta_index = (
+        delta_source_index(before, after, invalidated) if full_rebuild else None
+    )
+    delta_projection = (
+        projection_digest(delta_index) if delta_index is not None else None
+    )
     selected_tests = contract._expected_execution_tests(
         scenario, changed, added, deleted, dependency_impacted
     )
@@ -197,28 +241,39 @@ def case_execution(
         },
         "blast_radius": round(len(invalidated) / len(universe), 6),
     }
-    state = {
-        "schema_version": "abyss-stack-live-code-intelligence-state-v1",
-        "status": "degraded" if stale else "current",
-        "provider": provider,
-        "config": {"digest": config_digest},
-        "source": {"source_epoch": after_epoch},
-        "invalidation": invalidation,
-        "freshness": {
-            "layer": "LIVE",
-            "source_epoch": after_epoch,
+
+    def build_state(observed_index: dict[str, Any]) -> dict[str, Any]:
+        return {
+            "schema_version": "abyss-stack-live-code-intelligence-state-v1",
+            "status": "degraded" if stale else "current",
             "provider": provider,
-            "confidence": "degraded" if stale else "observed",
-        },
-        "provenance": {
-            "runtime_owner": "abyss-stack",
-            "observation_meaning_owner": "aoa-kag",
-            "proof_owner": "aoa-evals",
-            "source_kind": "working_tree",
-            "full_rebuild": full_rebuild,
-        },
-        "evidence_posture": EXECUTION_POSTURE,
-    }
+            "config": {"digest": config_digest},
+            "source": {
+                "source_epoch": after_epoch,
+                "projection_digest": projection_digest(observed_index),
+            },
+            "invalidation": invalidation,
+            "freshness": {
+                "layer": "LIVE",
+                "source_epoch": after_epoch,
+                "provider": provider,
+                "confidence": "degraded" if stale else "observed",
+            },
+            "provenance": {
+                "runtime_owner": "abyss-stack",
+                "observation_meaning_owner": "aoa-kag",
+                "proof_owner": "aoa-evals",
+                "source_kind": "working_tree",
+                "full_rebuild": full_rebuild,
+            },
+            "evidence_posture": EXECUTION_POSTURE,
+        }
+
+    state = build_state(source_index(after))
+    # This is a distinct provider projection and state construction.  The
+    # repeated digest is therefore evidence from a second execution, not a
+    # second hash of the first state object.
+    repeated_state = build_state(source_index(after))
     observation = {
         "operation": fixture_case["operation"],
         "source_epoch": after_epoch,
@@ -274,7 +329,7 @@ def case_execution(
         "latency_ms": latency_ms,
         "resource_peak_bytes": peak_resource_bytes(),
         "state_digest": contract.canonical_digest(state),
-        "repeated_state_digest": contract.stable_provider_state_digest(state),
+        "repeated_state_digest": contract.stable_provider_state_digest(repeated_state),
         "full_state_projection_digest": full_projection,
         "delta_state_projection_digest": delta_projection,
         "observation": observation,
@@ -307,7 +362,11 @@ def execute() -> dict[str, Any]:
     )
     executions = [
         case_execution(
-            fixture_cases[case_id], scenarios[case_id], provider, config_digest, environment
+            fixture_cases[case_id],
+            scenarios[case_id],
+            provider,
+            config_digest,
+            environment,
         )
         for case_id in [case["case_id"] for case in fixture["cases"]]
     ]
@@ -349,7 +408,9 @@ def main() -> int:
     try:
         envelope = execute()
     except (OSError, ValueError, RuntimeError, KeyError, json.JSONDecodeError) as exc:
-        print(json.dumps({"valid": False, "errors": [str(exc)]}, indent=2, sort_keys=True))
+        print(
+            json.dumps({"valid": False, "errors": [str(exc)]}, indent=2, sort_keys=True)
+        )
         return 1
     errors, _case_ids = contract.provider_execution_errors(envelope)
     print(json.dumps(envelope, indent=2, sort_keys=True))

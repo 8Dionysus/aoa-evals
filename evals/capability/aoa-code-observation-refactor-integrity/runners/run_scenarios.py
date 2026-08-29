@@ -9,7 +9,6 @@ import copy
 import hashlib
 import json
 import math
-import platform
 import sys
 from pathlib import Path, PurePosixPath
 from typing import Any
@@ -31,8 +30,12 @@ FIXTURE_PATH = (
 )
 FIXTURE_CONTRACT_PATH = BUNDLE_ROOT / "fixtures" / "contract.json"
 REPORT_SCHEMA_PATH = BUNDLE_ROOT / "schemas" / "refactor-observation-report.schema.json"
-PROVIDER_EXECUTION_SCHEMA_PATH = BUNDLE_ROOT / "schemas" / "provider-execution.schema.json"
-PROVIDER_EVIDENCE_SCHEMA_PATH = BUNDLE_ROOT / "schemas" / "provider-observation-evidence.schema.json"
+PROVIDER_EXECUTION_SCHEMA_PATH = (
+    BUNDLE_ROOT / "schemas" / "provider-execution.schema.json"
+)
+PROVIDER_EVIDENCE_SCHEMA_PATH = (
+    BUNDLE_ROOT / "schemas" / "provider-observation-evidence.schema.json"
+)
 PROVIDER_EXECUTION_FIXTURE_PATH = (
     BUNDLE_ROOT / "fixtures" / "provider-execution" / "manifest.json"
 )
@@ -42,23 +45,44 @@ PROVIDER_EXECUTION_FIXTURE_SCHEMA_PATH = (
 SUMMARY_SCHEMA_PATH = BUNDLE_ROOT / "reports" / "summary.schema.json"
 EXAMPLE_REPORT_PATH = BUNDLE_ROOT / "fixtures" / "observation-report.example.json"
 AFFECTED_TEST_ORACLE_PATH = FIXTURE_PATH.parent / "oracles" / "affected-tests.json"
-AFFECTED_TEST_ORACLE_REPO_PATH = (
-    AFFECTED_TEST_ORACLE_PATH.relative_to(REPO_ROOT).as_posix()
-)
+AFFECTED_TEST_ORACLE_REPO_PATH = AFFECTED_TEST_ORACLE_PATH.relative_to(
+    REPO_ROOT
+).as_posix()
 AFFECTED_TEST_ORACLE_MANIFEST_PATH = "oracles/affected-tests.json"
 
 MACHINE_CONTRACT_SCHEMA = "abyss_machine_code_intelligence_config_v1"
 MACHINE_CONTRACT_REF = "config-templates/etc/abyss-machine/code-intelligence.json"
-MACHINE_CONTRACT_DIGEST = "sha256:6a5b5a78e1a3abe963764ab45fc3df96b8f24929a9fb95742c58328de670b7ba"
+MACHINE_CONTRACT_DIGEST = (
+    "sha256:6a5b5a78e1a3abe963764ab45fc3df96b8f24929a9fb95742c58328de670b7ba"
+)
 MACHINE_CONTRACT_DIGEST_KIND = "sha256-raw-file-bytes"
 MACHINE_CONTRACT_SNAPSHOT_EPOCH = "59be4462e5cbed389ab8906c26524ed6338f1eb2"
-MACHINE_WORKSPACE_MANIFEST_DIGEST = "sha256:3da4c03be2d8ca518012e1228d17a4ca0018d6d3b0ad3d871fed03768489622b"
+MACHINE_WORKSPACE_MANIFEST_DIGEST = (
+    "sha256:3da4c03be2d8ca518012e1228d17a4ca0018d6d3b0ad3d871fed03768489622b"
+)
 MACHINE_PROVIDER_ID = "python-ast-bootstrap"
 OWNER_BINDINGS = {
     "host_install_and_trust_owner": "abyss-machine",
     "provider_lifecycle_owner": "abyss-stack",
     "normalized_observation_consumer": "aoa-kag",
     "semantic_proof_owner": "aoa-evals",
+}
+EXPECTED_SEMANTIC_IDENTITIES = {
+    "rename-symbol": {"fixture:alpha.symbol": "function"},
+    "move-symbol": {"fixture:beta.symbol": "function"},
+    "signature-change": {"fixture:signature.symbol": "function"},
+    "add-entity": {"fixture:delta.symbol": "class"},
+    "delete-entity": {"fixture:epsilon.symbol": "function"},
+    "import-change": {"fixture:zeta.module": "module"},
+    "multi-file-impact": {
+        "fixture:eta.symbol": "function",
+        "fixture:theta.symbol": "function",
+    },
+    "split-symbol": {"fixture:iota.symbol": "function"},
+    "merge-symbol": {"fixture:kappa.symbol": "function"},
+    "stale-index": {"fixture:lambda.symbol": "function"},
+    "delta-full-parity": {"fixture:mu.module": "module"},
+    "affected-test-selection": {"fixture:nu.symbol": "function"},
 }
 
 SUMMARY_LIMITATIONS = [
@@ -74,7 +98,9 @@ def load_json(path: Path) -> Any:
 
 
 def canonical_digest(value: Any) -> str:
-    payload = json.dumps(value, ensure_ascii=True, sort_keys=True, separators=(",", ":"))
+    payload = json.dumps(
+        value, ensure_ascii=True, sort_keys=True, separators=(",", ":")
+    )
     return "sha256:" + hashlib.sha256(payload.encode("utf-8")).hexdigest()
 
 
@@ -98,10 +124,7 @@ def stable_provider_state_digest(value: Any) -> str:
 def source_tree_text(tree: dict[str, list[str]]) -> dict[str, str]:
     """Materialize the public-safe execution fixture without touching disk."""
 
-    return {
-        path: "\n".join(lines) + "\n"
-        for path, lines in sorted(tree.items())
-    }
+    return {path: "\n".join(lines) + "\n" for path, lines in sorted(tree.items())}
 
 
 def source_snapshot_digest(tree: dict[str, list[str]]) -> str:
@@ -184,7 +207,9 @@ def _lineage_shape_dump(node: ast.AST, *, kind: str) -> str:
     normalized = copy.deepcopy(node)
     if isinstance(normalized, (ast.AsyncFunctionDef, ast.FunctionDef, ast.ClassDef)):
         normalized.name = ""
-    if kind == "function" and isinstance(normalized, (ast.AsyncFunctionDef, ast.FunctionDef)):
+    if kind == "function" and isinstance(
+        normalized, (ast.AsyncFunctionDef, ast.FunctionDef)
+    ):
         normalized = ast.Module(body=normalized.body, type_ignores=[])
     normalized = _LineageShapeNormalizer().visit(normalized)
     return ast.dump(normalized, annotate_fields=True, include_attributes=False)
@@ -214,12 +239,16 @@ def ast_symbol_records(tree: dict[str, list[str]]) -> list[dict[str, Any]]:
                     "path": path,
                     "start_line": node.lineno,
                     "end_line": getattr(node, "end_lineno", node.lineno),
-                    "fingerprint": canonical_digest({"kind": kind, "identity": identity}),
+                    "fingerprint": canonical_digest(
+                        {"kind": kind, "identity": identity}
+                    ),
                     "body_fingerprint": body_digest,
                     "lineage_id": f"lineage:{lineage_digest.removeprefix('sha256:')}",
                 }
             )
-    return sorted(records, key=lambda item: (item["path"], item["start_line"], item["name"]))
+    return sorted(
+        records, key=lambda item: (item["path"], item["start_line"], item["name"])
+    )
 
 
 def provider_execution_fixture_errors() -> tuple[dict[str, Any], list[str]]:
@@ -237,9 +266,18 @@ def provider_execution_fixture_errors() -> tuple[dict[str, Any], list[str]]:
     expected_ids = [case["case_id"] for case in fixture.get("cases", [])]
     actual_ids = [case.get("case_id") for case in cases if isinstance(case, dict)]
     if actual_ids != expected_ids:
-        errors.append(issue("provider-fixture:case_order", "execution fixture must match refactor fixture order"))
+        errors.append(
+            issue(
+                "provider-fixture:case_order",
+                "execution fixture must match refactor fixture order",
+            )
+        )
     if len(actual_ids) != len(set(actual_ids)):
-        errors.append(issue("provider-fixture:duplicate_case", "duplicate execution fixture case id"))
+        errors.append(
+            issue(
+                "provider-fixture:duplicate_case", "duplicate execution fixture case id"
+            )
+        )
     for index, case in enumerate(cases):
         if not isinstance(case, dict):
             continue
@@ -247,14 +285,28 @@ def provider_execution_fixture_errors() -> tuple[dict[str, Any], list[str]]:
             tree = case.get(label, {})
             for path, lines in tree.items():
                 if local_path_error(path) or not path.endswith(".py"):
-                    errors.append(issue("provider-fixture:unsafe_path", f"cases[{index}].{label}:{path}"))
-                if not isinstance(lines, list) or any(not isinstance(line, str) for line in lines):
-                    errors.append(issue("provider-fixture:source_lines", f"cases[{index}].{label}:{path}"))
+                    errors.append(
+                        issue(
+                            "provider-fixture:unsafe_path",
+                            f"cases[{index}].{label}:{path}",
+                        )
+                    )
+                if not isinstance(lines, list) or any(
+                    not isinstance(line, str) for line in lines
+                ):
+                    errors.append(
+                        issue(
+                            "provider-fixture:source_lines",
+                            f"cases[{index}].{label}:{path}",
+                        )
+                    )
                 else:
                     try:
                         ast.parse("\n".join(lines) + "\n", filename=path)
                     except SyntaxError as exc:
-                        errors.append(issue("provider-fixture:syntax", f"{path}:{exc.msg}"))
+                        errors.append(
+                            issue("provider-fixture:syntax", f"{path}:{exc.msg}")
+                        )
         dependencies = case.get("test_dependencies", {})
         for source_path, test_paths in dependencies.items():
             if local_path_error(source_path) or any(
@@ -297,6 +349,14 @@ def _expected_execution_tests(
     return sorted(selected)
 
 
+def source_projection(tree: dict[str, list[str]]) -> dict[str, Any]:
+    imports = {
+        path: sorted(source_import_modules(path, source))
+        for path, source in source_tree_text(tree).items()
+    }
+    return {"symbols": ast_symbol_records(tree), "imports": imports}
+
+
 def provider_case_observation_errors(
     execution: dict[str, Any],
     fixture_case: dict[str, Any],
@@ -310,7 +370,9 @@ def provider_case_observation_errors(
     before = scenario["before"]
     after = scenario["after"]
     changed, added, deleted = changed_source_paths(before, after)
-    dependency_impacted = dependency_impacted_paths(before, after, changed, added, deleted)
+    dependency_impacted = dependency_impacted_paths(
+        before, after, changed, added, deleted
+    )
     before_epoch = source_snapshot_digest(before)
     after_epoch = source_snapshot_digest(after)
     before_symbols = ast_symbol_records(before)
@@ -452,7 +514,8 @@ def provider_case_observation_errors(
         if parity.get("status") != "equal":
             errors.append(issue("execution_parity", case_id))
         if not parity.get("full_projection_digest") or (
-            parity.get("full_projection_digest") != parity.get("delta_projection_digest")
+            parity.get("full_projection_digest")
+            != parity.get("delta_projection_digest")
         ):
             errors.append(issue("execution_parity_digest", case_id))
     elif parity.get("status") != "not-run":
@@ -568,17 +631,32 @@ def provider_execution_errors(
     if binding["contract_digest"] != MACHINE_CONTRACT_DIGEST:
         errors.append(issue("machine_contract_digest", MACHINE_CONTRACT_DIGEST))
     if binding["contract_digest_kind"] != MACHINE_CONTRACT_DIGEST_KIND:
-        errors.append(issue("machine_contract_digest_kind", MACHINE_CONTRACT_DIGEST_KIND))
+        errors.append(
+            issue("machine_contract_digest_kind", MACHINE_CONTRACT_DIGEST_KIND)
+        )
     if binding["contract_snapshot_epoch"] != MACHINE_CONTRACT_SNAPSHOT_EPOCH:
-        errors.append(issue("machine_contract_snapshot_epoch", MACHINE_CONTRACT_SNAPSHOT_EPOCH))
+        errors.append(
+            issue("machine_contract_snapshot_epoch", MACHINE_CONTRACT_SNAPSHOT_EPOCH)
+        )
     if binding["workspace_manifest_digest"] != MACHINE_WORKSPACE_MANIFEST_DIGEST:
-        errors.append(issue("machine_workspace_manifest_digest", MACHINE_WORKSPACE_MANIFEST_DIGEST))
+        errors.append(
+            issue(
+                "machine_workspace_manifest_digest", MACHINE_WORKSPACE_MANIFEST_DIGEST
+            )
+        )
     if binding["provider_id"] != MACHINE_PROVIDER_ID:
         errors.append(issue("machine_provider_id", MACHINE_PROVIDER_ID))
     if binding["owner_bindings"] != OWNER_BINDINGS:
-        errors.append(issue("owner_bindings", "owner split differs from the machine contract"))
-    if binding["admission_state"] == "admitted" and not binding["admission_receipt_ref"]:
-        errors.append(issue("admission_receipt", "admitted state requires a receipt reference"))
+        errors.append(
+            issue("owner_bindings", "owner split differs from the machine contract")
+        )
+    if (
+        binding["admission_state"] == "admitted"
+        and not binding["admission_receipt_ref"]
+    ):
+        errors.append(
+            issue("admission_receipt", "admitted state requires a receipt reference")
+        )
 
     current_contract_digest = binding.get("current_contract_digest")
     snapshot_currentness = binding.get("snapshot_currentness")
@@ -614,7 +692,10 @@ def provider_execution_errors(
                     "a different current digest requires drifted",
                 )
             )
-        if binding["admission_state"] == "admitted" and snapshot_currentness == "drifted":
+        if (
+            binding["admission_state"] == "admitted"
+            and snapshot_currentness == "drifted"
+        ):
             errors.append(
                 issue(
                     "admission_snapshot_drift",
@@ -630,7 +711,9 @@ def provider_execution_errors(
     seen_case_ids: set[str] = set()
     observed_case_order: list[str] = []
     coverage = envelope.get("coverage")
-    complete_coverage = isinstance(coverage, dict) and coverage.get("mode") == "complete"
+    complete_coverage = (
+        isinstance(coverage, dict) and coverage.get("mode") == "complete"
+    )
     execution_cases = {
         case["case_id"]: case
         for case in execution_fixture.get("cases", [])
@@ -643,13 +726,49 @@ def provider_execution_errors(
     }
     if complete_coverage:
         if envelope.get("execution_posture") != "source-bound-provider-candidate":
-            errors.append(issue("execution_posture", "complete coverage requires source-bound posture"))
+            errors.append(
+                issue(
+                    "execution_posture",
+                    "complete coverage requires source-bound posture",
+                )
+            )
         provider = envelope.get("provider", {})
         expected_provider = execution_fixture.get("provider", {})
         if provider.get("id") != expected_provider.get("id"):
-            errors.append(issue("execution_provider_id", "provider execution fixture identity differs"))
+            errors.append(
+                issue(
+                    "execution_provider_id",
+                    "provider execution fixture identity differs",
+                )
+            )
         if provider.get("version") != expected_provider.get("version"):
-            errors.append(issue("execution_provider_version", "provider execution fixture version differs"))
+            errors.append(
+                issue(
+                    "execution_provider_version",
+                    "provider execution fixture version differs",
+                )
+            )
+        if binding.get("admission_state") != "not_admitted":
+            errors.append(
+                issue(
+                    "complete_candidate_admission",
+                    "complete source candidate must remain not_admitted",
+                )
+            )
+        if binding.get("admission_receipt_ref") is not None:
+            errors.append(
+                issue(
+                    "complete_candidate_receipt",
+                    "complete source candidate cannot carry an admission receipt",
+                )
+            )
+        if binding.get("snapshot_currentness") != "unobserved":
+            errors.append(
+                issue(
+                    "complete_candidate_currentness",
+                    "complete source candidate currentness is unobserved",
+                )
+            )
     for index, execution in enumerate(envelope["executions"]):
         location = f"execution[{index}]"
         case_id = execution["case_id"]
@@ -683,7 +802,10 @@ def provider_execution_errors(
         if state_freshness.get("source_epoch") != execution["source_epoch"]:
             errors.append(issue("freshness_source_epoch", location))
         freshness_provider = state_freshness.get("provider")
-        if not isinstance(freshness_provider, dict) or freshness_provider != state_provider:
+        if (
+            not isinstance(freshness_provider, dict)
+            or freshness_provider != state_provider
+        ):
             errors.append(issue("freshness_provider", location))
         if state_provenance.get("runtime_owner") != "abyss-stack":
             errors.append(issue("runtime_owner", location))
@@ -691,7 +813,9 @@ def provider_execution_errors(
             errors.append(issue("observation_meaning_owner", location))
         if state_provenance.get("proof_owner") != "aoa-evals":
             errors.append(issue("proof_owner", location))
-        if state_provenance.get("full_rebuild") != state_invalidation.get("full_rebuild"):
+        if state_provenance.get("full_rebuild") != state_invalidation.get(
+            "full_rebuild"
+        ):
             errors.append(issue("full_rebuild_provenance", location))
         if execution["mode"] == "full" and not state_invalidation["full_rebuild"]:
             errors.append(issue("full_mode", f"{location}:state is incremental"))
@@ -701,6 +825,11 @@ def provider_execution_errors(
             errors.append(issue("execution_status", location))
         if execution["status"] == "degraded" and state["status"] != "degraded":
             errors.append(issue("execution_status", location))
+        expected_confidence = (
+            "degraded" if execution["status"] == "degraded" else "observed"
+        )
+        if state_freshness.get("confidence") != expected_confidence:
+            errors.append(issue("freshness_confidence", location))
 
         invalidated = set(state_invalidation["invalidated_paths"])
         deleted = set(state_invalidation["deleted_paths"])
@@ -726,13 +855,19 @@ def provider_execution_errors(
                 errors.append(issue("path_outside_universe", f"{location}:{field}"))
         for path in universe["paths"]:
             if local_path_error(path):
-                errors.append(issue("unsafe_path", f"{location}:blast_radius_universe:{path}"))
+                errors.append(
+                    issue("unsafe_path", f"{location}:blast_radius_universe:{path}")
+                )
 
         if universe["count"] < 1:
             errors.append(issue("blast_radius_universe_empty", location))
         if case_id == "delete-entity" and not deleted:
             errors.append(issue("deletion_event_missing", location))
-        if not (set(state_invalidation["changed_paths"]) | set(state_invalidation["added_paths"]) | deleted).issubset(invalidated):
+        if not (
+            set(state_invalidation["changed_paths"])
+            | set(state_invalidation["added_paths"])
+            | deleted
+        ).issubset(invalidated):
             errors.append(issue("invalidation_event_not_invalidated", location))
         if not deleted.issubset(invalidated):
             errors.append(issue("deleted_not_invalidated", location))
@@ -744,9 +879,9 @@ def provider_execution_errors(
             errors.append(issue("blast_radius_universe_count", location))
         if not invalidated.issubset(universe_paths):
             errors.append(issue("blast_radius_universe_membership", location))
-        expected_blast_radius = round(
-            len(invalidated) / universe["count"], 6
-        ) if universe["count"] else 0.0
+        expected_blast_radius = (
+            round(len(invalidated) / universe["count"], 6) if universe["count"] else 0.0
+        )
         if state_invalidation["blast_radius"] != expected_blast_radius:
             errors.append(issue("blast_radius_denominator", location))
 
@@ -798,9 +933,16 @@ def provider_execution_errors(
                     [*changed, *added, *deleted, *dependency_impacted]
                 )
                 expected_universe = set(scenario["before"]) | set(scenario["after"])
+                expected_projection_digest = canonical_digest(
+                    source_projection(scenario["after"])
+                )
+                if state_source.get("projection_digest") != expected_projection_digest:
+                    errors.append(issue("execution_projection_digest", location))
                 expected_full_rebuild = case_id == "delta-full-parity"
                 expected_reused = (
-                    set() if expected_full_rebuild else expected_universe - expected_invalidated
+                    set()
+                    if expected_full_rebuild
+                    else expected_universe - expected_invalidated
                 )
                 for field, expected in (
                     ("changed_paths", changed),
@@ -811,23 +953,44 @@ def provider_execution_errors(
                     ("reused_paths", sorted(expected_reused)),
                 ):
                     if state_invalidation.get(field) != expected:
-                        errors.append(issue("execution_invalidation", f"{location}:{field}"))
+                        errors.append(
+                            issue("execution_invalidation", f"{location}:{field}")
+                        )
                 if state_invalidation.get("full_rebuild") != expected_full_rebuild:
                     errors.append(issue("execution_rebuild_mode", location))
-                if state_invalidation.get("blast_radius_universe", {}).get("paths") != sorted(expected_universe):
+                if state_invalidation.get("blast_radius_universe", {}).get(
+                    "paths"
+                ) != sorted(expected_universe):
                     errors.append(issue("execution_invalidation_universe", location))
 
     if coverage is not None:
         declared_case_order = coverage["case_ids"]
         if declared_case_order != observed_case_order:
-            errors.append(issue("coverage_case_ids", "declaration differs from executions"))
+            errors.append(
+                issue("coverage_case_ids", "declaration differs from executions")
+            )
         if coverage["mode"] == "complete":
             if declared_case_order != known_case_order:
-                errors.append(issue("coverage_complete", "complete coverage must match the fixture order"))
+                errors.append(
+                    issue(
+                        "coverage_complete",
+                        "complete coverage must match the fixture order",
+                    )
+                )
             if observed_case_order != known_case_order:
-                errors.append(issue("coverage_complete", "complete coverage must execute every fixture case once"))
+                errors.append(
+                    issue(
+                        "coverage_complete",
+                        "complete coverage must execute every fixture case once",
+                    )
+                )
             if run["reproducibility_state"] != "deterministic":
-                errors.append(issue("reproducibility_required", "complete coverage requires deterministic runs"))
+                errors.append(
+                    issue(
+                        "reproducibility_required",
+                        "complete coverage requires deterministic runs",
+                    )
+                )
 
     return errors, sorted(seen_case_ids)
 
@@ -835,7 +998,9 @@ def provider_execution_errors(
 def schema_errors(instance: Any, schema: dict[str, Any], label: str) -> list[str]:
     validator = Draft202012Validator(schema, format_checker=FormatChecker())
     errors: list[str] = []
-    for error in sorted(validator.iter_errors(instance), key=lambda item: list(item.path)):
+    for error in sorted(
+        validator.iter_errors(instance), key=lambda item: list(item.path)
+    ):
         location = ".".join(str(part) for part in error.path) or "$"
         errors.append(f"{label}:{location}: {error.message}")
     return errors
@@ -911,13 +1076,17 @@ def affected_test_oracle_errors(
     if not isinstance(oracle, dict):
         return errors + [issue("fixture:affected_test_oracle", "expected an object")]
     if oracle.get("schema_version") != "aoa_refactor_torture_affected_test_oracle_v1":
-        errors.append(issue("fixture:affected_test_oracle", "unexpected schema_version"))
+        errors.append(
+            issue("fixture:affected_test_oracle", "unexpected schema_version")
+        )
     if oracle.get("family_id") != manifest.get("family_id"):
         errors.append(issue("fixture:affected_test_oracle", "family_id mismatch"))
 
     oracle_cases = oracle.get("cases")
     if not isinstance(oracle_cases, list) or not oracle_cases:
-        return errors + [issue("fixture:affected_test_oracle", "expected a non-empty list")]
+        return errors + [
+            issue("fixture:affected_test_oracle", "expected a non-empty list")
+        ]
     oracle_ids = [
         case.get("case_id") for case in oracle_cases if isinstance(case, dict)
     ]
@@ -927,7 +1096,11 @@ def affected_test_oracle_errors(
         errors.append(issue("fixture:affected_test_oracle", "case coverage mismatch"))
     for index, case in enumerate(oracle_cases):
         if not isinstance(case, dict):
-            errors.append(issue("fixture:affected_test_oracle", f"cases[{index}] is not an object"))
+            errors.append(
+                issue(
+                    "fixture:affected_test_oracle", f"cases[{index}] is not an object"
+                )
+            )
             continue
         selected = case.get("selected")
         if not isinstance(selected, list) or any(
@@ -969,29 +1142,139 @@ def semantic_case_issues(
     case: dict[str, Any],
     report: dict[str, Any],
     affected_test_oracles: dict[str, dict[str, Any]],
+    scenario: dict[str, Any],
 ) -> list[str]:
     errors: list[str] = []
     case_id = case["case_id"]
+    expected_evidence_state = (
+        "stale"
+        if case["expected_freshness"] == "stale"
+        else "ambiguous"
+        if case["expected_lineage"] == "branched"
+        else "complete"
+    )
+    if observation.get("evidence_state") != expected_evidence_state:
+        errors.append(
+            issue(
+                "evidence_state_mismatch",
+                f"{case_id} expects {expected_evidence_state}",
+            )
+        )
     if observation.get("operation") != case["operation"]:
-        errors.append(issue("operation_mismatch", f"{case_id} declares {case['operation']}"))
+        errors.append(
+            issue("operation_mismatch", f"{case_id} declares {case['operation']}")
+        )
 
     observed_planes = set(observation.get("planes", []))
     required_planes = set(case["required_planes"])
     if not required_planes.issubset(observed_planes):
-        errors.append(issue("missing_plane", f"{case_id} requires {sorted(required_planes)}"))
+        errors.append(
+            issue("missing_plane", f"{case_id} requires {sorted(required_planes)}")
+        )
 
     lineage = observation.get("lineage", {})
     if lineage.get("posture") != case["expected_lineage"]:
-        errors.append(issue("lineage_posture_mismatch", f"{case_id} expects {case['expected_lineage']}"))
+        errors.append(
+            issue(
+                "lineage_posture_mismatch",
+                f"{case_id} expects {case['expected_lineage']}",
+            )
+        )
     if case["expected_lineage"] == "branched":
         if lineage.get("alternatives", 0) < 1 or lineage.get("confidence", 1) >= 1:
-            errors.append(issue("ambiguity_not_exposed", f"{case_id} requires alternatives and sub-certainty"))
+            errors.append(
+                issue(
+                    "ambiguity_not_exposed",
+                    f"{case_id} requires alternatives and sub-certainty",
+                )
+            )
+    elif case["expected_lineage"] == "preserve":
+        confidence = lineage.get("confidence")
+        if (
+            not isinstance(confidence, (int, float))
+            or confidence < 0.9
+            or lineage.get("alternatives") != 0
+        ):
+            errors.append(
+                issue(
+                    "preserved_lineage_not_certain",
+                    f"{case_id} requires high confidence and no alternatives",
+                )
+            )
 
     freshness = observation.get("freshness", {})
     if freshness.get("status") != case["expected_freshness"]:
-        errors.append(issue("freshness_mismatch", f"{case_id} expects {case['expected_freshness']}"))
-    if case["expected_freshness"] == "stale" and observation.get("evidence_state") != "stale":
-        errors.append(issue("stale_state_missing", f"{case_id} must disclose stale evidence"))
+        errors.append(
+            issue(
+                "freshness_mismatch", f"{case_id} expects {case['expected_freshness']}"
+            )
+        )
+    if (
+        case["expected_freshness"] == "stale"
+        and observation.get("evidence_state") != "stale"
+    ):
+        errors.append(
+            issue("stale_state_missing", f"{case_id} must disclose stale evidence")
+        )
+
+    source_paths = set(scenario.get("before", {})) | set(scenario.get("after", {}))
+    source_symbol_occurrences = {
+        (symbol["path"], symbol["start_line"], symbol["end_line"], symbol["kind"])
+        for tree in (scenario.get("before", {}), scenario.get("after", {}))
+        for symbol in ast_symbol_records(tree)
+    }
+    entities = observation.get("semantic_identity", {}).get("entities", [])
+    actual_semantic_identities = {
+        entity.get("semantic_id"): entity.get("kind") for entity in entities
+    }
+    if actual_semantic_identities != EXPECTED_SEMANTIC_IDENTITIES[case_id]:
+        errors.append(issue("semantic_identity_mismatch", case_id))
+    for entity in entities:
+        semantic_id = entity.get("semantic_id")
+        if not isinstance(semantic_id, str) or not semantic_id.startswith("fixture:"):
+            errors.append(
+                issue("semantic_identity_unbound", f"{case_id}:{semantic_id}")
+            )
+        for occurrence in entity.get("occurrences", []):
+            path = occurrence.get("path")
+            start_line = occurrence.get("start_line")
+            end_line = occurrence.get("end_line")
+            if local_path_error(path) or path not in source_paths:
+                errors.append(issue("semantic_identity_path", f"{case_id}:{path}"))
+            if (
+                not isinstance(start_line, int)
+                or not isinstance(end_line, int)
+                or start_line > end_line
+            ):
+                errors.append(issue("semantic_identity_range", f"{case_id}:{path}"))
+                continue
+            if local_path_error(path) or path not in source_paths:
+                continue
+            if (
+                entity.get("kind") in {"function", "class"}
+                and (
+                    path,
+                    start_line,
+                    end_line,
+                    entity.get("kind"),
+                )
+                not in source_symbol_occurrences
+            ):
+                errors.append(
+                    issue("semantic_identity_occurrence", f"{case_id}:{path}")
+                )
+            if entity.get("kind") == "module" and (
+                start_line != 1
+                or end_line
+                != max(
+                    len(tree[path])
+                    for tree in (scenario.get("before", {}), scenario.get("after", {}))
+                    if path in tree
+                )
+            ):
+                errors.append(
+                    issue("semantic_identity_occurrence", f"{case_id}:{path}")
+                )
 
     invalidation = observation.get("invalidation", {})
     if invalidation.get("scope") != case["expected_invalidation_scope"]:
@@ -1001,16 +1284,120 @@ def semantic_case_issues(
                 f"{case_id} expects {case['expected_invalidation_scope']}",
             )
         )
-    if case["expected_invalidation_scope"] != "full" and invalidation.get("scope") == "full":
-        errors.append(issue("ordinary_case_full_rebuild", f"{case_id} hides bounded invalidation"))
+    if (
+        case["expected_invalidation_scope"] != "full"
+        and invalidation.get("scope") == "full"
+    ):
+        errors.append(
+            issue("ordinary_case_full_rebuild", f"{case_id} hides bounded invalidation")
+        )
 
-    metric_map = {metric.get("metric_id"): metric for metric in observation.get("metrics", [])}
+    affected_paths = invalidation.get("affected_paths", [])
+    recomputed_paths = invalidation.get("recomputed_paths", [])
+    for label, paths in (
+        ("affected", affected_paths),
+        ("recomputed", recomputed_paths),
+    ):
+        if any(local_path_error(path) or path not in source_paths for path in paths):
+            errors.append(issue("invalidation_path", f"{case_id}:{label}"))
+    if not set(recomputed_paths).issubset(set(affected_paths)):
+        errors.append(issue("invalidation_recompute_scope", case_id))
+    if expected_evidence_state != "stale" and set(recomputed_paths) != set(
+        affected_paths
+    ):
+        errors.append(issue("invalidation_recompute_incomplete", case_id))
+    if invalidation.get("scope") == "full" and set(affected_paths) != source_paths:
+        errors.append(issue("invalidation_full_scope", case_id))
+
+    metric_map = {
+        metric.get("metric_id"): metric for metric in observation.get("metrics", [])
+    }
+    expected_metric_units = {
+        "definitions_references": "count",
+        "dependency_relations": "count",
+        "lineage_continuity": "ratio",
+        "freshness": "ratio",
+        "invalidation_blast_radius": "count",
+        "provenance": "ratio",
+        "affected_tests": "count",
+        "ambiguity": "count",
+        "source_epoch": "delta",
+        "delta_full_parity": "parity",
+        "reproducibility": "ratio",
+        "latency": "milliseconds",
+        "resource_cost": "megabytes",
+    }
     for metric_id in case["required_metrics"]:
         metric = metric_map.get(metric_id)
         if metric is None:
             errors.append(issue("missing_metric", f"{case_id}:{metric_id}"))
         elif metric.get("value") is None or metric.get("status") != "observed":
             errors.append(issue("metric_not_observed", f"{case_id}:{metric_id}"))
+        else:
+            value = metric["value"]
+            unit = metric.get("unit")
+            if unit != expected_metric_units[metric_id]:
+                errors.append(issue("metric_unit", f"{case_id}:{metric_id}:{unit}"))
+            if metric_id in {
+                "lineage_continuity",
+                "freshness",
+                "provenance",
+                "reproducibility",
+            }:
+                if not 0 <= value <= 1:
+                    errors.append(issue("metric_range", f"{case_id}:{metric_id}"))
+            elif metric_id in {"latency", "resource_cost"}:
+                if value <= 0:
+                    errors.append(issue("metric_range", f"{case_id}:{metric_id}"))
+            elif value < 0 or (
+                metric_id
+                in {
+                    "definitions_references",
+                    "dependency_relations",
+                    "invalidation_blast_radius",
+                    "affected_tests",
+                    "ambiguity",
+                }
+                and not float(value).is_integer()
+            ):
+                errors.append(issue("metric_range", f"{case_id}:{metric_id}"))
+
+    if "freshness" in metric_map and metric_map["freshness"].get("value") != (
+        0 if case["expected_freshness"] == "stale" else 1
+    ):
+        errors.append(issue("freshness_metric_mismatch", case_id))
+    if "invalidation_blast_radius" in metric_map and metric_map[
+        "invalidation_blast_radius"
+    ].get("value") != len(affected_paths):
+        errors.append(issue("invalidation_metric_mismatch", case_id))
+    if "ambiguity" in metric_map and metric_map["ambiguity"].get(
+        "value"
+    ) != lineage.get("alternatives"):
+        errors.append(issue("ambiguity_metric_mismatch", case_id))
+    if "delta_full_parity" in metric_map and metric_map["delta_full_parity"].get(
+        "value"
+    ) != (1 if invalidation.get("delta_full_parity") == "equal" else 0):
+        errors.append(issue("parity_metric_mismatch", case_id))
+    expected_metric_values = {
+        "definitions_references": len(entities),
+        "dependency_relations": sum(
+            len(entity.get("relations", [])) for entity in entities
+        ),
+        "lineage_continuity": (
+            lineage.get("confidence") if lineage.get("posture") == "branched" else 1
+        ),
+        "provenance": 1,
+        "reproducibility": (
+            1 if report["run"]["reproducibility"].get("state") == "deterministic" else 0
+        ),
+        "source_epoch": 0 if case["expected_freshness"] == "stale" else 1,
+    }
+    for metric_id, expected_value in expected_metric_values.items():
+        if (
+            metric_id in metric_map
+            and metric_map[metric_id].get("value") != expected_value
+        ):
+            errors.append(issue(f"{metric_id}_metric_mismatch", case_id))
 
     provenance = observation.get("provenance", {})
     provider = report["provider"]
@@ -1024,7 +1411,10 @@ def semantic_case_issues(
     if freshness.get("source_epoch_ref") != source_epoch["revision"]:
         errors.append(issue("freshness_epoch_mismatch", case_id))
 
-    if case_id in {"split-symbol", "merge-symbol"} and observation.get("evidence_state") != "ambiguous":
+    if (
+        case_id in {"split-symbol", "merge-symbol"}
+        and observation.get("evidence_state") != "ambiguous"
+    ):
         errors.append(issue("ambiguity_state_missing", case_id))
 
     if case_id == "delta-full-parity":
@@ -1053,6 +1443,13 @@ def semantic_case_issues(
             errors.append(issue("affected_tests_oracle_unavailable", case_id))
         elif affected_tests.get("selected") != oracle.get("selected"):
             errors.append(issue("affected_tests_selection_mismatch", case_id))
+        expected_status = "selected" if affected_tests.get("selected") else "empty"
+        if affected_tests.get("status") != expected_status:
+            errors.append(issue("affected_tests_status_mismatch", case_id))
+        if metric_map.get("affected_tests", {}).get("value") != len(
+            affected_tests.get("selected", [])
+        ):
+            errors.append(issue("affected_tests_metric_mismatch", case_id))
 
     return errors
 
@@ -1063,7 +1460,9 @@ def validate_manifest() -> tuple[dict[str, Any], list[str]]:
     return manifest, errors
 
 
-def validate_report(report_path: Path) -> tuple[dict[str, Any], list[str], dict[str, list[str]]]:
+def validate_report(
+    report_path: Path,
+) -> tuple[dict[str, Any], list[str], dict[str, list[str]]]:
     manifest, errors = validate_manifest()
     report = load_json(report_path)
     errors.extend(schema_errors(report, load_json(REPORT_SCHEMA_PATH), "report"))
@@ -1075,13 +1474,19 @@ def validate_report(report_path: Path) -> tuple[dict[str, Any], list[str], dict[
     if report["run"]["fixture_digest"] != expected_digest:
         errors.append(issue("fixture_digest_mismatch", expected_digest))
     if not {"live", "indexed"}.issubset(set(report["run"]["planes"])):
-        errors.append(issue("overall_plane_coverage_missing", "report requires live and indexed"))
+        errors.append(
+            issue("overall_plane_coverage_missing", "report requires live and indexed")
+        )
 
     cases = manifest["cases"]
     cases_by_id = {case["case_id"]: case for case in cases}
     affected_test_oracle = load_json(AFFECTED_TEST_ORACLE_PATH)
     affected_test_oracles = {
         case["case_id"]: case for case in affected_test_oracle["cases"]
+    }
+    execution_fixture = load_json(PROVIDER_EXECUTION_FIXTURE_PATH)
+    scenarios_by_id = {
+        scenario["case_id"]: scenario for scenario in execution_fixture["cases"]
     }
     observations = report["observations"]
     observations_by_id: dict[str, dict[str, Any]] = {}
@@ -1111,15 +1516,39 @@ def validate_report(report_path: Path) -> tuple[dict[str, Any], list[str], dict[
             errors.extend(breakdown[case_id])
             continue
         case_errors = semantic_case_issues(
-            observation, case, report, affected_test_oracles
+            observation,
+            case,
+            report,
+            affected_test_oracles,
+            scenarios_by_id[case_id],
         )
         breakdown[case_id] = case_errors
         errors.extend(case_errors)
 
+    semantic_ids: dict[str, str] = {}
+    for observation in observations:
+        case_id = observation["case_id"]
+        if case_id not in cases_by_id:
+            continue
+        for entity in observation.get("semantic_identity", {}).get("entities", []):
+            semantic_id = entity.get("semantic_id")
+            previous_case = semantic_ids.get(semantic_id)
+            if previous_case is not None:
+                duplicate_error = issue(
+                    "semantic_identity_duplicate",
+                    f"{case_id}:{semantic_id} already used by {previous_case}",
+                )
+                breakdown.setdefault(case_id, []).append(duplicate_error)
+                errors.append(duplicate_error)
+            else:
+                semantic_ids[semantic_id] = case_id
+
     return report, errors, breakdown
 
 
-def build_summary(report: dict[str, Any], errors: list[str], breakdown: dict[str, list[str]]) -> dict[str, Any]:
+def build_summary(
+    report: dict[str, Any], errors: list[str], breakdown: dict[str, list[str]]
+) -> dict[str, Any]:
     cases = load_json(FIXTURE_PATH)["cases"]
     known_case_ids = {case["case_id"] for case in cases}
     per_case: list[dict[str, Any]] = []
@@ -1146,7 +1575,7 @@ def build_summary(report: dict[str, Any], errors: list[str], breakdown: dict[str
         error for case_errors in breakdown.values() for error in case_errors
     }
     global_errors = sorted(set(errors) - represented_errors)
-    if global_errors and breakdown:
+    if global_errors:
         per_case.append(
             {
                 "case_id": "report-contract",
@@ -1176,7 +1605,9 @@ def build_summary(report: dict[str, Any], errors: list[str], breakdown: dict[str
         "eval_name": "aoa-code-observation-refactor-integrity",
         "bundle_status": "draft",
         "object_under_evaluation": "provider-neutral code-observation envelope under controlled refactor cases",
-        "verdict": "supports bounded contract" if not errors else "does not support bounded contract",
+        "verdict": "supports bounded contract"
+        if not errors
+        else "does not support bounded contract",
         "claim_boundary": "A positive result supports only internal completeness and coherence of the supplied synthetic observation envelope; it is not provider correctness, canonical owner truth, or proof acceptance.",
         "limitations": SUMMARY_LIMITATIONS,
         "scenario_count": len(per_case),
@@ -1197,7 +1628,9 @@ def command_validate_fixture() -> int:
         "fixture_digest": canonical_digest(manifest),
         "affected_test_oracle_path": manifest.get("affected_test_oracle_path"),
         "affected_test_oracle_digest": manifest.get("affected_test_oracle_digest"),
-        "provider_execution_fixture_case_count": len(execution_fixture.get("cases", [])),
+        "provider_execution_fixture_case_count": len(
+            execution_fixture.get("cases", [])
+        ),
         "provider_execution_fixture_digest": canonical_digest(execution_fixture)
         if execution_fixture
         else None,
@@ -1233,8 +1666,12 @@ def command_validate_provider_execution(execution_path: Path) -> int:
         "machine_contract_ref": machine_binding.get("contract_ref"),
         "machine_contract_digest": machine_binding.get("contract_digest"),
         "machine_contract_digest_kind": machine_binding.get("contract_digest_kind"),
-        "machine_contract_snapshot_epoch": machine_binding.get("contract_snapshot_epoch"),
-        "machine_workspace_manifest_digest": machine_binding.get("workspace_manifest_digest"),
+        "machine_contract_snapshot_epoch": machine_binding.get(
+            "contract_snapshot_epoch"
+        ),
+        "machine_workspace_manifest_digest": machine_binding.get(
+            "workspace_manifest_digest"
+        ),
         "admission_state": machine_binding.get("admission_state"),
         "snapshot_currentness": machine_binding.get("snapshot_currentness"),
         "coverage_mode": coverage.get("mode"),
@@ -1268,7 +1705,9 @@ def command_execute_provider() -> int:
     try:
         envelope = provider_execution.execute()
     except (OSError, ValueError, RuntimeError, KeyError, json.JSONDecodeError) as exc:
-        print(json.dumps({"valid": False, "errors": [str(exc)]}, indent=2, sort_keys=True))
+        print(
+            json.dumps({"valid": False, "errors": [str(exc)]}, indent=2, sort_keys=True)
+        )
         return 1
     errors, _case_ids = provider_execution_errors(envelope)
     print(json.dumps(envelope, indent=2, sort_keys=True))
@@ -1312,9 +1751,7 @@ def command_validate_provider_evidence(evidence_path: Path) -> int:
 def command_run_scenarios(report_path: Path) -> int:
     report, errors, breakdown = validate_report(report_path)
     summary = build_summary(report, errors, breakdown)
-    summary_errors = schema_errors(
-        summary, load_json(SUMMARY_SCHEMA_PATH), "summary"
-    )
+    summary_errors = schema_errors(summary, load_json(SUMMARY_SCHEMA_PATH), "summary")
     print(json.dumps(summary, indent=2, sort_keys=True))
     if summary_errors:
         print("summary validation failed:", file=sys.stderr)
@@ -1329,7 +1766,9 @@ def parse_args() -> argparse.Namespace:
     subparsers.add_parser("validate-fixture")
 
     validate_report_parser = subparsers.add_parser("validate-report")
-    validate_report_parser.add_argument("report", nargs="?", type=Path, default=EXAMPLE_REPORT_PATH)
+    validate_report_parser.add_argument(
+        "report", nargs="?", type=Path, default=EXAMPLE_REPORT_PATH
+    )
 
     provider_execution_parser = subparsers.add_parser("validate-provider-execution")
     provider_execution_parser.add_argument("execution", type=Path)
@@ -1343,7 +1782,9 @@ def parse_args() -> argparse.Namespace:
     provider_agreement_parser = subparsers.add_parser("validate-provider-agreement")
     provider_agreement_parser.add_argument("evidence", type=Path)
 
-    adjacent_evidence_parser = subparsers.add_parser("validate-adjacent-provider-evidence")
+    adjacent_evidence_parser = subparsers.add_parser(
+        "validate-adjacent-provider-evidence"
+    )
     adjacent_evidence_parser.add_argument("evidence", type=Path)
 
     run_parser = subparsers.add_parser("run-scenarios")

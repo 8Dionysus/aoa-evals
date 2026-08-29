@@ -54,7 +54,9 @@ def load_json(path: Path) -> Any:
 
 
 def canonical_digest(value: Any) -> str:
-    payload = json.dumps(value, ensure_ascii=True, sort_keys=True, separators=(",", ":"))
+    payload = json.dumps(
+        value, ensure_ascii=True, sort_keys=True, separators=(",", ":")
+    )
     return "sha256:" + hashlib.sha256(payload.encode("utf-8")).hexdigest()
 
 
@@ -89,10 +91,14 @@ def expected_cases() -> tuple[dict[str, Any], dict[str, Any]]:
         raise ValueError("provider source manifest family id drifted")
     fixture_ids = [case["case_id"] for case in fixture["cases"]]
     source_ids = [case["case_id"] for case in source_manifest["cases"]]
-    if len(fixture_ids) != len(set(fixture_ids)) or len(source_ids) != len(set(source_ids)):
+    if len(fixture_ids) != len(set(fixture_ids)) or len(source_ids) != len(
+        set(source_ids)
+    ):
         raise ValueError("duplicate provider evidence case id")
     if fixture_ids != source_ids:
-        raise ValueError("provider source manifest does not cover fixture cases in order")
+        raise ValueError(
+            "provider source manifest does not cover fixture cases in order"
+        )
     if source_manifest.get("source_root") != "source":
         raise ValueError("provider source manifest must use its local source root")
     files = source_files()
@@ -194,10 +200,7 @@ def case_observations(
     paths = observation_paths()
     observations: list[dict[str, Any]] = []
     for case in source_manifest["cases"]:
-        expected = [
-            (symbol["name"], symbol["kind"])
-            for symbol in case["symbols"]
-        ]
+        expected = [(symbol["name"], symbol["kind"]) for symbol in case["symbols"]]
         matched = [symbols[key] for key in expected if key in symbols]
         observations.append(
             {
@@ -334,10 +337,14 @@ def collect_evidence() -> dict[str, Any]:
 
 
 def schema_errors(instance: Any) -> list[str]:
-    validator = Draft202012Validator(load_json(SCHEMA_PATH), format_checker=FormatChecker())
+    validator = Draft202012Validator(
+        load_json(SCHEMA_PATH), format_checker=FormatChecker()
+    )
     return [
         f"{'.'.join(str(part) for part in error.path) or '$'}: {error.message}"
-        for error in sorted(validator.iter_errors(instance), key=lambda item: list(item.path))
+        for error in sorted(
+            validator.iter_errors(instance), key=lambda item: list(item.path)
+        )
     ]
 
 
@@ -359,9 +366,7 @@ def semantic_errors(evidence: dict[str, Any]) -> list[str]:
         return [f"source-manifest: {exc}"]
 
     expected_case_ids = [case["case_id"] for case in fixture["cases"]]
-    expected_source_cases = {
-        case["case_id"]: case for case in source_manifest["cases"]
-    }
+    expected_source_cases = {case["case_id"]: case for case in source_manifest["cases"]}
     expected_paths = set(observation_paths())
     if evidence.get("family_id") != FAMILY_ID:
         errors.append("family_id: expected refactor-torture-v1")
@@ -369,6 +374,8 @@ def semantic_errors(evidence: dict[str, Any]) -> list[str]:
         errors.append("fixture_manifest_digest: digest mismatch")
     if evidence.get("source_manifest_digest") != canonical_digest(source_manifest):
         errors.append("source_manifest_digest: digest mismatch")
+    if evidence.get("claim_boundary") != CLAIM_BOUNDARY:
+        errors.append("claim_boundary: canonical bounded claim differs")
 
     providers = evidence.get("providers", [])
     provider_ids: list[str] = []
@@ -380,9 +387,13 @@ def semantic_errors(evidence: dict[str, Any]) -> list[str]:
             errors.append(f"{location}: python-ast kind mismatch")
         if provider_id == "ctags-host" and provider["kind"] != "ctags":
             errors.append(f"{location}: ctags-host kind mismatch")
+        if provider.get("admission_state") != "not_admitted":
+            errors.append(f"{location}: provider evidence must remain not_admitted")
         limits = " ".join(provider["claim_limits"]).lower()
         if "not admitted" not in limits or "not provider correctness" not in limits:
-            errors.append(f"{location}: claim limits must preserve non-admission and correctness bounds")
+            errors.append(
+                f"{location}: claim limits must preserve non-admission and correctness bounds"
+            )
         if provider["source_root"]["path"] != repo_relative(SOURCE_ROOT):
             errors.append(f"{location}: source root path drift")
         if provider["source_root"]["digest"] != source_root_digest():
@@ -392,20 +403,49 @@ def semantic_errors(evidence: dict[str, Any]) -> list[str]:
             if provider_id != "ctags-host":
                 errors.append(f"{location}: only optional Ctags may be unavailable")
             if provider["case_ids"] or provider["observations"]:
-                errors.append(f"{location}: unavailable provider must not carry observations")
+                errors.append(
+                    f"{location}: unavailable provider must not carry observations"
+                )
             continue
 
         case_ids = provider["case_ids"]
         if case_ids != expected_case_ids:
-            errors.append(f"{location}: available provider case coverage is not the complete family")
+            errors.append(
+                f"{location}: available provider case coverage is not the complete family"
+            )
         observations = provider["observations"]
         observation_ids = [observation["case_id"] for observation in observations]
         if observation_ids != expected_case_ids:
-            errors.append(f"{location}: available provider observations are not one-per-case")
+            errors.append(
+                f"{location}: available provider observations are not one-per-case"
+            )
         if len(observation_ids) != len(set(observation_ids)):
             errors.append(f"{location}: duplicate observation case id")
 
-        observations_by_id = {observation["case_id"]: observation for observation in observations}
+        observations_by_id = {
+            observation["case_id"]: observation for observation in observations
+        }
+        independent_symbols: dict[tuple[str, str], dict[str, Any]] | None
+        if provider_id == "python-ast":
+            independent_symbols = python_symbols()
+        elif provider_id == "ctags-host":
+            ctags_path = shutil.which("ctags")
+            if ctags_path is None:
+                independent_symbols = None
+                errors.append(
+                    f"{location}: available Ctags evidence cannot be independently verified"
+                )
+            else:
+                try:
+                    independent_symbols = ctags_symbols(ctags_path)
+                except (OSError, RuntimeError, json.JSONDecodeError) as exc:
+                    independent_symbols = None
+                    errors.append(
+                        f"{location}: independent Ctags collection failed: {exc}"
+                    )
+        else:
+            independent_symbols = None
+            errors.append(f"{location}: unsupported provider identity")
         for case_id in expected_case_ids:
             observation = observations_by_id.get(case_id)
             if observation is None:
@@ -420,18 +460,33 @@ def semantic_errors(evidence: dict[str, Any]) -> list[str]:
                 for symbol in expected_source_cases[case_id]["symbols"]
             }
             actual_symbols = {
-                (symbol["name"], symbol["kind"])
-                for symbol in observation["symbols"]
+                (symbol["name"], symbol["kind"]) for symbol in observation["symbols"]
             }
             if actual_symbols != expected_symbols:
-                errors.append(f"{location}:{case_id}: declared symbol evidence mismatch")
+                errors.append(
+                    f"{location}:{case_id}: declared symbol evidence mismatch"
+                )
             for symbol in observation["symbols"]:
                 if local_path_error(symbol["source_path"]):
                     errors.append(f"{location}:{case_id}: unsafe symbol source path")
                 if symbol["source_path"] not in expected_paths:
-                    errors.append(f"{location}:{case_id}: symbol source path is outside source root")
+                    errors.append(
+                        f"{location}:{case_id}: symbol source path is outside source root"
+                    )
                 if symbol["end_line"] < symbol["start_line"]:
                     errors.append(f"{location}:{case_id}: symbol line span is reversed")
+                expected_symbol = (
+                    independent_symbols.get((symbol["name"], symbol["kind"]))
+                    if independent_symbols is not None
+                    else None
+                )
+                if expected_symbol is None or any(
+                    symbol.get(field) != expected_symbol.get(field)
+                    for field in ("source_path", "start_line", "end_line")
+                ):
+                    errors.append(
+                        f"{location}:{case_id}: symbol occurrence does not match independent provider output"
+                    )
 
     if len(provider_ids) != len(set(provider_ids)):
         errors.append("providers: duplicate provider id")

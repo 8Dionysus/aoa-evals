@@ -1,0 +1,61 @@
+{
+  "schema_version": "aoa_code_observation_provider_source_manifest_v1",
+  "family_id": "refactor-torture-v1",
+  "source_root": "source",
+  "cases": [
+    {
+      "case_id": "rename-symbol",
+      "symbols": [{"kind": "function", "name": "rename_symbol"}]
+    },
+    {
+      "case_id": "move-symbol",
+      "symbols": [{"kind": "function", "name": "move_symbol"}]
+    },
+    {
+      "case_id": "signature-change",
+      "symbols": [{"kind": "function", "name": "signature_change"}]
+    },
+    {
+      "case_id": "add-entity",
+      "symbols": [{"kind": "class", "name": "AddedEntity"}]
+    },
+    {
+      "case_id": "delete-entity",
+      "symbols": [{"kind": "function", "name": "delete_entity"}]
+    },
+    {
+      "case_id": "import-change",
+      "symbols": [{"kind": "function", "name": "import_change"}]
+    },
+    {
+      "case_id": "multi-file-impact",
+      "symbols": [{"kind": "function", "name": "multi_file_impact"}]
+    },
+    {
+      "case_id": "split-symbol",
+      "symbols": [
+        {"kind": "function", "name": "split_left"},
+        {"kind": "function", "name": "split_right"}
+      ]
+    },
+    {
+      "case_id": "merge-symbol",
+      "symbols": [
+        {"kind": "function", "name": "merge_left"},
+        {"kind": "function", "name": "merge_right"}
+      ]
+    },
+    {
+      "case_id": "stale-index",
+      "symbols": [{"kind": "function", "name": "stale_index"}]
+    },
+    {
+      "case_id": "delta-full-parity",
+      "symbols": [{"kind": "function", "name": "delta_full_parity"}]
+    },
+    {
+      "case_id": "affected-test-selection",
+      "symbols": [{"kind": "function", "name": "affected_test_selection"}]
+    }
+  ]
+}

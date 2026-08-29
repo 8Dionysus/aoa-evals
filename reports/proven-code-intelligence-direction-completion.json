@@ -1,0 +1,251 @@
+{
+  "schema_version": "proven_code_intelligence_direction_completion_v1",
+  "report_kind": "owner_completion",
+  "direction_id": "proven-code-intelligence-direction",
+  "goal_id": "01a02fec-b609-7120-b11c-fa80d34ee86a",
+  "parent_task_id": "01a02fec-b609-7120-b11c-fa80d34ee86a",
+  "task_id": "actor-task:code-intelligence.proven-code-intelligence-direction.g60.whole-continuation",
+  "continuation_id": "continuation:code-intelligence.proven-code-intelligence-direction.g60.whole-continuation",
+  "expected_incarnation_id": "incarnation:code-intelligence.proven-code-intelligence-direction.01a02fec-b609-7120-b11c-fa80d34ee86a.g60.whole-continuation",
+  "owner": "aoa-evals",
+  "target_owner": "aoa-evals",
+  "return_owner": "codex-goal",
+  "status": "review_required",
+  "decision": "submit_for_review",
+  "review_required": true,
+  "summary": "Reconciled the reviewed PROVEN code-observation refactor-integrity package onto current origin/main, including the twelve-case public-safe fixture family, bounded source bundle, provider-shaped evidence/execution schemas and runners, generated readers, topology ledgers, and focused tests. Added a source repair that makes complete provider-execution affected-test selections match the checked-in digest-bound oracle. Owner-local source and broad validation pass under the writable temporary-root override, but canonical GitHub landing is not observed because Git metadata and remote transport writes are blocked. No provider admission, deployment/runtime evidence, proof verdict, or owner acceptance is claimed.",
+  "implementation_state": "owner_source_reconciled_and_locally_validated;canonical_landing_blocked",
+  "claim_surface": {
+    "category": "capability",
+    "claim_type": "bounded",
+    "status": "draft",
+    "baseline_mode": "none",
+    "report_format": "summary-with-breakdown",
+    "current_bounded_claim": "The supplied synthetic refactor-torture observation envelope remains internally coherent across lineage, freshness, invalidation, provenance, parity, and affected-test selection.",
+    "not_claimed": [
+      "provider, parser, Tree-sitter, SCIP, LSP, Ctags, KAG, or normalized-observation correctness",
+      "current installed or admitted provider state, deployment, runtime health, transport acceptance, or owner truth",
+      "independent aoa-evals proof verdict, semantic acceptance, publication, or owner acceptance"
+    ]
+  },
+  "source_and_authority": {
+    "source_base_commit": "cb734788b8a6fff9869f63bdf890fc54dbaf6563",
+    "source_base_observation": "GitHub main and the authorized owner worktree origin/main both resolved to cb734788b8a6fff9869f63bdf890fc54dbaf6563 before source integration.",
+    "prepared_commit": "aaf411bd8010f2506b8ef4bf376cd73f7d2de11c",
+    "prepared_commit_parent": "cb734788b8a6fff9869f63bdf890fc54dbaf6563",
+    "prepared_commit_location": "/tmp/aoa-evals-g60-landing-20260826-v2",
+    "prepared_commit_status": "local_packaging_commit_not_canonical_landing",
+    "semantic_owner": "aoa-evals",
+    "source_root": ".",
+    "mutation_posture": "isolated_owner_worktree_source_edits_only;temporary_clone_used_for_git_metadata_after_shared_metadata_permission_failure",
+    "generated_surface_posture": "rebuilt_from_current_source;catalog_and_reader_parity_checked"
+  },
+  "continuation_repairs": {
+    "affected_test_oracle_binding": {
+      "change": "Complete provider-execution validation now loads the canonical checked-in affected-test oracle and rejects a selected-test list that differs from the case-specific oracle, even when the provider-execution fixture dependency map agrees.",
+      "validator": "evals/capability/aoa-code-observation-refactor-integrity/runners/run_scenarios.py",
+      "regression_test": "tests/test_code_observation_refactor_integrity.py::test_complete_provider_execution_binds_affected_test_oracle",
+      "claim_limit": "This tightens source-bound fixture integrity only; it does not admit a provider or issue a proof verdict."
+    },
+    "meaning_unchanged": {
+      "category": "capability",
+      "status": "draft",
+      "baseline_mode": "none",
+      "report_format": "summary-with-breakdown",
+      "claim_type": "bounded"
+    }
+  },
+  "fixture_contract": {
+    "family": "refactor-torture-v1",
+    "case_count": 12,
+    "fixture_digest": "sha256:e756db54160b86aff25851b938f97cb7e02b97ac407a21e92bb3ee09100cc0db",
+    "affected_test_oracle_path": "mechanics/proof-infra/parts/fixture-families/fixtures/refactor-torture-v1/oracles/affected-tests.json",
+    "affected_test_oracle_digest": "sha256:81add1064651e08a97e36824502ab7a14375832c436bc651a61550b21f6fdfe9",
+    "provider_execution_fixture_digest": "sha256:624026add70fe671bfe80dad06158ba532162d3a19f73a8cc2ef73774737d66f",
+    "source_role": "Reusable synthetic case pressure; bundle-local EVAL.md, eval.yaml, schemas, and runner retain claim meaning.",
+    "replacement_posture": "Provider-shaped evidence remains source-bound and explicitly not admitted."
+  },
+  "provider_execution_evidence": {
+    "command": "python3 evals/capability/aoa-code-observation-refactor-integrity/runners/run_scenarios.py execute-provider",
+    "status": "passed",
+    "stdout_digest": "sha256:271f78db7b3d4d7e21fc7c887649ede8b05bcde11a407a747623d9fb417f39eb",
+    "artifact_retention": "stdout summary only; no runtime artifact was installed or promoted",
+    "provider": {
+      "id": "python-ast-bootstrap",
+      "version": "source-candidate-1.0.0",
+      "config_digest": "sha256:4c35f2585a5645f96c214ef5d7e3b3b43e4691a98383bc7e75c80b7904aec96c"
+    },
+    "coverage": {
+      "mode": "complete",
+      "case_count": 12,
+      "execution_count": 12,
+      "case_ids": [
+        "rename-symbol",
+        "move-symbol",
+        "signature-change",
+        "add-entity",
+        "delete-entity",
+        "import-change",
+        "multi-file-impact",
+        "split-symbol",
+        "merge-symbol",
+        "stale-index",
+        "delta-full-parity",
+        "affected-test-selection"
+      ]
+    },
+    "machine_binding": {
+      "contract_ref": "config-templates/etc/abyss-machine/code-intelligence.json",
+      "contract_digest": "sha256:6a5b5a78e1a3abe963764ab45fc3df96b8f24929a9fb95742c58328de670b7ba",
+      "contract_snapshot_epoch": "59be4462e5cbed389ab8906c26524ed6338f1eb2",
+      "workspace_manifest_digest": "sha256:3da4c03be2d8ca518012e1228d17a4ca0018d6d3b0ad3d871fed03768489622b",
+      "admission_state": "not_admitted",
+      "snapshot_currentness": "unobserved"
+    },
+    "claim_boundary": "Source-bound execution of the checked-in synthetic fixture only; not installation, trust, deployment, runtime health, KAG truth, proof, or owner acceptance."
+  },
+  "provider_observation_evidence": {
+    "command": "python3 evals/capability/aoa-code-observation-refactor-integrity/runners/run_scenarios.py collect-provider-evidence",
+    "status": "passed",
+    "stdout_digest": "sha256:2ad49d2be00098ef584a98b17530eaca997abd01c141a1c417afd92155e47ac9",
+    "providers": [
+      {"id": "python-ast", "availability": "available", "case_count": 12, "observed_count": 12, "admission_state": "not_admitted"},
+      {"id": "ctags-host", "availability": "available", "case_count": 12, "observed_count": 12, "admission_state": "not_admitted"}
+    ],
+    "claim_boundary": "Checked-in synthetic source snapshot visibility only; no provider correctness, currentness, KAG meaning, admission, or proof is established."
+  },
+  "owner_validations": [
+    {"command": "python3 evals/capability/aoa-code-observation-refactor-integrity/runners/run_scenarios.py validate-fixture", "status": "passed", "evidence": "12 cases; fixture digest sha256:e756db54160b86aff25851b938f97cb7e02b97ac407a21e92bb3ee09100cc0db; oracle digest sha256:81add1064651e08a97e36824502ab7a14375832c436bc651a61550b21f6fdfe9; provider-execution fixture digest sha256:624026add70fe671bfe80dad06158ba532162d3a19f73a8cc2ef73774737d66f"},
+    {"command": "python3 evals/capability/aoa-code-observation-refactor-integrity/runners/run_scenarios.py validate-report", "status": "passed", "evidence": "example raw observation report schema and semantic validation passed"},
+    {"command": "python3 evals/capability/aoa-code-observation-refactor-integrity/runners/run_scenarios.py run-scenarios", "status": "passed", "evidence": "supports bounded contract; 12 scenarios, 12 passed, 0 failed; bundle status draft"},
+    {"command": "python3 -m pytest -q tests/test_code_observation_refactor_integrity.py", "status": "passed", "evidence": "26 passed; one read-only pytest-cache warning"},
+    {"command": "python3 -m pytest -q tests/test_test_topology.py tests/test_mechanic_part_contracts.py tests/test_eval_source_topology.py", "status": "passed", "evidence": "45 passed; 93 subtests passed; one read-only pytest-cache warning"},
+    {"command": "python3 scripts/validate_repo.py --eval aoa-code-observation-refactor-integrity", "status": "passed", "evidence": "target bundle validation passed"},
+    {"command": "python3 scripts/validate_repo.py", "status": "passed", "evidence": "Validation passed for 43 eval bundles"},
+    {"command": "python3 scripts/validate_semantic_agents.py", "status": "passed", "evidence": "Pack 4 semantic AGENTS docs are present and shaped: 9"},
+    {"command": "python3 scripts/build_catalog.py --check", "status": "passed", "evidence": "Generated surface check passed"},
+    {"command": "python3 scripts/generate_eval_report_index.py --check", "status": "passed", "evidence": "generated/eval_report_index.min.json is current"},
+    {"command": "python3 mechanics/audit/parts/candidate-readers/scripts/generate_runtime_candidate_template_index.py --check", "status": "passed", "evidence": "runtime candidate template index is current"},
+    {"command": "python3 mechanics/audit/parts/candidate-readers/scripts/generate_runtime_candidate_intake.py --check", "status": "passed", "evidence": "runtime candidate intake is current"},
+    {"command": "python3 mechanics/boundary-bridge/parts/phase-alpha-eval-matrix/scripts/generate_phase_alpha_eval_matrix.py --check", "status": "passed", "evidence": "phase-alpha eval matrix is current"},
+    {"command": "python3 -m pytest -q", "status": "partial_environment_limited", "evidence": "Default sandbox run: 1082 passed, 5 skipped, 1 failed, 1777 subtests passed. The failure was tests/test_validation_topology.py::ValidationTopologyTests::test_report_index_bundle_validator_uses_temporary_paths_by_default because /srv/abyss-machine/tmp is read-only; no source defect or green-suite claim is inferred."},
+    {"command": "ABYSS_MACHINE_TMP_ROOT=/tmp python3 -m pytest -q", "status": "passed_with_environment_override", "evidence": "1083 passed, 5 skipped, 1777 subtests passed; one read-only pytest-cache warning. The writable override was used only to validate the unrelated temporary-path topology test."}
+  ],
+  "layered_state": {
+    "source_readiness": "owner-local validated",
+    "producer_validation": "owner-local source, fixture, runner, generated, semantic, and full-suite-with-writable-tmp checks passed",
+    "registry_promotion": "not performed",
+    "consumer_admission": "not performed; provider evidence remains not_admitted",
+    "deployment_runtime": "not observed",
+    "transport_acceptance": "not observed",
+    "proof_eval_verdict": "not issued",
+    "canonical_landing": "not observed",
+    "owner_acceptance": "not claimed"
+  },
+  "landing": {
+    "status": "blocked",
+    "branch": "goal-01a02fec-g60-proven",
+    "prepared_commit": "aaf411bd8010f2506b8ef4bf376cd73f7d2de11c",
+    "pull_request": "not_created",
+    "repo_validation": "not_observed",
+    "merge": "not_performed",
+    "observed_base": "8Dionysus/aoa-evals main at cb734788b8a6fff9869f63bdf890fc54dbaf6563",
+    "blockers": [
+      "The authorized owner worktree shared Git metadata is read-only: git add could not create /srv/AbyssOS/aoa-evals/.git/worktrees/g60-aoa-evals/index.lock.",
+      "SSH push failed closed with Bad owner or permissions on /etc/ssh/ssh_config.d/20-systemd-ssh-proxy.conf.",
+      "HTTPS push failed closed because github.com could not be resolved.",
+      "The authenticated GitHub connector write route required approval, but the active approval policy is never."
+    ],
+    "source_commit_not_landed": true
+  },
+  "g59_artifact_evidence": {
+    "status": "not_observed",
+    "claim_boundary": "This holder did not prepare, promote, admit, install, or exercise an external code-intelligence provider artifact."
+  },
+  "reviewed_disposition_boundaries": {
+    "g42_indexed": "Not used as accepted input; no exact later master disposition was supplied.",
+    "g55_master": "Accepted the candidate source/evidence boundary and rejected current-provider, admission, proof, landing, and owner-acceptance claims.",
+    "g60_reclassification": "Independent whole-direction source owner; writer must preserve review-required state and may not issue an independent verdict.",
+    "writer_stop_line": "No proof verdict, provider admission, deployment/runtime claim, canonical landing claim, or owner acceptance is issued here."
+  },
+  "proof_verdict": "not_issued",
+  "central_proof_admission": "not_established",
+  "owner_acceptance": "not_claimed",
+  "report_evidence": {
+    "completion_outputs": [
+      "reports/proven-code-intelligence-direction-completion.json",
+      "reports/proven-code-intelligence-direction-completion.md"
+    ],
+    "fixed_validation_commands": [
+      "python3 -m json.tool reports/proven-code-intelligence-direction-completion.json",
+      "/usr/bin/test -s reports/proven-code-intelligence-direction-completion.md",
+      "python3 /srv/abyss-machine/tmp/ai/code-intelligence-goal-01a02fec-20260823/master/require_authored_delta_from_manifest.py /srv/abyss-machine/tmp/ai/code-intelligence-goal-01a02fec-20260823/selection-evidence-generation-60/workspace-manifest.json",
+      "git diff --check HEAD"
+    ],
+    "fixed_validation_policy": "Run these commands in this order after all source and report mutation; no later mutation is permitted.",
+    "source_delta_outside_reports": true,
+    "runtime_output_surface": "The two completion files are actor/runtime outputs required by runtime-task.json; they are not a promoted proof report or a new root report authority."
+  },
+  "changed_source_paths": [
+    "EVAL_INDEX.md",
+    "EVAL_SELECTION.md",
+    "docs/testing/test_inventory.json",
+    "generated/eval_capsules.json",
+    "generated/eval_catalog.json",
+    "generated/eval_catalog.min.json",
+    "generated/eval_sections.full.json",
+    "mechanics/EVIDENCE_CLUSTERS.md",
+    "mechanics/proof-infra/PARTS.md",
+    "mechanics/proof-infra/parts/fixture-families/README.md",
+    "mechanics/proof-infra/parts/fixture-families/fixtures/refactor-torture-v1/README.md",
+    "mechanics/proof-infra/parts/fixture-families/fixtures/refactor-torture-v1/cases.json",
+    "mechanics/proof-infra/parts/fixture-families/fixtures/refactor-torture-v1/oracles/affected-tests.json",
+    "evals/capability/aoa-code-observation-refactor-integrity/EVAL.md",
+    "evals/capability/aoa-code-observation-refactor-integrity/checks/eval-integrity-check.md",
+    "evals/capability/aoa-code-observation-refactor-integrity/eval.yaml",
+    "evals/capability/aoa-code-observation-refactor-integrity/examples/example-report.md",
+    "evals/capability/aoa-code-observation-refactor-integrity/fixtures/contract.json",
+    "evals/capability/aoa-code-observation-refactor-integrity/fixtures/observation-report.example.json",
+    "evals/capability/aoa-code-observation-refactor-integrity/fixtures/provider-evidence/README.md",
+    "evals/capability/aoa-code-observation-refactor-integrity/fixtures/provider-evidence/manifest.json",
+    "evals/capability/aoa-code-observation-refactor-integrity/fixtures/provider-evidence/source/refactor_cases.py",
+    "evals/capability/aoa-code-observation-refactor-integrity/fixtures/provider-execution/README.md",
+    "evals/capability/aoa-code-observation-refactor-integrity/fixtures/provider-execution/manifest.json",
+    "evals/capability/aoa-code-observation-refactor-integrity/notes/origin-need.md",
+    "evals/capability/aoa-code-observation-refactor-integrity/notes/refactor-contract.md",
+    "evals/capability/aoa-code-observation-refactor-integrity/reports/example-report.json",
+    "evals/capability/aoa-code-observation-refactor-integrity/reports/summary.schema.json",
+    "evals/capability/aoa-code-observation-refactor-integrity/runners/contract.json",
+    "evals/capability/aoa-code-observation-refactor-integrity/runners/provider_evidence.py",
+    "evals/capability/aoa-code-observation-refactor-integrity/runners/provider_execution.py",
+    "evals/capability/aoa-code-observation-refactor-integrity/runners/run_scenarios.py",
+    "evals/capability/aoa-code-observation-refactor-integrity/schemas/provider-execution-fixture.schema.json",
+    "evals/capability/aoa-code-observation-refactor-integrity/schemas/provider-execution.schema.json",
+    "evals/capability/aoa-code-observation-refactor-integrity/schemas/provider-observation-evidence.schema.json",
+    "evals/capability/aoa-code-observation-refactor-integrity/schemas/refactor-observation-report.schema.json",
+    "tests/test_code_observation_refactor_integrity.py"
+  ],
+  "continuation_changed_source_paths": [
+    "evals/capability/aoa-code-observation-refactor-integrity/runners/run_scenarios.py",
+    "tests/test_code_observation_refactor_integrity.py",
+    "generated/eval_capsules.json",
+    "generated/eval_catalog.json",
+    "generated/eval_catalog.min.json",
+    "generated/eval_sections.full.json"
+  ],
+  "runtime_return_abi": {
+    "decision": "submit_for_review",
+    "reentry_request": {
+      "condition_id": "validated-return",
+      "proposed_action": "wake_parent"
+    },
+    "status": "review_required",
+    "transition": {
+      "approval_posture": "master_review_required",
+      "from_status": "active",
+      "owner": "aoa-evals",
+      "rollback_reentry_route": "master:01a02fec-b609-7120-b11c-fa80d34ee86a",
+      "to_status": "review_required"
+    }
+  }
+}

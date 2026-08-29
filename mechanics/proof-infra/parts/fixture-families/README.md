@@ -41,6 +41,7 @@ bundle say which public-safe case pressure it uses.
 | `trace-outcome-bounded-v1` | `evals/workflow/aoa-trace-outcome-separation/` |
 | `verification-honesty-v1` | `evals/workflow/aoa-verification-honesty/` |
 | `witness-trace-v1` | `evals/workflow/aoa-witness-trace-integrity/` |
+| `refactor-torture-v1` | `evals/capability/aoa-code-observation-refactor-integrity/` |
 
 ## Inputs
 

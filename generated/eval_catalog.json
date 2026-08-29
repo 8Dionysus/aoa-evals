@@ -745,6 +745,81 @@
       "blind_spot_disclosure": "required-and-present",
       "capability_dependencies": [],
       "capability_refs": [],
+      "category": "capability",
+      "claim_type": "bounded",
+      "comparison_surface": null,
+      "eval_path": "evals/capability/aoa-code-observation-refactor-integrity/EVAL.md",
+      "evidence": [
+        {
+          "kind": "origin_need",
+          "path": "notes/origin-need.md"
+        },
+        {
+          "kind": "support_note",
+          "path": "notes/refactor-contract.md"
+        },
+        {
+          "kind": "integrity_check",
+          "path": "checks/eval-integrity-check.md"
+        }
+      ],
+      "evidence_kinds": [
+        "origin_need",
+        "support_note",
+        "integrity_check"
+      ],
+      "export_ready": false,
+      "interpretation_boundary": "provider correctness or canonical navigation admission;; production performance, semantic blast-radius accuracy, or selected-test quality;; a promoted proof verdict, deployment, runtime, transport, or owner acceptance.",
+      "maturity_score": 1,
+      "name": "aoa-code-observation-refactor-integrity",
+      "object_under_evaluation": "provider-neutral code-observation envelope under controlled refactor cases",
+      "portability_level": "local-shaped",
+      "proof_artifacts": {
+        "fixture_contract_path": "evals/capability/aoa-code-observation-refactor-integrity/fixtures/contract.json",
+        "paired_readout_path": null,
+        "report_example_path": "evals/capability/aoa-code-observation-refactor-integrity/reports/example-report.json",
+        "report_schema_path": "evals/capability/aoa-code-observation-refactor-integrity/reports/summary.schema.json",
+        "runner_contract_path": "evals/capability/aoa-code-observation-refactor-integrity/runners/contract.json",
+        "runner_surface_path": "evals/capability/aoa-code-observation-refactor-integrity/runners/run_scenarios.py",
+        "scorer_helper_paths": [],
+        "shared_fixture_family_path": "mechanics/proof-infra/parts/fixture-families/fixtures/refactor-torture-v1/README.md"
+      },
+      "proof_surface_kinds": [
+        "fixture_contract",
+        "shared_fixture_family",
+        "runner_contract",
+        "report_schema"
+      ],
+      "relations": [
+        {
+          "target": "aoa-candidate-lineage-integrity",
+          "type": "complements"
+        },
+        {
+          "target": "aoa-eval-integrity-check",
+          "type": "complements"
+        }
+      ],
+      "repeatability": "moderate",
+      "report_format": "summary-with-breakdown",
+      "review_required": true,
+      "rigor_level": "bounded",
+      "score_interpretation_bound": "explicit",
+      "selection_summary": "",
+      "skill_dependencies": [],
+      "skill_refs": [],
+      "status": "draft",
+      "summary": "Checks whether a provider-neutral code-observation envelope stays coherent across refactor-sensitive lineage, freshness, invalidation, provenance, parity, and affected-test cases without claiming provider correctness.",
+      "technique_dependencies": [],
+      "technique_refs": [],
+      "validation_strength": "baseline",
+      "verdict_shape": "categorical"
+    },
+    {
+      "baseline_mode": "none",
+      "blind_spot_disclosure": "required-and-present",
+      "capability_dependencies": [],
+      "capability_refs": [],
       "category": "artifact",
       "claim_type": "bounded",
       "comparison_surface": null,

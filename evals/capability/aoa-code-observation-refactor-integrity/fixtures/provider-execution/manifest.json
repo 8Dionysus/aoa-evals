@@ -1,0 +1,143 @@
+{
+  "schema_version": "aoa_code_observation_provider_execution_fixture_v1",
+  "family_id": "refactor-torture-v1",
+  "provider": {
+    "id": "python-ast-bootstrap",
+    "version": "source-candidate-1.0.0",
+    "engine": "stdlib-ast-index-v1"
+  },
+  "cases": [
+    {
+      "case_id": "rename-symbol",
+      "before": {
+        "src/alpha.py": ["def old_alpha(value):", "    return value + 1"]
+      },
+      "after": {
+        "src/alpha.py": ["def new_alpha(value):", "    return value + 1"]
+      },
+      "test_dependencies": {"src/alpha.py": ["tests/test_alpha.py"]}
+    },
+    {
+      "case_id": "move-symbol",
+      "before": {
+        "src/beta.py": ["def moved_beta(value):", "    return value * 2"],
+        "src/consumer.py": ["from beta import moved_beta", "", "def use_beta(value):", "    return moved_beta(value)"]
+      },
+      "after": {
+        "src/gamma.py": ["def moved_beta(value):", "    return value * 2"],
+        "src/consumer.py": ["from gamma import moved_beta", "", "def use_beta(value):", "    return moved_beta(value)"]
+      },
+      "test_dependencies": {
+        "src/beta.py": ["tests/test_beta.py"],
+        "src/gamma.py": ["tests/test_beta.py"],
+        "src/consumer.py": ["tests/test_beta.py"]
+      }
+    },
+    {
+      "case_id": "signature-change",
+      "before": {
+        "src/signature.py": ["def signature(value):", "    return value + 1"]
+      },
+      "after": {
+        "src/signature.py": ["def signature(value, scale=1):", "    return value + 1"]
+      },
+      "test_dependencies": {"src/signature.py": ["tests/test_gamma.py"]}
+    },
+    {
+      "case_id": "add-entity",
+      "before": {
+        "src/delta.py": ["def existing_delta(value):", "    return value"]
+      },
+      "after": {
+        "src/delta.py": ["def existing_delta(value):", "    return value", "", "class AddedEntity:", "    pass"]
+      },
+      "test_dependencies": {"src/delta.py": []}
+    },
+    {
+      "case_id": "delete-entity",
+      "before": {
+        "src/epsilon.py": ["def delete_epsilon(value):", "    return value"],
+        "src/epsilon_consumer.py": ["from epsilon import delete_epsilon", "", "def use_epsilon(value):", "    return delete_epsilon(value)"]
+      },
+      "after": {
+        "src/epsilon_consumer.py": ["from epsilon import delete_epsilon", "", "def use_epsilon(value):", "    return delete_epsilon(value)"]
+      },
+      "test_dependencies": {"src/epsilon.py": ["tests/test_epsilon.py"], "src/epsilon_consumer.py": ["tests/test_epsilon.py"]}
+    },
+    {
+      "case_id": "import-change",
+      "before": {
+        "src/zeta.py": ["from old_dependency import value", "", "def import_zeta():", "    return value"]
+      },
+      "after": {
+        "src/zeta.py": ["from new_dependency import value", "", "def import_zeta():", "    return value"]
+      },
+      "test_dependencies": {"src/zeta.py": []}
+    },
+    {
+      "case_id": "multi-file-impact",
+      "before": {
+        "src/eta.py": ["from theta import theta_value", "", "def eta_value():", "    return theta_value()"],
+        "src/theta.py": ["def theta_value():", "    return 1"]
+      },
+      "after": {
+        "src/eta.py": ["from theta import theta_value", "", "def eta_value():", "    return theta_value() + 1"],
+        "src/theta.py": ["def theta_value():", "    return 1", "# refreshed dependency snapshot"]
+      },
+      "test_dependencies": {
+        "src/eta.py": ["tests/test_eta.py"],
+        "src/theta.py": ["tests/test_theta.py"]
+      }
+    },
+    {
+      "case_id": "split-symbol",
+      "before": {
+        "src/iota.py": ["def split_symbol(value):", "    return value + 1"]
+      },
+      "after": {
+        "src/iota.py": ["def split_left(value):", "    return value + 1", "", "def split_right(value):", "    return value + 1"]
+      },
+      "test_dependencies": {"src/iota.py": ["tests/test_iota.py"]}
+    },
+    {
+      "case_id": "merge-symbol",
+      "before": {
+        "src/kappa.py": ["def merge_left(value):", "    return value + 1", "", "def merge_right(value):", "    return value + 1"]
+      },
+      "after": {
+        "src/kappa.py": ["def merge_combined(value):", "    return value + 1"]
+      },
+      "test_dependencies": {"src/kappa.py": ["tests/test_kappa.py"]}
+    },
+    {
+      "case_id": "stale-index",
+      "before": {
+        "src/lambda.py": ["def stale_lambda(value):", "    return value + 1"]
+      },
+      "after": {
+        "src/lambda.py": ["def stale_lambda(value):", "    return value + 2"]
+      },
+      "test_dependencies": {"src/lambda.py": []}
+    },
+    {
+      "case_id": "delta-full-parity",
+      "before": {
+        "src/mu.py": ["def parity_mu(value):", "    return value + 1"]
+      },
+      "after": {
+        "src/mu.py": ["def parity_mu(value):", "    return value + 2"]
+      },
+      "test_dependencies": {"src/mu.py": []}
+    },
+    {
+      "case_id": "affected-test-selection",
+      "before": {
+        "src/nu.py": ["def affected_nu(value):", "    return value + 1"]
+      },
+      "after": {
+        "src/nu.py": ["def affected_nu(value):", "    return value + 3"]
+      },
+      "test_dependencies": {"src/nu.py": ["tests/test_nu.py"]}
+    }
+  ]
+}

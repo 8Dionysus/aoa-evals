@@ -33,6 +33,7 @@ Active families:
 - `trace-outcome-bounded-v1`
 - `verification-honesty-v1`
 - `witness-trace-v1`
+- `refactor-torture-v1`
 
 ### `reportable-contracts`
 

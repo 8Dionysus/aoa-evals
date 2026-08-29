@@ -1,0 +1,35 @@
+{
+  "contract_version": 1,
+  "runner_surface_path": "evals/capability/aoa-code-observation-refactor-integrity/runners/run_scenarios.py",
+  "inputs": [
+    "provider-neutral raw observation report",
+    "provider execution envelope with actual state, source epoch, latency, resource, and reproducibility evidence",
+    "bounded local Python-AST and optional host-Ctags source-observation evidence",
+    "reviewed abyss-machine code-intelligence contract identity and owner split",
+    "refactor-torture-v1 fixture manifest",
+    "source epoch and provider provenance",
+    "case-specific lineage, freshness, invalidation, metric, parity, and affected-test fields"
+  ],
+  "fixture_contract_paths": [
+    "evals/capability/aoa-code-observation-refactor-integrity/fixtures/contract.json",
+    "mechanics/proof-infra/parts/fixture-families/fixtures/refactor-torture-v1/cases.json",
+    "evals/capability/aoa-code-observation-refactor-integrity/schemas/provider-execution.schema.json",
+    "evals/capability/aoa-code-observation-refactor-integrity/schemas/provider-observation-evidence.schema.json",
+    "evals/capability/aoa-code-observation-refactor-integrity/fixtures/provider-evidence/manifest.json",
+    "evals/capability/aoa-code-observation-refactor-integrity/fixtures/provider-execution/manifest.json",
+    "evals/capability/aoa-code-observation-refactor-integrity/schemas/provider-execution-fixture.schema.json"
+  ],
+  "scorer_helper_paths": [],
+  "report_schema_path": "evals/capability/aoa-code-observation-refactor-integrity/reports/summary.schema.json",
+  "report_example_path": "evals/capability/aoa-code-observation-refactor-integrity/reports/example-report.json",
+  "validation_commands": [
+    "python evals/capability/aoa-code-observation-refactor-integrity/runners/run_scenarios.py validate-fixture",
+    "python evals/capability/aoa-code-observation-refactor-integrity/runners/run_scenarios.py validate-report",
+    "python evals/capability/aoa-code-observation-refactor-integrity/runners/run_scenarios.py validate-provider-execution <provider-execution.json>",
+    "python evals/capability/aoa-code-observation-refactor-integrity/runners/run_scenarios.py execute-provider",
+    "python evals/capability/aoa-code-observation-refactor-integrity/runners/run_scenarios.py collect-provider-evidence",
+    "python evals/capability/aoa-code-observation-refactor-integrity/runners/run_scenarios.py validate-provider-evidence <provider-evidence.json>",
+    "python -m pytest tests/test_code_observation_refactor_integrity.py",
+    "python scripts/validate_repo.py --eval aoa-code-observation-refactor-integrity"
+  ]
+}

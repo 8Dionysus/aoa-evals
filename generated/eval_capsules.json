@@ -344,6 +344,38 @@
       "what_this_does_not_prove": "proof of final owner quality; proof of correct owner-fit routing; permission to skip owner-local evidence"
     },
     {
+      "blind_spot_short": "parser recall, index completeness, or provider correctness;; LSP or runtime latency and resource safety in production;; admission, installation, trust, or deployment of...",
+      "bounded_claim_short": "Under the synthetic refactor-torture cases, an observation report supports a bounded contract claim when every case preserves its declared operation, lineage/freshness expectation...",
+      "capability_dependencies": [],
+      "capability_refs": [],
+      "category": "capability",
+      "comparison_surface": null,
+      "do_not_use_short": "provider-specific parser/index/LSP validation is the question;; aoa-kag canonical navigation admission is the question;",
+      "eval_path": "evals/capability/aoa-code-observation-refactor-integrity/EVAL.md",
+      "evidence_kinds": [
+        "origin_need",
+        "support_note",
+        "integrity_check"
+      ],
+      "name": "aoa-code-observation-refactor-integrity",
+      "proof_artifact_short": "fixture contract; shared fixture family; runner contract; schema-backed report",
+      "proof_surface_kinds": [
+        "fixture_contract",
+        "shared_fixture_family",
+        "runner_contract",
+        "report_schema"
+      ],
+      "skill_dependencies": [],
+      "skill_refs": [],
+      "status": "draft",
+      "summary": "Checks whether a provider-neutral code-observation envelope stays coherent across refactor-sensitive lineage, freshness, invalidation, provenance, parity, and affected-test cases without claiming provider correctness.",
+      "technique_dependencies": [],
+      "technique_refs": [],
+      "use_when_short": "the question is whether a code-observation report keeps refactor-sensitive",
+      "verdict_shape": "categorical",
+      "what_this_does_not_prove": "provider correctness or canonical navigation admission;; production performance, semantic blast-radius accuracy, or selected-test quality;; a promoted proof verdict, deployment, runtime, transport, or owner acceptance."
+    },
+    {
       "blind_spot_short": "philosophical correctness of the resulting idea; final canon readiness; quality of the original run that produced the witness",
       "bounded_claim_short": "under these conditions, a witness-derived compost artifact can move from raw input toward note, synthesis, or principle candidate without losing provenance, review posture, or the ability to...",
       "capability_dependencies": [],

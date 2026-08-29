@@ -39,6 +39,7 @@ This surface prefers:
 | `aoa-antifragility-posture` | draft | You need one owner-local stressor family read through bounded degraded continuation and source-owned receipts. |
 | `aoa-stress-recovery-window` | draft | You need ordered windows on one named stressor family read with owner evidence first. |
 | `aoa-candidate-lineage-integrity` | draft | You need one bounded lineage chain checked across checkpoint carry, reviewed candidate, seed staging, and owner evidence. |
+| `aoa-code-observation-refactor-integrity` | draft | You need a provider-neutral code-observation envelope checked across refactor-sensitive lineage, freshness, invalidation, provenance, parity, and affected-test cases. |
 | `aoa-owner-fit-routing-quality` | draft | You need a reviewed growth candidate routed to the right owner layer with a visible nearest-wrong target. |
 | `aoa-recurrence-control-plane-integrity` | draft | You need recurrence control-plane artifacts checked for registry, graph, hooks, review, downstream-thinness, and Agon stop-line integrity. |
 | `aoa-diagnosis-cause-discipline` | draft | You need symptoms, probable causes, owner ambiguity, unknowns, and repair proof kept separate. |
@@ -69,6 +70,7 @@ See also:
 - Need final outcome and execution path kept separate before any combined reading? Use `aoa-trace-outcome-separation`.
 - Need to judge the tool path itself on path-sensitive tasks? Use `aoa-tool-trajectory-discipline`.
 - Need to know whether a growth-refinery lineage chain itself stayed coherent? Use `aoa-candidate-lineage-integrity`.
+- Need to know whether a code-observation envelope stayed coherent through refactor pressure? Use `aoa-code-observation-refactor-integrity`.
 - Need to know whether a reviewed growth candidate is routed to the right owner layer? Use `aoa-owner-fit-routing-quality`.
 - Need to know whether recurrence control-plane artifacts stayed bounded? Use `aoa-recurrence-control-plane-integrity`.
 - Need to know whether a diagnosis preserved explicit cause limits? Use `aoa-diagnosis-cause-discipline`.
@@ -207,6 +209,10 @@ See also:
 - `aoa-eval-integrity-check`
   Use this as the bounded integrity sidecar for public starter-bundle coherence.
 
+### I need to check whether a code-observation envelope is coherent as a refactor contract
+- `aoa-code-observation-refactor-integrity`
+  Use this for the draft, provider-neutral refactor-torture contract; route provider, KAG, runtime, and owner-acceptance questions to their owning surfaces.
+
 ### I need to read repeated-window movement on the same bounded workflow surface
 - `aoa-longitudinal-growth-snapshot`
   Read `context_note` as the comparability disclosure and `transition_note` as the bounded explanation of movement against the previous window.
@@ -261,7 +267,7 @@ See also:
 | `regression` | You care about frozen-baseline comparison on the same bounded task family. | `aoa-regression-same-task` |
 | `artifact` | You care about the produced artifact itself or about provenance-preserving compost artifacts derived from witness-facing inputs. | `aoa-artifact-review-rubric`, `aoa-compost-provenance-preservation` |
 | `comparative` | You care about cross-surface divergence, a public-safe runtime latency/resource tradeoff, an identity-bound validation-method comparison, or a pinned active-memory architecture comparison under matched conditions. | `aoa-output-vs-process-gap`, `aoa-runtime-latency-tradeoff`, `aoa-identity-bound-method-comparison`, `aoa-memo-active-organ-offline-replay` |
-| `capability` | You care about whether a bounded eval-side review surface is present, such as integrity checking of public eval bundles, growth-refinery lineage coherence, or continuity-anchor integrity as distinct bounded abilities. | `aoa-eval-integrity-check`, `aoa-candidate-lineage-integrity`, `aoa-continuity-anchor-integrity` |
+| `capability` | You care about whether a bounded eval-side review surface is present, such as integrity checking of public eval bundles, code-observation refactor coherence, growth-refinery lineage coherence, or continuity-anchor integrity as distinct bounded abilities. | `aoa-eval-integrity-check`, `aoa-code-observation-refactor-integrity`, `aoa-candidate-lineage-integrity`, `aoa-continuity-anchor-integrity` |
 | `longitudinal` | You care about ordered repeated-window movement on the same bounded surface, or about repeated-window stress recovery posture on one named stressor family; one-run and baseline questions route to their own surfaces. | `aoa-longitudinal-growth-snapshot`, `aoa-stress-recovery-window` |
 
 Route boundaries:
@@ -334,6 +340,7 @@ Trace-aware split and tool-path workflow starters are also public; use the narro
 | compost provenance preservation | You want to know whether a witness-derived note or principle candidate kept provenance, review state, and demotion posture visible. | `aoa-compost-provenance-preservation` |
 | output-vs-process divergence | You want to compare artifact-side and process-side readings on the same bounded cases. | `aoa-output-vs-process-gap` |
 | eval-bundle integrity | You want to inspect whether a public starter bundle remains coherent across its manifest, evidence, and public routing surfaces. | `aoa-eval-integrity-check` |
+| code-observation refactor integrity | You want to inspect whether a provider-neutral observation envelope keeps refactor-sensitive contract fields explicit. | `aoa-code-observation-refactor-integrity` |
 | bounded longitudinal movement | You want to inspect ordered repeated-window movement on one named bounded workflow surface. | `aoa-longitudinal-growth-snapshot` |
 | bounded stress recovery longitudinal read | You want to inspect ordered repeated-window recovery posture on one named stressor family with downstream derived layers subordinate to owner evidence. | `aoa-stress-recovery-window` |
 

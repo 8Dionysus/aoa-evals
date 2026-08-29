@@ -120,9 +120,11 @@
           "items": {"$ref": "#/$defs/observation"}
         },
         "claim_limits": {
-          "type": "array",
-          "minItems": 2,
-          "items": {"type": "string", "minLength": 1}
+          "const": [
+            "synthetic source visibility only; not provider correctness or refactor proof",
+            "not admitted and not canonical owner truth",
+            "source snapshot and host-tool observations are not production runtime evidence"
+          ]
         }
       },
       "allOf": [

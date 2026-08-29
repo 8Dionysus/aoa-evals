@@ -389,10 +389,9 @@ def semantic_errors(evidence: dict[str, Any]) -> list[str]:
             errors.append(f"{location}: ctags-host kind mismatch")
         if provider.get("admission_state") != "not_admitted":
             errors.append(f"{location}: provider evidence must remain not_admitted")
-        limits = " ".join(provider["claim_limits"]).lower()
-        if "not admitted" not in limits or "not provider correctness" not in limits:
+        if provider.get("claim_limits") != CLAIM_LIMITS:
             errors.append(
-                f"{location}: claim limits must preserve non-admission and correctness bounds"
+                f"{location}: claim limits differ from the canonical bounded list"
             )
         if provider["source_root"]["path"] != repo_relative(SOURCE_ROOT):
             errors.append(f"{location}: source root path drift")

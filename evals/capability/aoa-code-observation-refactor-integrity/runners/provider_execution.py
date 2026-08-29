@@ -274,11 +274,18 @@ def case_execution(
             "evidence_posture": EXECUTION_POSTURE,
         }
 
-    # Each call parses a newly materialized source snapshot.  The repeated
-    # digest is therefore evidence from a second provider execution, not a
+    # Full cases execute a fresh after-snapshot.  Ordinary cases must exercise
+    # the advertised incremental path: reuse the before projection for stable
+    # files and recompute only the invalidated after paths.  The repeated
+    # digest is evidence from a second execution of that same path, not a
     # second hash of the first state object.
-    first_projection = execute_projection_once(after)
-    repeated_projection = execute_projection_once(after)
+    projection_runner = (
+        (lambda: execute_projection_once(after))
+        if full_rebuild
+        else (lambda: delta_source_index(before, after, invalidated))
+    )
+    first_projection = projection_runner()
+    repeated_projection = projection_runner()
     state = build_state(first_projection)
     repeated_state = build_state(repeated_projection)
     observation = {
@@ -321,7 +328,7 @@ def case_execution(
     started = time.perf_counter_ns()
     # Re-run the projection during the measured section to make latency an
     # observation of this provider candidate, not a supplied fixture value.
-    measured_index = execute_projection_once(after)
+    measured_index = projection_runner()
     if full_rebuild and projection_digest(measured_index) != full_projection:
         raise RuntimeError("parity projection changed during execution")
     latency_ms = max(0.001, (time.perf_counter_ns() - started) / 1_000_000)

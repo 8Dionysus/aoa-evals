@@ -799,6 +799,43 @@ def test_delta_projection_uses_incremental_reuse_and_matches_full_projection() -
     assert delta is not provider_execution.source_index(after)
 
 
+def test_provider_execution_exercises_delta_path_for_delta_cases(monkeypatch) -> None:
+    contract_fixture = runner.load_json(runner.FIXTURE_PATH)
+    execution_fixture = runner.load_json(runner.PROVIDER_EXECUTION_FIXTURE_PATH)
+    fixture_case = next(
+        case for case in contract_fixture["cases"] if case["case_id"] == "rename-symbol"
+    )
+    scenario = next(
+        case
+        for case in execution_fixture["cases"]
+        if case["case_id"] == "rename-symbol"
+    )
+    delta_calls = []
+
+    def record_delta(before, after, invalidated):
+        delta_calls.append((before, after, invalidated))
+        return provider_execution.source_index(after)
+
+    def reject_full_projection(_after):
+        raise AssertionError("delta case must not use the full projection runner")
+
+    monkeypatch.setattr(provider_execution, "delta_source_index", record_delta)
+    monkeypatch.setattr(
+        provider_execution, "execute_projection_once", reject_full_projection
+    )
+
+    execution = provider_execution.case_execution(
+        fixture_case,
+        scenario,
+        {"id": "python-ast-bootstrap", "version": "1.0.0"},
+        "sha256:" + "0" * 64,
+        "sha256:" + "1" * 64,
+    )
+
+    assert execution["mode"] == "delta"
+    assert len(delta_calls) == 3
+
+
 def test_complete_provider_execution_binds_affected_test_oracle(
     tmp_path: Path, monkeypatch
 ) -> None:
@@ -1086,6 +1123,23 @@ def test_provider_evidence_rejects_claim_boundary_and_occurrence_drift(
     assert any(
         "symbol occurrence does not match independent provider output" in error
         for error in errors
+    )
+
+
+def test_provider_evidence_rejects_claim_limit_drift(tmp_path: Path) -> None:
+    evidence = json.loads(run_runner("collect-provider-evidence").stdout)
+    evidence["providers"][0]["claim_limits"] = [
+        *evidence["providers"][0]["claim_limits"],
+        "This provider proves admission and runtime health.",
+    ]
+    path = tmp_path / "provider-evidence-claim-limit-drift.json"
+    path.write_text(json.dumps(evidence), encoding="utf-8")
+
+    result = run_runner("validate-provider-evidence", str(path))
+
+    assert result.returncode == 1
+    assert any(
+        "claim_limits" in error for error in json.loads(result.stdout)["errors"]
     )
 
 

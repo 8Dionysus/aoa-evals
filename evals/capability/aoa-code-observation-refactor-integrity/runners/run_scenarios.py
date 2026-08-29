@@ -89,6 +89,23 @@ EXPECTED_SEMANTIC_IDENTITIES = {
     "delta-full-parity": {"fixture:mu.module": "module"},
     "affected-test-selection": {"fixture:nu.symbol": "function"},
 }
+EXPECTED_SEMANTIC_SYMBOL_NAMES = {
+    "rename-symbol": {"fixture:alpha.symbol": ("old_alpha", "new_alpha")},
+    "move-symbol": {"fixture:beta.symbol": ("moved_beta",)},
+    "signature-change": {"fixture:signature.symbol": ("signature",)},
+    "add-entity": {"fixture:delta.symbol": ("AddedEntity",)},
+    "delete-entity": {"fixture:epsilon.symbol": ("delete_epsilon",)},
+    "import-change": {"fixture:zeta.module": ()},
+    "multi-file-impact": {
+        "fixture:eta.symbol": ("eta_value",),
+        "fixture:theta.symbol": ("theta_value",),
+    },
+    "split-symbol": {"fixture:iota.symbol": ("split_left", "split_right")},
+    "merge-symbol": {"fixture:kappa.symbol": ("merge_combined",)},
+    "stale-index": {"fixture:lambda.symbol": ("stale_lambda",)},
+    "delta-full-parity": {"fixture:mu.module": ()},
+    "affected-test-selection": {"fixture:nu.symbol": ("affected_nu",)},
+}
 EXPECTED_RELATIONS = {
     "rename-symbol": {
         "fixture:alpha.symbol": (("references", "fixture:test_alpha"),),
@@ -1378,6 +1395,16 @@ def semantic_case_issues(
         for tree in (scenario.get("before", {}), scenario.get("after", {}))
         for symbol in ast_symbol_records(tree)
     }
+    source_symbol_names: dict[tuple[str, int, int, str], set[str]] = {}
+    for tree in (scenario.get("before", {}), scenario.get("after", {})):
+        for symbol in ast_symbol_records(tree):
+            occurrence_key = (
+                symbol["path"],
+                symbol["start_line"],
+                symbol["end_line"],
+                symbol["kind"],
+            )
+            source_symbol_names.setdefault(occurrence_key, set()).add(symbol["name"])
     entities = observation.get("semantic_identity", {}).get("entities", [])
     actual_semantic_identities = {
         entity.get("semantic_id"): entity.get("kind") for entity in entities
@@ -1417,6 +1444,18 @@ def semantic_case_issues(
             ):
                 errors.append(
                     issue("semantic_identity_occurrence", f"{case_id}:{path}")
+                )
+            expected_names = EXPECTED_SEMANTIC_SYMBOL_NAMES[case_id].get(
+                semantic_id, ()
+            )
+            if entity.get("kind") in {"function", "class"} and not (
+                source_symbol_names.get(
+                    (path, start_line, end_line, entity.get("kind")), set()
+                )
+                & set(expected_names)
+            ):
+                errors.append(
+                    issue("semantic_identity_symbol", f"{case_id}:{semantic_id}:{path}")
                 )
             if entity.get("kind") == "module" and (
                 start_line != 1

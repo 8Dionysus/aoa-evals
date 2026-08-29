@@ -59,6 +59,12 @@ and, when present, host Ctags. That route records complete case visibility but
 marks both providers `not_admitted`; it does not turn symbol visibility into
 provider correctness, live runtime state, KAG meaning, or proof.
 
+A further provider-agreement route consumes full normalized envelopes from
+Tree-sitter, SCIP, and LSP for one TypeScript source epoch. It independently
+checks exact source identity, explicit non-admission, and a declared set of
+shared definition/reference facts. Agreement is evidence about the common
+envelope only; it is not a provider-correctness or admission verdict.
+
 The reusable cases live at
 `mechanics/proof-infra/parts/fixture-families/fixtures/refactor-torture-v1/`.
 The bundle-local fixture contract connects that public-safe family to this
@@ -112,6 +118,8 @@ Do not use this eval when:
   `abyss-machine` machine-contract digest and owner split;
 - optional bounded provider-observation evidence from the checked-in source
   corpus, with Python-AST and optional host-Ctags observations;
+- optional normalized Tree-sitter, SCIP, and LSP envelopes for one exact
+  TypeScript source epoch;
 - provider identity and configuration digest;
 - source epoch, observation planes, and case-specific evidence fields.
 
@@ -165,6 +173,8 @@ epochs, runtimes, or model quality.
    This produces candidate evidence only; it does not manufacture machine
    admission or provider acceptance.
 7. Emit a deterministic categorical summary with one breakdown entry per case.
+8. Validate cross-provider TypeScript agreement separately, preserving the
+   raw normalized envelopes and refusing mixed source epochs or admitted claims.
 
 The raw report is evidence input. The summary is a candidate report artifact,
 not a promoted proof result.

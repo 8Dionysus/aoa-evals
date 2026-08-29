@@ -1340,6 +1340,9 @@ def parse_args() -> argparse.Namespace:
     provider_evidence_parser = subparsers.add_parser("validate-provider-evidence")
     provider_evidence_parser.add_argument("evidence", type=Path)
 
+    provider_agreement_parser = subparsers.add_parser("validate-provider-agreement")
+    provider_agreement_parser.add_argument("evidence", type=Path)
+
     run_parser = subparsers.add_parser("run-scenarios")
     run_parser.add_argument("report", nargs="?", type=Path, default=EXAMPLE_REPORT_PATH)
     return parser.parse_args()
@@ -1359,6 +1362,12 @@ def main() -> int:
         return command_execute_provider()
     if args.command == "validate-provider-evidence":
         return command_validate_provider_evidence(args.evidence)
+    if args.command == "validate-provider-agreement":
+        import provider_agreement
+
+        result = provider_agreement.validate(args.evidence)
+        print(json.dumps(result, indent=2, sort_keys=True))
+        return 0 if not result["issues"] else 1
     if args.command == "run-scenarios":
         return command_run_scenarios(args.report)
     raise AssertionError(f"unhandled command: {args.command}")

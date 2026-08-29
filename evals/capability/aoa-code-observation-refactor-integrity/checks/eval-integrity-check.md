@@ -31,6 +31,9 @@
    provider-execution fixture and let the validator recompute source epochs,
    symbol snapshots, invalidation/deletion semantics, affected tests, stale
    freshness, and full/delta parity instead of accepting declarations alone?
+9. When normalized TypeScript envelopes are supplied, do Tree-sitter, SCIP,
+   and LSP bind the same repository, path, content digest, and source epoch,
+   remain explicitly unadmitted, and expose every required shared fact?
 
 ## Review posture
 

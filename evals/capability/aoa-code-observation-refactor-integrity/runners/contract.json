@@ -17,7 +17,8 @@
     "evals/capability/aoa-code-observation-refactor-integrity/schemas/provider-observation-evidence.schema.json",
     "evals/capability/aoa-code-observation-refactor-integrity/fixtures/provider-evidence/manifest.json",
     "evals/capability/aoa-code-observation-refactor-integrity/fixtures/provider-execution/manifest.json",
-    "evals/capability/aoa-code-observation-refactor-integrity/schemas/provider-execution-fixture.schema.json"
+    "evals/capability/aoa-code-observation-refactor-integrity/schemas/provider-execution-fixture.schema.json",
+    "evals/capability/aoa-code-observation-refactor-integrity/schemas/provider-agreement.schema.json"
   ],
   "scorer_helper_paths": [],
   "report_schema_path": "evals/capability/aoa-code-observation-refactor-integrity/reports/summary.schema.json",
@@ -29,6 +30,7 @@
     "python evals/capability/aoa-code-observation-refactor-integrity/runners/run_scenarios.py execute-provider",
     "python evals/capability/aoa-code-observation-refactor-integrity/runners/run_scenarios.py collect-provider-evidence",
     "python evals/capability/aoa-code-observation-refactor-integrity/runners/run_scenarios.py validate-provider-evidence <provider-evidence.json>",
+    "python evals/capability/aoa-code-observation-refactor-integrity/runners/run_scenarios.py validate-provider-agreement <provider-agreement.json>",
     "python -m pytest tests/test_code_observation_refactor_integrity.py",
     "python scripts/validate_repo.py --eval aoa-code-observation-refactor-integrity"
   ]

@@ -13,6 +13,7 @@ RUNNER = ROOT / "evals/capability/aoa-code-observation-refactor-integrity/runner
 EXAMPLE = ROOT / "evals/capability/aoa-code-observation-refactor-integrity/fixtures/observation-report.example.json"
 sys.path.insert(0, str(RUNNER.parent))
 import run_scenarios as runner  # noqa: E402
+import provider_agreement  # noqa: E402
 
 
 def run_runner(*arguments: str) -> subprocess.CompletedProcess[str]:
@@ -23,6 +24,45 @@ def run_runner(*arguments: str) -> subprocess.CompletedProcess[str]:
         capture_output=True,
         text=True,
     )
+
+
+def _agreement_envelope(provider_id: str, facts: list[str]) -> dict[str, object]:
+    observations: list[dict[str, object]] = []
+    for fact in facts:
+        kind, label = fact.split(":", 1)
+        observations.append({
+            "observation_kind": "symbol" if kind == "definition" else "relation",
+            "subject": {"label": label},
+            "relation": None if kind == "definition" else {"kind": kind, "target_name": label},
+        })
+    return {
+        "schema_version": "aoa-code-observation-v1",
+        "provider": {"id": provider_id, "version": "1.0.0", "config_digest": "0" * 64, "lane": {"status": "supplied_unadmitted"}},
+        "source": {"repo": "fixture", "path": "src/render.ts", "source_epoch": "git:fixture", "content_digest": "1" * 64, "language": "typescript"},
+        "parse_status": "parsed",
+        "observations": observations,
+        "qualification": {"machine_admission": {"state": "not_admitted"}},
+    }
+
+
+def test_typescript_provider_agreement_requires_shared_source_and_facts(tmp_path: Path) -> None:
+    facts = ["definition:render"]
+    payload = {
+        "schema_version": "aoa_code_observation_provider_agreement_v1",
+        "observed_at": "2026-08-29T00:00:00Z",
+        "required_facts": facts,
+        "claim_boundary": "This is bounded normalized-envelope agreement only and is not correctness, admission, runtime health, proof, transport, or owner acceptance.",
+        "envelopes": [_agreement_envelope(provider_id, facts) for provider_id in ("tree-sitter", "scip", "lsp")],
+    }
+    path = tmp_path / "agreement.json"
+    path.write_text(json.dumps(payload), encoding="utf-8")
+    result = provider_agreement.validate(path)
+    assert result["issues"] == []
+    assert result["verdict"] == "supports bounded cross-provider agreement"
+
+    payload["envelopes"][2]["source"]["source_epoch"] = "git:other"
+    path.write_text(json.dumps(payload), encoding="utf-8")
+    assert "source_identity_mismatch" in provider_agreement.validate(path)["issues"]
 
 
 def test_example_observation_report_supports_all_cases() -> None:

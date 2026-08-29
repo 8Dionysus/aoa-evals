@@ -836,6 +836,53 @@ def test_provider_execution_exercises_delta_path_for_delta_cases(monkeypatch) ->
     assert len(delta_calls) == 3
 
 
+def test_provider_execution_rejects_added_deleted_record_drift(tmp_path: Path) -> None:
+    envelope = complete_provider_execution_payload()
+    add_execution = next(
+        item for item in envelope["executions"] if item["case_id"] == "add-entity"
+    )
+    delete_execution = next(
+        item
+        for item in envelope["executions"]
+        if item["case_id"] == "delete-entity"
+    )
+    add_execution["observation"]["added_symbols"][0]["fingerprint"] = (
+        "sha256:" + "f" * 64
+    )
+    delete_execution["observation"]["deleted_symbols"][0]["lineage_id"] = (
+        "lineage:" + "e" * 64
+    )
+    path = tmp_path / "added-deleted-symbol-drift.json"
+    path.write_text(json.dumps(envelope), encoding="utf-8")
+
+    result = run_runner("validate-provider-execution", str(path))
+
+    assert result.returncode == 1
+    errors = json.loads(result.stdout)["errors"]
+    assert any("case_added_symbols:add-entity" in error for error in errors)
+    assert any("case_deleted_symbols:delete-entity" in error for error in errors)
+
+
+def test_case_resource_measurement_resets_peak_between_cases() -> None:
+    first = provider_execution.CaseResourceMeasurement()
+    try:
+        large_allocation = bytearray(2 * 1024 * 1024)
+        first_peak = first.peak_bytes()
+    finally:
+        first.close()
+    del large_allocation
+
+    second = provider_execution.CaseResourceMeasurement()
+    try:
+        small_allocation = bytearray(1024)
+        second_peak = second.peak_bytes()
+    finally:
+        second.close()
+    del small_allocation
+
+    assert first_peak > second_peak
+
+
 def test_complete_provider_execution_binds_affected_test_oracle(
     tmp_path: Path, monkeypatch
 ) -> None:
@@ -1141,6 +1188,30 @@ def test_provider_evidence_rejects_claim_limit_drift(tmp_path: Path) -> None:
     assert any(
         "claim_limits" in error for error in json.loads(result.stdout)["errors"]
     )
+
+
+def test_report_rejects_non_finite_resource_metrics(tmp_path: Path) -> None:
+    for metric_id, value in (
+        ("latency", float("nan")),
+        ("resource_cost", float("inf")),
+    ):
+        report = json.loads(EXAMPLE.read_text(encoding="utf-8"))
+        observation = report["observations"][10]
+        metric = next(
+            item for item in observation["metrics"] if item["metric_id"] == metric_id
+        )
+        metric["value"] = value
+        path = tmp_path / f"non-finite-{metric_id}.json"
+        path.write_text(json.dumps(report), encoding="utf-8")
+
+        result = run_runner("validate-report", str(path))
+
+        assert result.returncode == 1
+        errors = json.loads(result.stdout)["errors"]
+        assert any(
+            f"metric_not_finite:delta-full-parity:{metric_id}" in error
+            for error in errors
+        )
 
 
 def test_provider_agreement_rejects_placeholder_observation(tmp_path: Path) -> None:

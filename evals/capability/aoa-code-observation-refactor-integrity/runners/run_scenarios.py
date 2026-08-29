@@ -519,15 +519,33 @@ def provider_case_observation_errors(
         errors.append(issue("case_before_symbols", case_id))
     if observation.get("after_symbols") != projected(after_symbols):
         errors.append(issue("case_after_symbols", case_id))
-    actual_added_symbols = sorted(
-        _symbol_key(symbol) for symbol in observation.get("added_symbols", [])
+    def sorted_projected(symbols: list[dict[str, Any]]) -> list[dict[str, Any]]:
+        return sorted(
+            projected(symbols),
+            key=lambda symbol: json.dumps(
+                symbol, sort_keys=True, separators=(",", ":")
+            ),
+        )
+
+    expected_added_records = sorted_projected(
+        [
+            symbol
+            for symbol in after_symbols
+            if _symbol_key(symbol) in after_keys - before_keys
+        ]
     )
-    actual_deleted_symbols = sorted(
-        _symbol_key(symbol) for symbol in observation.get("deleted_symbols", [])
+    expected_deleted_records = sorted_projected(
+        [
+            symbol
+            for symbol in before_symbols
+            if _symbol_key(symbol) in before_keys - after_keys
+        ]
     )
-    if actual_added_symbols != expected_added_symbols:
+    actual_added_records = sorted_projected(observation.get("added_symbols", []))
+    actual_deleted_records = sorted_projected(observation.get("deleted_symbols", []))
+    if actual_added_records != expected_added_records:
         errors.append(issue("case_added_symbols", case_id))
-    if actual_deleted_symbols != expected_deleted_symbols:
+    if actual_deleted_records != expected_deleted_records:
         errors.append(issue("case_deleted_symbols", case_id))
 
     lineage = observation.get("lineage", {})
@@ -1550,6 +1568,9 @@ def semantic_case_issues(
         else:
             value = metric["value"]
             unit = metric.get("unit")
+            if not isinstance(value, (int, float)) or not math.isfinite(value):
+                errors.append(issue("metric_not_finite", f"{case_id}:{metric_id}"))
+                continue
             if unit != expected_metric_units[metric_id]:
                 errors.append(issue("metric_unit", f"{case_id}:{metric_id}:{unit}"))
             if metric_id in {

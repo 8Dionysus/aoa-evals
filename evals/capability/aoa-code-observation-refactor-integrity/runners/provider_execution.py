@@ -11,9 +11,8 @@ from __future__ import annotations
 import argparse
 import json
 import platform
-import resource
-import sys
 import time
+import tracemalloc
 from datetime import datetime, timezone
 from typing import Any
 
@@ -48,10 +47,23 @@ def environment_digest() -> str:
     )
 
 
-def peak_resource_bytes() -> int:
-    usage = resource.getrusage(resource.RUSAGE_SELF)
-    multiplier = 1024 if sys.platform != "darwin" else 1
-    return max(1, int(usage.ru_maxrss * multiplier))
+class CaseResourceMeasurement:
+    """Measure allocation peak attributable to one case execution only."""
+
+    def __init__(self) -> None:
+        self._started_here = not tracemalloc.is_tracing()
+        if self._started_here:
+            tracemalloc.start()
+        self._baseline_bytes, _ = tracemalloc.get_traced_memory()
+        tracemalloc.reset_peak()
+
+    def peak_bytes(self) -> int:
+        _current_bytes, peak_bytes = tracemalloc.get_traced_memory()
+        return max(1, int(peak_bytes - self._baseline_bytes))
+
+    def close(self) -> None:
+        if self._started_here:
+            tracemalloc.stop()
 
 
 def source_index(tree: dict[str, list[str]]) -> dict[str, Any]:
@@ -179,6 +191,28 @@ def case_execution(
     provider: dict[str, str],
     config_digest: str,
     environment: str,
+) -> dict[str, Any]:
+    resource_measurement = CaseResourceMeasurement()
+    try:
+        return _case_execution(
+            fixture_case,
+            scenario,
+            provider,
+            config_digest,
+            environment,
+            resource_measurement,
+        )
+    finally:
+        resource_measurement.close()
+
+
+def _case_execution(
+    fixture_case: dict[str, Any],
+    scenario: dict[str, Any],
+    provider: dict[str, str],
+    config_digest: str,
+    environment: str,
+    resource_measurement: CaseResourceMeasurement,
 ) -> dict[str, Any]:
     before = scenario["before"]
     after = scenario["after"]
@@ -341,7 +375,7 @@ def case_execution(
         "command_ref": COMMAND_REF,
         "environment_digest": environment,
         "latency_ms": latency_ms,
-        "resource_peak_bytes": peak_resource_bytes(),
+        "resource_peak_bytes": resource_measurement.peak_bytes(),
         "state_digest": contract.canonical_digest(state),
         "repeated_state_digest": contract.stable_provider_state_digest(repeated_state),
         "full_state_projection_digest": full_projection,

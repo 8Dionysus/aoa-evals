@@ -1,0 +1,17 @@
+{
+  "allowed_bytes": 17191530,
+  "allowed_tracked_bytes": 28045218,
+  "approved_by": "repository-owner",
+  "base_ref": "d29fda71258d902068a6426b8d6475ea7c464744",
+  "changed_generated_bytes": 17191530,
+  "changed_generated_files": 258,
+  "decision_ref": "aoa-kag:docs/decisions/AOA-KAG-D-0017-portable-content-addressed-repository-family.md",
+  "default_limit_bytes": 1048576,
+  "head_family_digest": "665e43ab4ef69d0a04c387fe5fdd1f5531e84dd68304f28f8324e1f7dd83ac04",
+  "reason": "Close PR #457 review findings with source-bound integrity checks; regenerate the deterministic owner-local family for the measured source/test repair without raising standing KAG budgets or promoting eval evidence.",
+  "repo": "aoa-evals",
+  "schema_version": "aoa-repo-local-kag-budget-receipt-v1",
+  "scope": "generated_delta_and_tracked_size",
+  "tracked_bytes": 28045218,
+  "tracked_bytes_max": 26214400
+}

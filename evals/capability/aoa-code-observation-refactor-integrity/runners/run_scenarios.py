@@ -156,6 +156,13 @@ STALE_INDEX_PRIOR_EPOCH = {
     "observed_at": "2026-08-24T15:00:00Z",
     "provider_watermark": "fixture-000",
 }
+# Exact observations must bind to this independently declared current fixture
+# epoch. A report-local watermark is not enough: it can be relabelled along
+# with the status while remaining unrelated to the provider epoch.
+CURRENT_PROVIDER_EPOCH = {
+    "source_epoch_ref": "source-epoch-001",
+    "provider_watermark": "fixture-001",
+}
 
 SUMMARY_LIMITATIONS = [
     "synthetic cases do not establish provider correctness or production performance",
@@ -1596,6 +1603,42 @@ def semantic_case_issues(
         errors.append(
             issue("stale_state_missing", f"{case_id} must disclose stale evidence")
         )
+    if case["expected_freshness"] == "exact":
+        report_observed_at = parse_observed_at(
+            report.get("run", {}).get("observed_at")
+        )
+        freshness_observed_at = parse_observed_at(freshness.get("observed_at"))
+        if (
+            report_observed_at is None
+            or freshness_observed_at is None
+            or freshness_observed_at != report_observed_at
+        ):
+            errors.append(
+                issue(
+                    "freshness_observed_at_mismatch",
+                    f"{case_id} exact freshness must match the report run",
+                )
+            )
+        if (
+            freshness.get("source_epoch_ref")
+            != CURRENT_PROVIDER_EPOCH["source_epoch_ref"]
+        ):
+            errors.append(
+                issue(
+                    "freshness_current_epoch_mismatch",
+                    f"{case_id} must match the independently declared current epoch",
+                )
+            )
+        if (
+            freshness.get("provider_watermark")
+            != CURRENT_PROVIDER_EPOCH["provider_watermark"]
+        ):
+            errors.append(
+                issue(
+                    "freshness_provider_watermark_mismatch",
+                    f"{case_id} must match the independently declared current watermark",
+                )
+            )
     if case_id == "stale-index":
         # Tie stale freshness to an independently defined prior epoch.  This
         # prevents a current provider watermark/timestamp from being

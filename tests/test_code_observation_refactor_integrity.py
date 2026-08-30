@@ -1527,6 +1527,26 @@ def test_report_rejects_stale_freshness_without_independent_prior_epoch(
         )
 
 
+def test_report_rejects_exact_freshness_drift_from_run_and_epoch(
+    tmp_path: Path,
+) -> None:
+    report = json.loads(EXAMPLE.read_text(encoding="utf-8"))
+    exact_observation = report["observations"][0]
+    exact_observation["freshness"]["observed_at"] = "2026-08-26T15:00:00Z"
+    exact_observation["freshness"]["provider_watermark"] = "fixture-000"
+    exact_observation["freshness"]["source_epoch_ref"] = "source-epoch-other"
+    path = tmp_path / "exact-freshness-drift.json"
+    path.write_text(json.dumps(report), encoding="utf-8")
+
+    result = run_runner("validate-report", str(path))
+
+    assert result.returncode == 1
+    errors = json.loads(result.stdout)["errors"]
+    assert "freshness_observed_at_mismatch:rename-symbol exact freshness must match the report run" in errors
+    assert "freshness_current_epoch_mismatch:rename-symbol must match the independently declared current epoch" in errors
+    assert "freshness_provider_watermark_mismatch:rename-symbol must match the independently declared current watermark" in errors
+
+
 def test_provider_execution_rejects_added_deleted_record_drift(tmp_path: Path) -> None:
     envelope = complete_provider_execution_payload()
     add_execution = next(

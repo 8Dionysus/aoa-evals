@@ -136,7 +136,8 @@ def test_adjacent_provider_evidence_requires_all_unadmitted_classes(
     source_epoch = "commit:" + "a" * 40
     source_repo = "fixture"
     source_path = "fixture.py"
-    source_digest = "sha256:" + "1" * 64
+    source_contents = b"def fixture():\n    return 1\n"
+    source_digest = "sha256:" + hashlib.sha256(source_contents).hexdigest()
     specs = {
         "static_security": ("semgrep", "static-security"),
         "software_components": ("syft", "software-components"),
@@ -230,7 +231,7 @@ def test_adjacent_provider_evidence_requires_all_unadmitted_classes(
         "observed_at": "2026-08-29T00:00:00Z",
         "source_epoch": source_epoch,
         "artifact": {
-            "sha256": "sha256:" + "1" * 64,
+            "sha256": source_digest,
             "subject_digest": "sha256:" + "2" * 64,
             "signature_status": "missing",
             "admission_status": "not_admitted",
@@ -307,7 +308,12 @@ def test_adjacent_provider_evidence_requires_all_unadmitted_classes(
                     "_type": "https://in-toto.io/Statement/v1",
                     "predicateType": "https://slsa.dev/provenance/v1",
                     "subject": [
-                        {"name": "fixture", "digest": {"sha256": "1" * 64}}
+                        {
+                            "name": "fixture",
+                            "digest": {
+                                "sha256": source_digest.removeprefix("sha256:")
+                            },
+                        }
                     ],
                     "predicate": {
                         "buildDefinition": {
@@ -333,11 +339,20 @@ def test_adjacent_provider_evidence_requires_all_unadmitted_classes(
         payload["raw_evidence"][key]["sha256"] = (
             "sha256:" + hashlib.sha256(contents).hexdigest()
         )
+    (tmp_path / source_path).write_bytes(source_contents)
     path = tmp_path / "adjacent.json"
     path.write_text(json.dumps(payload), encoding="utf-8")
     result = adjacent_provider_evidence.validate(path)
     assert result["issues"] == []
     assert result["verdict"] == "supports bounded adjacent-provider envelope evidence"
+
+    source_file = tmp_path / source_path
+    source_file.write_bytes(b"def fixture():\n    return 2\n")
+    path.write_text(json.dumps(payload), encoding="utf-8")
+    assert "source_content_digest_mismatch:semgrep" in (
+        adjacent_provider_evidence.validate(path)["issues"]
+    )
+    source_file.write_bytes(source_contents)
 
     # An epoch is only one part of the identity. A relabelled batch must not
     # pass when its repository/path or content digest disagrees with the raw
@@ -1494,7 +1509,14 @@ def test_case_execution_reuses_cached_baseline_for_delta_after_observation(
         {"src/changed.py": after["src/changed.py"]},
     ]
     assert calls[0] != after
-    assert events[:2] == ["source-index", "measurement-start"]
+    assert events == [
+        "source-index",
+        "source-index",
+        "source-index",
+        "measurement-start",
+        "source-index",
+        "measurement-close",
+    ]
     assert {
         symbol["path"] for symbol in execution["observation"]["after_symbols"]
     } == {"src/changed.py", "src/reused.py"}

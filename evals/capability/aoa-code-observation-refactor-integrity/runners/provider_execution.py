@@ -203,19 +203,14 @@ def case_execution(
     # window.  The resource evidence below describes incremental projection
     # work, not the one-time setup needed to materialize the cached baseline.
     before_index = source_index(scenario["before"])
-    resource_measurement = CaseResourceMeasurement()
-    try:
-        return _case_execution(
-            fixture_case,
-            scenario,
-            provider,
-            config_digest,
-            environment,
-            resource_measurement,
-            before_index,
-        )
-    finally:
-        resource_measurement.close()
+    return _case_execution(
+        fixture_case,
+        scenario,
+        provider,
+        config_digest,
+        environment,
+        before_index,
+    )
 
 
 def _case_execution(
@@ -224,7 +219,6 @@ def _case_execution(
     provider: dict[str, str],
     config_digest: str,
     environment: str,
-    resource_measurement: CaseResourceMeasurement,
     before_index: dict[str, Any],
 ) -> dict[str, Any]:
     before = scenario["before"]
@@ -399,13 +393,20 @@ def _case_execution(
             "delta_projection_digest": delta_projection,
         },
     }
+    # Measure exactly one provider projection.  The repeated execution,
+    # observation/state assembly, and digest/report construction above are
+    # intentionally outside this window so the resource evidence describes
+    # one incremental operation rather than the whole case report.
+    resource_measurement = CaseResourceMeasurement()
     started = time.perf_counter_ns()
-    # Re-run the projection during the measured section to make latency an
-    # observation of this provider candidate, not a supplied fixture value.
-    measured_index = projection_runner()
+    try:
+        measured_index = projection_runner()
+        resource_peak_bytes = resource_measurement.peak_bytes()
+        latency_ms = max(0.001, (time.perf_counter_ns() - started) / 1_000_000)
+    finally:
+        resource_measurement.close()
     if full_rebuild and projection_digest(measured_index) != full_projection:
         raise RuntimeError("parity projection changed during execution")
-    latency_ms = max(0.001, (time.perf_counter_ns() - started) / 1_000_000)
     return {
         "case_id": fixture_case["case_id"],
         "mode": "full" if full_rebuild else "delta",
@@ -415,7 +416,7 @@ def _case_execution(
         "command_ref": COMMAND_REF,
         "environment_digest": environment,
         "latency_ms": latency_ms,
-        "resource_peak_bytes": resource_measurement.peak_bytes(),
+        "resource_peak_bytes": resource_peak_bytes,
         "state_digest": contract.canonical_digest(state),
         "repeated_state_digest": contract.stable_provider_state_digest(repeated_state),
         "full_state_projection_digest": full_projection,

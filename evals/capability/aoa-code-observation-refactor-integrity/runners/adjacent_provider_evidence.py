@@ -155,8 +155,30 @@ def _source_path_is_safe(value: Any) -> bool:
     return not candidate.is_absolute() and ".." not in candidate.parts
 
 
+def _packet_source_path(
+    packet_path: Path, source_path: Any
+) -> tuple[Path | None, str | None]:
+    """Resolve packet-local source bytes used to witness ``content_digest``."""
+
+    if not _source_path_is_safe(source_path):
+        return None, "path_unsafe"
+    try:
+        packet_root = packet_path.parent.resolve(strict=False)
+        resolved = (packet_root / source_path).resolve(strict=False)
+    except (OSError, RuntimeError, TypeError, ValueError):
+        return None, "path_unsafe"
+    if resolved != packet_root and packet_root not in resolved.parents:
+        return None, "path_unsafe"
+    if not resolved.is_file():
+        return None, "file_missing"
+    return resolved, None
+
+
 def _source_identity_issues(
-    batch: dict[str, Any], provider_id: str, source_epoch: Any
+    batch: dict[str, Any],
+    provider_id: str,
+    source_epoch: Any,
+    packet_path: Path,
 ) -> list[str]:
     """Bind the normalized source identity to its provenance witness.
 
@@ -182,6 +204,19 @@ def _source_identity_issues(
         issues.append(f"source_identity_missing:{provider_id}:content_digest")
     if source.get("source_epoch") != source_epoch:
         issues.append(f"source_epoch_mismatch:{provider_id}")
+
+    source_file, source_file_issue = _packet_source_path(packet_path, path)
+    if source_file_issue == "path_unsafe":
+        issues.append(f"source_path_unsafe:{provider_id}")
+    elif source_file_issue == "file_missing":
+        issues.append(f"source_file_missing:{provider_id}")
+    elif source_file is not None and source_digest is not None:
+        try:
+            actual_digest = _raw_evidence_digest(source_file).removeprefix("sha256:")
+            if actual_digest != source_digest:
+                issues.append(f"source_content_digest_mismatch:{provider_id}")
+        except OSError:
+            issues.append(f"source_file_unreadable:{provider_id}")
 
     provenance = batch.get("provenance")
     source_refs = provenance.get("source_refs") if isinstance(provenance, dict) else None
@@ -842,7 +877,12 @@ def validate(path: Path) -> dict[str, Any]:
             ):
                 issues.append(f"provider_not_bounded:{provider_id}")
             issues.extend(
-                _source_identity_issues(batch, provider_id, payload.get("source_epoch"))
+                _source_identity_issues(
+                    batch,
+                    provider_id,
+                    payload.get("source_epoch"),
+                    path,
+                )
             )
             count = len(batch.get("observations", []))
             if count < 1:

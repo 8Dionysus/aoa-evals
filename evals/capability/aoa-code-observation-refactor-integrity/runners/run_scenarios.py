@@ -104,7 +104,9 @@ EXPECTED_SEMANTIC_SYMBOL_NAMES = {
         "fixture:eta.symbol": ("eta_value",),
         "fixture:theta.symbol": ("theta_value",),
     },
-    "split-symbol": {"fixture:iota.symbol": ("split_left", "split_right")},
+    "split-symbol": {
+        "fixture:iota.symbol": ("split_symbol", "split_left", "split_right")
+    },
     "merge-symbol": {
         "fixture:kappa.symbol": ("merge_left", "merge_right", "merge_combined")
     },
@@ -1470,14 +1472,11 @@ def semantic_case_issues(
                     f"and confidence {expected_confidence}",
                 )
             )
-        # A branch count is meaningful only when every branch occurrence is
-        # represented by the declared semantic entity.  Counting the fixture
-        # alone would let a report omit one split/merge alternative while
+        # A branch count is meaningful only when every lineage occurrence on
+        # both sides of the refactor is represented by the declared semantic
+        # entity.  Checking only the expanded split side or the pre-merge
+        # side would let a report omit the source or resulting symbol while
         # retaining the expected alternatives and confidence values.
-        branch_tree = (
-            scenario_after if case["operation"] == "split" else scenario_before
-        )
-        branch_snapshot = "after" if case["operation"] == "split" else "before"
         branch_group_ids = {
             lineage_id
             for lineage_id in common_groups
@@ -1488,16 +1487,22 @@ def semantic_case_issues(
         }
         expected_branch_occurrences = {
             (
+                snapshot,
                 symbol["path"],
                 symbol["start_line"],
                 symbol["end_line"],
                 symbol["kind"],
             )
-            for symbol in ast_symbol_records(branch_tree)
+            for snapshot, tree in (
+                ("before", scenario_before),
+                ("after", scenario_after),
+            )
+            for symbol in ast_symbol_records(tree)
             if symbol["lineage_id"] in branch_group_ids
         }
         declared_branch_occurrences = [
             (
+                occurrence.get("snapshot"),
                 occurrence.get("path"),
                 occurrence.get("start_line"),
                 occurrence.get("end_line"),
@@ -1506,7 +1511,7 @@ def semantic_case_issues(
             for entity in entities
             if entity.get("semantic_id") in EXPECTED_SEMANTIC_IDENTITIES[case_id]
             for occurrence in entity.get("occurrences", [])
-            if occurrence.get("snapshot") == branch_snapshot
+            if occurrence.get("snapshot") in {"before", "after"}
         ]
         if (
             len(declared_branch_occurrences)

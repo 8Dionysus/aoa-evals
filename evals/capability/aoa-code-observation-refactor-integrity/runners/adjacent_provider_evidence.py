@@ -548,6 +548,7 @@ def _raw_markdown_issues(batch: dict[str, Any], document_text: str) -> list[str]
         if (
             match.group(2) != hashlib.sha256(label.encode("utf-8")).hexdigest()[:16]
             or subject.get("label") != label
+            or subject.get("symbol_kind") != "heading"
             or not isinstance(subject.get("qualified_name"), str)
             or not subject["qualified_name"].endswith(f"#{heading_index}")
             or occurrence.get("start_line") != line_number

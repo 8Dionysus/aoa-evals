@@ -408,6 +408,17 @@ def test_adjacent_provider_evidence_requires_all_unadmitted_classes(
         "document_markdown"
     ]["sha256"]
 
+    payload["batches"]["document_structure"]["observations"][0]["subject"][
+        "symbol_kind"
+    ] = "paragraph"
+    path.write_text(json.dumps(payload), encoding="utf-8")
+    assert "raw_evidence_content_mismatch:document_markdown:heading_identity:0" in (
+        adjacent_provider_evidence.validate(path)["issues"]
+    )
+    payload["batches"]["document_structure"]["observations"][0]["subject"][
+        "symbol_kind"
+    ] = "heading"
+
     original_semgrep_version = payload["providers"]["semgrep"]["version"]
     payload["providers"]["semgrep"]["version"] = "0"
     path.write_text(json.dumps(payload), encoding="utf-8")
@@ -754,6 +765,34 @@ def test_report_rejects_missing_lineage_alternative_occurrence(
         "lineage_alternative_occurrences:split-symbol" in error
         for error in json.loads(result.stdout)["errors"]
     )
+
+
+def test_report_rejects_split_merge_lineage_without_both_snapshots(
+    tmp_path: Path,
+) -> None:
+    missing_snapshots = {
+        "split-symbol": "before",
+        "merge-symbol": "after",
+    }
+    for case_id, missing_snapshot in missing_snapshots.items():
+        report = json.loads(EXAMPLE.read_text(encoding="utf-8"))
+        observation = next(
+            item for item in report["observations"] if item["case_id"] == case_id
+        )
+        for entity in observation["semantic_identity"]["entities"]:
+            entity["occurrences"][:] = [
+                occurrence
+                for occurrence in entity["occurrences"]
+                if occurrence["snapshot"] != missing_snapshot
+            ]
+        path = tmp_path / f"missing-branched-lineage-{case_id}.json"
+        path.write_text(json.dumps(report), encoding="utf-8")
+
+        result = run_runner("validate-report", str(path))
+
+        assert result.returncode == 1
+        errors = json.loads(result.stdout)["errors"]
+        assert f"lineage_alternative_occurrences:{case_id}" in errors
 
 
 def test_report_rejects_preserved_lineage_without_both_snapshots(

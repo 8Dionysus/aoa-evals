@@ -59,7 +59,33 @@
         "properties": {
           "scenario_count": {"const": 12},
           "passed_count": {"const": 12},
-          "failed_count": {"const": 0}
+          "failed_count": {"const": 0},
+          "per_scenario_breakdown": {
+            "minItems": 12,
+            "maxItems": 12,
+            "uniqueItems": true,
+            "items": {
+              "properties": {
+                "expected": {"const": "pass"},
+                "observed": {"const": "pass"},
+                "outcome": {"const": "pass"}
+              }
+            },
+            "allOf": [
+              {"contains": {"properties": {"case_id": {"const": "rename-symbol"}}, "required": ["case_id"]}},
+              {"contains": {"properties": {"case_id": {"const": "move-symbol"}}, "required": ["case_id"]}},
+              {"contains": {"properties": {"case_id": {"const": "signature-change"}}, "required": ["case_id"]}},
+              {"contains": {"properties": {"case_id": {"const": "add-entity"}}, "required": ["case_id"]}},
+              {"contains": {"properties": {"case_id": {"const": "delete-entity"}}, "required": ["case_id"]}},
+              {"contains": {"properties": {"case_id": {"const": "import-change"}}, "required": ["case_id"]}},
+              {"contains": {"properties": {"case_id": {"const": "multi-file-impact"}}, "required": ["case_id"]}},
+              {"contains": {"properties": {"case_id": {"const": "split-symbol"}}, "required": ["case_id"]}},
+              {"contains": {"properties": {"case_id": {"const": "merge-symbol"}}, "required": ["case_id"]}},
+              {"contains": {"properties": {"case_id": {"const": "stale-index"}}, "required": ["case_id"]}},
+              {"contains": {"properties": {"case_id": {"const": "delta-full-parity"}}, "required": ["case_id"]}},
+              {"contains": {"properties": {"case_id": {"const": "affected-test-selection"}}, "required": ["case_id"]}}
+            ]
+          }
         }
       }
     },

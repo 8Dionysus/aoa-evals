@@ -769,6 +769,37 @@ def test_unexpected_case_is_counted_and_summary_remains_schema_valid(
     )
 
 
+def test_positive_summary_requires_canonical_passing_breakdown() -> None:
+    result = run_runner("run-scenarios")
+    assert result.returncode == 0, result.stderr
+    summary = json.loads(result.stdout)
+    schema = runner.load_json(runner.SUMMARY_SCHEMA_PATH)
+
+    mutations = (
+        (
+            "failed-outcome",
+            lambda value: value["per_scenario_breakdown"][0].update(outcome="fail"),
+        ),
+        (
+            "extra-entry",
+            lambda value: value["per_scenario_breakdown"].append(
+                copy.deepcopy(value["per_scenario_breakdown"][0])
+            ),
+        ),
+        (
+            "non-canonical-id",
+            lambda value: value["per_scenario_breakdown"][0].update(
+                case_id="unexpected-case"
+            ),
+        ),
+    )
+    for _name, mutate in mutations:
+        mutated = copy.deepcopy(summary)
+        mutate(mutated)
+        errors = runner.schema_errors(mutated, schema, "summary")
+        assert any("summary:per_scenario_breakdown" in error for error in errors)
+
+
 def test_affected_test_selection_must_match_fixture_oracle(tmp_path: Path) -> None:
     report = json.loads(EXAMPLE.read_text(encoding="utf-8"))
     report["observations"][0]["affected_tests"]["selected"] = [

@@ -1,0 +1,17 @@
+{
+  "allowed_bytes": 16672995,
+  "allowed_tracked_bytes": 27958179,
+  "approved_by": "repository-owner",
+  "base_ref": "d29fda71258d902068a6426b8d6475ea7c464744",
+  "changed_generated_bytes": 16672995,
+  "changed_generated_files": 252,
+  "decision_ref": "aoa-kag:docs/decisions/AOA-KAG-D-0017-portable-content-addressed-repository-family.md",
+  "default_limit_bytes": 1048576,
+  "head_family_digest": "93bad00df1b774e68753cfd32cf495b020563b9b2c2b4067318609dfc12eee20",
+  "reason": "Goal 01a02fec adds bounded Semgrep SARIF, Syft CycloneDX, in-toto provenance, and MarkItDown document-envelope evidence without promoting artifact admission or runtime availability.",
+  "repo": "aoa-evals",
+  "schema_version": "aoa-repo-local-kag-budget-receipt-v1",
+  "scope": "generated_delta_and_tracked_size",
+  "tracked_bytes": 27958179,
+  "tracked_bytes_max": 26214400
+}

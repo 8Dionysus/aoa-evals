@@ -659,6 +659,100 @@
       "verdict_shape": "categorical"
     },
     {
+      "category": "capability",
+      "eval_path": "evals/capability/aoa-code-observation-refactor-integrity/EVAL.md",
+      "name": "aoa-code-observation-refactor-integrity",
+      "sections": [
+        {
+          "content_markdown": "This draft capability eval makes one PROVEN slice concrete for code\nintelligence: it checks whether a provider-neutral observation envelope stays\ninternally coherent across controlled refactor pressure.\n\nThe bundle is deliberately contract-first. A fixture provider can exercise the\nroute without pretending to be a live LSP, an indexed KAG source, a parser, a\nSCIP implementation, or an admitted proof owner.",
+          "heading": "Intent",
+          "key": "intent"
+        },
+        {
+          "content_markdown": "The object is a bounded code-observation envelope containing:\n\n- a provider identity and configuration digest;\n- a source epoch and freshness reference;\n- live and indexed observation-plane labels;\n- semantic identity and lineage posture;\n- invalidation scope and delta/full parity evidence;\n- explicit metrics, provenance, and affected-test selection.\n\nAn optional provider-execution envelope binds actual provider state to the\nreviewed `abyss-machine` code-intelligence contract, provider identity, source\nepoch, invalidation universe, latency/resource measurements, and a\ntimestamp-stripped reproducibility digest. It is an evidence bridge for this\nbundle, not an admission receipt or a normalized observation report. The\nmachine binding carries the G41 snapshot epoch, workspace-manifest digest, and\nraw contract-file digest; a later retrievable file is not silently substituted\nwhen those identities drift.\n\nThe bundle also contains a source-owned execution fixture and deterministic\nprovider candidate. `runners/run_scenarios.py execute-provider` materializes\nbefore/after source trees, parses both snapshots, computes actual symbol\nfingerprints and dependency invalidation, records explicit deletion absence,\nderives affected tests from the fixture-local graph, and runs full/delta parity.\nThe emitted envelope is `source-bound-provider-candidate` with\n`admission_state=not_admitted`; it is not a current installed-provider or\nmachine-health observation.\n\nThe bundle also has a separate source-observation evidence route. It parses a\nchecked-in synthetic source corpus with Python's standard-library AST parser\nand, when present, host Ctags. That route records complete case visibility but\nmarks both providers `not_admitted`; it does not turn symbol visibility into\nprovider correctness, live runtime state, KAG meaning, or proof.\n\nA further provider-agreement route consumes full normalized envelopes from\nTree-sitter, SCIP, and LSP for one TypeScript source epoch. It independently\nchecks exact source identity, explicit non-admission, and a declared set of\nshared definition/reference facts. Agreement is evidence about the common\nenvelope only; it is not a provider-correctness or admission verdict.\n\nAn adjacent-provider evidence route consumes one exact packet containing\nSemgrep/SARIF, Syft/CycloneDX, in-toto provenance, and MarkItDown document\nstructure batches. It requires all four capability classes, non-empty actual\nobservations, one source epoch per batch, and explicit non-admission. This\nchecks common-envelope integrity only; it does not convert candidate execution\nor host trust-tool availability into artifact admission or deployment.\n\nThe reusable cases live at\n`mechanics/proof-infra/parts/fixture-families/fixtures/refactor-torture-v1/`.\nThe bundle-local fixture contract connects that public-safe family to this\nclaim surface.",
+          "heading": "Object under evaluation",
+          "key": "object_under_evaluation"
+        },
+        {
+          "content_markdown": "Under the synthetic refactor-torture cases, an observation report supports a\nbounded contract claim when every case preserves its declared operation,\nlineage/freshness expectation, invalidation scope, required planes, metrics,\nand provenance, with explicit treatment for ambiguity, parity,\nreproducibility, and affected tests.\n\nThis eval does not support claims that:\n\n- a parser, Tree-sitter, SCIP, LSP, ctags, KAG, or provider is correct;\n- a live or indexed source is current outside the supplied source epoch;\n- an observation is accepted as canonical owner truth;\n- a green runner is an aoa-evals proof verdict, owner acceptance, deployment,\n  runtime, transport, or semantic-acceptance receipt.\n\nComplete provider-execution coverage is not inferred from a four-case or\notherwise unlabelled scratch envelope; a whole-family claim requires an\nexplicit `coverage.mode: complete` declaration.",
+          "heading": "Bounded claim",
+          "key": "bounded_claim"
+        },
+        {
+          "content_markdown": "Use this eval when:\n\n- the question is whether a code-observation report keeps refactor-sensitive\n  contract fields visible and internally consistent;\n- a provider-neutral contract needs synthetic pressure before provider-specific\n  evidence is available;\n- lineage, freshness, invalidation, parity, or affected-test fields may be\n  silently omitted by a report.\n\nDo not use this eval when:\n\n- provider-specific parser/index/LSP validation is the question;\n- `aoa-kag` canonical navigation admission is the question;\n- `abyss-stack` runtime or transport evidence is the question;\n- source/CI, artifact admission, deployment, or owner acceptance is the\n  question;\n- a reviewed PROVEN verdict is the question.",
+          "heading": "Trigger boundary",
+          "key": "trigger_boundary"
+        },
+        {
+          "content_markdown": "- the shared `refactor-torture-v1` fixture manifest;\n- one provider-neutral raw observation report;\n- an optional actual provider-execution envelope validated against the\n  `abyss-machine` machine-contract digest and owner split;\n- optional bounded provider-observation evidence from the checked-in source\n  corpus, with Python-AST and optional host-Ctags observations;\n- optional normalized Tree-sitter, SCIP, and LSP envelopes for one exact\n  TypeScript source epoch;\n- optional normalized Semgrep, Syft, in-toto, and MarkItDown batches for one\n  exact adjacent-provider evidence packet;\n- provider identity and configuration digest;\n- source epoch, observation planes, and case-specific evidence fields.",
+          "heading": "Inputs",
+          "key": "inputs"
+        },
+        {
+          "content_markdown": "The reusable public-safe family is\n`mechanics/proof-infra/parts/fixture-families/fixtures/refactor-torture-v1/`.\n\nThe twelve cases cover rename, move, signature change, add, delete, import\nchange, multi-file impact, split, merge, stale index, delta/full parity, and\naffected-test selection. The bundle-local `fixtures/contract.json` owns the\nconnection between this family and the bundle claim.",
+          "heading": "Fixtures and case surface",
+          "key": "fixtures_and_case_surface"
+        },
+        {
+          "content_markdown": "The runner first validates the raw envelope against its JSON Schema, then\nchecks every case against the manifest. A case fails when its operation,\nrequired plane, expected lineage/freshness posture, invalidation scope,\nrequired metric, provenance, or stronger local oracle is missing or mismatched.\nSemantic-identity occurrences are qualified by their `before` or `after`\nsnapshot. Every preserved lineage must expose occurrences on both sides;\nbranch cases validate their declared alternatives against the relevant\nsnapshot. Cases without an affected-test oracle must declare\n`not-applicable`, an empty selection, and a null oracle reference.\n\nThe categorical bundle verdict is either:\n\n- `supports bounded contract`;\n- `does not support bounded contract`.\n\nThe report keeps case-level issue codes and pass/fail outcomes visible.",
+          "heading": "Scoring or verdict logic",
+          "key": "scoring_or_verdict_logic"
+        },
+        {
+          "content_markdown": "This bundle uses `none`. It is a standalone contract-integrity check over one\nbounded synthetic observation envelope. It does not compare providers, source\nepochs, runtimes, or model quality.",
+          "heading": "Baseline or comparison mode",
+          "key": "baseline_or_comparison_mode"
+        },
+        {
+          "content_markdown": "1. Load the shared fixture manifest and compute its canonical digest.\n2. Validate a raw observation report against the local JSON Schema.\n3. Check all twelve case-specific semantic invariants.\n4. When supplied, validate provider-observation evidence against its source\n   manifest. Available providers must expose one observation per case; the\n   evidence remains explicitly not admitted.\n5. When supplied, validate provider execution separately with\n   `validate-provider-execution`; this binds runtime state and fixture case IDs\n   without converting the result into a proof, admission, or acceptance claim.\n   Its `coverage.mode: complete` path additionally requires every fixture case,\n   reproducibility digests, safe invalidation/deletion accounting, observed\n   symbol snapshots, stable-lineage evidence, freshness epochs, affected-test\n   selection, and the delta/full parity projections for the parity case.\n6. Execute the source-bound provider candidate with `execute-provider`, then\n   validate that emitted envelope through the same complete-coverage boundary.\n   This produces candidate evidence only; it does not manufacture machine\n   admission or provider acceptance.\n7. Emit a deterministic categorical summary with one breakdown entry per case.\n8. Validate cross-provider TypeScript agreement separately, preserving the\n   raw normalized envelopes and refusing mixed source epochs or admitted claims.\n9. Validate adjacent-provider evidence separately, requiring all four declared\n   capability classes, actual observations, exact source epochs, and explicit\n   candidate/non-admitted posture.\n\nThe raw report is evidence input. The summary is a candidate report artifact,\nnot a promoted proof result.",
+          "heading": "Execution contract",
+          "key": "execution_contract"
+        },
+        {
+          "content_markdown": "- fixture validation JSON;\n- raw report validation JSON;\n- provider-execution binding JSON with explicit admission and owner-boundary\n  fields;\n- source-bound complete provider-execution envelope with one observed execution\n  for each torture case;\n- provider-observation evidence JSON with source-root, case-coverage, provider,\n  and non-admission fields;\n- a deterministic summary with one breakdown entry per case;\n- explicit issue codes for missing or inconsistent evidence.",
+          "heading": "Outputs",
+          "key": "outputs"
+        },
+        {
+          "content_markdown": "This eval can fail as an instrument when:\n\n- contract completeness is mistaken for provider correctness;\n- plane labels are read as canonical owner truth;\n- a synthetic parity or affected-test oracle is overread as production proof;\n- a green runner is promoted without independent owner review.",
+          "heading": "Failure modes",
+          "key": "failure_modes"
+        },
+        {
+          "content_markdown": "This eval does not prove:\n\n- parser recall, index completeness, or provider correctness;\n- LSP or runtime latency and resource safety in production;\n- admission, installation, trust, or deployment of the bound provider;\n- admission or deployment of adjacent Semgrep/MarkItDown candidates, or\n  completeness of SARIF, SBOM, provenance, or document extraction;\n- completeness or correctness of a host Ctags installation beyond the emitted\n  local observations;\n- cross-repository semantic identity or actual blast-radius accuracy;\n- the quality of a selected test set or canonical KAG currentness;\n- proof acceptance, deployment, runtime, transport, or owner acceptance.",
+          "heading": "Blind spots",
+          "key": "blind_spots"
+        },
+        {
+          "content_markdown": "Treat a positive result as support for one bounded claim: the supplied\nsynthetic observation envelope is internally complete and coherent under the\ndeclared refactor cases.\n\nKeep the bundle `draft`, `review_required: true`, and `export_ready: false`\nuntil aoa-evals owner review explicitly changes that posture. A positive result\ndoes not establish provider quality, currentness beyond the named epoch, or any\nstronger owner-plane acceptance.\n\nDo not treat a positive result as:\n\n- provider correctness or canonical navigation admission;\n- production performance, semantic blast-radius accuracy, or selected-test\n  quality;\n- a promoted proof verdict, deployment, runtime, transport, or owner\n  acceptance.",
+          "heading": "Interpretation guidance",
+          "key": "interpretation_guidance"
+        },
+        {
+          "content_markdown": "- validate the shared fixture manifest;\n- validate the example raw observation report;\n- collect and validate the bounded local provider-observation evidence;\n- validate a complete provider-execution envelope and its negative cases;\n- execute and validate the source-bound provider candidate across all twelve\n  cases, including deletion, lineage ambiguity, stale-state and parity;\n- run the deterministic scenario summary;\n- run the focused bundle test and owner repository validators.",
+          "heading": "Verification",
+          "key": "verification"
+        },
+        {
+          "content_markdown": "No direct technique dependency is claimed by this draft bundle.",
+          "heading": "Technique traceability",
+          "key": "technique_traceability"
+        },
+        {
+          "content_markdown": "No direct callable skill dependency remains. Provider, KAG, runtime, and owner\nacceptance questions route to their owning surfaces.",
+          "heading": "Skill traceability",
+          "key": "skill_traceability"
+        },
+        {
+          "content_markdown": "- add provider-specific fixture adapters only after an owner-reviewed need;\n- keep source epoch and provenance fields explicit when real evidence is added;\n- keep legacy scratch provider-execution envelopes explicitly partial; do not\n  infer whole-family coverage without the complete coverage declaration;\n- treat the source-bound executor as a candidate evidence generator, not as the\n  reviewed installed provider or a substitute for a later exact MACHINE/LIVE\n  disposition;\n- add a reviewed comparison or baseline only through the appropriate owner\n  route, not by widening this standalone contract bundle.",
+          "heading": "Adaptation points",
+          "key": "adaptation_points"
+        }
+      ],
+      "status": "draft",
+      "verdict_shape": "categorical"
+    },
+    {
       "category": "artifact",
       "eval_path": "evals/artifact/aoa-compost-provenance-preservation/EVAL.md",
       "name": "aoa-compost-provenance-preservation",

@@ -1,0 +1,390 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:aoa-evals:code-observation-provider-execution:v1",
+  "title": "AOA code observation provider execution envelope v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "machine_binding", "provider", "run", "executions"],
+  "properties": {
+    "schema_version": {"const": "aoa_code_observation_provider_execution_v1"},
+    "execution_posture": {"const": "source-bound-provider-candidate"},
+    "machine_binding": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "contract_schema",
+        "contract_ref",
+        "contract_digest",
+        "contract_digest_kind",
+        "contract_snapshot_epoch",
+        "workspace_manifest_digest",
+        "provider_id",
+        "admission_state",
+        "admission_receipt_ref",
+        "owner_bindings",
+        "claim_limits"
+      ],
+      "properties": {
+        "contract_schema": {"const": "abyss_machine_code_intelligence_config_v1"},
+        "contract_ref": {"type": "string", "minLength": 1},
+        "contract_digest": {"$ref": "#/$defs/digest"},
+        "contract_digest_kind": {"const": "sha256-raw-file-bytes"},
+        "contract_snapshot_epoch": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{40}$"
+        },
+        "workspace_manifest_digest": {"$ref": "#/$defs/digest"},
+        "provider_id": {"type": "string", "minLength": 1},
+        "admission_state": {"enum": ["not_admitted", "unknown", "admitted"]},
+        "admission_receipt_ref": {
+          "type": ["string", "null"],
+          "minLength": 1
+        },
+        "owner_bindings": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "host_install_and_trust_owner",
+            "provider_lifecycle_owner",
+            "normalized_observation_consumer",
+            "semantic_proof_owner"
+          ],
+          "properties": {
+            "host_install_and_trust_owner": {"type": "string", "minLength": 1},
+            "provider_lifecycle_owner": {"type": "string", "minLength": 1},
+            "normalized_observation_consumer": {"type": "string", "minLength": 1},
+            "semantic_proof_owner": {"type": "string", "minLength": 1}
+          }
+        },
+        "claim_limits": {
+          "const": [
+            "source-bound execution of the checked-in synthetic fixture only",
+            "provider candidate remains not_admitted and is not machine-currentness evidence",
+            "does not establish installation, trust, deployment, runtime health, KAG truth, proof, or owner acceptance"
+          ]
+        },
+        "current_contract_digest": {"$ref": "#/$defs/digest"},
+        "snapshot_currentness": {
+          "enum": ["matches_reviewed_snapshot", "drifted", "unobserved"]
+        }
+      }
+    },
+    "provider": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "version", "observation_schema", "state_schema", "config_digest"],
+      "properties": {
+        "id": {"type": "string", "minLength": 1},
+        "version": {"type": "string", "minLength": 1},
+        "observation_schema": {"const": "abyss-stack-code-observation-v1"},
+        "state_schema": {"const": "abyss-stack-live-code-intelligence-state-v1"},
+        "config_digest": {"$ref": "#/$defs/digest"}
+      }
+    },
+    "run": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "execution_id",
+        "started_at",
+        "observed_at",
+        "finished_at",
+        "command_ref",
+        "environment_digest",
+        "reproducibility_state"
+      ],
+      "properties": {
+        "execution_id": {"type": "string", "minLength": 1},
+        "started_at": {"type": "string", "format": "date-time"},
+        "observed_at": {"type": "string", "format": "date-time"},
+        "finished_at": {"type": "string", "format": "date-time"},
+        "command_ref": {"type": "string", "minLength": 1},
+        "environment_digest": {"$ref": "#/$defs/digest"},
+        "reproducibility_state": {
+          "enum": ["deterministic", "non-deterministic", "unknown"]
+        }
+      }
+    },
+    "coverage": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["mode", "case_ids"],
+      "properties": {
+        "mode": {"enum": ["partial", "complete"]},
+        "case_ids": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {"type": "string", "minLength": 1}
+        }
+      }
+    },
+    "executions": {
+      "type": "array",
+      "minItems": 1,
+      "items": {"$ref": "#/$defs/execution"}
+    }
+  },
+  "$defs": {
+    "digest": {
+      "type": "string",
+      "pattern": "^sha256:[0-9a-f]{64}$"
+    },
+    "path_list": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {"type": "string", "minLength": 1}
+    },
+    "provider_state": {
+      "type": "object",
+      "additionalProperties": true,
+      "required": [
+        "schema_version",
+        "status",
+        "provider",
+        "config",
+        "source",
+        "invalidation",
+        "freshness",
+        "provenance"
+      ],
+      "properties": {
+        "schema_version": {"const": "abyss-stack-live-code-intelligence-state-v1"},
+        "status": {"enum": ["current", "degraded"]},
+        "provider": {
+          "type": "object",
+          "required": ["id", "version"],
+          "properties": {
+            "id": {"type": "string", "minLength": 1},
+            "version": {"type": "string", "minLength": 1}
+          }
+        },
+        "config": {
+          "type": "object",
+          "required": ["digest"],
+          "properties": {"digest": {"$ref": "#/$defs/digest"}}
+        },
+        "source": {
+          "type": "object",
+          "required": ["source_epoch"],
+          "properties": {"source_epoch": {"$ref": "#/$defs/digest"}}
+        },
+        "invalidation": {
+          "type": "object",
+          "required": [
+            "changed_paths",
+            "added_paths",
+            "deleted_paths",
+            "dependency_impacted_paths",
+            "invalidated_paths",
+            "reused_paths",
+            "full_rebuild",
+            "blast_radius_universe",
+            "blast_radius"
+          ],
+          "properties": {
+            "changed_paths": {"$ref": "#/$defs/path_list"},
+            "added_paths": {"$ref": "#/$defs/path_list"},
+            "deleted_paths": {"$ref": "#/$defs/path_list"},
+            "dependency_impacted_paths": {"$ref": "#/$defs/path_list"},
+            "invalidated_paths": {"$ref": "#/$defs/path_list"},
+            "reused_paths": {"$ref": "#/$defs/path_list"},
+            "full_rebuild": {"type": "boolean"},
+            "blast_radius_universe": {
+              "type": "object",
+              "required": ["kind", "count", "paths"],
+              "properties": {
+                "kind": {"type": "string", "minLength": 1},
+                "count": {"type": "integer", "minimum": 0},
+                "paths": {"$ref": "#/$defs/path_list"}
+              }
+            },
+            "blast_radius": {"type": "number", "minimum": 0, "maximum": 1}
+          }
+        },
+        "freshness": {
+          "type": "object",
+          "required": ["layer", "source_epoch", "provider", "confidence"],
+          "properties": {
+            "layer": {"const": "LIVE"},
+            "source_epoch": {"$ref": "#/$defs/digest"},
+            "provider": {"type": "object"},
+            "confidence": {"enum": ["observed", "degraded"]}
+          }
+        },
+        "provenance": {
+          "type": "object",
+          "required": [
+            "runtime_owner",
+            "observation_meaning_owner",
+            "proof_owner",
+            "source_kind",
+            "full_rebuild"
+          ],
+          "properties": {
+            "runtime_owner": {"type": "string", "minLength": 1},
+            "observation_meaning_owner": {"type": "string", "minLength": 1},
+            "proof_owner": {"type": "string", "minLength": 1},
+            "source_kind": {"const": "working_tree"},
+            "full_rebuild": {"type": "boolean"}
+          }
+        }
+      }
+    },
+    "symbol": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "name",
+        "kind",
+        "path",
+        "start_line",
+        "end_line",
+        "fingerprint",
+        "body_fingerprint",
+        "lineage_id"
+      ],
+      "properties": {
+        "name": {"type": "string", "minLength": 1},
+        "kind": {"enum": ["class", "function"]},
+        "path": {"type": "string", "minLength": 1},
+        "start_line": {"type": "integer", "minimum": 1},
+        "end_line": {"type": "integer", "minimum": 1},
+        "fingerprint": {"$ref": "#/$defs/digest"},
+        "body_fingerprint": {"$ref": "#/$defs/digest"},
+        "lineage_id": {"type": "string", "minLength": 1}
+      }
+    },
+    "case_observation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "operation",
+        "source_epoch",
+        "before_snapshot_digest",
+        "after_snapshot_digest",
+        "changed_paths",
+        "added_paths",
+        "deleted_paths",
+        "dependency_impacted_paths",
+        "before_symbols",
+        "after_symbols",
+        "added_symbols",
+        "deleted_symbols",
+        "lineage",
+        "freshness",
+        "deletion",
+        "affected_tests",
+        "parity"
+      ],
+      "properties": {
+        "operation": {"type": "string", "minLength": 1},
+        "source_epoch": {"$ref": "#/$defs/digest"},
+        "before_snapshot_digest": {"$ref": "#/$defs/digest"},
+        "after_snapshot_digest": {"$ref": "#/$defs/digest"},
+        "changed_paths": {"$ref": "#/$defs/path_list"},
+        "added_paths": {"$ref": "#/$defs/path_list"},
+        "deleted_paths": {"$ref": "#/$defs/path_list"},
+        "dependency_impacted_paths": {"$ref": "#/$defs/path_list"},
+        "before_symbols": {"type": "array", "items": {"$ref": "#/$defs/symbol"}},
+        "after_symbols": {"type": "array", "items": {"$ref": "#/$defs/symbol"}},
+        "added_symbols": {"type": "array", "items": {"$ref": "#/$defs/symbol"}},
+        "deleted_symbols": {"type": "array", "items": {"$ref": "#/$defs/symbol"}},
+        "lineage": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["posture", "stable_ids", "alternatives", "confidence"],
+          "properties": {
+            "posture": {"enum": ["preserve", "branched", "not-applicable"]},
+            "stable_ids": {"type": "array", "uniqueItems": true, "items": {"type": "string", "minLength": 1}},
+            "alternatives": {"type": "integer", "minimum": 0},
+            "confidence": {"type": "number", "minimum": 0, "maximum": 1}
+          }
+        },
+        "freshness": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["indexed_source_epoch", "observed_source_epoch", "status"],
+          "properties": {
+            "indexed_source_epoch": {"$ref": "#/$defs/digest"},
+            "observed_source_epoch": {"$ref": "#/$defs/digest"},
+            "status": {"enum": ["exact", "stale"]}
+          }
+        },
+        "deletion": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["status", "before_present", "after_absent"],
+          "properties": {
+            "status": {"enum": ["confirmed", "not-applicable"]},
+            "before_present": {"$ref": "#/$defs/path_list"},
+            "after_absent": {"$ref": "#/$defs/path_list"}
+          }
+        },
+        "affected_tests": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["status", "selected", "oracle_ref"],
+          "properties": {
+            "status": {"enum": ["selected", "empty"]},
+            "selected": {"type": "array", "uniqueItems": true, "items": {"type": "string", "minLength": 1}},
+            "oracle_ref": {"type": ["string", "null"], "minLength": 1}
+          }
+        },
+        "parity": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["status", "full_projection_digest", "delta_projection_digest"],
+          "properties": {
+            "status": {"enum": ["equal", "different", "not-run"]},
+            "full_projection_digest": {"type": ["string", "null"], "pattern": "^sha256:[0-9a-f]{64}$"},
+            "delta_projection_digest": {"type": ["string", "null"], "pattern": "^sha256:[0-9a-f]{64}$"}
+          }
+        }
+      }
+    },
+    "execution": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "case_id",
+        "mode",
+        "status",
+        "source_epoch",
+        "observed_at",
+        "command_ref",
+        "environment_digest",
+        "latency_ms",
+        "resource_peak_bytes",
+        "state_digest",
+        "provider_state"
+      ],
+      "properties": {
+        "case_id": {"type": "string", "minLength": 1},
+        "mode": {"enum": ["full", "delta"]},
+        "status": {"enum": ["completed", "degraded"]},
+        "source_epoch": {"$ref": "#/$defs/digest"},
+        "observed_at": {"type": "string", "format": "date-time"},
+        "command_ref": {"type": "string", "minLength": 1},
+        "environment_digest": {"$ref": "#/$defs/digest"},
+        "latency_ms": {"type": "number", "exclusiveMinimum": 0},
+        "resource_peak_bytes": {"type": "integer", "exclusiveMinimum": 0},
+        "state_digest": {"$ref": "#/$defs/digest"},
+        "repeated_state_digest": {
+          "type": ["string", "null"],
+          "pattern": "^sha256:[0-9a-f]{64}$"
+        },
+        "full_state_projection_digest": {
+          "type": ["string", "null"],
+          "pattern": "^sha256:[0-9a-f]{64}$"
+        },
+        "delta_state_projection_digest": {
+          "type": ["string", "null"],
+          "pattern": "^sha256:[0-9a-f]{64}$"
+        },
+        "observation": {"$ref": "#/$defs/case_observation"},
+        "provider_state": {"$ref": "#/$defs/provider_state"}
+      }
+    }
+  }
+}

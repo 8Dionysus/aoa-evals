@@ -1,0 +1,17 @@
+{
+  "allowed_bytes": 17652934,
+  "allowed_tracked_bytes": 28379438,
+  "approved_by": "repository-owner",
+  "base_ref": "13841f6be1fba71d1b5db4cfb006dd03381eb22c",
+  "changed_generated_bytes": 17652934,
+  "changed_generated_files": 262,
+  "decision_ref": "aoa-kag:docs/decisions/AOA-KAG-D-0017-portable-content-addressed-repository-family.md",
+  "default_limit_bytes": 1048576,
+  "head_family_digest": "eacac6bacb5fd447d7083e25ed3f80b30166ad4d9d0ed81a76f7d09fc6bf2b39",
+  "reason": "Close PR #457 review wave by hashing packet-local adjacent-provider source bytes and scoping resource measurement to one projection invocation; refresh deterministic owner-local family after source contract repair without raising standing budgets or promoting eval evidence.",
+  "repo": "aoa-evals",
+  "schema_version": "aoa-repo-local-kag-budget-receipt-v1",
+  "scope": "generated_delta_and_tracked_size",
+  "tracked_bytes": 28379438,
+  "tracked_bytes_max": 26214400
+}

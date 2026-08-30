@@ -1,0 +1,17 @@
+{
+  "allowed_bytes": 17528529,
+  "allowed_tracked_bytes": 28116749,
+  "approved_by": "repository-owner",
+  "base_ref": "d29fda71258d902068a6426b8d6475ea7c464744",
+  "changed_generated_bytes": 17528529,
+  "changed_generated_files": 262,
+  "decision_ref": "aoa-kag:docs/decisions/AOA-KAG-D-0017-portable-content-addressed-repository-family.md",
+  "default_limit_bytes": 1048576,
+  "head_family_digest": "64e71c7f7ca19257c4d1288e833fa8013b329d021829b977d31a0bb5b36a8102",
+  "reason": "Close PR #457 review gaps by binding complete-provider command provenance and requiring ordinary reports to declare parity as not-run; regenerate the deterministic owner-local family with the workflow-pinned KAG implementation without raising standing KAG budgets or promoting eval evidence.",
+  "repo": "aoa-evals",
+  "schema_version": "aoa-repo-local-kag-budget-receipt-v1",
+  "scope": "generated_delta_and_tracked_size",
+  "tracked_bytes": 28116749,
+  "tracked_bytes_max": 26214400
+}

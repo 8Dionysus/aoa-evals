@@ -1,0 +1,17 @@
+{
+  "allowed_bytes": 17697142,
+  "allowed_tracked_bytes": 28203125,
+  "approved_by": "repository-owner",
+  "base_ref": "d29fda71258d902068a6426b8d6475ea7c464744",
+  "changed_generated_bytes": 17697142,
+  "changed_generated_files": 263,
+  "decision_ref": "aoa-kag:docs/decisions/AOA-KAG-D-0017-portable-content-addressed-repository-family.md",
+  "default_limit_bytes": 1048576,
+  "head_family_digest": "efe2bf5fdb0c7cb98658d68a0ab7fd5f91f13696b4cb26a39c196c5e967c1f8c",
+  "reason": "Close PR #457 review wave by requiring snapshot-qualified evidence for every preserved lineage and rejecting duplicate semantic occurrences; refresh deterministic owner-local family with workflow-pinned KAG without raising standing budgets or promoting eval evidence.",
+  "repo": "aoa-evals",
+  "schema_version": "aoa-repo-local-kag-budget-receipt-v1",
+  "scope": "generated_delta_and_tracked_size",
+  "tracked_bytes": 28203125,
+  "tracked_bytes_max": 26214400
+}

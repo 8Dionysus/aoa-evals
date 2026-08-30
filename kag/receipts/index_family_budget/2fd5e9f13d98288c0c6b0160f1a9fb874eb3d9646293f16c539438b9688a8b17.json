@@ -1,0 +1,17 @@
+{
+  "allowed_bytes": 17590415,
+  "allowed_tracked_bytes": 28178635,
+  "approved_by": "repository-owner",
+  "base_ref": "d29fda71258d902068a6426b8d6475ea7c464744",
+  "changed_generated_bytes": 17590415,
+  "changed_generated_files": 262,
+  "decision_ref": "aoa-kag:docs/decisions/AOA-KAG-D-0017-portable-content-addressed-repository-family.md",
+  "default_limit_bytes": 1048576,
+  "head_family_digest": "2fd5e9f13d98288c0c6b0160f1a9fb874eb3d9646293f16c539438b9688a8b17",
+  "reason": "Close PR #457 review gaps by binding raw provider formats and fixture-bound config identity; refresh the deterministic owner-local family with the workflow-pinned KAG implementation without raising standing budgets or promoting eval evidence.",
+  "repo": "aoa-evals",
+  "schema_version": "aoa-repo-local-kag-budget-receipt-v1",
+  "scope": "generated_delta_and_tracked_size",
+  "tracked_bytes": 28178635,
+  "tracked_bytes_max": 26214400
+}

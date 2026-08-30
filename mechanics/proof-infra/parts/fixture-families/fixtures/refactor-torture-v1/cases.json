@@ -1,0 +1,117 @@
+{
+  "schema_version": "aoa_refactor_torture_fixture_v1",
+  "family_id": "refactor-torture-v1",
+  "claim_limit": "synthetic operation pressure for a provider-neutral code-observation contract; not provider correctness or proof acceptance",
+  "affected_test_oracle_path": "oracles/affected-tests.json",
+  "affected_test_oracle_digest": "sha256:81add1064651e08a97e36824502ab7a14375832c436bc651a61550b21f6fdfe9",
+  "cases": [
+    {
+      "case_id": "rename-symbol",
+      "operation": "rename",
+      "expected_lineage": "preserve",
+      "expected_freshness": "exact",
+      "expected_invalidation_scope": "affected-subgraph",
+      "required_planes": ["live", "indexed"],
+      "required_metrics": ["definitions_references", "lineage_continuity", "freshness", "invalidation_blast_radius", "provenance", "affected_tests"]
+    },
+    {
+      "case_id": "move-symbol",
+      "operation": "move",
+      "expected_lineage": "preserve",
+      "expected_freshness": "exact",
+      "expected_invalidation_scope": "affected-subgraph",
+      "required_planes": ["live", "indexed"],
+      "required_metrics": ["definitions_references", "lineage_continuity", "freshness", "invalidation_blast_radius", "provenance", "affected_tests"]
+    },
+    {
+      "case_id": "signature-change",
+      "operation": "signature-change",
+      "expected_lineage": "preserve",
+      "expected_freshness": "exact",
+      "expected_invalidation_scope": "affected-subgraph",
+      "required_planes": ["live", "indexed"],
+      "required_metrics": ["definitions_references", "dependency_relations", "lineage_continuity", "freshness", "provenance", "affected_tests"]
+    },
+    {
+      "case_id": "add-entity",
+      "operation": "add",
+      "expected_lineage": "not-applicable",
+      "expected_freshness": "exact",
+      "expected_invalidation_scope": "file",
+      "required_planes": ["live", "indexed"],
+      "required_metrics": ["definitions_references", "freshness", "invalidation_blast_radius", "provenance"]
+    },
+    {
+      "case_id": "delete-entity",
+      "operation": "delete",
+      "expected_lineage": "not-applicable",
+      "expected_freshness": "exact",
+      "expected_invalidation_scope": "affected-subgraph",
+      "required_planes": ["live", "indexed"],
+      "required_metrics": ["definitions_references", "dependency_relations", "freshness", "invalidation_blast_radius", "provenance", "affected_tests"]
+    },
+    {
+      "case_id": "import-change",
+      "operation": "imports",
+      "expected_lineage": "preserve",
+      "expected_freshness": "exact",
+      "expected_invalidation_scope": "affected-subgraph",
+      "required_planes": ["live", "indexed"],
+      "required_metrics": ["dependency_relations", "definitions_references", "freshness", "invalidation_blast_radius", "provenance"]
+    },
+    {
+      "case_id": "multi-file-impact",
+      "operation": "multi-file-impact",
+      "expected_lineage": "preserve",
+      "expected_freshness": "exact",
+      "expected_invalidation_scope": "affected-subgraph",
+      "required_planes": ["live", "indexed"],
+      "required_metrics": ["definitions_references", "dependency_relations", "lineage_continuity", "freshness", "invalidation_blast_radius", "provenance", "affected_tests"]
+    },
+    {
+      "case_id": "split-symbol",
+      "operation": "split",
+      "expected_lineage": "branched",
+      "expected_freshness": "exact",
+      "expected_invalidation_scope": "affected-subgraph",
+      "required_planes": ["live", "indexed"],
+      "required_metrics": ["ambiguity", "lineage_continuity", "freshness", "provenance", "affected_tests"]
+    },
+    {
+      "case_id": "merge-symbol",
+      "operation": "merge",
+      "expected_lineage": "branched",
+      "expected_freshness": "exact",
+      "expected_invalidation_scope": "affected-subgraph",
+      "required_planes": ["live", "indexed"],
+      "required_metrics": ["ambiguity", "lineage_continuity", "freshness", "provenance", "affected_tests"]
+    },
+    {
+      "case_id": "stale-index",
+      "operation": "freshness-drift",
+      "expected_lineage": "preserve",
+      "expected_freshness": "stale",
+      "expected_invalidation_scope": "file",
+      "required_planes": ["indexed"],
+      "required_metrics": ["freshness", "source_epoch", "provenance"]
+    },
+    {
+      "case_id": "delta-full-parity",
+      "operation": "rebuild-parity",
+      "expected_lineage": "not-applicable",
+      "expected_freshness": "exact",
+      "expected_invalidation_scope": "affected-subgraph",
+      "required_planes": ["live", "indexed"],
+      "required_metrics": ["delta_full_parity", "reproducibility", "latency", "resource_cost", "provenance"]
+    },
+    {
+      "case_id": "affected-test-selection",
+      "operation": "affected-tests",
+      "expected_lineage": "not-applicable",
+      "expected_freshness": "exact",
+      "expected_invalidation_scope": "affected-subgraph",
+      "required_planes": ["live", "indexed"],
+      "required_metrics": ["affected_tests", "invalidation_blast_radius", "provenance"]
+    }
+  ]
+}

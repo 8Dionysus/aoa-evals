@@ -1,0 +1,12 @@
+{
+  "contract_version": 1,
+  "shared_fixture_family_path": "mechanics/proof-infra/parts/fixture-families/fixtures/refactor-torture-v1/README.md",
+  "shared_case_surface": "synthetic rename, move, signature, add, delete, import, multi-file, split, merge, stale-index, delta/full-parity, and affected-test cases for a provider-neutral code-observation envelope",
+  "bounded_replacement_rule": "A local provider may replace the synthetic observations only if it preserves all twelve case IDs, declared operation, expected lineage and freshness posture, invalidation scope, required planes, required metric IDs, and the explicit parity, reproducibility, ambiguity, and affected-test oracles. Affected-test selections must equal the checked-in fixture-local oracle entry and use its repo-relative case reference. Source-observation evidence may expose symbols from the checked-in provider-evidence corpus, but remains not admitted and does not establish provider correctness. Actual provider state must first be bound by the provider-execution contract to the reviewed abyss-machine contract, provider identity, source epoch, and declared invalidation universe; a complete whole-family claim requires an explicit complete coverage declaration, and neither binding grants admission or proof.",
+  "public_safe_requirements": [
+    "synthetic paths and semantic identifiers are sufficient to interpret every case",
+    "provider identity, configuration digest, source epoch, and provenance remain explicit",
+    "live and indexed planes are labeled without claiming either plane is canonical",
+    "the readout remains weaker than provider-specific validation, KAG admission, and owner proof"
+  ]
+}

@@ -1,0 +1,17 @@
+{
+  "allowed_bytes": 16568418,
+  "allowed_tracked_bytes": 27943111,
+  "approved_by": "repository-owner",
+  "base_ref": "d29fda71258d902068a6426b8d6475ea7c464744",
+  "changed_generated_bytes": 16568418,
+  "changed_generated_files": 251,
+  "decision_ref": "aoa-kag:docs/decisions/AOA-KAG-D-0017-portable-content-addressed-repository-family.md",
+  "default_limit_bytes": 1048576,
+  "head_family_digest": "911ed63dfd5a2c3e48c8db3d4fd16b113e30aca865c209b681c26ae0788cedd5",
+  "reason": "Goal 01a02fec adds a bounded refactor-integrity proof family and exact provider evidence while removing non-canonical completion payloads from the route-card-only root.",
+  "repo": "aoa-evals",
+  "schema_version": "aoa-repo-local-kag-budget-receipt-v1",
+  "scope": "generated_delta_and_tracked_size",
+  "tracked_bytes": 27943111,
+  "tracked_bytes_max": 26214400
+}

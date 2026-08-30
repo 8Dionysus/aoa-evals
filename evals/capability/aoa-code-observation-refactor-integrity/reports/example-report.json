@@ -1,0 +1,29 @@
+{
+  "bundle_status": "draft",
+  "claim_boundary": "A positive result supports only internal completeness and coherence of the supplied synthetic observation envelope; it is not provider correctness, canonical owner truth, or proof acceptance.",
+  "eval_name": "aoa-code-observation-refactor-integrity",
+  "failed_count": 0,
+  "limitations": [
+    "synthetic cases do not establish provider correctness or production performance",
+    "live and indexed labels are declared evidence planes, not canonical owner truth",
+    "a green contract run is not an aoa-evals proof verdict or owner acceptance"
+  ],
+  "object_under_evaluation": "provider-neutral code-observation envelope under controlled refactor cases",
+  "passed_count": 12,
+  "per_scenario_breakdown": [
+    {"case_id": "rename-symbol", "expected": "pass", "issue_codes": [], "observed": "pass", "outcome": "pass"},
+    {"case_id": "move-symbol", "expected": "pass", "issue_codes": [], "observed": "pass", "outcome": "pass"},
+    {"case_id": "signature-change", "expected": "pass", "issue_codes": [], "observed": "pass", "outcome": "pass"},
+    {"case_id": "add-entity", "expected": "pass", "issue_codes": [], "observed": "pass", "outcome": "pass"},
+    {"case_id": "delete-entity", "expected": "pass", "issue_codes": [], "observed": "pass", "outcome": "pass"},
+    {"case_id": "import-change", "expected": "pass", "issue_codes": [], "observed": "pass", "outcome": "pass"},
+    {"case_id": "multi-file-impact", "expected": "pass", "issue_codes": [], "observed": "pass", "outcome": "pass"},
+    {"case_id": "split-symbol", "expected": "pass", "issue_codes": [], "observed": "pass", "outcome": "pass"},
+    {"case_id": "merge-symbol", "expected": "pass", "issue_codes": [], "observed": "pass", "outcome": "pass"},
+    {"case_id": "stale-index", "expected": "pass", "issue_codes": [], "observed": "pass", "outcome": "pass"},
+    {"case_id": "delta-full-parity", "expected": "pass", "issue_codes": [], "observed": "pass", "outcome": "pass"},
+    {"case_id": "affected-test-selection", "expected": "pass", "issue_codes": [], "observed": "pass", "outcome": "pass"}
+  ],
+  "scenario_count": 12,
+  "verdict": "supports bounded contract"
+}

@@ -1,0 +1,97 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:aoa-evals:code-observation-refactor-summary:v1",
+  "title": "AOA code observation refactor summary v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "eval_name",
+    "bundle_status",
+    "object_under_evaluation",
+    "verdict",
+    "claim_boundary",
+    "limitations",
+    "scenario_count",
+    "passed_count",
+    "failed_count",
+    "per_scenario_breakdown"
+  ],
+  "properties": {
+    "eval_name": {"const": "aoa-code-observation-refactor-integrity"},
+    "bundle_status": {"const": "draft"},
+    "object_under_evaluation": {
+      "const": "provider-neutral code-observation envelope under controlled refactor cases"
+    },
+    "verdict": {"enum": ["supports bounded contract", "does not support bounded contract"]},
+    "claim_boundary": {"type": "string", "minLength": 40},
+    "limitations": {
+      "type": "array",
+      "minItems": 1,
+      "items": {"type": "string", "minLength": 1}
+    },
+    "scenario_count": {"type": "integer", "minimum": 12},
+    "passed_count": {"type": "integer", "minimum": 0},
+    "failed_count": {"type": "integer", "minimum": 0},
+    "per_scenario_breakdown": {
+      "type": "array",
+      "minItems": 12,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["case_id", "expected", "observed", "issue_codes", "outcome"],
+        "properties": {
+          "case_id": {"type": "string", "minLength": 1},
+          "expected": {"enum": ["pass", "reject"]},
+          "observed": {"enum": ["pass", "reject"]},
+          "issue_codes": {
+            "type": "array",
+            "items": {"type": "string", "minLength": 1}
+          },
+          "outcome": {"enum": ["pass", "fail"]}
+        }
+      }
+    }
+  },
+  "allOf": [
+    {
+      "if": {"properties": {"verdict": {"const": "supports bounded contract"}}},
+      "then": {
+        "properties": {
+          "scenario_count": {"const": 12},
+          "passed_count": {"const": 12},
+          "failed_count": {"const": 0},
+          "per_scenario_breakdown": {
+            "minItems": 12,
+            "maxItems": 12,
+            "uniqueItems": true,
+            "items": {
+              "properties": {
+                "expected": {"const": "pass"},
+                "observed": {"const": "pass"},
+                "outcome": {"const": "pass"}
+              }
+            },
+            "allOf": [
+              {"contains": {"properties": {"case_id": {"const": "rename-symbol"}}, "required": ["case_id"]}},
+              {"contains": {"properties": {"case_id": {"const": "move-symbol"}}, "required": ["case_id"]}},
+              {"contains": {"properties": {"case_id": {"const": "signature-change"}}, "required": ["case_id"]}},
+              {"contains": {"properties": {"case_id": {"const": "add-entity"}}, "required": ["case_id"]}},
+              {"contains": {"properties": {"case_id": {"const": "delete-entity"}}, "required": ["case_id"]}},
+              {"contains": {"properties": {"case_id": {"const": "import-change"}}, "required": ["case_id"]}},
+              {"contains": {"properties": {"case_id": {"const": "multi-file-impact"}}, "required": ["case_id"]}},
+              {"contains": {"properties": {"case_id": {"const": "split-symbol"}}, "required": ["case_id"]}},
+              {"contains": {"properties": {"case_id": {"const": "merge-symbol"}}, "required": ["case_id"]}},
+              {"contains": {"properties": {"case_id": {"const": "stale-index"}}, "required": ["case_id"]}},
+              {"contains": {"properties": {"case_id": {"const": "delta-full-parity"}}, "required": ["case_id"]}},
+              {"contains": {"properties": {"case_id": {"const": "affected-test-selection"}}, "required": ["case_id"]}}
+            ]
+          }
+        }
+      }
+    },
+    {
+      "if": {"properties": {"verdict": {"const": "does not support bounded contract"}}},
+      "then": {"properties": {"failed_count": {"minimum": 1}}}
+    }
+  ]
+}

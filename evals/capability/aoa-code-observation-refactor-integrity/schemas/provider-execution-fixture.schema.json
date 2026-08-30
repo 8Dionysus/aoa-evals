@@ -1,0 +1,58 @@
+{
+  "$id": "urn:aoa-evals:code-observation-provider-execution-fixture:v1",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "type": "object",
+  "properties": {
+    "schema_version": {"const": "aoa_code_observation_provider_execution_fixture_v1"},
+    "family_id": {"const": "refactor-torture-v1"},
+    "provider": {
+      "additionalProperties": false,
+      "type": "object",
+      "properties": {
+        "id": {"const": "python-ast-bootstrap"},
+        "version": {"minLength": 1, "type": "string"},
+        "engine": {"const": "stdlib-ast-index-v1"}
+      },
+      "required": ["id", "version", "engine"]
+    },
+    "cases": {
+      "minItems": 1,
+      "type": "array",
+      "items": {
+        "additionalProperties": false,
+        "type": "object",
+        "properties": {
+          "case_id": {"minLength": 1, "type": "string"},
+          "before": {"$ref": "#/$defs/source_tree"},
+          "after": {"$ref": "#/$defs/source_tree"},
+          "test_dependencies": {
+            "additionalProperties": {"$ref": "#/$defs/test_list"},
+            "type": "object"
+          }
+        },
+        "required": ["case_id", "before", "after", "test_dependencies"]
+      }
+    }
+  },
+  "required": ["schema_version", "family_id", "provider", "cases"],
+  "$defs": {
+    "path": {
+      "pattern": "^(?!/)(?!.*(?:^|/)\\.\\.(?:/|$))(?!.*://)[^\\\\]+$",
+      "type": "string"
+    },
+    "source_tree": {
+      "additionalProperties": {
+        "items": {"type": "string"},
+        "type": "array"
+      },
+      "propertyNames": {"$ref": "#/$defs/path"},
+      "type": "object"
+    },
+    "test_list": {
+      "items": {"pattern": "^tests/", "type": "string"},
+      "type": "array",
+      "uniqueItems": true
+    }
+  }
+}

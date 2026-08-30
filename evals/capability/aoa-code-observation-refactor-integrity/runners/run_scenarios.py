@@ -164,6 +164,30 @@ def canonical_digest(value: Any) -> str:
     return "sha256:" + hashlib.sha256(payload.encode("utf-8")).hexdigest()
 
 
+def provider_execution_config_digest(
+    execution_fixture: dict[str, Any],
+    environment_digest: str,
+    provider: dict[str, Any],
+) -> str:
+    """Derive the source-bound provider configuration identity.
+
+    Keep this calculation in the validator's contract module so a complete
+    envelope cannot replace the fixture/config binding with an arbitrary hash
+    that is merely repeated consistently through its state records.
+    """
+
+    fixture_provider = execution_fixture["provider"]
+    return canonical_digest(
+        {
+            "engine": fixture_provider["engine"],
+            "environment_digest": environment_digest,
+            "fixture_manifest_digest": canonical_digest(execution_fixture),
+            "provider_id": provider["id"],
+            "version": provider["version"],
+        }
+    )
+
+
 def stable_provider_state_digest(value: Any) -> str:
     """Digest provider state while ignoring observation timestamps."""
 
@@ -886,6 +910,16 @@ def provider_execution_errors(
                 issue(
                     "execution_provider_version",
                     "provider execution fixture version differs",
+                )
+            )
+        expected_config_digest = provider_execution_config_digest(
+            execution_fixture, run["environment_digest"], provider
+        )
+        if provider.get("config_digest") != expected_config_digest:
+            errors.append(
+                issue(
+                    "execution_config_digest",
+                    "provider configuration is not bound to the fixture and environment",
                 )
             )
         if binding.get("admission_state") != "not_admitted":

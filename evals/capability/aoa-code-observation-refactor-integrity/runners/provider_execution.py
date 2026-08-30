@@ -419,14 +419,8 @@ def execute() -> dict[str, Any]:
         "state_schema": "abyss-stack-live-code-intelligence-state-v1",
     }
     environment = environment_digest()
-    config_digest = contract.canonical_digest(
-        {
-            "engine": manifest["provider"]["engine"],
-            "environment_digest": environment,
-            "fixture_manifest_digest": contract.canonical_digest(manifest),
-            "provider_id": provider["id"],
-            "version": provider["version"],
-        }
+    config_digest = contract.provider_execution_config_digest(
+        manifest, environment, provider
     )
     executions = [
         case_execution(

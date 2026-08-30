@@ -95,12 +95,471 @@ def _raw_evidence_digest(path: Path) -> str:
     return "sha256:" + digest.hexdigest()
 
 
+def _raw_issue(raw_key: str, kind: str, detail: str) -> str:
+    return f"raw_evidence_{kind}:{raw_key}:{detail}"
+
+
+def _source_uri_matches(source_path: Any, uri: Any) -> bool:
+    if not isinstance(source_path, str) or not source_path.strip():
+        return True
+    if not isinstance(uri, str) or not uri.strip():
+        return False
+    normalized_uri = uri.removeprefix("file://").replace("\\", "/")
+    normalized_source = source_path.replace("\\", "/").lstrip("./")
+    return normalized_uri == normalized_source or normalized_uri.endswith(
+        "/" + normalized_source
+    )
+
+
+def _raw_sarif_issues(batch: dict[str, Any], document: Any) -> list[str]:
+    raw_key = "sarif"
+    if not isinstance(document, dict) or document.get("version") != "2.1.0":
+        return [_raw_issue(raw_key, "format_invalid", "sarif_version")]
+    runs = document.get("runs")
+    if not isinstance(runs, list) or not runs:
+        return [_raw_issue(raw_key, "format_invalid", "runs")]
+
+    records: dict[tuple[int, int], dict[str, Any]] = {}
+    issues: list[str] = []
+    provider_version = batch.get("provider", {}).get("version")
+    for run_index, run in enumerate(runs):
+        if not isinstance(run, dict):
+            issues.append(_raw_issue(raw_key, "format_invalid", f"run:{run_index}"))
+            continue
+        tool = run.get("tool")
+        driver = tool.get("driver", {}) if isinstance(tool, dict) else {}
+        if not isinstance(driver, dict) or not isinstance(driver.get("name"), str):
+            issues.append(
+                _raw_issue(raw_key, "format_invalid", f"tool:{run_index}")
+            )
+        observed_version = (
+            driver.get("semanticVersion")
+            if isinstance(driver, dict)
+            else None
+        ) or (driver.get("version") if isinstance(driver, dict) else None)
+        if observed_version != provider_version:
+            issues.append(
+                _raw_issue(raw_key, "content_mismatch", f"tool_version:{run_index}")
+            )
+        results = run.get("results")
+        if not isinstance(results, list):
+            issues.append(
+                _raw_issue(raw_key, "format_invalid", f"results:{run_index}")
+            )
+            continue
+        for result_index, result in enumerate(results):
+            if isinstance(result, dict):
+                records[(run_index, result_index)] = result
+            else:
+                issues.append(
+                    _raw_issue(
+                        raw_key,
+                        "format_invalid",
+                        f"result:{run_index}:{result_index}",
+                    )
+                )
+    if not records:
+        issues.append(_raw_issue(raw_key, "format_invalid", "results_empty"))
+
+    observations = batch.get("observations", [])
+    declared_keys: set[tuple[int, int]] = set()
+    for observation_index, observation in enumerate(observations):
+        if not isinstance(observation, dict):
+            issues.append(
+                _raw_issue(
+                    raw_key, "content_mismatch", f"observation:{observation_index}"
+                )
+            )
+            continue
+        semantic_key = observation.get("semantic_key")
+        match = (
+            re.fullmatch(r"sarif:(\d+):(\d+):(.+)", semantic_key)
+            if isinstance(semantic_key, str)
+            else None
+        )
+        if match is None:
+            issues.append(
+                _raw_issue(raw_key, "content_mismatch", f"semantic_key:{observation_index}")
+            )
+            continue
+        location = (int(match.group(1)), int(match.group(2)))
+        if location in declared_keys or location not in records:
+            issues.append(
+                _raw_issue(raw_key, "content_mismatch", f"result_ref:{observation_index}")
+            )
+            continue
+        declared_keys.add(location)
+        result = records[location]
+        rule_id = result.get("ruleId")
+        subject = observation.get("subject", {})
+        if not isinstance(subject, dict):
+            subject = {}
+        message = result.get("message")
+        if (
+            not isinstance(rule_id, str)
+            or rule_id != match.group(3)
+            or subject.get("label") != rule_id
+            or subject.get("qualified_name") != rule_id
+            or not isinstance(message, dict)
+            or not isinstance(message.get("text"), str)
+        ):
+            issues.append(
+                _raw_issue(raw_key, "content_mismatch", f"result_identity:{observation_index}")
+            )
+        locations = result.get("locations")
+        physical = (
+            locations[0].get("physicalLocation")
+            if isinstance(locations, list) and locations and isinstance(locations[0], dict)
+            else None
+        )
+        region = physical.get("region") if isinstance(physical, dict) else None
+        artifact_location = (
+            physical.get("artifactLocation") if isinstance(physical, dict) else None
+        )
+        occurrence = (
+            observation.get("occurrence", {})
+            if isinstance(observation, dict)
+            else {}
+        )
+        if not isinstance(occurrence, dict):
+            occurrence = {}
+        expected_coordinates = (
+            region.get("startLine"),
+            region.get("startColumn"),
+            region.get("endLine"),
+            region.get("endColumn"),
+        ) if isinstance(region, dict) else (None,) * 4
+        actual_coordinates = (
+            occurrence.get("start_line"),
+            occurrence.get("start_column"),
+            occurrence.get("end_line"),
+            occurrence.get("end_column"),
+        )
+        if actual_coordinates != expected_coordinates:
+            issues.append(
+                _raw_issue(raw_key, "content_mismatch", f"location:{observation_index}")
+            )
+        if not isinstance(artifact_location, dict) or not _source_uri_matches(
+            batch.get("source", {}).get("path"), artifact_location.get("uri")
+        ):
+            issues.append(
+                _raw_issue(raw_key, "content_mismatch", f"source:{observation_index}")
+            )
+    if len(observations) != len(records) or declared_keys != set(records):
+        issues.append(_raw_issue(raw_key, "content_mismatch", "result_coverage"))
+    return issues
+
+
+def _raw_sbom_issues(batch: dict[str, Any], document: Any) -> list[str]:
+    raw_key = "sbom"
+    if (
+        not isinstance(document, dict)
+        or document.get("bomFormat") != "CycloneDX"
+        or not isinstance(document.get("specVersion"), str)
+    ):
+        return [_raw_issue(raw_key, "format_invalid", "cyclonedx_header")]
+    components = document.get("components")
+    if not isinstance(components, list) or not components:
+        return [_raw_issue(raw_key, "format_invalid", "components")]
+    metadata = document.get("metadata")
+    tools_root = metadata.get("tools", {}) if isinstance(metadata, dict) else {}
+    tools = tools_root.get("components", []) if isinstance(tools_root, dict) else []
+    if not isinstance(tools, list):
+        return [_raw_issue(raw_key, "format_invalid", "tools")]
+    provider = batch.get("provider", {})
+    if not any(
+        isinstance(tool, dict)
+        and tool.get("name") == provider.get("id")
+        and tool.get("version") == provider.get("version")
+        for tool in tools
+    ):
+        return [_raw_issue(raw_key, "content_mismatch", "tool_identity")]
+
+    issues: list[str] = []
+    observations = batch.get("observations", [])
+    declared_indexes: set[int] = set()
+    for observation_index, observation in enumerate(observations):
+        if not isinstance(observation, dict):
+            issues.append(
+                _raw_issue(raw_key, "content_mismatch", f"observation:{observation_index}")
+            )
+            continue
+        semantic_key = observation.get("semantic_key")
+        match = (
+            re.fullmatch(r"component:(\d+):(.+)", semantic_key)
+            if isinstance(semantic_key, str)
+            else None
+        )
+        if match is None:
+            issues.append(
+                _raw_issue(raw_key, "content_mismatch", f"semantic_key:{observation_index}")
+            )
+            continue
+        component_index = int(match.group(1))
+        if component_index in declared_indexes or component_index >= len(components):
+            issues.append(
+                _raw_issue(raw_key, "content_mismatch", f"component_ref:{observation_index}")
+            )
+            continue
+        declared_indexes.add(component_index)
+        component = components[component_index]
+        subject = observation.get("subject", {})
+        if not isinstance(subject, dict):
+            subject = {}
+        name = component.get("name") if isinstance(component, dict) else None
+        version = component.get("version") if isinstance(component, dict) else None
+        expected_name = (
+            f"{name}@{version}"
+            if isinstance(version, str)
+            else name
+            if isinstance(name, str) and component.get("type") == "file"
+            else None
+        )
+        if (
+            not isinstance(name, str)
+            or match.group(2) != expected_name
+            or subject.get("label") != name
+            or subject.get("qualified_name") != expected_name
+        ):
+            issues.append(
+                _raw_issue(raw_key, "content_mismatch", f"component_identity:{observation_index}")
+            )
+    if len(observations) != len(components) or declared_indexes != set(range(len(components))):
+        issues.append(_raw_issue(raw_key, "content_mismatch", "component_coverage"))
+    return issues
+
+
+def _digest_hex(value: Any) -> str | None:
+    if not isinstance(value, str):
+        return None
+    candidate = value.removeprefix("sha256:")
+    return candidate if re.fullmatch(r"[0-9a-f]{64}", candidate) else None
+
+
+def _raw_in_toto_issues(
+    batch: dict[str, Any], document_text: str, artifact: dict[str, Any]
+) -> list[str]:
+    raw_key = "in_toto"
+    statements: list[dict[str, Any]] = []
+    issues: list[str] = []
+    for line_index, line in enumerate(document_text.splitlines()):
+        if not line.strip():
+            continue
+        try:
+            statement = json.loads(line)
+        except json.JSONDecodeError:
+            issues.append(_raw_issue(raw_key, "format_invalid", f"jsonl:{line_index}"))
+            continue
+        if not isinstance(statement, dict):
+            issues.append(_raw_issue(raw_key, "format_invalid", f"statement:{line_index}"))
+            continue
+        statements.append(statement)
+    if not statements:
+        return issues + [_raw_issue(raw_key, "format_invalid", "statements_empty")]
+
+    subjects: list[tuple[dict[str, Any], dict[str, Any]]] = []
+    byproducts: list[dict[str, Any]] = []
+    provider = batch.get("provider", {})
+    provider_config = provider.get("config", {}) if isinstance(provider, dict) else {}
+    expected_predicate_type = (
+        provider_config.get("predicate_type")
+        if isinstance(provider_config, dict)
+        else None
+    )
+    for statement_index, statement in enumerate(statements):
+        if statement.get("_type") != "https://in-toto.io/Statement/v1":
+            issues.append(_raw_issue(raw_key, "format_invalid", f"type:{statement_index}"))
+        if not isinstance(statement.get("predicateType"), str):
+            issues.append(_raw_issue(raw_key, "format_invalid", f"predicate:{statement_index}"))
+        elif expected_predicate_type and statement["predicateType"] != expected_predicate_type:
+            issues.append(_raw_issue(raw_key, "content_mismatch", f"predicate:{statement_index}"))
+        predicate = statement.get("predicate")
+        if not isinstance(predicate, dict):
+            issues.append(
+                _raw_issue(raw_key, "format_invalid", f"predicate_body:{statement_index}")
+            )
+            predicate = {}
+        statement_subjects = statement.get("subject")
+        if not isinstance(statement_subjects, list):
+            issues.append(_raw_issue(raw_key, "format_invalid", f"subjects:{statement_index}"))
+            continue
+        for subject in statement_subjects:
+            if isinstance(subject, dict):
+                subjects.append((subject, statement))
+            else:
+                issues.append(_raw_issue(raw_key, "format_invalid", f"subject:{statement_index}"))
+        run_details = predicate.get("runDetails", {})
+        if not isinstance(run_details, dict):
+            run_details = {}
+        if not run_details:
+            build_definition = predicate.get("buildDefinition", {})
+            if isinstance(build_definition, dict):
+                run_details = build_definition.get("runDetails", {})
+        if not isinstance(run_details, dict):
+            run_details = {}
+        statement_byproducts = run_details.get("byproducts", []) if isinstance(run_details, dict) else []
+        if isinstance(statement_byproducts, list):
+            byproducts.extend(
+                item for item in statement_byproducts if isinstance(item, dict)
+            )
+    observations = batch.get("observations", [])
+    declared_indexes: set[int] = set()
+    raw_subject_digests: set[str] = set()
+    for observation_index, (subject_record, _statement) in enumerate(subjects):
+        name = subject_record.get("name")
+        subject_digest = (
+            subject_record.get("digest", {}).get("sha256")
+            if isinstance(subject_record.get("digest"), dict)
+            else None
+        )
+        digest_hex = _digest_hex(subject_digest)
+        if not isinstance(name, str) or digest_hex is None:
+            issues.append(_raw_issue(raw_key, "format_invalid", f"subject_identity:{observation_index}"))
+            continue
+        raw_subject_digests.add(digest_hex)
+        observation = (
+            observations[observation_index]
+            if observation_index < len(observations)
+            and isinstance(observations[observation_index], dict)
+            else {}
+        )
+        semantic_key = observation.get("semantic_key")
+        match = (
+            re.fullmatch(r"provenance:subject:(\d+):(.+)", semantic_key)
+            if isinstance(semantic_key, str)
+            else None
+        )
+        subject = observation.get("subject", {})
+        if not isinstance(subject, dict):
+            subject = {}
+        if match is None:
+            issues.append(_raw_issue(raw_key, "content_mismatch", f"semantic_key:{observation_index}"))
+            continue
+        subject_index = int(match.group(1))
+        if subject_index in declared_indexes or subject_index != observation_index:
+            issues.append(_raw_issue(raw_key, "content_mismatch", f"subject_ref:{observation_index}"))
+        declared_indexes.add(subject_index)
+        source_digest = _digest_hex(batch.get("source", {}).get("content_digest"))
+        if (
+            match.group(2) != name
+            or subject.get("label") != name
+            or subject.get("qualified_name") != name
+            or (source_digest is not None and source_digest != digest_hex)
+        ):
+            issues.append(_raw_issue(raw_key, "content_mismatch", f"subject_identity:{observation_index}"))
+    if len(observations) != len(subjects) or declared_indexes != set(range(len(subjects))):
+        issues.append(_raw_issue(raw_key, "content_mismatch", "subject_coverage"))
+
+    artifact_digest = _digest_hex(artifact.get("sha256"))
+    if artifact_digest is not None and artifact_digest not in raw_subject_digests:
+        issues.append(_raw_issue(raw_key, "content_mismatch", "artifact_subject_digest"))
+    expected_subject_digest = _digest_hex(artifact.get("subject_digest"))
+    byproduct_digests: set[str] = set()
+    for item in byproducts:
+        digest_record = item.get("digest")
+        if isinstance(digest_record, dict):
+            digest = _digest_hex(digest_record.get("sha256"))
+            if digest is not None:
+                byproduct_digests.add(digest)
+    if expected_subject_digest is not None and expected_subject_digest not in byproduct_digests:
+        issues.append(_raw_issue(raw_key, "content_mismatch", "artifact_byproduct_digest"))
+    return issues
+
+
+def _raw_markdown_issues(batch: dict[str, Any], document_text: str) -> list[str]:
+    raw_key = "document_markdown"
+    if not document_text.strip() or "\x00" in document_text:
+        return [_raw_issue(raw_key, "format_invalid", "document_text")]
+    headings: list[tuple[int, str]] = []
+    for line_number, line in enumerate(document_text.splitlines(), start=1):
+        match = re.match(r"^#{1,6}[ \t]+(.+?)[ \t]*#*[ \t]*$", line)
+        if match:
+            label = match.group(1).strip()
+            if label:
+                headings.append((line_number, label))
+    if not headings:
+        return [_raw_issue(raw_key, "format_invalid", "headings_empty")]
+
+    issues: list[str] = []
+    observations = batch.get("observations", [])
+    declared_indexes: set[int] = set()
+    for observation_index, observation in enumerate(observations):
+        if not isinstance(observation, dict):
+            issues.append(
+                _raw_issue(raw_key, "content_mismatch", f"observation:{observation_index}")
+            )
+            continue
+        semantic_key = observation.get("semantic_key")
+        match = (
+            re.fullmatch(r"document:(\d+):heading:([0-9a-f]{16})", semantic_key)
+            if isinstance(semantic_key, str)
+            else None
+        )
+        if match is None:
+            issues.append(_raw_issue(raw_key, "content_mismatch", f"semantic_key:{observation_index}"))
+            continue
+        heading_index = int(match.group(1))
+        if heading_index in declared_indexes or heading_index >= len(headings):
+            issues.append(_raw_issue(raw_key, "content_mismatch", f"heading_ref:{observation_index}"))
+            continue
+        declared_indexes.add(heading_index)
+        line_number, label = headings[heading_index]
+        subject = observation.get("subject", {})
+        if not isinstance(subject, dict):
+            subject = {}
+        occurrence = observation.get("occurrence", {})
+        if not isinstance(occurrence, dict):
+            occurrence = {}
+        if (
+            match.group(2) != hashlib.sha256(label.encode("utf-8")).hexdigest()[:16]
+            or subject.get("label") != label
+            or not isinstance(subject.get("qualified_name"), str)
+            or not subject["qualified_name"].endswith(f"#{heading_index}")
+            or occurrence.get("start_line") != line_number
+            or occurrence.get("end_line") != line_number
+        ):
+            issues.append(_raw_issue(raw_key, "content_mismatch", f"heading_identity:{observation_index}"))
+    if len(observations) != len(headings) or declared_indexes != set(range(len(headings))):
+        issues.append(_raw_issue(raw_key, "content_mismatch", "heading_coverage"))
+    return issues
+
+
+def _raw_format_issues(
+    key: str,
+    batch: dict[str, Any],
+    raw_path: Path,
+    artifact: dict[str, Any],
+) -> list[str]:
+    raw_key = RAW_EVIDENCE_KEYS[key]
+    try:
+        raw_bytes = raw_path.read_bytes()
+        raw_text = raw_bytes.decode("utf-8")
+    except (OSError, UnicodeDecodeError):
+        return [_raw_issue(raw_key, "format_invalid", "utf8")]
+    if key == "static_security":
+        try:
+            document = json.loads(raw_text)
+        except json.JSONDecodeError:
+            return [_raw_issue(raw_key, "format_invalid", "json")]
+        return _raw_sarif_issues(batch, document)
+    if key == "software_components":
+        try:
+            document = json.loads(raw_text)
+        except json.JSONDecodeError:
+            return [_raw_issue(raw_key, "format_invalid", "json")]
+        return _raw_sbom_issues(batch, document)
+    if key == "artifact_provenance":
+        return _raw_in_toto_issues(batch, raw_text, artifact)
+    return _raw_markdown_issues(batch, raw_text)
+
+
 def _provider_execution_issues(
     key: str,
     batch: dict[str, Any],
     providers: Any,
     raw_evidence: Any,
     packet_path: Path,
+    artifact: dict[str, Any],
 ) -> list[str]:
     """Require provenance that the advertised provider output really exists.
 
@@ -176,6 +635,8 @@ def _provider_execution_issues(
                     issues.append(f"raw_evidence_digest_mismatch:{raw_key}")
             except OSError:
                 issues.append(f"raw_evidence_file_unreadable:{raw_key}")
+        if raw_path is not None:
+            issues.extend(_raw_format_issues(key, batch, raw_path, artifact))
     return issues
 
 
@@ -296,6 +757,7 @@ def validate(path: Path) -> dict[str, Any]:
                     payload.get("providers"),
                     payload.get("raw_evidence"),
                     path,
+                    payload.get("artifact", {}),
                 )
             )
             evidence[key] = {

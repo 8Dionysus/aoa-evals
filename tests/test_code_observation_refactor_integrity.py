@@ -149,6 +149,19 @@ def test_adjacent_provider_evidence_requires_all_unadmitted_classes(
     }
     for key, (provider_id, capability) in specs.items():
         symbol_kind, semantic_prefix = observation_specs[key]
+        semantic_key = {
+            "static_security": "sarif:0:0:fixture",
+            "software_components": "component:0:fixture@1.0.0",
+            "artifact_provenance": "provenance:subject:0:fixture",
+            "document_structure": (
+                "document:0:heading:"
+                + hashlib.sha256(b"fixture").hexdigest()[:16]
+            ),
+        }[key]
+        qualified_name = {
+            "software_components": "fixture@1.0.0",
+            "document_structure": "fixture#0",
+        }.get(key, "fixture")
         batches[key] = {
             "schema_version": "aoa-code-observation-v1",
             "capability_class": capability,
@@ -179,10 +192,10 @@ def test_adjacent_provider_evidence_requires_all_unadmitted_classes(
                     "capability_class": capability,
                     "observation_kind": "symbol",
                     "observation_id": f"{provider_id}:0",
-                    "semantic_key": semantic_prefix + "fixture",
+                    "semantic_key": semantic_key,
                     "subject": {
                         "label": "fixture",
-                        "qualified_name": "fixture",
+                        "qualified_name": qualified_name,
                         "symbol_id": semantic_prefix + "fixture",
                         "symbol_kind": symbol_kind,
                     },
@@ -227,9 +240,78 @@ def test_adjacent_provider_evidence_requires_all_unadmitted_classes(
         "claim_limits": adjacent_provider_evidence.CLAIM_LIMITS,
     }
     raw_contents = {
-        "sarif": b"fixture-sarif\n",
-        "sbom": b"fixture-sbom\n",
-        "in_toto": b"fixture-in-toto\n",
+        "sarif": json.dumps(
+            {
+                "version": "2.1.0",
+                "runs": [
+                    {
+                        "tool": {
+                            "driver": {
+                                "name": "Semgrep OSS",
+                                "semanticVersion": "1.0.0",
+                            }
+                        },
+                        "results": [
+                            {
+                                "ruleId": "fixture",
+                                "message": {"text": "fixture"},
+                                "locations": [
+                                    {
+                                        "physicalLocation": {
+                                            "artifactLocation": {"uri": "fixture.py"},
+                                            "region": {
+                                                "startLine": 1,
+                                                "startColumn": 1,
+                                                "endLine": 1,
+                                                "endColumn": 1,
+                                            },
+                                        }
+                                    }
+                                ],
+                            }
+                        ],
+                    }
+                ],
+            }
+        ).encode(),
+        "sbom": json.dumps(
+            {
+                "bomFormat": "CycloneDX",
+                "specVersion": "1.6",
+                "metadata": {
+                    "tools": {
+                        "components": [{"name": "syft", "version": "1.0.0"}]
+                    }
+                },
+                "components": [
+                    {"type": "library", "name": "fixture", "version": "1.0.0"}
+                ],
+            }
+        ).encode(),
+        "in_toto": (
+            json.dumps(
+                {
+                    "_type": "https://in-toto.io/Statement/v1",
+                    "predicateType": "https://slsa.dev/provenance/v1",
+                    "subject": [
+                        {"name": "fixture", "digest": {"sha256": "1" * 64}}
+                    ],
+                    "predicate": {
+                        "buildDefinition": {
+                            "runDetails": {
+                                "byproducts": [
+                                    {
+                                        "name": "artifact.subjects.json",
+                                        "digest": {"sha256": "2" * 64},
+                                    }
+                                ]
+                            }
+                        }
+                    },
+                }
+            )
+            + "\n"
+        ).encode(),
         "document_markdown": b"# fixture\n",
     }
     for key, contents in raw_contents.items():
@@ -243,6 +325,73 @@ def test_adjacent_provider_evidence_requires_all_unadmitted_classes(
     result = adjacent_provider_evidence.validate(path)
     assert result["issues"] == []
     assert result["verdict"] == "supports bounded adjacent-provider envelope evidence"
+    original_raw_evidence = copy.deepcopy(payload["raw_evidence"])
+
+    raw_paths = {
+        key: tmp_path / payload["raw_evidence"][key]["path"]
+        for key in raw_contents
+    }
+    original_raw_contents = {
+        key: raw_path.read_bytes() for key, raw_path in raw_paths.items()
+    }
+    sarif = json.loads(original_raw_contents["sarif"])
+    sarif["runs"][0]["results"][0]["ruleId"] = "other"
+    raw_paths["sarif"].write_text(json.dumps(sarif), encoding="utf-8")
+    payload["raw_evidence"]["sarif"]["sha256"] = (
+        "sha256:" + hashlib.sha256(raw_paths["sarif"].read_bytes()).hexdigest()
+    )
+    path.write_text(json.dumps(payload), encoding="utf-8")
+    assert "raw_evidence_content_mismatch:sarif:result_identity:0" in (
+        adjacent_provider_evidence.validate(path)["issues"]
+    )
+    raw_paths["sarif"].write_bytes(original_raw_contents["sarif"])
+    payload["raw_evidence"]["sarif"]["sha256"] = original_raw_evidence["sarif"][
+        "sha256"
+    ]
+
+    sbom = json.loads(original_raw_contents["sbom"])
+    sbom["components"][0]["version"] = "9.9.9"
+    raw_paths["sbom"].write_text(json.dumps(sbom), encoding="utf-8")
+    payload["raw_evidence"]["sbom"]["sha256"] = (
+        "sha256:" + hashlib.sha256(raw_paths["sbom"].read_bytes()).hexdigest()
+    )
+    path.write_text(json.dumps(payload), encoding="utf-8")
+    assert "raw_evidence_content_mismatch:sbom:component_identity:0" in (
+        adjacent_provider_evidence.validate(path)["issues"]
+    )
+    raw_paths["sbom"].write_bytes(original_raw_contents["sbom"])
+    payload["raw_evidence"]["sbom"]["sha256"] = original_raw_evidence["sbom"][
+        "sha256"
+    ]
+
+    in_toto = json.loads(original_raw_contents["in_toto"])
+    in_toto["subject"][0]["name"] = "other"
+    raw_paths["in_toto"].write_text(json.dumps(in_toto) + "\n", encoding="utf-8")
+    payload["raw_evidence"]["in_toto"]["sha256"] = (
+        "sha256:" + hashlib.sha256(raw_paths["in_toto"].read_bytes()).hexdigest()
+    )
+    path.write_text(json.dumps(payload), encoding="utf-8")
+    assert "raw_evidence_content_mismatch:in_toto:subject_identity:0" in (
+        adjacent_provider_evidence.validate(path)["issues"]
+    )
+    raw_paths["in_toto"].write_bytes(original_raw_contents["in_toto"])
+    payload["raw_evidence"]["in_toto"]["sha256"] = original_raw_evidence["in_toto"][
+        "sha256"
+    ]
+
+    raw_paths["document_markdown"].write_text("# other\n", encoding="utf-8")
+    payload["raw_evidence"]["document_markdown"]["sha256"] = (
+        "sha256:"
+        + hashlib.sha256(raw_paths["document_markdown"].read_bytes()).hexdigest()
+    )
+    path.write_text(json.dumps(payload), encoding="utf-8")
+    assert "raw_evidence_content_mismatch:document_markdown:heading_identity:0" in (
+        adjacent_provider_evidence.validate(path)["issues"]
+    )
+    raw_paths["document_markdown"].write_bytes(original_raw_contents["document_markdown"])
+    payload["raw_evidence"]["document_markdown"]["sha256"] = original_raw_evidence[
+        "document_markdown"
+    ]["sha256"]
 
     provider_metadata = payload["providers"]
     payload["providers"] = {}
@@ -1183,6 +1332,51 @@ def test_complete_provider_execution_binds_command_provenance(
     assert result.returncode == 1
     assert any(
         "execution_command_ref:execution[0]" in error
+        for error in json.loads(result.stdout)["errors"]
+    )
+
+
+def test_complete_provider_execution_rejects_run_command_ref_drift(
+    tmp_path: Path,
+) -> None:
+    envelope = complete_provider_execution_payload()
+    forged_command = "test://unrelated-executor"
+    envelope["run"]["command_ref"] = forged_command  # type: ignore[index]
+    for execution in envelope["executions"]:  # type: ignore[index]
+        execution["command_ref"] = forged_command
+    execution_path = tmp_path / "run-command-provenance-drift.json"
+    execution_path.write_text(json.dumps(envelope), encoding="utf-8")
+
+    result = run_runner("validate-provider-execution", str(execution_path))
+
+    assert result.returncode == 1
+    assert any(
+        "run_command_ref" in error
+        for error in json.loads(result.stdout)["errors"]
+    )
+
+
+def test_complete_provider_execution_rejects_fixture_unbound_config_digest(
+    tmp_path: Path,
+) -> None:
+    envelope = complete_provider_execution_payload()
+    forged_digest = "sha256:" + ("f" * 64)
+    envelope["provider"]["config_digest"] = forged_digest  # type: ignore[index]
+    for execution in envelope["executions"]:  # type: ignore[index]
+        state = execution["provider_state"]
+        state["config"]["digest"] = forged_digest
+        execution["state_digest"] = runner.canonical_digest(state)
+        execution["repeated_state_digest"] = runner.stable_provider_state_digest(
+            state
+        )
+    execution_path = tmp_path / "fixture-unbound-config.json"
+    execution_path.write_text(json.dumps(envelope), encoding="utf-8")
+
+    result = run_runner("validate-provider-execution", str(execution_path))
+
+    assert result.returncode == 1
+    assert any(
+        "execution_config_digest" in error
         for error in json.loads(result.stdout)["errors"]
     )
 

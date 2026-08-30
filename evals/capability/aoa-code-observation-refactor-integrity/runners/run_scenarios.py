@@ -474,7 +474,6 @@ def provider_case_observation_errors(
     before_keys = {_symbol_key(symbol) for symbol in before_symbols}
     after_keys = {_symbol_key(symbol) for symbol in after_symbols}
     expected_added_symbols = sorted(after_keys - before_keys)
-    expected_deleted_symbols = sorted(before_keys - after_keys)
 
     if observation.get("operation") != fixture_case["operation"]:
         errors = [issue("case_operation", f"{case_id}:{fixture_case['operation']}")]
@@ -582,8 +581,13 @@ def provider_case_observation_errors(
             or confidence != expected_confidence
         ):
             errors.append(issue("case_lineage_confidence", case_id))
-    elif lineage.get("stable_ids"):
-        errors.append(issue("case_lineage_not_applicable", case_id))
+    elif expected_lineage == "not-applicable":
+        if (
+            lineage.get("stable_ids")
+            or lineage.get("alternatives") != 0
+            or lineage.get("confidence") != 1
+        ):
+            errors.append(issue("case_lineage_not_applicable", case_id))
 
     freshness = observation.get("freshness", {})
     if freshness.get("observed_source_epoch") != after_epoch:
@@ -920,7 +924,17 @@ def provider_execution_errors(
             errors.append(issue("state_provider_version", location))
         if state_config.get("digest") != provider["config_digest"]:
             errors.append(issue("state_config_digest", location))
-        if state_source.get("source_epoch") != execution["source_epoch"]:
+        expected_state_source_epoch = execution["source_epoch"]
+        if complete_coverage:
+            execution_scenario = execution_cases.get(case_id)
+            if execution_scenario is not None:
+                indexed_tree = (
+                    execution_scenario["before"]
+                    if case_id == "stale-index"
+                    else execution_scenario["after"]
+                )
+                expected_state_source_epoch = source_snapshot_digest(indexed_tree)
+        if state_source.get("source_epoch") != expected_state_source_epoch:
             errors.append(issue("state_source_epoch", location))
         if state_freshness.get("source_epoch") != execution["source_epoch"]:
             errors.append(issue("freshness_source_epoch", location))
@@ -1056,8 +1070,11 @@ def provider_execution_errors(
                     [*changed, *added, *deleted, *dependency_impacted]
                 )
                 expected_universe = set(scenario["before"]) | set(scenario["after"])
+                indexed_tree = (
+                    scenario["before"] if case_id == "stale-index" else scenario["after"]
+                )
                 expected_projection_digest = canonical_digest(
-                    source_projection(scenario["after"])
+                    source_projection(indexed_tree)
                 )
                 if state_source.get("projection_digest") != expected_projection_digest:
                     errors.append(issue("execution_projection_digest", location))
@@ -1389,6 +1406,18 @@ def semantic_case_issues(
                 issue(
                     "preserved_lineage_not_certain",
                     f"{case_id} requires high confidence and no alternatives",
+                )
+            )
+    elif case["expected_lineage"] == "not-applicable":
+        if (
+            lineage.get("stable_ids")
+            or lineage.get("alternatives") != 0
+            or lineage.get("confidence") != 1
+        ):
+            errors.append(
+                issue(
+                    "lineage_not_applicable_uncertain",
+                    f"{case_id} requires no lineage alternatives",
                 )
             )
 

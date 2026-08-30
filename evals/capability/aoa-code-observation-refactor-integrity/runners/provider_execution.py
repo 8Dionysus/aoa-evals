@@ -87,8 +87,18 @@ def delta_source_index(
     """Build the incremental projection through reuse plus invalidation."""
 
     before_index = source_index(before)
-    after_index = source_index(after)
     invalidated_set = set(invalidated)
+    # Keep the after-side provider work bounded to the invalidation set.  The
+    # before index is the reusable baseline; parsing the complete after tree
+    # here would make the emitted reuse and incremental-cost evidence
+    # tautological even though the final projection happened to match.
+    after_index = source_index(
+        {
+            path: after[path]
+            for path in sorted(invalidated_set)
+            if path in after
+        }
+    )
     symbols = [
         symbol
         for symbol in before_index["symbols"]
@@ -288,7 +298,11 @@ def _case_execution(
             "provider": provider,
             "config": {"digest": config_digest},
             "source": {
-                "source_epoch": after_epoch,
+                # The indexed projection belongs to the indexed epoch.  In
+                # the stale-index case this is deliberately the before
+                # snapshot, while the LIVE freshness record below continues
+                # to expose the newer observed working-tree epoch.
+                "source_epoch": indexed_epoch,
                 "projection_digest": projection_digest(observed_index),
             },
             "invalidation": invalidation,
@@ -313,11 +327,18 @@ def _case_execution(
     # files and recompute only the invalidated after paths.  The repeated
     # digest is evidence from a second execution of that same path, not a
     # second hash of the first state object.
-    projection_runner = (
-        (lambda: execute_projection_once(after))
-        if full_rebuild
-        else (lambda: delta_source_index(before, after, invalidated))
-    )
+    if stale:
+        # A stale index must be an actual read of the prior indexed snapshot;
+        # relabelling a freshly parsed after-tree as degraded is not stale
+        # evidence.
+        def projection_runner() -> dict[str, Any]:
+            return execute_projection_once(before)
+    elif full_rebuild:
+        def projection_runner() -> dict[str, Any]:
+            return execute_projection_once(after)
+    else:
+        def projection_runner() -> dict[str, Any]:
+            return delta_source_index(before, after, invalidated)
     first_projection = projection_runner()
     repeated_projection = projection_runner()
     state = build_state(first_projection)

@@ -151,7 +151,26 @@ def test_adjacent_provider_evidence_requires_all_unadmitted_classes(
         batches[key] = {
             "schema_version": "aoa-code-observation-v1",
             "capability_class": capability,
-            "provider": {"id": provider_id, "lane": {"status": "supplied_unadmitted"}},
+            "provider": {
+                "id": provider_id,
+                "version": "1.0.0",
+                "config_digest": "sha256:" + "0" * 64,
+                "lane": {"id": provider_id, "status": "supplied_unadmitted"},
+            },
+            "currentness": {
+                "provider": {
+                    "id": provider_id,
+                    "version": "1.0.0",
+                    "config_digest": "sha256:" + "0" * 64,
+                }
+            },
+            "provenance": {
+                "extractor_ref": f"fixture:{provider_id}",
+                "parser_ref": f"{provider_id}@1.0.0",
+                "source_refs": [
+                    {"repo": "fixture", "path": "fixture", "role": "primary_source"}
+                ],
+            },
             "source": {"source_epoch": source_epoch},
             "parse_status": "parsed",
             "observations": [
@@ -189,7 +208,19 @@ def test_adjacent_provider_evidence_requires_all_unadmitted_classes(
             "signature_status": "missing",
             "admission_status": "not_admitted",
         },
-        "providers": {},
+        "providers": {
+            provider_id: {"version": "1.0.0", "runtime_posture": "candidate_unadmitted"}
+            for provider_id, _capability in specs.values()
+        },
+        "raw_evidence": {
+            "sarif": {"path": "sarif.json", "sha256": "sha256:" + "1" * 64},
+            "sbom": {"path": "sbom.json", "sha256": "sha256:" + "2" * 64},
+            "in_toto": {"path": "provenance.jsonl", "sha256": "sha256:" + "3" * 64},
+            "document_markdown": {
+                "path": "document.md",
+                "sha256": "sha256:" + "4" * 64,
+            },
+        },
         "batches": batches,
         "summary": {"all_provider_lanes_unadmitted": True},
         "claim_limits": adjacent_provider_evidence.CLAIM_LIMITS,
@@ -199,6 +230,20 @@ def test_adjacent_provider_evidence_requires_all_unadmitted_classes(
     result = adjacent_provider_evidence.validate(path)
     assert result["issues"] == []
     assert result["verdict"] == "supports bounded adjacent-provider envelope evidence"
+
+    provider_metadata = payload["providers"]
+    payload["providers"] = {}
+    path.write_text(json.dumps(payload), encoding="utf-8")
+    result = adjacent_provider_evidence.validate(path)
+    assert any(issue.startswith("schema:providers") for issue in result["issues"])
+    payload["providers"] = provider_metadata
+
+    raw_evidence = payload["raw_evidence"]
+    payload["raw_evidence"] = {}
+    path.write_text(json.dumps(payload), encoding="utf-8")
+    result = adjacent_provider_evidence.validate(path)
+    assert any(issue.startswith("schema:raw_evidence") for issue in result["issues"])
+    payload["raw_evidence"] = raw_evidence
 
     payload["claim_limits"] = ["This packet proves provider correctness."] * 3
     path.write_text(json.dumps(payload), encoding="utf-8")
@@ -439,6 +484,23 @@ def test_report_rejects_inflated_branch_count_and_inconsistent_confidence(
     assert any(
         "lineage_ambiguity_mismatch:split-symbol" in error
         for error in json.loads(result.stdout)["errors"]
+    )
+
+
+def test_report_rejects_uncertain_not_applicable_lineage(tmp_path: Path) -> None:
+    report = json.loads(EXAMPLE.read_text(encoding="utf-8"))
+    lineage = report["observations"][3]["lineage"]
+    lineage["alternatives"] = 2
+    lineage["confidence"] = 0.5
+    path = tmp_path / "not-applicable-lineage.json"
+    path.write_text(json.dumps(report), encoding="utf-8")
+
+    result = run_runner("validate-report", str(path))
+
+    assert result.returncode == 1
+    errors = json.loads(result.stdout)["errors"]
+    assert any(
+        "lineage_not_applicable_uncertain:add-entity" in error for error in errors
     )
 
 
@@ -836,6 +898,29 @@ def test_provider_execution_exercises_delta_path_for_delta_cases(monkeypatch) ->
     assert len(delta_calls) == 3
 
 
+def test_delta_projection_parses_only_invalidated_after_paths(monkeypatch) -> None:
+    before = {
+        "src/changed.py": ["def value():", "    return 1"],
+        "src/reused.py": ["def reused():", "    return 2"],
+    }
+    after = {
+        "src/changed.py": ["def value():", "    return 3"],
+        "src/reused.py": ["def reused():", "    return 2"],
+    }
+    calls = []
+    real_source_index = provider_execution.source_index
+
+    def record_source_index(tree):
+        calls.append(set(tree))
+        return real_source_index(tree)
+
+    monkeypatch.setattr(provider_execution, "source_index", record_source_index)
+
+    provider_execution.delta_source_index(before, after, ["src/changed.py"])
+
+    assert calls == [{"src/changed.py", "src/reused.py"}, {"src/changed.py"}]
+
+
 def test_provider_execution_rejects_added_deleted_record_drift(tmp_path: Path) -> None:
     envelope = complete_provider_execution_payload()
     add_execution = next(
@@ -983,6 +1068,27 @@ def test_complete_provider_execution_rejects_inflated_split_lineage(
     )
     assert any(
         "execution[7]:case_lineage_confidence" in error for error in errors
+    )
+
+
+def test_complete_provider_execution_rejects_uncertain_not_applicable_lineage(
+    tmp_path: Path,
+) -> None:
+    envelope = complete_provider_execution_payload()
+    add_execution = next(
+        item for item in envelope["executions"] if item["case_id"] == "add-entity"
+    )
+    add_execution["observation"]["lineage"]["alternatives"] = 2
+    add_execution["observation"]["lineage"]["confidence"] = 0.5
+    execution_path = tmp_path / "uncertain-not-applicable-lineage.json"
+    execution_path.write_text(json.dumps(envelope), encoding="utf-8")
+
+    result = run_runner("validate-provider-execution", str(execution_path))
+
+    assert result.returncode == 1
+    errors = json.loads(result.stdout)["errors"]
+    assert any(
+        "execution[3]:case_lineage_not_applicable" in error for error in errors
     )
 
 
@@ -1252,7 +1358,26 @@ def test_adjacent_provider_evidence_rejects_placeholder_observation(
         key: {
             "schema_version": "aoa-code-observation-v1",
             "capability_class": capability,
-            "provider": {"id": provider_id, "lane": {"status": "supplied_unadmitted"}},
+            "provider": {
+                "id": provider_id,
+                "version": "1.0.0",
+                "config_digest": "sha256:" + "0" * 64,
+                "lane": {"id": provider_id, "status": "supplied_unadmitted"},
+            },
+            "currentness": {
+                "provider": {
+                    "id": provider_id,
+                    "version": "1.0.0",
+                    "config_digest": "sha256:" + "0" * 64,
+                }
+            },
+            "provenance": {
+                "extractor_ref": f"fixture:{provider_id}",
+                "parser_ref": f"{provider_id}@1.0.0",
+                "source_refs": [
+                    {"repo": "fixture", "path": "fixture", "role": "primary_source"}
+                ],
+            },
             "source": {"source_epoch": source_epoch},
             "parse_status": "parsed",
             "observations": [{}],
@@ -1271,7 +1396,19 @@ def test_adjacent_provider_evidence_rejects_placeholder_observation(
             "signature_status": "missing",
             "admission_status": "not_admitted",
         },
-        "providers": {},
+        "providers": {
+            provider_id: {"version": "1.0.0", "runtime_posture": "candidate_unadmitted"}
+            for provider_id, _capability in specs.values()
+        },
+        "raw_evidence": {
+            "sarif": {"path": "sarif.json", "sha256": "sha256:" + "1" * 64},
+            "sbom": {"path": "sbom.json", "sha256": "sha256:" + "2" * 64},
+            "in_toto": {"path": "provenance.jsonl", "sha256": "sha256:" + "3" * 64},
+            "document_markdown": {
+                "path": "document.md",
+                "sha256": "sha256:" + "4" * 64,
+            },
+        },
         "batches": batches,
         "summary": {"all_provider_lanes_unadmitted": True},
         "claim_limits": adjacent_provider_evidence.CLAIM_LIMITS,

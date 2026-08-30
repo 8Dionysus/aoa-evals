@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import hashlib
 import json
+import re
 from pathlib import Path
 from typing import Any
 
@@ -37,6 +38,91 @@ CLAIM_LIMITS = [
     "Candidate execution does not establish artifact admission or deployed runtime availability.",
     "The packet does not establish scanner completeness, SBOM completeness, document fidelity, semantic proof, landing, or owner acceptance.",
 ]
+RAW_EVIDENCE_KEYS = {
+    "static_security": "sarif",
+    "software_components": "sbom",
+    "artifact_provenance": "in_toto",
+    "document_structure": "document_markdown",
+}
+EXPECTED_PROVIDER_IDS = {provider_id for provider_id, _ in EXPECTED.values()}
+# Adjacent batches predate the envelope's ``sha256:``-qualified artifact
+# references and carry their provider configuration digest as raw hex.  Keep
+# accepting both representations while requiring a complete cryptographic
+# digest rather than an arbitrary non-empty token.
+_DIGEST_RE = re.compile(r"^(?:sha256:)?[0-9a-f]{64}$")
+
+
+def _provider_execution_issues(
+    key: str,
+    batch: dict[str, Any],
+    providers: Any,
+    raw_evidence: Any,
+) -> list[str]:
+    """Require provenance that the advertised provider output really exists.
+
+    The batch itself carries the normalized observation, but a positive
+    adjacent-provider result also claims actual candidate output.  Keep that
+    claim bound to a provider version/configuration, parser provenance, and a
+    digest-bearing raw output reference.  An empty top-level provider map must
+    therefore never be enough for a positive result.
+    """
+
+    provider_id, _capability_class = EXPECTED[key]
+    issues: list[str] = []
+    provider = batch.get("provider", {})
+    provider_meta = providers.get(provider_id) if isinstance(providers, dict) else None
+    if not isinstance(provider_meta, dict):
+        issues.append(f"provider_provenance_missing:{provider_id}")
+    else:
+        runtime_version = provider_meta.get("version")
+        batch_version = provider.get("version")
+        if not isinstance(runtime_version, str) or not runtime_version.strip():
+            issues.append(f"provider_version_missing:{provider_id}")
+        elif not isinstance(batch_version, str) or not batch_version.strip():
+            issues.append(f"provider_version_missing:{provider_id}")
+        elif runtime_version not in batch_version and batch_version not in runtime_version:
+            issues.append(f"provider_version_mismatch:{provider_id}")
+        if not isinstance(provider_meta.get("runtime_posture"), str) or not provider_meta[
+            "runtime_posture"
+        ].strip():
+            issues.append(f"provider_runtime_posture_missing:{provider_id}")
+
+    config_digest = provider.get("config_digest")
+    if not isinstance(config_digest, str) or _DIGEST_RE.fullmatch(config_digest) is None:
+        issues.append(f"provider_config_missing:{provider_id}")
+    lane = provider.get("lane")
+    if not isinstance(lane, dict) or lane.get("id") != provider_id:
+        issues.append(f"provider_lane_identity_missing:{provider_id}")
+    currentness = batch.get("currentness")
+    if not isinstance(currentness, dict) or currentness.get("provider") != {
+        "id": provider_id,
+        "version": provider.get("version"),
+        "config_digest": config_digest,
+    }:
+        issues.append(f"provider_currentness_mismatch:{provider_id}")
+
+    provenance = batch.get("provenance")
+    if not isinstance(provenance, dict):
+        issues.append(f"provider_execution_provenance_missing:{provider_id}")
+    else:
+        for field in ("extractor_ref", "parser_ref"):
+            value = provenance.get(field)
+            if not isinstance(value, str) or not value.strip():
+                issues.append(f"provider_execution_{field}_missing:{provider_id}")
+        source_refs = provenance.get("source_refs")
+        if not isinstance(source_refs, list) or not source_refs:
+            issues.append(f"provider_execution_source_refs_missing:{provider_id}")
+
+    raw_key = RAW_EVIDENCE_KEYS[key]
+    raw_ref = raw_evidence.get(raw_key) if isinstance(raw_evidence, dict) else None
+    if not isinstance(raw_ref, dict):
+        issues.append(f"raw_evidence_missing:{raw_key}")
+    else:
+        if not isinstance(raw_ref.get("path"), str) or not raw_ref["path"].strip():
+            issues.append(f"raw_evidence_path_missing:{raw_key}")
+        if _DIGEST_RE.fullmatch(str(raw_ref.get("sha256", ""))) is None:
+            issues.append(f"raw_evidence_digest_missing:{raw_key}")
+    return issues
 
 
 def _observation_issue(key: str, observation: Any) -> str | None:
@@ -149,6 +235,14 @@ def validate(path: Path) -> dict[str, Any]:
                     issues.append(
                         f"invalid_observation:{provider_id}:{observation_index}:{observation_issue}"
                     )
+            issues.extend(
+                _provider_execution_issues(
+                    key,
+                    batch,
+                    payload.get("providers"),
+                    payload.get("raw_evidence"),
+                )
+            )
             evidence[key] = {
                 "provider_id": provider_id,
                 "capability_class": capability_class,

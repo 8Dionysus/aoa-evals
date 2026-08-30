@@ -1,0 +1,20 @@
+{
+  "contract_version": 1,
+  "runner_surface_path": "evals/comparison/fixed-baseline/aoa-continuity-capsule-compaction/runners/run_continuity_capsule_compaction.py",
+  "inputs": [
+    "versioned paired continuity capsule packet",
+    "canonical continuity_capsule_v1 baseline object",
+    "portable continuity capsule materialization",
+    "private continuity capsule materialization"
+  ],
+  "fixture_contract_paths": [
+    "evals/comparison/fixed-baseline/aoa-continuity-capsule-compaction/fixtures/contract.json"
+  ],
+  "scorer_helper_paths": [],
+  "report_schema_path": "evals/comparison/fixed-baseline/aoa-continuity-capsule-compaction/reports/summary.schema.json",
+  "report_example_path": "evals/comparison/fixed-baseline/aoa-continuity-capsule-compaction/reports/example-report.json",
+  "paired_readout_path": "mechanics/comparison-spine/parts/fixed-baseline/reports/same-task-baseline-proof-flow-v1.md",
+  "validation_commands": [
+    "python scripts/validate_repo.py --eval aoa-continuity-capsule-compaction"
+  ]
+}

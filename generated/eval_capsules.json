@@ -462,6 +462,47 @@
       "what_this_does_not_prove": "proof of autonomy; proof of permanent route health; proof that memo or stats may speak more strongly than the anchor"
     },
     {
+      "blind_spot_short": "raw session-memory capture or source watermark freshness; actual hook or trigger behavior; SDK continuation or runtime reinjection execution",
+      "bounded_claim_short": "For a schema-valid paired packet, the runner can report whether the named capsule fields and protected-tail posture are preserved from one canonical capsule into its portable and private...",
+      "capability_dependencies": [],
+      "capability_refs": [],
+      "category": "comparative",
+      "comparison_surface": {
+        "anchor_surface": "aoa-regression-same-task",
+        "baseline_target_label": "canonical continuity capsule before materialization",
+        "integrity_sidecar": "aoa-eval-integrity-check",
+        "paired_readout_path": "mechanics/comparison-spine/parts/fixed-baseline/reports/same-task-baseline-proof-flow-v1.md",
+        "selection_question": "Do you need a fixed-baseline field-preservation route for portable and private continuity capsule materializations?",
+        "shared_family_path": "mechanics/comparison-spine/parts/fixed-baseline/fixtures/frozen-same-task-v1/README.md"
+      },
+      "do_not_use_short": "the question is runtime activation or live session recovery; the input is raw private transcript or host telemetry",
+      "eval_path": "evals/comparison/fixed-baseline/aoa-continuity-capsule-compaction/EVAL.md",
+      "evidence_kinds": [
+        "origin_need",
+        "support_note",
+        "baseline_readiness",
+        "integrity_check"
+      ],
+      "name": "aoa-continuity-capsule-compaction",
+      "proof_artifact_short": "fixture contract; shared fixture family; runner contract; schema-backed report",
+      "proof_surface_kinds": [
+        "fixture_contract",
+        "shared_fixture_family",
+        "runner_contract",
+        "report_schema",
+        "paired_readout"
+      ],
+      "skill_dependencies": [],
+      "skill_refs": [],
+      "status": "draft",
+      "summary": "Checks field-level continuity preservation across a paired portable and private capsule materialization without turning a synthetic contract run into runtime or economy proof.",
+      "technique_dependencies": [],
+      "technique_refs": [],
+      "use_when_short": "a compaction contract needs a paired, field-level preservation readout; portable and private views must be compared without exposing protected-tail",
+      "verdict_shape": "comparative",
+      "what_this_does_not_prove": "proof that the baseline or candidate ran in a live runtime; evidence of a provider, model, or host quality difference; evidence of economy improvement or a promotion recommendation"
+    },
+    {
       "blind_spot_short": "the cause is ultimately correct; the repair worked; the final object is high quality",
       "bounded_claim_short": "under these conditions, the diagnosis named plausible causal hypotheses and evidence limits without collapsing symptoms, owner ambiguity, repair success, or later cleanup into cause proof.",
       "capability_dependencies": [

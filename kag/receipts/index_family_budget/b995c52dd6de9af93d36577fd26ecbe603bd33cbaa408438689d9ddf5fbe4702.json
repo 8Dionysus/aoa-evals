@@ -1,0 +1,17 @@
+{
+  "allowed_bytes": 11189035,
+  "allowed_tracked_bytes": 27759496,
+  "approved_by": "repository-owner",
+  "base_ref": "13841f6be1fba71d1b5db4cfb006dd03381eb22c",
+  "changed_generated_bytes": 11189035,
+  "changed_generated_files": 165,
+  "decision_ref": "aoa-kag:docs/decisions/AOA-KAG-D-0017-portable-content-addressed-repository-family.md",
+  "default_limit_bytes": 1048576,
+  "head_family_digest": "b995c52dd6de9af93d36577fd26ecbe603bd33cbaa408438689d9ddf5fbe4702",
+  "reason": "add D3 continuity capsule compaction eval contract",
+  "repo": "aoa-evals",
+  "schema_version": "aoa-repo-local-kag-budget-receipt-v1",
+  "scope": "generated_delta_and_tracked_size",
+  "tracked_bytes": 27759496,
+  "tracked_bytes_max": 26214400
+}

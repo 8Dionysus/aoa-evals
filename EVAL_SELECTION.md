@@ -49,6 +49,7 @@ This surface prefers:
 | `aoa-witness-trace-integrity` | draft | You need a bounded run checked for a reviewable witness trace before memo or compost use. |
 | `aoa-regression-same-task` | baseline | You need frozen-baseline comparison on the same bounded task family. |
 | `aoa-runtime-latency-tradeoff` | draft | You need a public-safe runtime latency and resource-use tradeoff read under matched fixture conditions. |
+| `aoa-continuity-capsule-compaction` | draft | You need field-level preservation checked across paired portable and private continuity capsule materializations. |
 | `aoa-memo-active-organ-offline-replay` | draft | You need a pinned public-safe causal comparison of memory-disabled, pull-only, monolithic sandbox, and federated policy-gated memory. |
 | `aoa-artifact-review-rubric` | portable | You need the produced artifact judged on the visible task surface. |
 | `aoa-compost-provenance-preservation` | draft | You need witness-derived compost checked for provenance and review posture. |
@@ -221,6 +222,13 @@ See also:
 - `aoa-runtime-latency-tradeoff`
   Keep this as a draft runtime tradeoff surface. It may carry selected public-safe runtime evidence, but it does not rank reasoning quality, agent behavior, hosts, or hardware tiers.
 
+### Do you need a fixed-baseline field-preservation route for portable and private continuity capsule materializations?
+- `aoa-continuity-capsule-compaction`
+  Use this draft contract to compare one canonical `continuity_capsule_v1`
+  with its paired portable and private views. It checks exact fields, refs,
+  digests, and protected-tail posture, but it does not prove live compaction,
+  runtime reinjection, semantic continuity, economy, promotion, or acceptance.
+
 ### Do you need a fixed-baseline contract that admits method-effect observations only when identity, evidence, cache, and resource posture are matched?
 - `aoa-identity-bound-method-comparison`
   Use this draft ABI when a validation-method comparison needs the complete
@@ -260,7 +268,7 @@ See also:
 | `stress` | You care about incomplete, conflicting, or underspecified task meaning, or about one bounded owner-local stressor family and whether degraded continuation stayed reviewable, source-owned, and weaker than the normal path. | `aoa-ambiguity-handling`, `aoa-antifragility-posture` |
 | `regression` | You care about frozen-baseline comparison on the same bounded task family. | `aoa-regression-same-task` |
 | `artifact` | You care about the produced artifact itself or about provenance-preserving compost artifacts derived from witness-facing inputs. | `aoa-artifact-review-rubric`, `aoa-compost-provenance-preservation` |
-| `comparative` | You care about cross-surface divergence, a public-safe runtime latency/resource tradeoff, an identity-bound validation-method comparison, or a pinned active-memory architecture comparison under matched conditions. | `aoa-output-vs-process-gap`, `aoa-runtime-latency-tradeoff`, `aoa-identity-bound-method-comparison`, `aoa-memo-active-organ-offline-replay` |
+| `comparative` | You care about cross-surface divergence, a public-safe runtime latency/resource tradeoff, field preservation across paired continuity capsule materializations, an identity-bound validation-method comparison, or a pinned active-memory architecture comparison under matched conditions. | `aoa-output-vs-process-gap`, `aoa-runtime-latency-tradeoff`, `aoa-continuity-capsule-compaction`, `aoa-identity-bound-method-comparison`, `aoa-memo-active-organ-offline-replay` |
 | `capability` | You care about whether a bounded eval-side review surface is present, such as integrity checking of public eval bundles, growth-refinery lineage coherence, or continuity-anchor integrity as distinct bounded abilities. | `aoa-eval-integrity-check`, `aoa-candidate-lineage-integrity`, `aoa-continuity-anchor-integrity` |
 | `longitudinal` | You care about ordered repeated-window movement on the same bounded surface, or about repeated-window stress recovery posture on one named stressor family; one-run and baseline questions route to their own surfaces. | `aoa-longitudinal-growth-snapshot`, `aoa-stress-recovery-window` |
 
@@ -283,6 +291,9 @@ explicit `canonical_readiness`, and a fresh public-safety recheck.
 Prefer `aoa-regression-same-task` when you need the first public `baseline` same-task comparison surface.
 Use `aoa-output-vs-process-gap` when you need artifact-side versus process-side peer comparison on the same bounded cases after the standalone artifact and workflow surfaces are already readable.
 Use `aoa-runtime-latency-tradeoff` when selected runtime evidence needs a fixed-baseline public-safe route for latency/resource tradeoff without becoming a quality or leaderboard claim.
+Use `aoa-continuity-capsule-compaction` when one canonical continuity capsule
+needs a draft fixed-baseline read of paired portable/private field preservation
+without turning the packet into live runtime, semantic, or economy proof.
 Use `aoa-memo-active-organ-offline-replay` when the causal question is whether
 federated policy-gated memory has bounded net benefit over verified no-memory
 and reviewed pull-only baselines without turning symbolic or shadow evidence
@@ -330,6 +341,7 @@ Trace-aware split and tool-path workflow starters are also public; use the narro
 | diagnosis-cause discipline | You want to know whether a diagnosis kept symptoms, probable causes, owner ambiguity, unknowns, and repair proof separate. | `aoa-diagnosis-cause-discipline` |
 | same-task regression comparison | You want a frozen-baseline comparison on the same bounded task family. | `aoa-regression-same-task` |
 | runtime latency/resource tradeoff | You want a public-safe fixed-baseline read on local runtime latency and resource use under matched fixture conditions. | `aoa-runtime-latency-tradeoff` |
+| continuity capsule field preservation | You want a draft fixed-baseline read of exact canonical, portable, and private capsule parity with the protected tail kept private. | `aoa-continuity-capsule-compaction` |
 | artifact review | You want to judge the produced artifact itself on the visible task surface. | `aoa-artifact-review-rubric` |
 | compost provenance preservation | You want to know whether a witness-derived note or principle candidate kept provenance, review state, and demotion posture visible. | `aoa-compost-provenance-preservation` |
 | output-vs-process divergence | You want to compare artifact-side and process-side readings on the same bounded cases. | `aoa-output-vs-process-gap` |

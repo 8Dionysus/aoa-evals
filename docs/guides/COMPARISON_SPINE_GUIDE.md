@@ -35,6 +35,7 @@ The current public ladder is:
 Current public comparison bundles:
 - `aoa-regression-same-task`
 - `aoa-runtime-latency-tradeoff`
+- `aoa-continuity-capsule-compaction`
 - `aoa-identity-bound-method-comparison`
 - `aoa-memo-active-organ-offline-replay`
 - `aoa-output-vs-process-gap`
@@ -46,6 +47,9 @@ This ladder is intentionally asymmetric:
 - `aoa-regression-same-task` is the first and only public `baseline` default
 - `aoa-runtime-latency-tradeoff` remains a draft fixed-baseline runtime
   tradeoff surface and is not a public default baseline
+- `aoa-continuity-capsule-compaction` remains a draft fixed-baseline
+  field-preservation surface; it does not prove live compaction or runtime
+  continuity
 - `aoa-identity-bound-method-comparison` remains a draft fixed-baseline ABI
   surface; it admits only identity- and parity-matched observation shapes and
   does not issue method-effect or winner claims
@@ -63,6 +67,7 @@ This ladder is intentionally asymmetric:
 Current bundle:
 - `aoa-regression-same-task`
 - `aoa-runtime-latency-tradeoff`
+- `aoa-continuity-capsule-compaction`
 - `aoa-identity-bound-method-comparison`
 - `aoa-memo-active-organ-offline-replay`
 
@@ -73,6 +78,8 @@ Use when:
 - or selected runtime evidence needs a public-safe latency/resource tradeoff
   read without becoming reasoning-quality, agent-quality, host, or hardware
   ranking
+- or one canonical continuity capsule needs a paired portable/private
+  field-preservation read while protected-tail bytes remain private
 - or a future method comparison needs an explicit workload, source/candidate,
   environment, treatment, evidence, acceptance, cache, and resource identity
   contract before any observation row can be admitted
@@ -174,6 +181,7 @@ Shared public read-order artifact:
 | runtime resource cost hidden behind a winner label | `aoa-runtime-latency-tradeoff` support notes and report schema |
 | method-effect row without exact identity or parity | `aoa-identity-bound-method-comparison` apply ABI and unmatched disposition |
 | synthetic or controlled latency treated as observed method performance | `aoa-identity-bound-method-comparison` report schema and evidence-class boundary |
+| capsule field parity treated as live compaction proof | `aoa-continuity-capsule-compaction` claim boundary plus runtime-owner evidence |
 | symbolic active-memory result as production or policy authority | `aoa-memo-active-organ-offline-replay` claim limit plus owner review |
 | monolithic architecture B confused with C22 pull-only arm B | `aoa-memo-active-organ-offline-replay` label translation and secondary-arm manifest |
 | integrity sidecar success as direct agent-quality proof | underlying comparison bundle plus integrity sidecar route |
@@ -183,6 +191,7 @@ Shared public read-order artifact:
 Status remains intentionally conservative:
 - `aoa-regression-same-task` stays the only default public `baseline` surface
 - `aoa-runtime-latency-tradeoff` stays `draft`
+- `aoa-continuity-capsule-compaction` stays `draft`
 - `aoa-identity-bound-method-comparison` stays `draft`
 - `aoa-memo-active-organ-offline-replay` stays `draft`
 - `aoa-output-vs-process-gap` stays `draft`

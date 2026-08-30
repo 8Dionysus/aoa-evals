@@ -1,0 +1,181 @@
+{
+  "eval_name": "aoa-continuity-capsule-compaction",
+  "bundle_status": "draft",
+  "object_under_evaluation": "evidence-backed continuity capsule preservation across paired compaction materializations",
+  "comparison_mode": "fixed-baseline",
+  "baseline_target": "canonical continuity capsule before materialization",
+  "case_family": "continuity-capsule-paired-v1",
+  "preservation_fields": [
+    "capsule_id",
+    "goal",
+    "constraints",
+    "completed",
+    "current_work",
+    "blockers",
+    "exact_decisions",
+    "open_obligations",
+    "evidence_refs",
+    "omissions_uncertainty",
+    "source_watermark",
+    "compaction_event",
+    "protected_tail_posture",
+    "portable_tail_policy",
+    "private_tail_digest",
+    "private_tail_bytes"
+  ],
+  "admission": {
+    "case_count": 1,
+    "preserved_case_count": 1,
+    "mixed_case_count": 0,
+    "failed_case_count": 0,
+    "real_session_evidence": false,
+    "runtime_execution": false,
+    "baseline_ready": false
+  },
+  "verdict": "no material regression",
+  "claim_boundary": "This draft report reads only field preservation in a supplied capsule packet; it does not prove a real compaction event, runtime reinjection, semantic continuity, or economy improvement.",
+  "limitations": [
+    "The packet is synthetic or owner-supplied and is not a live session trace.",
+    "The runner does not execute session-memory hooks, SDK continuation, or abyss-stack runtime paths.",
+    "A positive field reading does not establish baseline admission, promotion, or owner acceptance."
+  ],
+  "per_case_comparisons": [
+    {
+      "case_id": "CC-01",
+      "baseline_note": "The canonical capsule is the fixed field-preservation baseline.",
+      "candidate_note": "The paired portable and private materializations were checked for exact identity, content, metadata, and protected-tail posture.",
+      "comparative_reading": "no material regression",
+      "comparison_note": "16 of 16 required preservation checks passed; this is a packet-level reading only.",
+      "field_checks": [
+        {
+          "field": "capsule_id",
+          "baseline_present": true,
+          "portable_present": true,
+          "private_present": true,
+          "preserved": true,
+          "reason": "canonical content matches both materializations"
+        },
+        {
+          "field": "goal",
+          "baseline_present": true,
+          "portable_present": true,
+          "private_present": true,
+          "preserved": true,
+          "reason": "canonical content matches both materializations"
+        },
+        {
+          "field": "constraints",
+          "baseline_present": true,
+          "portable_present": true,
+          "private_present": true,
+          "preserved": true,
+          "reason": "canonical content matches both materializations"
+        },
+        {
+          "field": "completed",
+          "baseline_present": true,
+          "portable_present": true,
+          "private_present": true,
+          "preserved": true,
+          "reason": "canonical content matches both materializations"
+        },
+        {
+          "field": "current_work",
+          "baseline_present": true,
+          "portable_present": true,
+          "private_present": true,
+          "preserved": true,
+          "reason": "canonical content matches both materializations"
+        },
+        {
+          "field": "blockers",
+          "baseline_present": true,
+          "portable_present": true,
+          "private_present": true,
+          "preserved": true,
+          "reason": "canonical content matches both materializations"
+        },
+        {
+          "field": "exact_decisions",
+          "baseline_present": true,
+          "portable_present": true,
+          "private_present": true,
+          "preserved": true,
+          "reason": "canonical content matches both materializations"
+        },
+        {
+          "field": "open_obligations",
+          "baseline_present": true,
+          "portable_present": true,
+          "private_present": true,
+          "preserved": true,
+          "reason": "canonical content matches both materializations"
+        },
+        {
+          "field": "evidence_refs",
+          "baseline_present": true,
+          "portable_present": true,
+          "private_present": true,
+          "preserved": true,
+          "reason": "canonical content matches both materializations"
+        },
+        {
+          "field": "omissions_uncertainty",
+          "baseline_present": true,
+          "portable_present": true,
+          "private_present": true,
+          "preserved": true,
+          "reason": "canonical content matches both materializations"
+        },
+        {
+          "field": "source_watermark",
+          "baseline_present": true,
+          "portable_present": true,
+          "private_present": true,
+          "preserved": true,
+          "reason": "metadata matches the canonical capsule in both views"
+        },
+        {
+          "field": "compaction_event",
+          "baseline_present": true,
+          "portable_present": true,
+          "private_present": true,
+          "preserved": true,
+          "reason": "metadata matches the canonical capsule in both views"
+        },
+        {
+          "field": "protected_tail_posture",
+          "baseline_present": true,
+          "portable_present": true,
+          "private_present": true,
+          "preserved": true,
+          "reason": "metadata matches the canonical capsule in both views"
+        },
+        {
+          "field": "portable_tail_policy",
+          "baseline_present": true,
+          "portable_present": true,
+          "private_present": true,
+          "preserved": true,
+          "reason": "portable view omits the protected tail"
+        },
+        {
+          "field": "private_tail_digest",
+          "baseline_present": true,
+          "portable_present": true,
+          "private_present": true,
+          "preserved": true,
+          "reason": "private view retains the protected-tail digest"
+        },
+        {
+          "field": "private_tail_bytes",
+          "baseline_present": true,
+          "portable_present": true,
+          "private_present": true,
+          "preserved": true,
+          "reason": "private view retains the protected-tail byte count"
+        }
+      ]
+    }
+  ]
+}

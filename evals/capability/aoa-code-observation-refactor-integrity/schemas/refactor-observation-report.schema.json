@@ -168,7 +168,11 @@
               "type": "array",
               "items": {"type": "string", "minLength": 1}
             },
-            "reused_artifacts": {"type": "integer", "minimum": 0},
+            "reused_artifacts": {
+              "type": "integer",
+              "minimum": 0,
+              "description": "Count of controlled source artifacts left unrecomputed; the runner derives and validates this value from the fixture source universe and expected recomputed paths."
+            },
             "delta_full_parity": {"enum": ["equal", "different", "not-run"]}
           }
         },

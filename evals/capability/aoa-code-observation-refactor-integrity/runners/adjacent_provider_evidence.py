@@ -45,6 +45,10 @@ RAW_EVIDENCE_KEYS = {
     "document_structure": "document_markdown",
 }
 EXPECTED_PROVIDER_IDS = {provider_id for provider_id, _ in EXPECTED.values()}
+# SARIF's driver name is a human-facing identity rather than the normalized
+# provider id.  Keep the accepted identity explicit so a packet cannot retain
+# Semgrep's version/results while naming an unrelated scanner.
+EXPECTED_SARIF_DRIVER_NAMES = {"semgrep": {"Semgrep OSS"}}
 # Adjacent batches predate the envelope's ``sha256:``-qualified artifact
 # references and carry their provider configuration digest as raw hex.  Keep
 # accepting both representations while requiring a complete cryptographic
@@ -55,6 +59,29 @@ _RAW_DIGEST_RE = re.compile(r"^sha256:[0-9a-f]{64}$")
 # AbyssOS packet also points at a host-managed artifact bundle for its in-toto
 # output; keep that explicit store as the only permitted external root.
 _HOST_ARTIFACT_ROOT = Path("/srv/abyss-machine/artifacts")
+
+
+def _normalize_provider_version(value: Any, provider_id: str) -> str | None:
+    """Normalize a provider-labelled version without accepting substrings.
+
+    The host metadata for MarkItDown is labelled ``markitdown 0.1.7`` while
+    the adjacent batch carries ``0.1.7``.  Strip only that explicit provider
+    label (and an optional conventional ``v`` prefix), then compare the
+    resulting version strings exactly.  In particular, ``0`` must not match
+    ``1.0.0`` merely because it is a substring.
+    """
+
+    if not isinstance(value, str):
+        return None
+    normalized = value.strip()
+    if not normalized:
+        return None
+    provider_prefix = provider_id.casefold() + " "
+    if normalized.casefold().startswith(provider_prefix):
+        normalized = normalized[len(provider_prefix) :].strip()
+    if normalized[:1].casefold() == "v":
+        normalized = normalized[1:].strip()
+    return normalized or None
 
 
 def _raw_evidence_path(packet_path: Path, declared_path: Any) -> tuple[Path | None, str | None]:
@@ -121,16 +148,24 @@ def _raw_sarif_issues(batch: dict[str, Any], document: Any) -> list[str]:
 
     records: dict[tuple[int, int], dict[str, Any]] = {}
     issues: list[str] = []
-    provider_version = batch.get("provider", {}).get("version")
+    provider = batch.get("provider", {})
+    provider_id = provider.get("id") if isinstance(provider, dict) else None
+    provider_version = provider.get("version") if isinstance(provider, dict) else None
+    expected_driver_names = EXPECTED_SARIF_DRIVER_NAMES.get(provider_id, set())
     for run_index, run in enumerate(runs):
         if not isinstance(run, dict):
             issues.append(_raw_issue(raw_key, "format_invalid", f"run:{run_index}"))
             continue
         tool = run.get("tool")
         driver = tool.get("driver", {}) if isinstance(tool, dict) else {}
-        if not isinstance(driver, dict) or not isinstance(driver.get("name"), str):
+        driver_name = driver.get("name") if isinstance(driver, dict) else None
+        if not isinstance(driver, dict) or not isinstance(driver_name, str):
             issues.append(
                 _raw_issue(raw_key, "format_invalid", f"tool:{run_index}")
+            )
+        elif driver_name not in expected_driver_names:
+            issues.append(
+                _raw_issue(raw_key, "content_mismatch", f"tool_identity:{run_index}")
             )
         observed_version = (
             driver.get("semanticVersion")
@@ -583,7 +618,9 @@ def _provider_execution_issues(
             issues.append(f"provider_version_missing:{provider_id}")
         elif not isinstance(batch_version, str) or not batch_version.strip():
             issues.append(f"provider_version_missing:{provider_id}")
-        elif runtime_version not in batch_version and batch_version not in runtime_version:
+        elif _normalize_provider_version(runtime_version, provider_id) != _normalize_provider_version(
+            batch_version, provider_id
+        ):
             issues.append(f"provider_version_mismatch:{provider_id}")
         if not isinstance(provider_meta.get("runtime_posture"), str) or not provider_meta[
             "runtime_posture"

@@ -349,6 +349,21 @@ def test_adjacent_provider_evidence_requires_all_unadmitted_classes(
         "sha256"
     ]
 
+    sarif = json.loads(original_raw_contents["sarif"])
+    sarif["runs"][0]["tool"]["driver"]["name"] = "Unrelated scanner"
+    raw_paths["sarif"].write_text(json.dumps(sarif), encoding="utf-8")
+    payload["raw_evidence"]["sarif"]["sha256"] = (
+        "sha256:" + hashlib.sha256(raw_paths["sarif"].read_bytes()).hexdigest()
+    )
+    path.write_text(json.dumps(payload), encoding="utf-8")
+    assert "raw_evidence_content_mismatch:sarif:tool_identity:0" in (
+        adjacent_provider_evidence.validate(path)["issues"]
+    )
+    raw_paths["sarif"].write_bytes(original_raw_contents["sarif"])
+    payload["raw_evidence"]["sarif"]["sha256"] = original_raw_evidence["sarif"][
+        "sha256"
+    ]
+
     sbom = json.loads(original_raw_contents["sbom"])
     sbom["components"][0]["version"] = "9.9.9"
     raw_paths["sbom"].write_text(json.dumps(sbom), encoding="utf-8")
@@ -392,6 +407,14 @@ def test_adjacent_provider_evidence_requires_all_unadmitted_classes(
     payload["raw_evidence"]["document_markdown"]["sha256"] = original_raw_evidence[
         "document_markdown"
     ]["sha256"]
+
+    original_semgrep_version = payload["providers"]["semgrep"]["version"]
+    payload["providers"]["semgrep"]["version"] = "0"
+    path.write_text(json.dumps(payload), encoding="utf-8")
+    assert "provider_version_mismatch:semgrep" in adjacent_provider_evidence.validate(
+        path
+    )["issues"]
+    payload["providers"]["semgrep"]["version"] = original_semgrep_version
 
     provider_metadata = payload["providers"]
     payload["providers"] = {}
@@ -807,6 +830,20 @@ def test_report_rejects_duplicate_invalidation_paths(tmp_path: Path) -> None:
     errors = json.loads(result.stdout)["errors"]
     assert "invalidation_duplicate_paths:rename-symbol:affected" in errors
     assert "invalidation_duplicate_paths:rename-symbol:recomputed" in errors
+
+
+def test_report_rejects_reused_artifact_count_drift(tmp_path: Path) -> None:
+    report = json.loads(EXAMPLE.read_text(encoding="utf-8"))
+    report["observations"][0]["invalidation"]["reused_artifacts"] = 999
+    path = tmp_path / "reused-artifact-count-drift.json"
+    path.write_text(json.dumps(report), encoding="utf-8")
+
+    result = run_runner("validate-report", str(path))
+
+    assert result.returncode == 1
+    assert "invalidation_reused_artifacts_mismatch:rename-symbol expects 0" in json.loads(
+        result.stdout
+    )["errors"]
 
 
 def test_report_rejects_declared_parity_failure_in_ordinary_case(

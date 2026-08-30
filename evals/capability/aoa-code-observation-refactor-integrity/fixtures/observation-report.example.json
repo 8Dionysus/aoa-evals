@@ -30,7 +30,7 @@
       "semantic_identity": {"entities": [{"semantic_id": "fixture:alpha.symbol", "kind": "function", "occurrences": [{"path": "src/alpha.py", "start_line": 1, "end_line": 2}], "relations": [{"kind": "references", "target": "fixture:test_alpha"}]}]},
       "lineage": {"posture": "preserve", "confidence": 0.99, "alternatives": 0},
       "freshness": {"status": "exact", "observed_at": "2026-08-25T15:00:00Z", "source_epoch_ref": "source-epoch-001", "provider_watermark": "fixture-001"},
-      "invalidation": {"scope": "affected-subgraph", "affected_paths": ["src/alpha.py"], "recomputed_paths": ["src/alpha.py"], "reused_artifacts": 2, "delta_full_parity": "not-run"},
+      "invalidation": {"scope": "affected-subgraph", "affected_paths": ["src/alpha.py"], "recomputed_paths": ["src/alpha.py"], "reused_artifacts": 0, "delta_full_parity": "not-run"},
       "metrics": [{"metric_id": "definitions_references", "value": 1, "unit": "count", "status": "observed"}, {"metric_id": "lineage_continuity", "value": 1, "unit": "ratio", "status": "observed"}, {"metric_id": "freshness", "value": 1, "unit": "ratio", "status": "observed"}, {"metric_id": "invalidation_blast_radius", "value": 1, "unit": "count", "status": "observed"}, {"metric_id": "provenance", "value": 1, "unit": "ratio", "status": "observed"}, {"metric_id": "affected_tests", "value": 1, "unit": "count", "status": "observed"}],
       "provenance": {"source_ref": "fixture://source-epoch-001", "source_epoch_ref": "source-epoch-001", "provider_ref": "fixture-provider", "config_ref": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"},
       "affected_tests": {"status": "selected", "selected": ["tests/test_alpha.py"], "oracle_ref": "mechanics/proof-infra/parts/fixture-families/fixtures/refactor-torture-v1/oracles/affected-tests.json#rename-symbol"}
@@ -56,7 +56,7 @@
       "semantic_identity": {"entities": [{"semantic_id": "fixture:signature.symbol", "kind": "function", "occurrences": [{"path": "src/signature.py", "start_line": 1, "end_line": 2}], "relations": []}]},
       "lineage": {"posture": "preserve", "confidence": 0.97, "alternatives": 0},
       "freshness": {"status": "exact", "observed_at": "2026-08-25T15:00:00Z", "source_epoch_ref": "source-epoch-001", "provider_watermark": "fixture-001"},
-      "invalidation": {"scope": "affected-subgraph", "affected_paths": ["src/signature.py"], "recomputed_paths": ["src/signature.py"], "reused_artifacts": 1, "delta_full_parity": "not-run"},
+      "invalidation": {"scope": "affected-subgraph", "affected_paths": ["src/signature.py"], "recomputed_paths": ["src/signature.py"], "reused_artifacts": 0, "delta_full_parity": "not-run"},
       "metrics": [{"metric_id": "definitions_references", "value": 1, "unit": "count", "status": "observed"}, {"metric_id": "dependency_relations", "value": 0, "unit": "count", "status": "observed"}, {"metric_id": "lineage_continuity", "value": 1, "unit": "ratio", "status": "observed"}, {"metric_id": "freshness", "value": 1, "unit": "ratio", "status": "observed"}, {"metric_id": "provenance", "value": 1, "unit": "ratio", "status": "observed"}, {"metric_id": "affected_tests", "value": 1, "unit": "count", "status": "observed"}],
       "provenance": {"source_ref": "fixture://source-epoch-001", "source_epoch_ref": "source-epoch-001", "provider_ref": "fixture-provider", "config_ref": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"},
       "affected_tests": {"status": "selected", "selected": ["tests/test_gamma.py"], "oracle_ref": "mechanics/proof-infra/parts/fixture-families/fixtures/refactor-torture-v1/oracles/affected-tests.json#signature-change"}
@@ -95,7 +95,7 @@
       "semantic_identity": {"entities": [{"semantic_id": "fixture:zeta.module", "kind": "module", "occurrences": [{"path": "src/zeta.py", "start_line": 1, "end_line": 4}], "relations": [{"kind": "imports", "target": "fixture:new_dependency"}]}]},
       "lineage": {"posture": "preserve", "confidence": 0.96, "alternatives": 0},
       "freshness": {"status": "exact", "observed_at": "2026-08-25T15:00:00Z", "source_epoch_ref": "source-epoch-001", "provider_watermark": "fixture-001"},
-      "invalidation": {"scope": "affected-subgraph", "affected_paths": ["src/zeta.py"], "recomputed_paths": ["src/zeta.py"], "reused_artifacts": 1, "delta_full_parity": "not-run"},
+      "invalidation": {"scope": "affected-subgraph", "affected_paths": ["src/zeta.py"], "recomputed_paths": ["src/zeta.py"], "reused_artifacts": 0, "delta_full_parity": "not-run"},
       "metrics": [{"metric_id": "dependency_relations", "value": 1, "unit": "count", "status": "observed"}, {"metric_id": "definitions_references", "value": 1, "unit": "count", "status": "observed"}, {"metric_id": "freshness", "value": 1, "unit": "ratio", "status": "observed"}, {"metric_id": "invalidation_blast_radius", "value": 1, "unit": "count", "status": "observed"}, {"metric_id": "provenance", "value": 1, "unit": "ratio", "status": "observed"}],
       "provenance": {"source_ref": "fixture://source-epoch-001", "source_epoch_ref": "source-epoch-001", "provider_ref": "fixture-provider", "config_ref": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"},
       "affected_tests": {"status": "not-applicable", "selected": [], "oracle_ref": null}
@@ -108,7 +108,7 @@
       "semantic_identity": {"entities": [{"semantic_id": "fixture:eta.symbol", "kind": "function", "occurrences": [{"path": "src/eta.py", "start_line": 3, "end_line": 4}], "relations": [{"kind": "calls", "target": "fixture:theta.symbol"}]}, {"semantic_id": "fixture:theta.symbol", "kind": "function", "occurrences": [{"path": "src/theta.py", "start_line": 1, "end_line": 2}], "relations": [{"kind": "called-by", "target": "fixture:eta.symbol"}]}]},
       "lineage": {"posture": "preserve", "confidence": 0.95, "alternatives": 0},
       "freshness": {"status": "exact", "observed_at": "2026-08-25T15:00:00Z", "source_epoch_ref": "source-epoch-001", "provider_watermark": "fixture-001"},
-      "invalidation": {"scope": "affected-subgraph", "affected_paths": ["src/eta.py", "src/theta.py"], "recomputed_paths": ["src/eta.py", "src/theta.py"], "reused_artifacts": 2, "delta_full_parity": "not-run"},
+      "invalidation": {"scope": "affected-subgraph", "affected_paths": ["src/eta.py", "src/theta.py"], "recomputed_paths": ["src/eta.py", "src/theta.py"], "reused_artifacts": 0, "delta_full_parity": "not-run"},
       "metrics": [{"metric_id": "definitions_references", "value": 2, "unit": "count", "status": "observed"}, {"metric_id": "dependency_relations", "value": 2, "unit": "count", "status": "observed"}, {"metric_id": "lineage_continuity", "value": 1, "unit": "ratio", "status": "observed"}, {"metric_id": "freshness", "value": 1, "unit": "ratio", "status": "observed"}, {"metric_id": "invalidation_blast_radius", "value": 2, "unit": "count", "status": "observed"}, {"metric_id": "provenance", "value": 1, "unit": "ratio", "status": "observed"}, {"metric_id": "affected_tests", "value": 2, "unit": "count", "status": "observed"}],
       "provenance": {"source_ref": "fixture://source-epoch-001", "source_epoch_ref": "source-epoch-001", "provider_ref": "fixture-provider", "config_ref": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"},
       "affected_tests": {"status": "selected", "selected": ["tests/test_eta.py", "tests/test_theta.py"], "oracle_ref": "mechanics/proof-infra/parts/fixture-families/fixtures/refactor-torture-v1/oracles/affected-tests.json#multi-file-impact"}
@@ -121,7 +121,7 @@
       "semantic_identity": {"entities": [{"semantic_id": "fixture:iota.symbol", "kind": "function", "occurrences": [{"path": "src/iota.py", "start_line": 1, "end_line": 2}, {"path": "src/iota.py", "start_line": 4, "end_line": 5}], "relations": [{"kind": "references", "target": "fixture:test_iota"}]}]},
       "lineage": {"posture": "branched", "confidence": 0.5, "alternatives": 2},
       "freshness": {"status": "exact", "observed_at": "2026-08-25T15:00:00Z", "source_epoch_ref": "source-epoch-001", "provider_watermark": "fixture-001"},
-      "invalidation": {"scope": "affected-subgraph", "affected_paths": ["src/iota.py"], "recomputed_paths": ["src/iota.py"], "reused_artifacts": 1, "delta_full_parity": "not-run"},
+      "invalidation": {"scope": "affected-subgraph", "affected_paths": ["src/iota.py"], "recomputed_paths": ["src/iota.py"], "reused_artifacts": 0, "delta_full_parity": "not-run"},
       "metrics": [{"metric_id": "ambiguity", "value": 2, "unit": "count", "status": "observed"}, {"metric_id": "lineage_continuity", "value": 0.5, "unit": "ratio", "status": "observed"}, {"metric_id": "freshness", "value": 1, "unit": "ratio", "status": "observed"}, {"metric_id": "provenance", "value": 1, "unit": "ratio", "status": "observed"}, {"metric_id": "affected_tests", "value": 1, "unit": "count", "status": "observed"}],
       "provenance": {"source_ref": "fixture://source-epoch-001", "source_epoch_ref": "source-epoch-001", "provider_ref": "fixture-provider", "config_ref": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"},
       "affected_tests": {"status": "selected", "selected": ["tests/test_iota.py"], "oracle_ref": "mechanics/proof-infra/parts/fixture-families/fixtures/refactor-torture-v1/oracles/affected-tests.json#split-symbol"}
@@ -134,7 +134,7 @@
       "semantic_identity": {"entities": [{"semantic_id": "fixture:kappa.symbol", "kind": "function", "occurrences": [{"path": "src/kappa.py", "start_line": 1, "end_line": 2}, {"path": "src/kappa.py", "start_line": 4, "end_line": 5}], "relations": [{"kind": "references", "target": "fixture:test_kappa"}]}]},
       "lineage": {"posture": "branched", "confidence": 0.5, "alternatives": 2},
       "freshness": {"status": "exact", "observed_at": "2026-08-25T15:00:00Z", "source_epoch_ref": "source-epoch-001", "provider_watermark": "fixture-001"},
-      "invalidation": {"scope": "affected-subgraph", "affected_paths": ["src/kappa.py"], "recomputed_paths": ["src/kappa.py"], "reused_artifacts": 1, "delta_full_parity": "not-run"},
+      "invalidation": {"scope": "affected-subgraph", "affected_paths": ["src/kappa.py"], "recomputed_paths": ["src/kappa.py"], "reused_artifacts": 0, "delta_full_parity": "not-run"},
       "metrics": [{"metric_id": "ambiguity", "value": 2, "unit": "count", "status": "observed"}, {"metric_id": "lineage_continuity", "value": 0.5, "unit": "ratio", "status": "observed"}, {"metric_id": "freshness", "value": 1, "unit": "ratio", "status": "observed"}, {"metric_id": "provenance", "value": 1, "unit": "ratio", "status": "observed"}, {"metric_id": "affected_tests", "value": 1, "unit": "count", "status": "observed"}],
       "provenance": {"source_ref": "fixture://source-epoch-001", "source_epoch_ref": "source-epoch-001", "provider_ref": "fixture-provider", "config_ref": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"},
       "affected_tests": {"status": "selected", "selected": ["tests/test_kappa.py"], "oracle_ref": "mechanics/proof-infra/parts/fixture-families/fixtures/refactor-torture-v1/oracles/affected-tests.json#merge-symbol"}
@@ -160,7 +160,7 @@
       "semantic_identity": {"entities": [{"semantic_id": "fixture:mu.module", "kind": "module", "occurrences": [{"path": "src/mu.py", "start_line": 1, "end_line": 2}], "relations": []}]},
       "lineage": {"posture": "not-applicable", "confidence": 1, "alternatives": 0},
       "freshness": {"status": "exact", "observed_at": "2026-08-25T15:00:00Z", "source_epoch_ref": "source-epoch-001", "provider_watermark": "fixture-001"},
-      "invalidation": {"scope": "affected-subgraph", "affected_paths": ["src/mu.py"], "recomputed_paths": ["src/mu.py"], "reused_artifacts": 2, "delta_full_parity": "equal"},
+      "invalidation": {"scope": "affected-subgraph", "affected_paths": ["src/mu.py"], "recomputed_paths": ["src/mu.py"], "reused_artifacts": 0, "delta_full_parity": "equal"},
       "metrics": [{"metric_id": "delta_full_parity", "value": 1, "unit": "parity", "status": "observed"}, {"metric_id": "reproducibility", "value": 1, "unit": "ratio", "status": "observed"}, {"metric_id": "latency", "value": 12, "unit": "milliseconds", "status": "observed"}, {"metric_id": "resource_cost", "value": 3, "unit": "megabytes", "status": "observed"}, {"metric_id": "provenance", "value": 1, "unit": "ratio", "status": "observed"}],
       "provenance": {"source_ref": "fixture://source-epoch-001", "source_epoch_ref": "source-epoch-001", "provider_ref": "fixture-provider", "config_ref": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"},
       "affected_tests": {"status": "not-applicable", "selected": [], "oracle_ref": null}
@@ -173,7 +173,7 @@
       "semantic_identity": {"entities": [{"semantic_id": "fixture:nu.symbol", "kind": "function", "occurrences": [{"path": "src/nu.py", "start_line": 1, "end_line": 2}], "relations": [{"kind": "references", "target": "fixture:test_nu"}]}]},
       "lineage": {"posture": "not-applicable", "confidence": 1, "alternatives": 0},
       "freshness": {"status": "exact", "observed_at": "2026-08-25T15:00:00Z", "source_epoch_ref": "source-epoch-001", "provider_watermark": "fixture-001"},
-      "invalidation": {"scope": "affected-subgraph", "affected_paths": ["src/nu.py"], "recomputed_paths": ["src/nu.py"], "reused_artifacts": 1, "delta_full_parity": "not-run"},
+      "invalidation": {"scope": "affected-subgraph", "affected_paths": ["src/nu.py"], "recomputed_paths": ["src/nu.py"], "reused_artifacts": 0, "delta_full_parity": "not-run"},
       "metrics": [{"metric_id": "affected_tests", "value": 1, "unit": "count", "status": "observed"}, {"metric_id": "invalidation_blast_radius", "value": 1, "unit": "count", "status": "observed"}, {"metric_id": "provenance", "value": 1, "unit": "ratio", "status": "observed"}],
       "provenance": {"source_ref": "fixture://source-epoch-001", "source_epoch_ref": "source-epoch-001", "provider_ref": "fixture-provider", "config_ref": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"},
       "affected_tests": {"status": "selected", "selected": ["tests/test_nu.py"], "oracle_ref": "mechanics/proof-infra/parts/fixture-families/fixtures/refactor-torture-v1/oracles/affected-tests.json#affected-test-selection"}

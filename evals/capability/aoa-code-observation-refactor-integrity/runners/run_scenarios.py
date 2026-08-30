@@ -1695,6 +1695,20 @@ def semantic_case_issues(
     )
     if recomputed_paths != expected_recomputed_paths:
         errors.append(issue("invalidation_recomputed_paths_mismatch", case_id))
+    # The controlled fixture has one cacheable artifact per source path.  A
+    # reuse count is therefore derived from the independently calculated
+    # source universe and the paths that this evidence state is expected to
+    # recompute; it is not an untrusted free-standing performance metric.
+    expected_reused_artifacts = len(
+        source_paths - set(expected_recomputed_paths)
+    )
+    if invalidation.get("reused_artifacts") != expected_reused_artifacts:
+        errors.append(
+            issue(
+                "invalidation_reused_artifacts_mismatch",
+                f"{case_id} expects {expected_reused_artifacts}",
+            )
+        )
 
     metrics = observation.get("metrics", [])
     metric_ids = [metric.get("metric_id") for metric in metrics]

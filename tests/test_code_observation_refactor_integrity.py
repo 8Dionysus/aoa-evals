@@ -134,6 +134,9 @@ def test_adjacent_provider_evidence_requires_all_unadmitted_classes(
     tmp_path: Path,
 ) -> None:
     source_epoch = "commit:" + "a" * 40
+    source_repo = "fixture"
+    source_path = "fixture.py"
+    source_digest = "sha256:" + "1" * 64
     specs = {
         "static_security": ("semgrep", "static-security"),
         "software_components": ("syft", "software-components"),
@@ -182,10 +185,20 @@ def test_adjacent_provider_evidence_requires_all_unadmitted_classes(
                 "extractor_ref": f"fixture:{provider_id}",
                 "parser_ref": f"{provider_id}@1.0.0",
                 "source_refs": [
-                    {"repo": "fixture", "path": "fixture", "role": "primary_source"}
+                    {
+                        "repo": source_repo,
+                        "path": source_path,
+                        "role": "primary_source",
+                        "content_digest": source_digest,
+                    }
                 ],
             },
-            "source": {"source_epoch": source_epoch},
+            "source": {
+                "repo": source_repo,
+                "path": source_path,
+                "source_epoch": source_epoch,
+                "content_digest": source_digest,
+            },
             "parse_status": "parsed",
             "observations": [
                 {
@@ -325,6 +338,60 @@ def test_adjacent_provider_evidence_requires_all_unadmitted_classes(
     result = adjacent_provider_evidence.validate(path)
     assert result["issues"] == []
     assert result["verdict"] == "supports bounded adjacent-provider envelope evidence"
+
+    # An epoch is only one part of the identity. A relabelled batch must not
+    # pass when its repository/path or content digest disagrees with the raw
+    # and provenance witnesses.
+    original_source = copy.deepcopy(payload["batches"]["static_security"]["source"])
+    payload["batches"]["static_security"]["source"]["path"] = "unrelated.py"
+    path.write_text(json.dumps(payload), encoding="utf-8")
+    source_issues = adjacent_provider_evidence.validate(path)["issues"]
+    assert "source_provenance_identity_mismatch:semgrep" in source_issues
+    assert "raw_evidence_content_mismatch:sarif:source:0" in source_issues
+    payload["batches"]["static_security"]["source"] = original_source
+
+    payload["batches"]["artifact_provenance"]["source"]["content_digest"] = (
+        "sha256:" + "9" * 64
+    )
+    path.write_text(json.dumps(payload), encoding="utf-8")
+    digest_issues = adjacent_provider_evidence.validate(path)["issues"]
+    assert "source_provenance_identity_mismatch:in-toto" in digest_issues
+    assert "raw_evidence_content_mismatch:in_toto:subject_identity:0" in digest_issues
+    payload["batches"]["artifact_provenance"]["source"] = copy.deepcopy(
+        original_source
+    )
+
+    original_repo = payload["batches"]["software_components"]["source"]["repo"]
+    payload["batches"]["software_components"]["source"]["repo"] = "unrelated-repo"
+    path.write_text(json.dumps(payload), encoding="utf-8")
+    assert "source_provenance_identity_mismatch:syft" in (
+        adjacent_provider_evidence.validate(path)["issues"]
+    )
+    payload["batches"]["software_components"]["source"]["repo"] = original_repo
+
+    payload["batches"]["document_structure"]["provenance"]["source_refs"][0][
+        "path"
+    ] = "unrelated.py"
+    path.write_text(json.dumps(payload), encoding="utf-8")
+    assert "source_provenance_identity_mismatch:markitdown" in (
+        adjacent_provider_evidence.validate(path)["issues"]
+    )
+    payload["batches"]["document_structure"]["provenance"]["source_refs"][0][
+        "path"
+    ] = source_path
+
+    missing_source_field = payload["batches"]["software_components"]["source"].pop(
+        "content_digest"
+    )
+    path.write_text(json.dumps(payload), encoding="utf-8")
+    assert any(
+        issue.startswith("schema:batches/software_components/source")
+        for issue in adjacent_provider_evidence.validate(path)["issues"]
+    )
+    payload["batches"]["software_components"]["source"][
+        "content_digest"
+    ] = missing_source_field
+
     original_raw_evidence = copy.deepcopy(payload["raw_evidence"])
 
     raw_paths = {
@@ -1995,6 +2062,9 @@ def test_adjacent_provider_evidence_rejects_placeholder_observation(
     tmp_path: Path,
 ) -> None:
     source_epoch = "commit:" + "a" * 40
+    source_repo = "fixture"
+    source_path = "fixture.py"
+    source_digest = "sha256:" + "1" * 64
     specs = {
         "static_security": ("semgrep", "static-security"),
         "software_components": ("syft", "software-components"),
@@ -2022,10 +2092,20 @@ def test_adjacent_provider_evidence_rejects_placeholder_observation(
                 "extractor_ref": f"fixture:{provider_id}",
                 "parser_ref": f"{provider_id}@1.0.0",
                 "source_refs": [
-                    {"repo": "fixture", "path": "fixture", "role": "primary_source"}
+                    {
+                        "repo": source_repo,
+                        "path": source_path,
+                        "role": "primary_source",
+                        "content_digest": source_digest,
+                    }
                 ],
             },
-            "source": {"source_epoch": source_epoch},
+            "source": {
+                "repo": source_repo,
+                "path": source_path,
+                "source_epoch": source_epoch,
+                "content_digest": source_digest,
+            },
             "parse_status": "parsed",
             "observations": [{}],
             "qualification": {"machine_admission": {"state": "not_admitted"}},

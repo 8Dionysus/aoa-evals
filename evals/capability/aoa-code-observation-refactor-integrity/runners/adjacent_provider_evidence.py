@@ -5,7 +5,7 @@ from __future__ import annotations
 import hashlib
 import json
 import re
-from pathlib import Path
+from pathlib import Path, PurePosixPath
 from typing import Any
 
 from jsonschema import Draft202012Validator, FormatChecker
@@ -128,14 +128,79 @@ def _raw_issue(raw_key: str, kind: str, detail: str) -> str:
 
 def _source_uri_matches(source_path: Any, uri: Any) -> bool:
     if not isinstance(source_path, str) or not source_path.strip():
-        return True
+        return False
     if not isinstance(uri, str) or not uri.strip():
         return False
     normalized_uri = uri.removeprefix("file://").replace("\\", "/")
-    normalized_source = source_path.replace("\\", "/").lstrip("./")
+    normalized_source = source_path.replace("\\", "/")
+    if normalized_source.startswith("./"):
+        normalized_source = normalized_source[2:]
     return normalized_uri == normalized_source or normalized_uri.endswith(
         "/" + normalized_source
     )
+
+
+def _source_path_is_safe(value: Any) -> bool:
+    """Accept only a repository-relative source path, never a host locator."""
+
+    if not isinstance(value, str) or not value.strip() or "\x00" in value:
+        return False
+    normalized = value.replace("\\", "/")
+    if "://" in normalized:
+        return False
+    try:
+        candidate = PurePosixPath(normalized)
+    except (TypeError, ValueError):
+        return False
+    return not candidate.is_absolute() and ".." not in candidate.parts
+
+
+def _source_identity_issues(
+    batch: dict[str, Any], provider_id: str, source_epoch: Any
+) -> list[str]:
+    """Bind the normalized source identity to its provenance witness.
+
+    ``source_epoch`` alone is not an identity: two unrelated trees can share a
+    relabelled epoch.  Require the repository-relative path and content digest,
+    then require one provenance source reference to carry the same tuple.
+    Raw-format validators bind the path/digest to the formats that expose them.
+    """
+
+    source = batch.get("source")
+    if not isinstance(source, dict):
+        return [f"source_identity_missing:{provider_id}"]
+    repo = source.get("repo")
+    path = source.get("path")
+    content_digest = source.get("content_digest")
+    issues: list[str] = []
+    if not isinstance(repo, str) or not repo.strip():
+        issues.append(f"source_identity_missing:{provider_id}:repo")
+    if not _source_path_is_safe(path):
+        issues.append(f"source_identity_path_unsafe:{provider_id}")
+    source_digest = _digest_hex(content_digest)
+    if source_digest is None:
+        issues.append(f"source_identity_missing:{provider_id}:content_digest")
+    if source.get("source_epoch") != source_epoch:
+        issues.append(f"source_epoch_mismatch:{provider_id}")
+
+    provenance = batch.get("provenance")
+    source_refs = provenance.get("source_refs") if isinstance(provenance, dict) else None
+    matching_ref = (
+        isinstance(source_refs, list)
+        and isinstance(repo, str)
+        and isinstance(path, str)
+        and source_digest is not None
+        and any(
+            isinstance(source_ref, dict)
+            and source_ref.get("repo") == repo
+            and source_ref.get("path") == path
+            and _digest_hex(source_ref.get("content_digest")) == source_digest
+            for source_ref in source_refs
+        )
+    )
+    if not matching_ref:
+        issues.append(f"source_provenance_identity_mismatch:{provider_id}")
+    return issues
 
 
 def _raw_sarif_issues(batch: dict[str, Any], document: Any) -> list[str]:
@@ -479,7 +544,8 @@ def _raw_in_toto_issues(
             match.group(2) != name
             or subject.get("label") != name
             or subject.get("qualified_name") != name
-            or (source_digest is not None and source_digest != digest_hex)
+            or source_digest is None
+            or source_digest != digest_hex
         ):
             issues.append(_raw_issue(raw_key, "content_mismatch", f"subject_identity:{observation_index}"))
     if len(observations) != len(subjects) or declared_indexes != set(range(len(subjects))):
@@ -775,8 +841,9 @@ def validate(path: Path) -> dict[str, Any]:
                 or admission.get("state") != "not_admitted"
             ):
                 issues.append(f"provider_not_bounded:{provider_id}")
-            if source.get("source_epoch") != payload.get("source_epoch"):
-                issues.append(f"source_epoch_mismatch:{provider_id}")
+            issues.extend(
+                _source_identity_issues(batch, provider_id, payload.get("source_epoch"))
+            )
             count = len(batch.get("observations", []))
             if count < 1:
                 issues.append(f"observation_missing:{provider_id}")

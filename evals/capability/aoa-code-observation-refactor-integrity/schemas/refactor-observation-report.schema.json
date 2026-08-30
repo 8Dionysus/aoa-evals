@@ -107,8 +107,9 @@
                     "items": {
                       "type": "object",
                       "additionalProperties": false,
-                      "required": ["path", "start_line", "end_line"],
+                      "required": ["snapshot", "path", "start_line", "end_line"],
                       "properties": {
+                        "snapshot": {"enum": ["before", "after"]},
                         "path": {"type": "string", "minLength": 1},
                         "start_line": {"type": "integer", "minimum": 1},
                         "end_line": {"type": "integer", "minimum": 1}

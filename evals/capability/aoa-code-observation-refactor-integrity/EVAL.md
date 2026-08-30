@@ -148,6 +148,11 @@ The runner first validates the raw envelope against its JSON Schema, then
 checks every case against the manifest. A case fails when its operation,
 required plane, expected lineage/freshness posture, invalidation scope,
 required metric, provenance, or stronger local oracle is missing or mismatched.
+Semantic-identity occurrences are qualified by their `before` or `after`
+snapshot. Preserved rename and move lineages must expose occurrences on both
+sides; branch cases validate their declared alternatives against the relevant
+snapshot. Cases without an affected-test oracle must declare
+`not-applicable`, an empty selection, and a null oracle reference.
 
 The categorical bundle verdict is either:
 

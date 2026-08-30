@@ -1477,6 +1477,7 @@ def semantic_case_issues(
         branch_tree = (
             scenario_after if case["operation"] == "split" else scenario_before
         )
+        branch_snapshot = "after" if case["operation"] == "split" else "before"
         branch_group_ids = {
             lineage_id
             for lineage_id in common_groups
@@ -1505,6 +1506,7 @@ def semantic_case_issues(
             for entity in entities
             if entity.get("semantic_id") in EXPECTED_SEMANTIC_IDENTITIES[case_id]
             for occurrence in entity.get("occurrences", [])
+            if occurrence.get("snapshot") == branch_snapshot
         ]
         if (
             len(declared_branch_occurrences)
@@ -1529,6 +1531,21 @@ def semantic_case_issues(
                     f"{case_id} requires high confidence and no alternatives",
                 )
             )
+        if case_id in {"rename-symbol", "move-symbol"}:
+            for semantic_id in EXPECTED_SEMANTIC_IDENTITIES[case_id]:
+                snapshots = {
+                    occurrence.get("snapshot")
+                    for entity in entities
+                    if entity.get("semantic_id") == semantic_id
+                    for occurrence in entity.get("occurrences", [])
+                }
+                if snapshots != {"before", "after"}:
+                    errors.append(
+                        issue(
+                            "preserved_lineage_snapshots",
+                            f"{case_id}:{semantic_id} requires before and after occurrences",
+                        )
+                    )
     elif case["expected_lineage"] == "not-applicable":
         if (
             lineage.get("stable_ids")
@@ -1558,21 +1575,27 @@ def semantic_case_issues(
         )
 
     source_paths = set(scenario.get("before", {})) | set(scenario.get("after", {}))
-    source_symbol_occurrences = {
-        (symbol["path"], symbol["start_line"], symbol["end_line"], symbol["kind"])
-        for tree in (scenario.get("before", {}), scenario.get("after", {}))
-        for symbol in ast_symbol_records(tree)
-    }
-    source_symbol_names: dict[tuple[str, int, int, str], set[str]] = {}
-    for tree in (scenario.get("before", {}), scenario.get("after", {})):
-        for symbol in ast_symbol_records(tree):
+    source_symbol_occurrences: dict[
+        str, set[tuple[str, int, int, str]]
+    ] = {}
+    source_symbol_names: dict[str, dict[tuple[str, int, int, str], set[str]]] = {}
+    for snapshot in ("before", "after"):
+        tree = scenario.get(snapshot, {})
+        records = ast_symbol_records(tree)
+        source_symbol_occurrences[snapshot] = {
+            (symbol["path"], symbol["start_line"], symbol["end_line"], symbol["kind"])
+            for symbol in records
+        }
+        names: dict[tuple[str, int, int, str], set[str]] = {}
+        for symbol in records:
             occurrence_key = (
                 symbol["path"],
                 symbol["start_line"],
                 symbol["end_line"],
                 symbol["kind"],
             )
-            source_symbol_names.setdefault(occurrence_key, set()).add(symbol["name"])
+            names.setdefault(occurrence_key, set()).add(symbol["name"])
+        source_symbol_names[snapshot] = names
     actual_semantic_identities = {
         entity.get("semantic_id"): entity.get("kind") for entity in entities
     }
@@ -1585,10 +1608,17 @@ def semantic_case_issues(
                 issue("semantic_identity_unbound", f"{case_id}:{semantic_id}")
             )
         for occurrence in entity.get("occurrences", []):
+            snapshot = occurrence.get("snapshot")
             path = occurrence.get("path")
             start_line = occurrence.get("start_line")
             end_line = occurrence.get("end_line")
-            if local_path_error(path) or path not in source_paths:
+            if snapshot not in {"before", "after"}:
+                errors.append(
+                    issue("semantic_identity_snapshot", f"{case_id}:{snapshot}")
+                )
+                continue
+            snapshot_paths = set(scenario.get(snapshot, {}))
+            if local_path_error(path) or path not in snapshot_paths:
                 errors.append(issue("semantic_identity_path", f"{case_id}:{path}"))
             if (
                 not isinstance(start_line, int)
@@ -1597,7 +1627,7 @@ def semantic_case_issues(
             ):
                 errors.append(issue("semantic_identity_range", f"{case_id}:{path}"))
                 continue
-            if local_path_error(path) or path not in source_paths:
+            if local_path_error(path) or path not in snapshot_paths:
                 continue
             if (
                 entity.get("kind") in {"function", "class"}
@@ -1607,7 +1637,7 @@ def semantic_case_issues(
                     end_line,
                     entity.get("kind"),
                 )
-                not in source_symbol_occurrences
+                not in source_symbol_occurrences[snapshot]
             ):
                 errors.append(
                     issue("semantic_identity_occurrence", f"{case_id}:{path}")
@@ -1616,7 +1646,7 @@ def semantic_case_issues(
                 semantic_id, ()
             )
             if entity.get("kind") in {"function", "class"} and not (
-                source_symbol_names.get(
+                source_symbol_names.get(snapshot, {}).get(
                     (path, start_line, end_line, entity.get("kind")), set()
                 )
                 & set(expected_names)
@@ -1627,11 +1657,7 @@ def semantic_case_issues(
             if entity.get("kind") == "module" and (
                 start_line != 1
                 or end_line
-                != max(
-                    len(tree[path])
-                    for tree in (scenario.get("before", {}), scenario.get("after", {}))
-                    if path in tree
-                )
+                != len(scenario[snapshot][path])
             ):
                 errors.append(
                     issue("semantic_identity_occurrence", f"{case_id}:{path}")
@@ -1879,6 +1905,14 @@ def semantic_case_issues(
             affected_tests.get("selected", [])
         ):
             errors.append(issue("affected_tests_metric_mismatch", case_id))
+    else:
+        affected_tests = observation.get("affected_tests", {})
+        if affected_tests.get("status") != "not-applicable":
+            errors.append(issue("affected_tests_not_applicable_status", case_id))
+        if affected_tests.get("selected") != []:
+            errors.append(issue("affected_tests_not_applicable_selection", case_id))
+        if affected_tests.get("oracle_ref") is not None:
+            errors.append(issue("affected_tests_not_applicable_oracle", case_id))
 
     return errors
 

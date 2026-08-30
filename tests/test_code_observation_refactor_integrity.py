@@ -556,6 +556,24 @@ def test_affected_test_selection_must_match_fixture_oracle(tmp_path: Path) -> No
     )
 
 
+def test_non_applicable_affected_tests_require_empty_evidence(tmp_path: Path) -> None:
+    report = json.loads(EXAMPLE.read_text(encoding="utf-8"))
+    affected_tests = report["observations"][3]["affected_tests"]
+    affected_tests["status"] = "selected"
+    affected_tests["selected"] = ["tests/invented.py"]
+    affected_tests["oracle_ref"] = "fixture://invented-oracle"
+    path = tmp_path / "non-applicable-affected-tests.json"
+    path.write_text(json.dumps(report), encoding="utf-8")
+
+    result = run_runner("validate-report", str(path))
+
+    assert result.returncode == 1
+    errors = json.loads(result.stdout)["errors"]
+    assert "affected_tests_not_applicable_status:add-entity" in errors
+    assert "affected_tests_not_applicable_selection:add-entity" in errors
+    assert "affected_tests_not_applicable_oracle:add-entity" in errors
+
+
 def test_affected_test_oracle_must_be_repo_local(tmp_path: Path) -> None:
     report = json.loads(EXAMPLE.read_text(encoding="utf-8"))
     report["observations"][0]["affected_tests"]["oracle_ref"] = (
@@ -735,6 +753,28 @@ def test_report_rejects_missing_lineage_alternative_occurrence(
     assert any(
         "lineage_alternative_occurrences:split-symbol" in error
         for error in json.loads(result.stdout)["errors"]
+    )
+
+
+def test_report_rejects_preserved_lineage_without_both_snapshots(
+    tmp_path: Path,
+) -> None:
+    report = json.loads(EXAMPLE.read_text(encoding="utf-8"))
+    occurrences = report["observations"][0]["semantic_identity"]["entities"][0][
+        "occurrences"
+    ]
+    occurrences[:] = [
+        occurrence for occurrence in occurrences if occurrence["snapshot"] == "after"
+    ]
+    path = tmp_path / "missing-preserved-lineage-snapshot.json"
+    path.write_text(json.dumps(report), encoding="utf-8")
+
+    result = run_runner("validate-report", str(path))
+
+    assert result.returncode == 1
+    errors = json.loads(result.stdout)["errors"]
+    assert any(
+        "preserved_lineage_snapshots:rename-symbol" in error for error in errors
     )
 
 

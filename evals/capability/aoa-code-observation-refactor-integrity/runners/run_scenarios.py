@@ -1531,21 +1531,20 @@ def semantic_case_issues(
                     f"{case_id} requires high confidence and no alternatives",
                 )
             )
-        if case_id in {"rename-symbol", "move-symbol"}:
-            for semantic_id in EXPECTED_SEMANTIC_IDENTITIES[case_id]:
-                snapshots = {
-                    occurrence.get("snapshot")
-                    for entity in entities
-                    if entity.get("semantic_id") == semantic_id
-                    for occurrence in entity.get("occurrences", [])
-                }
-                if snapshots != {"before", "after"}:
-                    errors.append(
-                        issue(
-                            "preserved_lineage_snapshots",
-                            f"{case_id}:{semantic_id} requires before and after occurrences",
-                        )
+        for semantic_id in EXPECTED_SEMANTIC_IDENTITIES[case_id]:
+            snapshots = {
+                occurrence.get("snapshot")
+                for entity in entities
+                if entity.get("semantic_id") == semantic_id
+                for occurrence in entity.get("occurrences", [])
+            }
+            if snapshots != {"before", "after"}:
+                errors.append(
+                    issue(
+                        "preserved_lineage_snapshots",
+                        f"{case_id}:{semantic_id} requires before and after occurrences",
                     )
+                )
     elif case["expected_lineage"] == "not-applicable":
         if (
             lineage.get("stable_ids")
@@ -1606,6 +1605,23 @@ def semantic_case_issues(
         if not isinstance(semantic_id, str) or not semantic_id.startswith("fixture:"):
             errors.append(
                 issue("semantic_identity_unbound", f"{case_id}:{semantic_id}")
+            )
+        occurrence_keys = [
+            (
+                occurrence.get("snapshot"),
+                occurrence.get("path"),
+                occurrence.get("start_line"),
+                occurrence.get("end_line"),
+                entity.get("kind"),
+            )
+            for occurrence in entity.get("occurrences", [])
+        ]
+        if len(occurrence_keys) != len(set(occurrence_keys)):
+            errors.append(
+                issue(
+                    "semantic_identity_duplicate_occurrence",
+                    f"{case_id}:{semantic_id}",
+                )
             )
         for occurrence in entity.get("occurrences", []):
             snapshot = occurrence.get("snapshot")

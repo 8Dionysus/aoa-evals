@@ -759,23 +759,51 @@ def test_report_rejects_missing_lineage_alternative_occurrence(
 def test_report_rejects_preserved_lineage_without_both_snapshots(
     tmp_path: Path,
 ) -> None:
+    for case_id in (
+        "rename-symbol",
+        "move-symbol",
+        "signature-change",
+        "import-change",
+        "multi-file-impact",
+        "stale-index",
+    ):
+        report = json.loads(EXAMPLE.read_text(encoding="utf-8"))
+        observation = next(
+            item for item in report["observations"] if item["case_id"] == case_id
+        )
+        for entity in observation["semantic_identity"]["entities"]:
+            entity["occurrences"][:] = [
+                occurrence
+                for occurrence in entity["occurrences"]
+                if occurrence["snapshot"] == "after"
+            ]
+        path = tmp_path / f"missing-preserved-lineage-{case_id}.json"
+        path.write_text(json.dumps(report), encoding="utf-8")
+
+        result = run_runner("validate-report", str(path))
+
+        assert result.returncode == 1
+        errors = json.loads(result.stdout)["errors"]
+        assert any(
+            f"preserved_lineage_snapshots:{case_id}" in error for error in errors
+        )
+
+
+def test_report_rejects_duplicate_semantic_occurrence(tmp_path: Path) -> None:
     report = json.loads(EXAMPLE.read_text(encoding="utf-8"))
     occurrences = report["observations"][0]["semantic_identity"]["entities"][0][
         "occurrences"
     ]
-    occurrences[:] = [
-        occurrence for occurrence in occurrences if occurrence["snapshot"] == "after"
-    ]
-    path = tmp_path / "missing-preserved-lineage-snapshot.json"
+    occurrences.append(copy.deepcopy(occurrences[0]))
+    path = tmp_path / "duplicate-semantic-occurrence.json"
     path.write_text(json.dumps(report), encoding="utf-8")
 
     result = run_runner("validate-report", str(path))
 
     assert result.returncode == 1
-    errors = json.loads(result.stdout)["errors"]
-    assert any(
-        "preserved_lineage_snapshots:rename-symbol" in error for error in errors
-    )
+    assert "semantic_identity_duplicate_occurrence:rename-symbol:fixture:alpha.symbol" in json.loads(
+        result.stdout
+    )["errors"]
 
 
 def test_report_rejects_non_finite_preserved_lineage_confidence(

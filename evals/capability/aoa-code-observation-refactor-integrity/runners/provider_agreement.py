@@ -102,6 +102,26 @@ def _source_path_is_safe(value: Any) -> bool:
     )
 
 
+def _source_occurrence_issue(
+    occurrence: dict[str, Any], source_lines: list[str]
+) -> str | None:
+    """Ensure normalized coordinates point inside the witnessed source."""
+
+    for line_field, column_field in (
+        ("start_line", "start_column"),
+        ("end_line", "end_column"),
+    ):
+        line_number = occurrence[line_field]
+        column_number = occurrence[column_field]
+        if line_number > len(source_lines):
+            return "occurrence_source_bounds"
+        # Coordinates are one-based; permit the conventional one-past-end
+        # column used by range APIs while rejecting impossible positions.
+        if column_number > len(source_lines[line_number - 1]) + 1:
+            return "occurrence_source_bounds"
+    return None
+
+
 def _packet_source_path(packet_path: Path, source_path: Any) -> Path | None:
     """Resolve a source witness without allowing a packet to escape its root."""
 
@@ -164,6 +184,7 @@ def validate(path: Path) -> dict[str, Any]:
     # agreement.
     source = envelopes[0]["source"]
     source_file = _packet_source_path(path, source.get("path"))
+    source_lines: list[str] | None = None
     if source_file is None:
         issues.append("source_file_missing_or_unsafe")
     else:
@@ -171,6 +192,14 @@ def validate(path: Path) -> dict[str, Any]:
         declared_digest = source["content_digest"].removeprefix("sha256:")
         if actual_digest != declared_digest:
             issues.append("source_content_digest_mismatch")
+        try:
+            source_text = source_file.read_text(encoding="utf-8")
+        except (OSError, UnicodeDecodeError):
+            source_text = None
+        if source_text is not None:
+            source_lines = source_text.splitlines()
+            if source_text.endswith(("\n", "\r")):
+                source_lines.append("")
 
     facts: dict[str, set[str]] = {}
     for envelope in envelopes:
@@ -202,6 +231,15 @@ def validate(path: Path) -> dict[str, Any]:
                     f"invalid_normalized_observation:{provider_id}:{observation_index}:{observation_issue}"
                 )
                 continue
+            if source_lines is not None:
+                source_occurrence_issue = _source_occurrence_issue(
+                    observation["occurrence"], source_lines
+                )
+                if source_occurrence_issue is not None:
+                    issues.append(
+                        f"invalid_normalized_observation:{provider_id}:{observation_index}:{source_occurrence_issue}"
+                    )
+                    continue
 
             # Reject repeated normalized records before reducing observations to
             # provider facts.  A set of facts would otherwise hide both a

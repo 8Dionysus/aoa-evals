@@ -124,6 +124,16 @@ def test_typescript_provider_agreement_requires_shared_source_and_facts(
     )
     payload["envelopes"][0]["observations"][0]["occurrence"]["start_line"] = 1
 
+    payload["envelopes"][0]["observations"][0]["occurrence"]["start_line"] = 999
+    payload["envelopes"][0]["observations"][0]["occurrence"]["end_line"] = 999
+    path.write_text(json.dumps(payload), encoding="utf-8")
+    assert (
+        "invalid_normalized_observation:tree-sitter:0:occurrence_source_bounds"
+        in provider_agreement.validate(path)["issues"]
+    )
+    payload["envelopes"][0]["observations"][0]["occurrence"]["start_line"] = 1
+    payload["envelopes"][0]["observations"][0]["occurrence"]["end_line"] = 1
+
     payload["envelopes"][2]["source"]["source_epoch"] = "git:other"
     path.write_text(json.dumps(payload), encoding="utf-8")
     assert "source_identity_mismatch" in provider_agreement.validate(path)["issues"]
@@ -1648,6 +1658,45 @@ def test_provider_execution_exercises_delta_path_for_delta_cases(monkeypatch) ->
 
     assert execution["mode"] == "delta"
     assert len(delta_calls) == 3
+
+
+def test_stale_execution_reuses_cached_baseline_without_reparse(monkeypatch) -> None:
+    contract_fixture = runner.load_json(runner.FIXTURE_PATH)
+    execution_fixture = runner.load_json(runner.PROVIDER_EXECUTION_FIXTURE_PATH)
+    fixture_case = next(
+        case for case in contract_fixture["cases"] if case["case_id"] == "stale-index"
+    )
+    scenario = next(
+        case
+        for case in execution_fixture["cases"]
+        if case["case_id"] == "stale-index"
+    )
+    calls = []
+    real_source_index = provider_execution.source_index
+
+    def record_source_index(tree):
+        calls.append({path: list(lines) for path, lines in tree.items()})
+        return real_source_index(tree)
+
+    def reject_full_projection(_before):
+        raise AssertionError("stale execution must reuse the cached baseline")
+
+    monkeypatch.setattr(provider_execution, "source_index", record_source_index)
+    monkeypatch.setattr(
+        provider_execution, "execute_projection_once", reject_full_projection
+    )
+
+    execution = provider_execution.case_execution(
+        fixture_case,
+        scenario,
+        {"id": "python-ast-bootstrap", "version": "1.0.0"},
+        "sha256:" + "0" * 64,
+        "sha256:" + "1" * 64,
+    )
+
+    assert execution["status"] == "degraded"
+    assert calls[0] == scenario["before"]
+    assert calls.count(scenario["before"]) == 1
 
 
 def test_delta_projection_parses_only_invalidated_after_paths(monkeypatch) -> None:

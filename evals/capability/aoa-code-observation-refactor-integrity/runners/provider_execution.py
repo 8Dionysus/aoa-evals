@@ -336,7 +336,10 @@ def _case_execution(
         # relabelling a freshly parsed after-tree as degraded is not stale
         # evidence.
         def projection_runner() -> dict[str, Any]:
-            return execute_projection_once(before)
+            # ``before_index`` is the already materialized indexed snapshot.
+            # Reusing it keeps stale reads from reparsing the complete prior
+            # tree on every first, repeated, and measured projection.
+            return before_index
     elif full_rebuild:
         def projection_runner() -> dict[str, Any]:
             return execute_projection_once(after)

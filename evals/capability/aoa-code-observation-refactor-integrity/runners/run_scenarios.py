@@ -927,9 +927,31 @@ def provider_execution_errors(
         errors.append(issue("provider_id", "provider and machine binding differ"))
 
     run = envelope["run"]
+    run_started_at = parse_observed_at(run.get("started_at"))
     run_observed_at = parse_observed_at(run.get("observed_at"))
+    run_finished_at = parse_observed_at(run.get("finished_at"))
+    if run_started_at is None:
+        errors.append(issue("run_started_at", "invalid"))
     if run_observed_at is None:
         errors.append(issue("run_observed_at", "invalid"))
+    if run_finished_at is None:
+        errors.append(issue("run_finished_at", "invalid"))
+    if (
+        run_started_at is not None
+        and run_finished_at is not None
+        and run_started_at > run_finished_at
+    ):
+        errors.append(issue("run_window", "started_at_after_finished_at"))
+    if (
+        run_observed_at is not None
+        and run_started_at is not None
+        and run_observed_at < run_started_at
+    ) or (
+        run_observed_at is not None
+        and run_finished_at is not None
+        and run_observed_at > run_finished_at
+    ):
+        errors.append(issue("run_window", "observed_at_outside_window"))
     seen_case_ids: set[str] = set()
     observed_case_order: list[str] = []
     coverage = envelope.get("coverage")
@@ -1033,8 +1055,23 @@ def provider_execution_errors(
         execution_observed_at = parse_observed_at(execution.get("observed_at"))
         if execution_observed_at is None:
             errors.append(issue("execution_observed_at", f"{location}:invalid"))
-        elif run_observed_at is not None and execution_observed_at > run_observed_at:
-            errors.append(issue("execution_observed_at", f"{location}:after_run"))
+        else:
+            if run_observed_at is not None and execution_observed_at > run_observed_at:
+                errors.append(issue("execution_observed_at", f"{location}:after_run"))
+            if (
+                run_started_at is not None
+                and execution_observed_at < run_started_at
+            ):
+                errors.append(
+                    issue("execution_observed_at", f"{location}:before_run_window")
+                )
+            if (
+                run_finished_at is not None
+                and execution_observed_at > run_finished_at
+            ):
+                errors.append(
+                    issue("execution_observed_at", f"{location}:after_run_window")
+                )
         if not math.isfinite(execution["latency_ms"]):
             errors.append(issue("latency", f"{location}:not-finite"))
         state = execution["provider_state"]

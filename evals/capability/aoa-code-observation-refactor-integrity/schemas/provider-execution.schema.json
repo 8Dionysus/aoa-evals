@@ -86,14 +86,18 @@
       "additionalProperties": false,
       "required": [
         "execution_id",
+        "started_at",
         "observed_at",
+        "finished_at",
         "command_ref",
         "environment_digest",
         "reproducibility_state"
       ],
       "properties": {
         "execution_id": {"type": "string", "minLength": 1},
+        "started_at": {"type": "string", "format": "date-time"},
         "observed_at": {"type": "string", "format": "date-time"},
+        "finished_at": {"type": "string", "format": "date-time"},
         "command_ref": {"type": "string", "minLength": 1},
         "environment_digest": {"$ref": "#/$defs/digest"},
         "reproducibility_state": {

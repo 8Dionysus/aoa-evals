@@ -1400,7 +1400,9 @@ def provider_execution_payload() -> dict[str, object]:
         },
         "run": {
             "execution_id": "test-execution",
+            "started_at": "2026-08-25T12:00:00Z",
             "observed_at": "2026-08-25T12:01:00Z",
+            "finished_at": "2026-08-25T12:01:00Z",
             "command_ref": "test://provider-execution",
             "environment_digest": environment_digest,
             "reproducibility_state": "deterministic",
@@ -1457,6 +1459,21 @@ def test_provider_execution_rejects_execution_after_run(tmp_path: Path) -> None:
     assert result.returncode == 1
     errors = json.loads(result.stdout)["errors"]
     assert "execution_observed_at:execution[0]:after_run" in errors
+
+
+def test_provider_execution_rejects_execution_outside_run_window(
+    tmp_path: Path,
+) -> None:
+    envelope = complete_provider_execution_payload()
+    envelope["executions"][0]["observed_at"] = "2020-01-01T00:00:01Z"  # type: ignore[index]
+    path = tmp_path / "execution-before-run-window.json"
+    path.write_text(json.dumps(envelope), encoding="utf-8")
+
+    result = run_runner("validate-provider-execution", str(path))
+
+    assert result.returncode == 1
+    errors = json.loads(result.stdout)["errors"]
+    assert "execution_observed_at:execution[0]:before_run_window" in errors
 
 
 def test_provider_execution_rejects_claim_limit_drift(tmp_path: Path) -> None:

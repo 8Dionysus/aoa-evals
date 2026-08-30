@@ -446,6 +446,7 @@ def execute() -> dict[str, Any]:
     config_digest = contract.provider_execution_config_digest(
         manifest, environment, provider
     )
+    run_started_at = now_utc()
     executions = [
         case_execution(
             fixture_cases[case_id],
@@ -456,6 +457,7 @@ def execute() -> dict[str, Any]:
         )
         for case_id in [case["case_id"] for case in fixture["cases"]]
     ]
+    run_finished_at = now_utc()
     case_ids = [execution["case_id"] for execution in executions]
     return {
         "schema_version": "aoa_code_observation_provider_execution_v1",
@@ -478,7 +480,9 @@ def execute() -> dict[str, Any]:
         "run": {
             "execution_id": "source-bound-refactor-torture-"
             + contract.canonical_digest(manifest).removeprefix("sha256:")[:16],
-            "observed_at": now_utc(),
+            "started_at": run_started_at,
+            "observed_at": run_finished_at,
+            "finished_at": run_finished_at,
             "command_ref": COMMAND_REF,
             "environment_digest": environment,
             "reproducibility_state": "deterministic",

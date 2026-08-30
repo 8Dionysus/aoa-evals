@@ -101,7 +101,9 @@ EXPECTED_SEMANTIC_SYMBOL_NAMES = {
         "fixture:theta.symbol": ("theta_value",),
     },
     "split-symbol": {"fixture:iota.symbol": ("split_left", "split_right")},
-    "merge-symbol": {"fixture:kappa.symbol": ("merge_combined",)},
+    "merge-symbol": {
+        "fixture:kappa.symbol": ("merge_left", "merge_right", "merge_combined")
+    },
     "stale-index": {"fixture:lambda.symbol": ("stale_lambda",)},
     "delta-full-parity": {"fixture:mu.module": ()},
     "affected-test-selection": {"fixture:nu.symbol": ("affected_nu",)},
@@ -1336,6 +1338,26 @@ def semantic_case_issues(
 ) -> list[str]:
     errors: list[str] = []
     case_id = case["case_id"]
+    scenario_before = scenario["before"]
+    scenario_after = scenario["after"]
+    expected_changed_paths, expected_added_paths, expected_deleted_paths = (
+        changed_source_paths(scenario_before, scenario_after)
+    )
+    expected_dependency_impacted_paths = dependency_impacted_paths(
+        scenario_before,
+        scenario_after,
+        expected_changed_paths,
+        expected_added_paths,
+        expected_deleted_paths,
+    )
+    expected_invalidation_paths = sorted(
+        {
+            *expected_changed_paths,
+            *expected_added_paths,
+            *expected_deleted_paths,
+            *expected_dependency_impacted_paths,
+        }
+    )
     expected_evidence_state = (
         "stale"
         if case["expected_freshness"] == "stale"
@@ -1363,6 +1385,7 @@ def semantic_case_issues(
         )
 
     lineage = observation.get("lineage", {})
+    entities = observation.get("semantic_identity", {}).get("entities", [])
     if lineage.get("posture") != case["expected_lineage"]:
         errors.append(
             issue(
@@ -1395,10 +1418,56 @@ def semantic_case_issues(
                     f"and confidence {expected_confidence}",
                 )
             )
+        # A branch count is meaningful only when every branch occurrence is
+        # represented by the declared semantic entity.  Counting the fixture
+        # alone would let a report omit one split/merge alternative while
+        # retaining the expected alternatives and confidence values.
+        branch_tree = (
+            scenario_after if case["operation"] == "split" else scenario_before
+        )
+        branch_group_ids = {
+            lineage_id
+            for lineage_id in common_groups
+            if max(
+                len(before_groups[lineage_id]), len(after_groups[lineage_id])
+            )
+            == expected_alternatives
+        }
+        expected_branch_occurrences = {
+            (
+                symbol["path"],
+                symbol["start_line"],
+                symbol["end_line"],
+                symbol["kind"],
+            )
+            for symbol in ast_symbol_records(branch_tree)
+            if symbol["lineage_id"] in branch_group_ids
+        }
+        declared_branch_occurrences = [
+            (
+                occurrence.get("path"),
+                occurrence.get("start_line"),
+                occurrence.get("end_line"),
+                entity.get("kind"),
+            )
+            for entity in entities
+            if entity.get("semantic_id") in EXPECTED_SEMANTIC_IDENTITIES[case_id]
+            for occurrence in entity.get("occurrences", [])
+        ]
+        if (
+            len(declared_branch_occurrences)
+            != len(set(declared_branch_occurrences))
+            or set(declared_branch_occurrences) != expected_branch_occurrences
+        ):
+            errors.append(
+                issue("lineage_alternative_occurrences", case_id)
+            )
     elif case["expected_lineage"] == "preserve":
         confidence = lineage.get("confidence")
         if (
-            not isinstance(confidence, (int, float))
+            isinstance(confidence, bool)
+            or not isinstance(confidence, (int, float))
+            or not math.isfinite(confidence)
             or confidence < 0.9
             or lineage.get("alternatives") != 0
         ):
@@ -1452,7 +1521,6 @@ def semantic_case_issues(
                 symbol["kind"],
             )
             source_symbol_names.setdefault(occurrence_key, set()).add(symbol["name"])
-    entities = observation.get("semantic_identity", {}).get("entities", [])
     actual_semantic_identities = {
         entity.get("semantic_id"): entity.get("kind") for entity in entities
     }
@@ -1551,6 +1619,8 @@ def semantic_case_issues(
         ("affected", affected_paths),
         ("recomputed", recomputed_paths),
     ):
+        if len(paths) != len(set(paths)):
+            errors.append(issue("invalidation_duplicate_paths", f"{case_id}:{label}"))
         if any(local_path_error(path) or path not in source_paths for path in paths):
             errors.append(issue("invalidation_path", f"{case_id}:{label}"))
     if not set(recomputed_paths).issubset(set(affected_paths)):
@@ -1561,6 +1631,18 @@ def semantic_case_issues(
         errors.append(issue("invalidation_recompute_incomplete", case_id))
     if invalidation.get("scope") == "full" and set(affected_paths) != source_paths:
         errors.append(issue("invalidation_full_scope", case_id))
+    expected_affected_paths = (
+        sorted(source_paths)
+        if invalidation.get("scope") == "full"
+        else expected_invalidation_paths
+    )
+    if affected_paths != expected_affected_paths:
+        errors.append(issue("invalidation_affected_paths_mismatch", case_id))
+    expected_recomputed_paths = (
+        [] if expected_evidence_state == "stale" else expected_affected_paths
+    )
+    if recomputed_paths != expected_recomputed_paths:
+        errors.append(issue("invalidation_recomputed_paths_mismatch", case_id))
 
     metrics = observation.get("metrics", [])
     metric_ids = [metric.get("metric_id") for metric in metrics]
@@ -1588,43 +1670,53 @@ def semantic_case_issues(
         "latency": "milliseconds",
         "resource_cost": "megabytes",
     }
+    ratio_metric_ids = {
+        "lineage_continuity",
+        "freshness",
+        "provenance",
+        "reproducibility",
+    }
+    integer_metric_ids = {
+        "definitions_references",
+        "dependency_relations",
+        "invalidation_blast_radius",
+        "affected_tests",
+        "ambiguity",
+    }
+    for metric in metrics:
+        metric_id = metric["metric_id"]
+        value = metric.get("value")
+        status = metric.get("status")
+        unit = metric.get("unit")
+        if unit != expected_metric_units[metric_id]:
+            errors.append(issue("metric_unit", f"{case_id}:{metric_id}:{unit}"))
+        if status != "observed":
+            if value is not None:
+                errors.append(issue("metric_status_value", f"{case_id}:{metric_id}"))
+            continue
+        if value is None:
+            errors.append(issue("metric_not_observed", f"{case_id}:{metric_id}"))
+            continue
+        if isinstance(value, bool) or not isinstance(value, (int, float)) or not math.isfinite(value):
+            errors.append(issue("metric_not_finite", f"{case_id}:{metric_id}"))
+            continue
+        if metric_id in ratio_metric_ids:
+            if not 0 <= value <= 1:
+                errors.append(issue("metric_range", f"{case_id}:{metric_id}"))
+        elif metric_id in {"latency", "resource_cost"}:
+            if value <= 0:
+                errors.append(issue("metric_range", f"{case_id}:{metric_id}"))
+        elif value < 0 or (
+            metric_id in integer_metric_ids and not float(value).is_integer()
+        ):
+            errors.append(issue("metric_range", f"{case_id}:{metric_id}"))
+
     for metric_id in case["required_metrics"]:
         metric = metric_map.get(metric_id)
         if metric is None:
             errors.append(issue("missing_metric", f"{case_id}:{metric_id}"))
         elif metric.get("value") is None or metric.get("status") != "observed":
             errors.append(issue("metric_not_observed", f"{case_id}:{metric_id}"))
-        else:
-            value = metric["value"]
-            unit = metric.get("unit")
-            if not isinstance(value, (int, float)) or not math.isfinite(value):
-                errors.append(issue("metric_not_finite", f"{case_id}:{metric_id}"))
-                continue
-            if unit != expected_metric_units[metric_id]:
-                errors.append(issue("metric_unit", f"{case_id}:{metric_id}:{unit}"))
-            if metric_id in {
-                "lineage_continuity",
-                "freshness",
-                "provenance",
-                "reproducibility",
-            }:
-                if not 0 <= value <= 1:
-                    errors.append(issue("metric_range", f"{case_id}:{metric_id}"))
-            elif metric_id in {"latency", "resource_cost"}:
-                if value <= 0:
-                    errors.append(issue("metric_range", f"{case_id}:{metric_id}"))
-            elif value < 0 or (
-                metric_id
-                in {
-                    "definitions_references",
-                    "dependency_relations",
-                    "invalidation_blast_radius",
-                    "affected_tests",
-                    "ambiguity",
-                }
-                and not float(value).is_integer()
-            ):
-                errors.append(issue("metric_range", f"{case_id}:{metric_id}"))
 
     if "freshness" in metric_map and metric_map["freshness"].get("value") != (
         0 if case["expected_freshness"] == "stale" else 1
@@ -1632,7 +1724,7 @@ def semantic_case_issues(
         errors.append(issue("freshness_metric_mismatch", case_id))
     if "invalidation_blast_radius" in metric_map and metric_map[
         "invalidation_blast_radius"
-    ].get("value") != len(affected_paths):
+    ].get("value") != len(set(affected_paths)):
         errors.append(issue("invalidation_metric_mismatch", case_id))
     if "ambiguity" in metric_map and metric_map["ambiguity"].get(
         "value"

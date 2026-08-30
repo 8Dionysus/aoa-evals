@@ -83,10 +83,10 @@ def delta_source_index(
     before: dict[str, list[str]],
     after: dict[str, list[str]],
     invalidated: list[str],
+    before_index: dict[str, Any],
 ) -> dict[str, Any]:
     """Build the incremental projection through reuse plus invalidation."""
 
-    before_index = source_index(before)
     invalidated_set = set(invalidated)
     # Keep the after-side provider work bounded to the invalidation set.  The
     # before index is the reusable baseline; parsing the complete after tree
@@ -264,7 +264,9 @@ def _case_execution(
     stale = fixture_case["case_id"] == "stale-index"
     full_projection = projection_digest(after_index) if full_rebuild else None
     delta_index = (
-        delta_source_index(before, after, invalidated) if full_rebuild else None
+        delta_source_index(before, after, invalidated, before_index)
+        if full_rebuild
+        else None
     )
     delta_projection = (
         projection_digest(delta_index) if delta_index is not None else None
@@ -338,7 +340,7 @@ def _case_execution(
             return execute_projection_once(after)
     else:
         def projection_runner() -> dict[str, Any]:
-            return delta_source_index(before, after, invalidated)
+            return delta_source_index(before, after, invalidated, before_index)
     first_projection = projection_runner()
     repeated_projection = projection_runner()
     state = build_state(first_projection)

@@ -1,6 +1,7 @@
 """Regression tests for the bounded code-observation refactor contract."""
 
 import copy
+import hashlib
 import json
 import shutil
 import subprocess
@@ -225,6 +226,18 @@ def test_adjacent_provider_evidence_requires_all_unadmitted_classes(
         "summary": {"all_provider_lanes_unadmitted": True},
         "claim_limits": adjacent_provider_evidence.CLAIM_LIMITS,
     }
+    raw_contents = {
+        "sarif": b"fixture-sarif\n",
+        "sbom": b"fixture-sbom\n",
+        "in_toto": b"fixture-in-toto\n",
+        "document_markdown": b"# fixture\n",
+    }
+    for key, contents in raw_contents.items():
+        raw_path = tmp_path / payload["raw_evidence"][key]["path"]
+        raw_path.write_bytes(contents)
+        payload["raw_evidence"][key]["sha256"] = (
+            "sha256:" + hashlib.sha256(contents).hexdigest()
+        )
     path = tmp_path / "adjacent.json"
     path.write_text(json.dumps(payload), encoding="utf-8")
     result = adjacent_provider_evidence.validate(path)
@@ -238,12 +251,36 @@ def test_adjacent_provider_evidence_requires_all_unadmitted_classes(
     assert any(issue.startswith("schema:providers") for issue in result["issues"])
     payload["providers"] = provider_metadata
 
-    raw_evidence = payload["raw_evidence"]
+    raw_evidence = copy.deepcopy(payload["raw_evidence"])
+    original_raw_evidence = copy.deepcopy(raw_evidence)
     payload["raw_evidence"] = {}
     path.write_text(json.dumps(payload), encoding="utf-8")
     result = adjacent_provider_evidence.validate(path)
     assert any(issue.startswith("schema:raw_evidence") for issue in result["issues"])
     payload["raw_evidence"] = raw_evidence
+
+    payload["raw_evidence"]["sarif"]["sha256"] = "sha256:" + "f" * 64
+    path.write_text(json.dumps(payload), encoding="utf-8")
+    assert "raw_evidence_digest_mismatch:sarif" in adjacent_provider_evidence.validate(
+        path
+    )["issues"]
+    payload["raw_evidence"]["sarif"]["sha256"] = original_raw_evidence["sarif"][
+        "sha256"
+    ]
+    payload["raw_evidence"]["sarif"]["path"] = "../outside.sarif"
+    path.write_text(json.dumps(payload), encoding="utf-8")
+    assert "raw_evidence_path_unsafe:sarif" in adjacent_provider_evidence.validate(
+        path
+    )["issues"]
+    payload["raw_evidence"]["sarif"]["path"] = original_raw_evidence["sarif"][
+        "path"
+    ]
+
+    (tmp_path / original_raw_evidence["sarif"]["path"]).unlink()
+    path.write_text(json.dumps(payload), encoding="utf-8")
+    assert "raw_evidence_file_missing:sarif" in adjacent_provider_evidence.validate(
+        path
+    )["issues"]
 
     payload["claim_limits"] = ["This packet proves provider correctness."] * 3
     path.write_text(json.dumps(payload), encoding="utf-8")
@@ -451,6 +488,29 @@ def test_report_rejects_duplicate_metric_declarations(tmp_path: Path) -> None:
     )
 
 
+def test_report_rejects_invalid_optional_metric_values_and_units(
+    tmp_path: Path,
+) -> None:
+    report = json.loads(EXAMPLE.read_text(encoding="utf-8"))
+    report["observations"][0]["metrics"].append(
+        {
+            "metric_id": "latency",
+            "value": -99,
+            "unit": "bogus",
+            "status": "observed",
+        }
+    )
+    path = tmp_path / "optional-metric-drift.json"
+    path.write_text(json.dumps(report), encoding="utf-8")
+
+    result = run_runner("validate-report", str(path))
+
+    assert result.returncode == 1
+    errors = json.loads(result.stdout)["errors"]
+    assert "metric_unit:rename-symbol:latency:bogus" in errors
+    assert "metric_range:rename-symbol:latency" in errors
+
+
 def test_report_rejects_source_provenance_drift(tmp_path: Path) -> None:
     report = json.loads(EXAMPLE.read_text(encoding="utf-8"))
     report["observations"][0]["provenance"]["source_ref"] = (
@@ -483,6 +543,42 @@ def test_report_rejects_inflated_branch_count_and_inconsistent_confidence(
     assert result.returncode == 1
     assert any(
         "lineage_ambiguity_mismatch:split-symbol" in error
+        for error in json.loads(result.stdout)["errors"]
+    )
+
+
+def test_report_rejects_missing_lineage_alternative_occurrence(
+    tmp_path: Path,
+) -> None:
+    report = json.loads(EXAMPLE.read_text(encoding="utf-8"))
+    report["observations"][7]["semantic_identity"]["entities"][0][
+        "occurrences"
+    ].pop()
+    path = tmp_path / "missing-lineage-alternative.json"
+    path.write_text(json.dumps(report), encoding="utf-8")
+
+    result = run_runner("validate-report", str(path))
+
+    assert result.returncode == 1
+    assert any(
+        "lineage_alternative_occurrences:split-symbol" in error
+        for error in json.loads(result.stdout)["errors"]
+    )
+
+
+def test_report_rejects_non_finite_preserved_lineage_confidence(
+    tmp_path: Path,
+) -> None:
+    report = json.loads(EXAMPLE.read_text(encoding="utf-8"))
+    report["observations"][0]["lineage"]["confidence"] = float("nan")
+    path = tmp_path / "non-finite-lineage-confidence.json"
+    path.write_text(json.dumps(report), encoding="utf-8")
+
+    result = run_runner("validate-report", str(path))
+
+    assert result.returncode == 1
+    assert any(
+        "preserved_lineage_not_certain:rename-symbol" in error
         for error in json.loads(result.stdout)["errors"]
     )
 
@@ -528,6 +624,40 @@ def test_report_rejects_unbounded_invalidation_and_metric_drift(tmp_path: Path) 
     assert any(
         "metric_range:rename-symbol:definitions_references" in error for error in errors
     )
+
+
+def test_report_rejects_invalidation_subset_even_when_paths_are_valid(
+    tmp_path: Path,
+) -> None:
+    report = json.loads(EXAMPLE.read_text(encoding="utf-8"))
+    invalidation = report["observations"][6]["invalidation"]
+    invalidation["affected_paths"] = ["src/eta.py"]
+    invalidation["recomputed_paths"] = ["src/eta.py"]
+    path = tmp_path / "invalidation-subset.json"
+    path.write_text(json.dumps(report), encoding="utf-8")
+
+    result = run_runner("validate-report", str(path))
+
+    assert result.returncode == 1
+    errors = json.loads(result.stdout)["errors"]
+    assert "invalidation_affected_paths_mismatch:multi-file-impact" in errors
+    assert "invalidation_recomputed_paths_mismatch:multi-file-impact" in errors
+
+
+def test_report_rejects_duplicate_invalidation_paths(tmp_path: Path) -> None:
+    report = json.loads(EXAMPLE.read_text(encoding="utf-8"))
+    invalidation = report["observations"][0]["invalidation"]
+    invalidation["affected_paths"] = ["src/alpha.py", "src/alpha.py"]
+    invalidation["recomputed_paths"] = ["src/alpha.py", "src/alpha.py"]
+    path = tmp_path / "duplicate-invalidation-paths.json"
+    path.write_text(json.dumps(report), encoding="utf-8")
+
+    result = run_runner("validate-report", str(path))
+
+    assert result.returncode == 1
+    errors = json.loads(result.stdout)["errors"]
+    assert "invalidation_duplicate_paths:rename-symbol:affected" in errors
+    assert "invalidation_duplicate_paths:rename-symbol:recomputed" in errors
 
 
 def test_report_rejects_affected_test_status_and_count_contradiction(
@@ -855,7 +985,12 @@ def test_delta_projection_uses_incremental_reuse_and_matches_full_projection() -
         "src/reused.py": ["def reused():", "    return 2"],
     }
 
-    delta = provider_execution.delta_source_index(before, after, ["src/changed.py"])
+    delta = provider_execution.delta_source_index(
+        before,
+        after,
+        ["src/changed.py"],
+        provider_execution.source_index(before),
+    )
 
     assert delta == provider_execution.source_index(after)
     assert delta is not provider_execution.source_index(after)
@@ -874,8 +1009,8 @@ def test_provider_execution_exercises_delta_path_for_delta_cases(monkeypatch) ->
     )
     delta_calls = []
 
-    def record_delta(before, after, invalidated):
-        delta_calls.append((before, after, invalidated))
+    def record_delta(before, after, invalidated, before_index):
+        delta_calls.append((before, after, invalidated, before_index))
         return provider_execution.source_index(after)
 
     def reject_full_projection(_after):
@@ -916,9 +1051,13 @@ def test_delta_projection_parses_only_invalidated_after_paths(monkeypatch) -> No
 
     monkeypatch.setattr(provider_execution, "source_index", record_source_index)
 
-    provider_execution.delta_source_index(before, after, ["src/changed.py"])
+    baseline = provider_execution.source_index(before)
+    calls.clear()
+    provider_execution.delta_source_index(
+        before, after, ["src/changed.py"], baseline
+    )
 
-    assert calls == [{"src/changed.py", "src/reused.py"}, {"src/changed.py"}]
+    assert calls == [{"src/changed.py"}]
 
 
 def test_provider_execution_rejects_added_deleted_record_drift(tmp_path: Path) -> None:

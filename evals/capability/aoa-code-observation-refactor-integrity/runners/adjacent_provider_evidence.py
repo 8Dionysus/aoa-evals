@@ -50,6 +50,49 @@ EXPECTED_PROVIDER_IDS = {provider_id for provider_id, _ in EXPECTED.values()}
 # accepting both representations while requiring a complete cryptographic
 # digest rather than an arbitrary non-empty token.
 _DIGEST_RE = re.compile(r"^(?:sha256:)?[0-9a-f]{64}$")
+_RAW_DIGEST_RE = re.compile(r"^sha256:[0-9a-f]{64}$")
+# Adjacent evidence is normally staged beside the packet.  The supplied
+# AbyssOS packet also points at a host-managed artifact bundle for its in-toto
+# output; keep that explicit store as the only permitted external root.
+_HOST_ARTIFACT_ROOT = Path("/srv/abyss-machine/artifacts")
+
+
+def _raw_evidence_path(packet_path: Path, declared_path: Any) -> tuple[Path | None, str | None]:
+    """Resolve one raw ref without allowing arbitrary host-file claims."""
+
+    if (
+        not isinstance(declared_path, str)
+        or not declared_path.strip()
+        or "\x00" in declared_path
+        or "://" in declared_path
+    ):
+        return None, "path_unsafe"
+    try:
+        candidate = Path(declared_path)
+        resolved = (
+            candidate if candidate.is_absolute() else packet_path.parent / candidate
+        ).resolve(strict=False)
+        packet_root = packet_path.parent.resolve(strict=False)
+        allowed_roots = [packet_root]
+        if _HOST_ARTIFACT_ROOT.exists():
+            allowed_roots.append(_HOST_ARTIFACT_ROOT.resolve(strict=False))
+        if not any(
+            resolved == root or root in resolved.parents for root in allowed_roots
+        ):
+            return None, "path_unsafe"
+    except (OSError, RuntimeError, TypeError, ValueError):
+        return None, "path_unsafe"
+    if not resolved.is_file():
+        return None, "file_missing"
+    return resolved, None
+
+
+def _raw_evidence_digest(path: Path) -> str:
+    digest = hashlib.sha256()
+    with path.open("rb") as stream:
+        for chunk in iter(lambda: stream.read(1024 * 1024), b""):
+            digest.update(chunk)
+    return "sha256:" + digest.hexdigest()
 
 
 def _provider_execution_issues(
@@ -57,6 +100,7 @@ def _provider_execution_issues(
     batch: dict[str, Any],
     providers: Any,
     raw_evidence: Any,
+    packet_path: Path,
 ) -> list[str]:
     """Require provenance that the advertised provider output really exists.
 
@@ -118,10 +162,20 @@ def _provider_execution_issues(
     if not isinstance(raw_ref, dict):
         issues.append(f"raw_evidence_missing:{raw_key}")
     else:
-        if not isinstance(raw_ref.get("path"), str) or not raw_ref["path"].strip():
-            issues.append(f"raw_evidence_path_missing:{raw_key}")
-        if _DIGEST_RE.fullmatch(str(raw_ref.get("sha256", ""))) is None:
+        declared_path = raw_ref.get("path")
+        raw_path, path_issue = _raw_evidence_path(packet_path, declared_path)
+        if path_issue == "path_unsafe":
+            issues.append(f"raw_evidence_path_unsafe:{raw_key}")
+        elif path_issue == "file_missing":
+            issues.append(f"raw_evidence_file_missing:{raw_key}")
+        if _RAW_DIGEST_RE.fullmatch(str(raw_ref.get("sha256", ""))) is None:
             issues.append(f"raw_evidence_digest_missing:{raw_key}")
+        elif raw_path is not None:
+            try:
+                if _raw_evidence_digest(raw_path) != raw_ref["sha256"]:
+                    issues.append(f"raw_evidence_digest_mismatch:{raw_key}")
+            except OSError:
+                issues.append(f"raw_evidence_file_unreadable:{raw_key}")
     return issues
 
 
@@ -241,6 +295,7 @@ def validate(path: Path) -> dict[str, Any]:
                     batch,
                     payload.get("providers"),
                     payload.get("raw_evidence"),
+                    path,
                 )
             )
             evidence[key] = {

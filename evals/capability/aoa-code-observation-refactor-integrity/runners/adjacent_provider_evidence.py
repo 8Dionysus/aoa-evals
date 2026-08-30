@@ -198,6 +198,63 @@ def _packet_source_path(
     return resolved, None
 
 
+def _source_occurrence_issues(
+    batch: dict[str, Any], provider_id: str, packet_path: Path
+) -> list[str]:
+    """Reject normalized coordinates that cannot occur in the source witness."""
+
+    source = batch.get("source", {})
+    source_file, source_file_issue = _packet_source_path(
+        packet_path, source.get("path") if isinstance(source, dict) else None
+    )
+    if source_file is None:
+        return (
+            [f"source_occurrence_witness_missing:{provider_id}"]
+            if source_file_issue in {"file_missing", "path_unsafe"}
+            else []
+        )
+    try:
+        source_text = source_file.read_text(encoding="utf-8")
+    except (OSError, UnicodeDecodeError):
+        return [f"source_occurrence_witness_unreadable:{provider_id}"]
+    source_lines = source_text.splitlines()
+    if source_text.endswith(("\n", "\r")):
+        source_lines.append("")
+
+    issues: list[str] = []
+    for observation_index, observation in enumerate(batch.get("observations", [])):
+        if not isinstance(observation, dict):
+            continue
+        occurrence = observation.get("occurrence")
+        fields = ("start_line", "start_column", "end_line", "end_column")
+        if not isinstance(occurrence, dict) or any(
+            isinstance(occurrence.get(field), bool)
+            or not isinstance(occurrence.get(field), int)
+            or occurrence[field] < 1
+            for field in fields
+        ):
+            continue
+        if (occurrence["end_line"], occurrence["end_column"]) < (
+            occurrence["start_line"],
+            occurrence["start_column"],
+        ):
+            continue
+        for line_field, column_field in (
+            ("start_line", "start_column"),
+            ("end_line", "end_column"),
+        ):
+            line_number = occurrence[line_field]
+            column_number = occurrence[column_field]
+            if line_number > len(source_lines) or column_number > len(
+                source_lines[line_number - 1]
+            ) + 1:
+                issues.append(
+                    f"source_occurrence_bounds:{provider_id}:{observation_index}"
+                )
+                break
+    return issues
+
+
 def _source_identity_issues(
     batch: dict[str, Any],
     provider_id: str,
@@ -914,6 +971,7 @@ def validate(path: Path) -> dict[str, Any]:
                     path,
                 )
             )
+            issues.extend(_source_occurrence_issues(batch, provider_id, path))
             count = len(batch.get("observations", []))
             if count < 1:
                 issues.append(f"observation_missing:{provider_id}")

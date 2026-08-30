@@ -229,6 +229,8 @@ def validate(path: Path) -> dict[str, Any]:
         declared_digest = source["content_digest"].removeprefix("sha256:")
         if actual_digest != declared_digest:
             issues.append("source_content_digest_mismatch")
+        if source.get("source_epoch") != f"sha256:{actual_digest}":
+            issues.append("source_epoch_content_mismatch")
         try:
             source_text = source_file.read_text(encoding="utf-8")
         except (OSError, UnicodeDecodeError):

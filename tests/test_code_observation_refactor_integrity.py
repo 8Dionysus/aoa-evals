@@ -77,7 +77,8 @@ def _agreement_envelope(provider_id: str, facts: list[str]) -> dict[str, object]
         "source": {
             "repo": "fixture",
             "path": "src/render.ts",
-            "source_epoch": "git:fixture",
+            "source_epoch": "sha256:"
+            + hashlib.sha256(AGREEMENT_SOURCE).hexdigest(),
             "content_digest": hashlib.sha256(AGREEMENT_SOURCE).hexdigest(),
             "language": "typescript",
         },
@@ -133,6 +134,16 @@ def test_typescript_provider_agreement_requires_shared_source_and_facts(
     )
     payload["envelopes"][0]["observations"][0]["occurrence"]["start_line"] = 1
     payload["envelopes"][0]["observations"][0]["occurrence"]["end_line"] = 1
+
+    for envelope in payload["envelopes"]:
+        envelope["source"]["source_epoch"] = "sha256:" + ("f" * 64)
+    path.write_text(json.dumps(payload), encoding="utf-8")
+    assert "source_epoch_content_mismatch" in provider_agreement.validate(path)[
+        "issues"
+    ]
+    expected_source_epoch = "sha256:" + hashlib.sha256(AGREEMENT_SOURCE).hexdigest()
+    for envelope in payload["envelopes"]:
+        envelope["source"]["source_epoch"] = expected_source_epoch
 
     payload["envelopes"][2]["source"]["source_epoch"] = "git:other"
     path.write_text(json.dumps(payload), encoding="utf-8")
@@ -494,6 +505,16 @@ def test_adjacent_provider_evidence_requires_all_unadmitted_classes(
         adjacent_provider_evidence.validate(path)["issues"]
     )
     source_file.write_bytes(source_contents)
+
+    out_of_bounds_payload = copy.deepcopy(payload)
+    for observation in out_of_bounds_payload["batches"]["software_components"][
+        "observations"
+    ]:
+        observation["occurrence"]["start_line"] = 999
+        observation["occurrence"]["end_line"] = 999
+    path.write_text(json.dumps(out_of_bounds_payload), encoding="utf-8")
+    occurrence_issues = adjacent_provider_evidence.validate(path)["issues"]
+    assert "source_occurrence_bounds:syft:0" in occurrence_issues
 
     # An epoch is only one part of the identity. A relabelled batch must not
     # pass when its repository/path or content digest disagrees with the raw

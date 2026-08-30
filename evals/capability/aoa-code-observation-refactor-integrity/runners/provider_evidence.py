@@ -145,6 +145,46 @@ def ctags_version(ctags_path: str) -> str:
     return first_line[0].strip() if first_line else "unknown"
 
 
+def canonical_provider_metadata(
+    provider_id: str, source_manifest: dict[str, Any]
+) -> dict[str, str]:
+    """Derive provider identity fields from the implementation under test.
+
+    The evidence file is an externally supplied observation.  Its provider
+    metadata is therefore an assertion to verify, not an authority to trust.
+    Keep this derivation tied to the same local interpreter/tool resolution
+    that the source collector observes, and independently recompute the
+    configuration digest from the checked-in source manifest.
+    """
+
+    if provider_id == "python-ast":
+        kind = "python-ast"
+        version = platform.python_version()
+        command_ref = "python3:ast.parse"
+    elif provider_id == "ctags-host":
+        kind = "ctags"
+        ctags_path = shutil.which("ctags")
+        if ctags_path is None:
+            version = "unavailable"
+            command_ref = "ctags:unavailable"
+        else:
+            version = ctags_version(ctags_path)
+            command_ref = f"ctags:{ctags_path}"
+    else:
+        raise ValueError(f"unsupported provider identity: {provider_id}")
+
+    config = {
+        "command_ref": command_ref,
+        "kind": kind,
+        "source_manifest_digest": canonical_digest(source_manifest),
+    }
+    return {
+        "version": version,
+        "command_ref": command_ref,
+        "config_digest": canonical_digest(config),
+    }
+
+
 def ctags_symbols(ctags_path: str) -> dict[tuple[str, str], dict[str, Any]]:
     paths = [path.relative_to(SOURCE_ROOT).as_posix() for path in source_files()]
     result = subprocess.run(
@@ -397,6 +437,18 @@ def semantic_errors(evidence: dict[str, Any]) -> list[str]:
             errors.append(f"{location}: source root path drift")
         if provider["source_root"]["digest"] != source_root_digest():
             errors.append(f"{location}: source root digest mismatch")
+
+        try:
+            expected_metadata = canonical_provider_metadata(provider_id, source_manifest)
+        except (OSError, RuntimeError, subprocess.SubprocessError) as exc:
+            expected_metadata = None
+            errors.append(f"{location}: canonical provider metadata unavailable: {exc}")
+        if expected_metadata is not None:
+            for field in ("version", "command_ref", "config_digest"):
+                if provider.get(field) != expected_metadata[field]:
+                    errors.append(
+                        f"{location}: provider metadata {field} mismatch"
+                    )
 
         if provider["availability"] == "not_available":
             if provider_id != "ctags-host":

@@ -1435,6 +1435,31 @@ def test_complete_provider_execution_rejects_forged_deletion_semantics(
     )
 
 
+def test_complete_provider_execution_rejects_non_delete_deletion_evidence(
+    tmp_path: Path,
+) -> None:
+    envelope = complete_provider_execution_payload()
+    execution_index, execution = next(
+        (index, item)
+        for index, item in enumerate(envelope["executions"])
+        if item["case_id"] == "rename-symbol"
+    )
+    execution["observation"]["deletion"]["before_present"] = ["src/alpha.py"]
+    execution["observation"]["deletion"]["after_absent"] = ["src/alpha.py"]
+    execution_path = tmp_path / "non-delete-deletion-evidence.json"
+    execution_path.write_text(json.dumps(envelope), encoding="utf-8")
+
+    result = run_runner("validate-provider-execution", str(execution_path))
+
+    assert result.returncode == 1
+    errors = json.loads(result.stdout)["errors"]
+    assert any(
+        f"execution[{execution_index}]:deletion_not_applicable_nonempty"
+        in error
+        for error in errors
+    )
+
+
 def test_complete_provider_execution_rejects_overconfident_split_lineage(
     tmp_path: Path,
 ) -> None:
@@ -1643,6 +1668,27 @@ def test_provider_evidence_collects_and_validates_real_local_observations(
     validation = run_runner("validate-provider-evidence", str(evidence_path))
     assert validation.returncode == 0, validation.stderr
     assert json.loads(validation.stdout)["valid"] is True
+
+
+def test_provider_evidence_rejects_provider_metadata_drift(tmp_path: Path) -> None:
+    evidence = json.loads(run_runner("collect-provider-evidence").stdout)
+    for provider in evidence["providers"]:
+        provider["version"] = "forged-provider-version"
+        provider["command_ref"] = "forged://provider"
+        provider["config_digest"] = "sha256:" + ("0" * 64)
+    path = tmp_path / "provider-metadata-drift.json"
+    path.write_text(json.dumps(evidence), encoding="utf-8")
+
+    result = run_runner("validate-provider-evidence", str(path))
+
+    assert result.returncode == 1
+    errors = json.loads(result.stdout)["errors"]
+    for index in range(len(evidence["providers"])):
+        assert any(
+            f"provider[{index}]: provider metadata {field} mismatch" in error
+            for field in ("version", "command_ref", "config_digest")
+            for error in errors
+        )
 
 
 def test_provider_evidence_cannot_claim_admission(tmp_path: Path) -> None:

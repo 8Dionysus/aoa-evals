@@ -639,6 +639,11 @@ def provider_case_observation_errors(
             errors.append(issue("deletion_after_absence", case_id))
     elif deletion.get("status") != "not-applicable":
         errors.append(issue("deletion_semantics", case_id))
+    elif (
+        deletion.get("before_present") != []
+        or deletion.get("after_absent") != []
+    ):
+        errors.append(issue("deletion_not_applicable_nonempty", case_id))
 
     affected_tests = observation.get("affected_tests", {})
     expected_tests = _expected_execution_tests(

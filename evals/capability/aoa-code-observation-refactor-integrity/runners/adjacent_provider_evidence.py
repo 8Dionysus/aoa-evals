@@ -839,7 +839,9 @@ def _observation_issue(key: str, observation: Any) -> str | None:
     occurrence = observation.get("occurrence")
     coordinate_fields = ("start_line", "start_column", "end_line", "end_column")
     if not isinstance(occurrence, dict) or any(
-        not isinstance(occurrence.get(field), int) or occurrence[field] < 1
+        isinstance(occurrence.get(field), bool)
+        or not isinstance(occurrence.get(field), int)
+        or occurrence[field] < 1
         for field in coordinate_fields
     ):
         return "occurrence"
@@ -915,6 +917,7 @@ def validate(path: Path) -> dict[str, Any]:
             count = len(batch.get("observations", []))
             if count < 1:
                 issues.append(f"observation_missing:{provider_id}")
+            observation_ids: set[str] = set()
             for observation_index, observation in enumerate(
                 batch.get("observations", [])
             ):
@@ -923,6 +926,13 @@ def validate(path: Path) -> dict[str, Any]:
                     issues.append(
                         f"invalid_observation:{provider_id}:{observation_index}:{observation_issue}"
                     )
+                    continue
+                observation_id = observation["observation_id"]
+                if observation_id in observation_ids:
+                    issues.append(
+                        f"duplicate_observation_id:{provider_id}:{observation_id}"
+                    )
+                observation_ids.add(observation_id)
             issues.extend(
                 _provider_execution_issues(
                     key,

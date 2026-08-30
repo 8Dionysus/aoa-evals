@@ -40,7 +40,9 @@ def _normalized_observation_issue(observation: Any) -> str | None:
     occurrence = observation.get("occurrence")
     coordinate_fields = ("start_line", "start_column", "end_line", "end_column")
     if not isinstance(occurrence, dict) or any(
-        not isinstance(occurrence.get(field), int) or occurrence[field] < 1
+        isinstance(occurrence.get(field), bool)
+        or not isinstance(occurrence.get(field), int)
+        or occurrence[field] < 1
         for field in coordinate_fields
     ):
         return "occurrence"

@@ -117,6 +117,13 @@ def test_typescript_provider_agreement_requires_shared_source_and_facts(
     )["issues"]
     payload["envelopes"][2]["provider"]["lane"]["id"] = "lsp"
 
+    payload["envelopes"][0]["observations"][0]["occurrence"]["start_line"] = True
+    path.write_text(json.dumps(payload), encoding="utf-8")
+    assert "invalid_normalized_observation:tree-sitter:0:occurrence" in (
+        provider_agreement.validate(path)["issues"]
+    )
+    payload["envelopes"][0]["observations"][0]["occurrence"]["start_line"] = 1
+
     payload["envelopes"][2]["source"]["source_epoch"] = "git:other"
     path.write_text(json.dumps(payload), encoding="utf-8")
     assert "source_identity_mismatch" in provider_agreement.validate(path)["issues"]
@@ -627,6 +634,29 @@ def test_adjacent_provider_evidence_requires_all_unadmitted_classes(
     payload["batches"]["static_security"]["provenance"]["parser_ref"] = (
         original_parser_ref
     )
+
+    payload["batches"]["static_security"]["observations"][0]["occurrence"][
+        "start_line"
+    ] = True
+    path.write_text(json.dumps(payload), encoding="utf-8")
+    assert "invalid_observation:semgrep:0:occurrence" in (
+        adjacent_provider_evidence.validate(path)["issues"]
+    )
+    payload["batches"]["static_security"]["observations"][0]["occurrence"][
+        "start_line"
+    ] = 1
+
+    duplicate_observation = copy.deepcopy(
+        payload["batches"]["static_security"]["observations"][0]
+    )
+    payload["batches"]["static_security"]["observations"].append(
+        duplicate_observation
+    )
+    path.write_text(json.dumps(payload), encoding="utf-8")
+    assert "duplicate_observation_id:semgrep:semgrep:0" in (
+        adjacent_provider_evidence.validate(path)["issues"]
+    )
+    payload["batches"]["static_security"]["observations"].pop()
 
     provider_metadata = payload["providers"]
     payload["providers"] = {}

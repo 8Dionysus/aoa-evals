@@ -172,6 +172,9 @@ def test_runner_keeps_content_drift_as_a_regression_signal() -> None:
         if item["field"] == "open_obligations"
     )
     assert obligation_check["preserved"] is False
+    assert obligation_check["reason"] == (
+        "canonical content differs across materializations"
+    )
 
 
 def test_runner_distinguishes_boolean_from_numeric_json_drift() -> None:
@@ -198,6 +201,32 @@ def test_runner_distinguishes_boolean_from_numeric_json_drift() -> None:
         if item["field"] == "evidence_refs"
     )
     assert evidence_check["preserved"] is False
+
+
+def test_runner_describes_metadata_drift_as_a_mismatch() -> None:
+    packet = _packet()
+    case = packet["cases"][0]
+    assert isinstance(case, dict)
+    portable = case["portable_view"]
+    assert isinstance(portable, dict)
+    watermark = portable["source_watermark"]
+    assert isinstance(watermark, dict)
+    portable["source_watermark"] = {**watermark, "generation": 2}
+    portable["view_digest"] = _digest(
+        {key: value for key, value in portable.items() if key != "view_digest"}
+    )
+
+    report = RUNNER.build_report(packet)
+
+    watermark_check = next(
+        item
+        for item in report["per_case_comparisons"][0]["field_checks"]
+        if item["field"] == "source_watermark"
+    )
+    assert watermark_check["preserved"] is False
+    assert watermark_check["reason"] == (
+        "metadata differs from the canonical capsule across views"
+    )
 
 
 def test_runner_rejects_private_tail_and_capsule_identity_drift() -> None:

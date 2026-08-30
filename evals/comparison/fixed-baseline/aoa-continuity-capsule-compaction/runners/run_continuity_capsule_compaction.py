@@ -437,30 +437,40 @@ def compare_case(case: Mapping[str, Any]) -> dict[str, Any]:
             capsule_digest=digest,
         )
         for field in CONTENT_FIELDS:
+            preserved = _canonical_equal(
+                baseline[field],
+                portable["content"][field],
+                private["content"][field],
+            )
             _check(
                 checks,
                 field=field,
                 baseline_present=field in baseline,
                 portable_present=field in portable["content"],
                 private_present=field in private["content"],
-                preserved=_canonical_equal(
-                    baseline[field],
-                    portable["content"][field],
-                    private["content"][field],
+                preserved=preserved,
+                reason=(
+                    "canonical content matches both materializations"
+                    if preserved
+                    else "canonical content differs across materializations"
                 ),
-                reason="canonical content matches both materializations",
             )
         for field in ("source_watermark", "compaction_event", "protected_tail_posture"):
+            preserved = _canonical_equal(
+                baseline[field], portable[field], private[field]
+            )
             _check(
                 checks,
                 field=field,
                 baseline_present=field in baseline,
                 portable_present=field in portable,
                 private_present=field in private,
-                preserved=_canonical_equal(
-                    baseline[field], portable[field], private[field]
+                preserved=preserved,
+                reason=(
+                    "metadata matches the canonical capsule in both views"
+                    if preserved
+                    else "metadata differs from the canonical capsule across views"
                 ),
-                reason="metadata matches the canonical capsule in both views",
             )
         posture = baseline["protected_tail_posture"]
         _check(

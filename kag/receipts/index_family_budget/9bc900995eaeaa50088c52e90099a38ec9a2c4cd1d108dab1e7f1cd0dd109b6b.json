@@ -1,0 +1,17 @@
+{
+  "allowed_bytes": 17700344,
+  "allowed_tracked_bytes": 28206327,
+  "approved_by": "repository-owner",
+  "base_ref": "d29fda71258d902068a6426b8d6475ea7c464744",
+  "changed_generated_bytes": 17700344,
+  "changed_generated_files": 263,
+  "decision_ref": "aoa-kag:docs/decisions/AOA-KAG-D-0017-portable-content-addressed-repository-family.md",
+  "default_limit_bytes": 1048576,
+  "head_family_digest": "9bc900995eaeaa50088c52e90099a38ec9a2c4cd1d108dab1e7f1cd0dd109b6b",
+  "reason": "Close PR #457 review wave by requiring snapshot-qualified evidence for every split and merge lineage side and normalized Markdown heading identity; refresh deterministic owner-local family with workflow-pinned KAG without raising standing budgets or promoting eval evidence.",
+  "repo": "aoa-evals",
+  "schema_version": "aoa-repo-local-kag-budget-receipt-v1",
+  "scope": "generated_delta_and_tracked_size",
+  "tracked_bytes": 28206327,
+  "tracked_bytes_max": 26214400
+}

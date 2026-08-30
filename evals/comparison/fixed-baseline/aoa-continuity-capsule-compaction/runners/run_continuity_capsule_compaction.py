@@ -486,26 +486,36 @@ def compare_case(case: Mapping[str, Any]) -> dict[str, Any]:
             reason="portable view omits the protected tail",
         )
         private_tail = private["protected_tail"].encode("utf-8")
+        tail_digest_preserved = (
+            "sha256:" + hashlib.sha256(private_tail).hexdigest()
+            == posture["private_tail_digest"]
+        )
         _check(
             checks,
             field="private_tail_digest",
             baseline_present=True,
             portable_present=True,
             private_present=True,
-            preserved=(
-                "sha256:" + hashlib.sha256(private_tail).hexdigest()
-                == posture["private_tail_digest"]
+            preserved=tail_digest_preserved,
+            reason=(
+                "private view retains the protected-tail digest"
+                if tail_digest_preserved
+                else "private view differs from the protected-tail digest"
             ),
-            reason="private view retains the protected-tail digest",
         )
+        tail_bytes_preserved = len(private_tail) == posture["private_tail_bytes"]
         _check(
             checks,
             field="private_tail_bytes",
             baseline_present=True,
             portable_present=True,
             private_present=True,
-            preserved=len(private_tail) == posture["private_tail_bytes"],
-            reason="private view retains the protected-tail byte count",
+            preserved=tail_bytes_preserved,
+            reason=(
+                "private view retains the protected-tail byte count"
+                if tail_bytes_preserved
+                else "private view differs from the protected-tail byte count"
+            ),
         )
     except (ContinuityCapsuleInputError, TypeError, KeyError) as exc:
         checks.append(

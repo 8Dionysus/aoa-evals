@@ -236,11 +236,28 @@ def test_runner_rejects_private_tail_and_capsule_identity_drift() -> None:
     private = tail_case["private_view"]
     assert isinstance(private, dict)
     private["protected_tail"] = "changed"
+    private_posture = private["protected_tail_posture"]
+    assert isinstance(private_posture, dict)
+    private["protected_tail_posture"] = {
+        **private_posture,
+        "private_tail_digest": "sha256:" + hashlib.sha256(b"changed").hexdigest(),
+        "private_tail_bytes": len(b"changed"),
+    }
     private["view_digest"] = _digest(
         {key: value for key, value in private.items() if key != "view_digest"}
     )
     tail_report = RUNNER.build_report(tail_packet)
-    assert tail_report["verdict"] == "regression present"
+    assert tail_report["verdict"] == "mixed regression signal"
+    tail_checks = {
+        item["field"]: item
+        for item in tail_report["per_case_comparisons"][0]["field_checks"]
+    }
+    assert tail_checks["private_tail_digest"]["reason"] == (
+        "private view differs from the protected-tail digest"
+    )
+    assert tail_checks["private_tail_bytes"]["reason"] == (
+        "private view differs from the protected-tail byte count"
+    )
 
     identity_packet = _packet()
     identity_case = identity_packet["cases"][0]

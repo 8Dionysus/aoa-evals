@@ -366,6 +366,9 @@ def test_real_repo_materialized_comparison_surfaces_expose_proof_artifacts() -> 
 
     regression_artifacts = entries["aoa-regression-same-task"]["proof_artifacts"]
     runtime_artifacts = entries["aoa-runtime-latency-tradeoff"]["proof_artifacts"]
+    continuity_artifacts = entries["aoa-continuity-capsule-compaction"][
+        "proof_artifacts"
+    ]
     memo_active_organ_artifacts = entries[
         "aoa-memo-active-organ-offline-replay"
     ]["proof_artifacts"]
@@ -381,6 +384,11 @@ def test_real_repo_materialized_comparison_surfaces_expose_proof_artifacts() -> 
     assert runtime_artifacts["runner_contract_path"] == "evals/comparison/fixed-baseline/aoa-runtime-latency-tradeoff/runners/contract.json"
     assert runtime_artifacts["report_schema_path"] == "evals/comparison/fixed-baseline/aoa-runtime-latency-tradeoff/reports/summary.schema.json"
     assert runtime_artifacts["paired_readout_path"] == "mechanics/comparison-spine/parts/fixed-baseline/reports/runtime-latency-tradeoff-proof-flow-v1.md"
+
+    assert continuity_artifacts["shared_fixture_family_path"] == "mechanics/comparison-spine/parts/fixed-baseline/fixtures/frozen-same-task-v1/README.md"
+    assert continuity_artifacts["runner_contract_path"] == "evals/comparison/fixed-baseline/aoa-continuity-capsule-compaction/runners/contract.json"
+    assert continuity_artifacts["report_schema_path"] == "evals/comparison/fixed-baseline/aoa-continuity-capsule-compaction/reports/summary.schema.json"
+    assert continuity_artifacts["paired_readout_path"] == "mechanics/comparison-spine/parts/fixed-baseline/reports/same-task-baseline-proof-flow-v1.md"
 
     assert memo_active_organ_artifacts["shared_fixture_family_path"] == "mechanics/comparison-spine/parts/fixed-baseline/fixtures/frozen-same-task-v1/README.md"
     assert memo_active_organ_artifacts["runner_contract_path"] == "evals/comparison/fixed-baseline/aoa-memo-active-organ-offline-replay/runners/contract.json"
@@ -409,6 +417,7 @@ def test_real_repo_materialized_comparison_surfaces_expose_proof_artifacts() -> 
     assert entries["aoa-longitudinal-growth-snapshot"]["comparison_surface"]["window_family_label"] == "repeated-window-bounded-v1 bounded workflow sequence"
     assert entries["aoa-stress-recovery-window"]["comparison_surface"]["window_family_label"] == "stress-recovery-window-bounded-v1 bounded stress recovery sequence"
     assert set(comparison_entries) == {
+        "aoa-continuity-capsule-compaction",
         "aoa-identity-bound-method-comparison",
         "aoa-longitudinal-growth-snapshot",
             "aoa-memo-active-organ-offline-replay",

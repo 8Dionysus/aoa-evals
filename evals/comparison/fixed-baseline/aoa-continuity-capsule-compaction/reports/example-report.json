@@ -3,7 +3,7 @@
   "bundle_status": "draft",
   "object_under_evaluation": "evidence-backed continuity capsule preservation across paired compaction materializations",
   "comparison_mode": "fixed-baseline",
-  "baseline_target": "canonical continuity capsule before compaction",
+  "baseline_target": "canonical continuity capsule before materialization",
   "case_family": "continuity-capsule-paired-v1",
   "preservation_fields": [
     "capsule_id",

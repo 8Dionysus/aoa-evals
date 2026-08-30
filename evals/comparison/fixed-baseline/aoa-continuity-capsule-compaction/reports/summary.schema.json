@@ -25,7 +25,7 @@
     },
     "comparison_mode": {"const": "fixed-baseline"},
     "baseline_target": {
-      "const": "canonical continuity capsule before compaction"
+      "const": "canonical continuity capsule before materialization"
     },
     "case_family": {"type": "string", "minLength": 5},
     "preservation_fields": {

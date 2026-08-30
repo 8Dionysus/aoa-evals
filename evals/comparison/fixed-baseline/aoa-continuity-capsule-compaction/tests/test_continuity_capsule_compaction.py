@@ -61,7 +61,7 @@ def _packet() -> dict[str, object]:
         "blockers": [],
         "exact_decisions": ["tail private"],
         "open_obligations": ["baseline"],
-        "evidence_refs": [{"ref": "evidence:001"}],
+        "evidence_refs": [{"ref": "evidence:001", "position": 1}],
         "omissions_uncertainty": {"omitted": []},
     }
     source_watermark = {
@@ -174,6 +174,32 @@ def test_runner_keeps_content_drift_as_a_regression_signal() -> None:
     assert obligation_check["preserved"] is False
 
 
+def test_runner_distinguishes_boolean_from_numeric_json_drift() -> None:
+    packet = _packet()
+    case = packet["cases"][0]
+    assert isinstance(case, dict)
+    portable = case["portable_view"]
+    assert isinstance(portable, dict)
+    content = portable["content"]
+    assert isinstance(content, dict)
+    evidence_refs = content["evidence_refs"]
+    assert isinstance(evidence_refs, list)
+    evidence_refs[0]["position"] = True
+    portable["view_digest"] = _digest(
+        {key: value for key, value in portable.items() if key != "view_digest"}
+    )
+
+    report = RUNNER.build_report(packet)
+
+    assert report["verdict"] == "mixed regression signal"
+    evidence_check = next(
+        item
+        for item in report["per_case_comparisons"][0]["field_checks"]
+        if item["field"] == "evidence_refs"
+    )
+    assert evidence_check["preserved"] is False
+
+
 def test_runner_rejects_private_tail_and_capsule_identity_drift() -> None:
     tail_packet = _packet()
     tail_case = tail_packet["cases"][0]
@@ -226,3 +252,18 @@ def test_runner_rejects_boolean_counters_and_noncanonical_numbers() -> None:
 
     with pytest.raises(RUNNER.ContinuityCapsuleInputError, match="canonical JSON"):
         RUNNER._canonical_digest({"value": float("nan")})
+
+
+@pytest.mark.parametrize(
+    ("field", "value"),
+    [("case_family", "tiny"), ("case_id", "x")],
+)
+def test_runner_enforces_report_identifier_lengths(field: str, value: str) -> None:
+    packet = _packet()
+    if field == "case_family":
+        packet[field] = value
+    else:
+        packet["cases"][0][field] = value
+
+    with pytest.raises(RUNNER.ContinuityCapsuleInputError, match="at least"):
+        RUNNER.build_report(packet)

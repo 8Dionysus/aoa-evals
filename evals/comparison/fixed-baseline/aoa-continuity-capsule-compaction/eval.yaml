@@ -36,5 +36,5 @@ comparison_surface:
   paired_readout_path: mechanics/comparison-spine/parts/fixed-baseline/reports/same-task-baseline-proof-flow-v1.md
   integrity_sidecar: aoa-eval-integrity-check
   anchor_surface: aoa-regression-same-task
-  baseline_target_label: canonical continuity capsule before compaction
+  baseline_target_label: canonical continuity capsule before materialization
   selection_question: Do you need a fixed-baseline field-preservation route for portable and private continuity capsule materializations?

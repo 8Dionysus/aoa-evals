@@ -94,9 +94,13 @@ def _require_digest(value: Any, *, label: str) -> str:
     return value
 
 
-def _require_string(value: Any, *, label: str) -> str:
+def _require_string(value: Any, *, label: str, min_length: int = 1) -> str:
     if not isinstance(value, str) or not value.strip():
         raise ContinuityCapsuleInputError(f"{label} must be a non-empty string")
+    if len(value) < min_length:
+        raise ContinuityCapsuleInputError(
+            f"{label} must contain at least {min_length} characters"
+        )
     if len(value) > MAX_STRING_LENGTH:
         raise ContinuityCapsuleInputError(f"{label} exceeds its length ceiling")
     return value
@@ -409,6 +413,10 @@ def _check(
     )
 
 
+def _canonical_equal(*values: Any) -> bool:
+    return len({_canonical_digest({"value": value}) for value in values}) == 1
+
+
 def compare_case(case: Mapping[str, Any]) -> dict[str, Any]:
     case_id = str(case.get("case_id", "unknown-case"))
     checks: list[dict[str, Any]] = []
@@ -435,10 +443,10 @@ def compare_case(case: Mapping[str, Any]) -> dict[str, Any]:
                 baseline_present=field in baseline,
                 portable_present=field in portable["content"],
                 private_present=field in private["content"],
-                preserved=(
-                    baseline[field]
-                    == portable["content"][field]
-                    == private["content"][field]
+                preserved=_canonical_equal(
+                    baseline[field],
+                    portable["content"][field],
+                    private["content"][field],
                 ),
                 reason="canonical content matches both materializations",
             )
@@ -449,7 +457,9 @@ def compare_case(case: Mapping[str, Any]) -> dict[str, Any]:
                 baseline_present=field in baseline,
                 portable_present=field in portable,
                 private_present=field in private,
-                preserved=(baseline[field] == portable[field] == private[field]),
+                preserved=_canonical_equal(
+                    baseline[field], portable[field], private[field]
+                ),
                 reason="metadata matches the canonical capsule in both views",
             )
         posture = baseline["protected_tail_posture"]
@@ -531,7 +541,7 @@ def build_report(payload: Mapping[str, Any]) -> dict[str, Any]:
     if packet.get("schema_version") != INPUT_SCHEMA_VERSION:
         raise ContinuityCapsuleInputError("input packet has the wrong schema")
     case_family = packet.get("case_family")
-    _require_string(case_family, label="case_family")
+    _require_string(case_family, label="case_family", min_length=5)
     cases = packet.get("cases")
     if (
         not isinstance(cases, Sequence)
@@ -552,8 +562,11 @@ def build_report(payload: Mapping[str, Any]) -> dict[str, Any]:
             label=f"cases[{index}]",
         )
         case_id = case.get("case_id")
-        if not isinstance(case_id, str) or not case_id:
-            raise ContinuityCapsuleInputError(f"cases[{index}].case_id is invalid")
+        _require_string(
+            case_id,
+            label=f"cases[{index}].case_id",
+            min_length=3,
+        )
         if case_id in seen_ids:
             raise ContinuityCapsuleInputError(f"duplicate case_id: {case_id}")
         seen_ids.add(case_id)
@@ -574,7 +587,7 @@ def build_report(payload: Mapping[str, Any]) -> dict[str, Any]:
             "evidence-backed continuity capsule preservation across paired compaction materializations"
         ),
         "comparison_mode": "fixed-baseline",
-        "baseline_target": "canonical continuity capsule before compaction",
+        "baseline_target": "canonical continuity capsule before materialization",
         "case_family": case_family,
         "preservation_fields": list(PRESERVATION_FIELDS),
         "admission": {

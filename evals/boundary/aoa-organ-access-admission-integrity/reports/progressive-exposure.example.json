@@ -1,0 +1,61 @@
+{
+  "activation_authorized": false,
+  "central_proof_asserted": false,
+  "claim_limit": "This source-contract review proves deterministic disclosure accounting and fail-closed authority boundaries only. It does not prove a live endpoint, activation, owner acceptance, central proof, utility, latency, or economy effect.",
+  "economy": {
+    "baseline_ready": false,
+    "claim_limit": "This source-contract review proves deterministic disclosure accounting and fail-closed authority boundaries only. It does not prove a live endpoint, activation, owner acceptance, central proof, utility, latency, or economy effect.",
+    "latency_observed": false,
+    "promotion_authorized": false,
+    "status": "not_run_baseline_admission_missing",
+    "utility_observed": false
+  },
+  "eval_id": "aoa-organ-access-admission-integrity",
+  "execution_authorized": false,
+  "fixture_breakdown": [
+    {
+      "fixture_id": "progressive-exposure-default-off-v1",
+      "issue_codes": [],
+      "mode": "default_off",
+      "observed": "accept",
+      "source_selection_digest": "sha256:9d18ce1db1e323b0874215b043f923dfc22eb52a4f24294d14d6d4adcb3f736a"
+    },
+    {
+      "fixture_id": "progressive-exposure-explicit-candidate-v1",
+      "issue_codes": [],
+      "mode": "explicit_candidate",
+      "observed": "accept",
+      "source_selection_digest": "sha256:9d18ce1db1e323b0874215b043f923dfc22eb52a4f24294d14d6d4adcb3f736a"
+    },
+    {
+      "fixture_id": "progressive-exposure-feature-off-baseline-ready-v1",
+      "issue_codes": [],
+      "mode": "feature_disabled_baseline_ready",
+      "observed": "accept",
+      "source_selection_digest": "sha256:9d18ce1db1e323b0874215b043f923dfc22eb52a4f24294d14d6d4adcb3f736a"
+    },
+    {
+      "fixture_id": "progressive-exposure-feature-enabled-baseline-missing-v1",
+      "issue_codes": [],
+      "mode": "feature_enabled_baseline_missing",
+      "observed": "accept",
+      "source_selection_digest": "sha256:9d18ce1db1e323b0874215b043f923dfc22eb52a4f24294d14d6d4adcb3f736a"
+    }
+  ],
+  "integrity_verdict": "supports_bounded_claim",
+  "matched_selection": {
+    "same_selection": true,
+    "source_selection_digest": "sha256:9d18ce1db1e323b0874215b043f923dfc22eb52a4f24294d14d6d4adcb3f736a"
+  },
+  "owner_acceptance_inferred": false,
+  "schema_version": "aoa_progressive_exposure_eval_report_v1",
+  "track": "progressive-tool-exposure",
+  "visibility_comparison": {
+    "candidate_bytes": 415,
+    "candidate_minus_default_bytes": 413,
+    "candidate_minus_default_tokens": null,
+    "candidate_tokens": 104,
+    "default_off_bytes": 2,
+    "default_off_tokens": null
+  }
+}

@@ -147,6 +147,11 @@ EXPECTED_RELATIONS = {
     },
 }
 CONTROLLED_SOURCE_REF_PREFIX = "fixture://"
+CONTROLLED_SOURCE_EPOCH_REVISION = "source-epoch-001"
+CONTROLLED_SOURCE_REPOSITORY = (
+    "mechanics/proof-infra/parts/fixture-families/fixtures/"
+    "refactor-torture-v1/cases.json"
+)
 
 # This is an independently declared prior provider epoch for the synthetic
 # stale-index case.  A stale label alone is not evidence: the report must
@@ -181,6 +186,16 @@ def canonical_digest(value: Any) -> str:
         value, ensure_ascii=True, sort_keys=True, separators=(",", ":")
     )
     return "sha256:" + hashlib.sha256(payload.encode("utf-8")).hexdigest()
+
+
+def controlled_source_epoch() -> dict[str, str]:
+    """Return source identity derived from the checked-in fixture bytes."""
+
+    return {
+        "repository": CONTROLLED_SOURCE_REPOSITORY,
+        "revision": CONTROLLED_SOURCE_EPOCH_REVISION,
+        "digest": "sha256:" + hashlib.sha256(FIXTURE_PATH.read_bytes()).hexdigest(),
+    }
 
 
 def parse_observed_at(value: Any) -> datetime | None:
@@ -898,6 +913,9 @@ def provider_execution_errors(
         errors.append(issue("provider_id", "provider and machine binding differ"))
 
     run = envelope["run"]
+    run_observed_at = parse_observed_at(run.get("observed_at"))
+    if run_observed_at is None:
+        errors.append(issue("run_observed_at", "invalid"))
     seen_case_ids: set[str] = set()
     observed_case_order: list[str] = []
     coverage = envelope.get("coverage")
@@ -990,6 +1008,11 @@ def provider_execution_errors(
             errors.append(issue("environment_digest", location))
         if complete_coverage and execution["command_ref"] != run["command_ref"]:
             errors.append(issue("execution_command_ref", location))
+        execution_observed_at = parse_observed_at(execution.get("observed_at"))
+        if execution_observed_at is None:
+            errors.append(issue("execution_observed_at", f"{location}:invalid"))
+        elif run_observed_at is not None and execution_observed_at > run_observed_at:
+            errors.append(issue("execution_observed_at", f"{location}:after_run"))
         if not math.isfinite(execution["latency_ms"]):
             errors.append(issue("latency", f"{location}:not-finite"))
         state = execution["provider_state"]
@@ -1466,6 +1489,16 @@ def semantic_case_issues(
 
     lineage = observation.get("lineage", {})
     entities = observation.get("semantic_identity", {}).get("entities", [])
+    semantic_ids = [entity.get("semantic_id") for entity in entities]
+    duplicate_semantic_ids = sorted(
+        {
+            semantic_id
+            for semantic_id in semantic_ids
+            if isinstance(semantic_id, str) and semantic_ids.count(semantic_id) > 1
+        }
+    )
+    for semantic_id in duplicate_semantic_ids:
+        errors.append(issue("semantic_identity_duplicate_id", f"{case_id}:{semantic_id}"))
     if lineage.get("posture") != case["expected_lineage"]:
         errors.append(
             issue(
@@ -2050,6 +2083,13 @@ def validate_report(
     expected_digest = canonical_digest(manifest)
     if report["run"]["fixture_digest"] != expected_digest:
         errors.append(issue("fixture_digest_mismatch", expected_digest))
+    if report["source_epoch"] != controlled_source_epoch():
+        errors.append(
+            issue(
+                "source_epoch_identity_mismatch",
+                "report source epoch is not bound to the checked-in fixture bytes",
+            )
+        )
     if not {"live", "indexed"}.issubset(set(report["run"]["planes"])):
         errors.append(
             issue("overall_plane_coverage_missing", "report requires live and indexed")

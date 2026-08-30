@@ -25,6 +25,9 @@ import adjacent_provider_evidence  # noqa: E402
 import provider_execution  # noqa: E402
 
 
+AGREEMENT_SOURCE = b"export function render(): string { return 'fixture'; }\n"
+
+
 def run_runner(*arguments: str) -> subprocess.CompletedProcess[str]:
     return subprocess.run(
         [sys.executable, str(RUNNER), *arguments],
@@ -75,7 +78,7 @@ def _agreement_envelope(provider_id: str, facts: list[str]) -> dict[str, object]
             "repo": "fixture",
             "path": "src/render.ts",
             "source_epoch": "git:fixture",
-            "content_digest": "1" * 64,
+            "content_digest": hashlib.sha256(AGREEMENT_SOURCE).hexdigest(),
             "language": "typescript",
         },
         "parse_status": "parsed",
@@ -98,6 +101,9 @@ def test_typescript_provider_agreement_requires_shared_source_and_facts(
             for provider_id in ("tree-sitter", "scip", "lsp")
         ],
     }
+    source_path = tmp_path / "src" / "render.ts"
+    source_path.parent.mkdir(parents=True)
+    source_path.write_bytes(AGREEMENT_SOURCE)
     path = tmp_path / "agreement.json"
     path.write_text(json.dumps(payload), encoding="utf-8")
     result = provider_agreement.validate(path)
@@ -123,11 +129,37 @@ def test_provider_agreement_rejects_claim_boundary_drift(tmp_path: Path) -> None
     }
     path = tmp_path / "agreement-boundary-drift.json"
     path.write_text(json.dumps(payload), encoding="utf-8")
+    source_path = tmp_path / "src" / "render.ts"
+    source_path.parent.mkdir(parents=True)
+    source_path.write_bytes(AGREEMENT_SOURCE)
 
     result = provider_agreement.validate(path)
 
     assert any("claim_boundary" in issue for issue in result["issues"])
     assert result["verdict"] == "does not support bounded cross-provider agreement"
+
+
+def test_provider_agreement_rejects_source_digest_drift(tmp_path: Path) -> None:
+    facts = ["definition:render"]
+    payload = {
+        "schema_version": "aoa_code_observation_provider_agreement_v1",
+        "observed_at": "2026-08-29T00:00:00Z",
+        "required_facts": facts,
+        "claim_boundary": provider_agreement.CLAIM_BOUNDARY,
+        "envelopes": [
+            _agreement_envelope(provider_id, facts)
+            for provider_id in ("tree-sitter", "scip", "lsp")
+        ],
+    }
+    source_path = tmp_path / "src" / "render.ts"
+    source_path.parent.mkdir(parents=True)
+    source_path.write_bytes(AGREEMENT_SOURCE + b"// drift\n")
+    path = tmp_path / "agreement-source-drift.json"
+    path.write_text(json.dumps(payload), encoding="utf-8")
+
+    result = provider_agreement.validate(path)
+
+    assert "source_content_digest_mismatch" in result["issues"]
 
 
 def test_adjacent_provider_evidence_requires_all_unadmitted_classes(
@@ -575,6 +607,25 @@ def test_example_observation_report_supports_all_cases() -> None:
     assert summary["verdict"] == "supports bounded contract"
 
 
+def test_report_rejects_unbound_source_epoch_identity(tmp_path: Path) -> None:
+    for field, value in (
+        ("repository", "untrusted-repository"),
+        ("digest", "sha256:" + "0" * 64),
+    ):
+        report = json.loads(EXAMPLE.read_text(encoding="utf-8"))
+        report["source_epoch"][field] = value
+        path = tmp_path / f"source-epoch-{field}-drift.json"
+        path.write_text(json.dumps(report), encoding="utf-8")
+
+        result = run_runner("validate-report", str(path))
+
+        assert result.returncode == 1
+        assert any(
+            error.startswith("source_epoch_identity_mismatch:")
+            for error in json.loads(result.stdout)["errors"]
+        )
+
+
 def test_operation_drift_is_rejected(tmp_path: Path) -> None:
     report = json.loads(EXAMPLE.read_text(encoding="utf-8"))
     report["observations"][0]["operation"] = "delete"
@@ -927,6 +978,20 @@ def test_report_rejects_duplicate_semantic_occurrence(tmp_path: Path) -> None:
     )["errors"]
 
 
+def test_report_rejects_duplicate_semantic_identity(tmp_path: Path) -> None:
+    report = json.loads(EXAMPLE.read_text(encoding="utf-8"))
+    entities = report["observations"][0]["semantic_identity"]["entities"]
+    entities.append(copy.deepcopy(entities[0]))
+    path = tmp_path / "duplicate-semantic-identity.json"
+    path.write_text(json.dumps(report), encoding="utf-8")
+
+    result = run_runner("validate-report", str(path))
+
+    assert result.returncode == 1
+    errors = json.loads(result.stdout)["errors"]
+    assert "semantic_identity_duplicate_id:rename-symbol:fixture:alpha.symbol" in errors
+
+
 def test_report_rejects_non_finite_preserved_lineage_confidence(
     tmp_path: Path,
 ) -> None:
@@ -1177,7 +1242,7 @@ def provider_execution_payload() -> dict[str, object]:
         },
         "run": {
             "execution_id": "test-execution",
-            "observed_at": "2026-08-25T12:00:00Z",
+            "observed_at": "2026-08-25T12:01:00Z",
             "command_ref": "test://provider-execution",
             "environment_digest": environment_digest,
             "reproducibility_state": "deterministic",
@@ -1221,6 +1286,19 @@ def test_provider_execution_binds_state_to_machine_contract(tmp_path: Path) -> N
     assert payload["valid"] is True
     assert payload["admission_state"] == "not_admitted"
     assert payload["case_ids"] == ["delta-full-parity"]
+
+
+def test_provider_execution_rejects_execution_after_run(tmp_path: Path) -> None:
+    envelope = complete_provider_execution_payload()
+    envelope["executions"][0]["observed_at"] = "2999-01-01T00:00:01Z"  # type: ignore[index]
+    execution_path = tmp_path / "execution-after-run.json"
+    execution_path.write_text(json.dumps(envelope), encoding="utf-8")
+
+    result = run_runner("validate-provider-execution", str(execution_path))
+
+    assert result.returncode == 1
+    errors = json.loads(result.stdout)["errors"]
+    assert "execution_observed_at:execution[0]:after_run" in errors
 
 
 def test_provider_execution_rejects_claim_limit_drift(tmp_path: Path) -> None:
@@ -2033,6 +2111,20 @@ def test_provider_evidence_rejects_claim_boundary_and_occurrence_drift(
         "symbol occurrence does not match independent provider output" in error
         for error in errors
     )
+
+
+def test_provider_evidence_rejects_duplicate_symbol_occurrence(tmp_path: Path) -> None:
+    evidence = json.loads(run_runner("collect-provider-evidence").stdout)
+    observation = evidence["providers"][0]["observations"][0]
+    observation["symbols"].append(copy.deepcopy(observation["symbols"][0]))
+    path = tmp_path / "duplicate-provider-symbol.json"
+    path.write_text(json.dumps(evidence), encoding="utf-8")
+
+    result = run_runner("validate-provider-evidence", str(path))
+
+    assert result.returncode == 1
+    errors = json.loads(result.stdout)["errors"]
+    assert any("duplicate symbol occurrence" in error for error in errors)
 
 
 def test_provider_evidence_rejects_claim_limit_drift(tmp_path: Path) -> None:

@@ -517,6 +517,20 @@ def semantic_errors(evidence: dict[str, Any]) -> list[str]:
                 errors.append(
                     f"{location}:{case_id}: declared symbol evidence mismatch"
                 )
+            symbol_occurrences = [
+                (
+                    symbol["name"],
+                    symbol["kind"],
+                    symbol["source_path"],
+                    symbol["start_line"],
+                    symbol["end_line"],
+                )
+                for symbol in observation["symbols"]
+            ]
+            if len(symbol_occurrences) != len(set(symbol_occurrences)):
+                errors.append(
+                    f"{location}:{case_id}: duplicate symbol occurrence"
+                )
             for symbol in observation["symbols"]:
                 if local_path_error(symbol["source_path"]):
                     errors.append(f"{location}:{case_id}: unsafe symbol source path")

@@ -5,6 +5,7 @@ from __future__ import annotations
 import hashlib
 import json
 from pathlib import Path
+from pathlib import PurePosixPath
 from typing import Any
 
 from jsonschema import Draft202012Validator, FormatChecker
@@ -82,6 +83,37 @@ def _digest(value: Any) -> str:
     return "sha256:" + hashlib.sha256(encoded).hexdigest()
 
 
+def _source_path_is_safe(value: Any) -> bool:
+    """Accept only a packet-local relative source path."""
+
+    if not isinstance(value, str) or not value or "\x00" in value:
+        return False
+    posix_path = PurePosixPath(value)
+    first_component = value.split("/", 1)[0]
+    return not (
+        posix_path.is_absolute()
+        or ".." in posix_path.parts
+        or "//" in value
+        or "\\" in value
+        or "://" in value
+        or ":" in first_component
+    )
+
+
+def _packet_source_path(packet_path: Path, source_path: Any) -> Path | None:
+    """Resolve a source witness without allowing a packet to escape its root."""
+
+    if not _source_path_is_safe(source_path):
+        return None
+    packet_root = packet_path.parent.resolve()
+    candidate = (packet_root / str(source_path)).resolve()
+    try:
+        candidate.relative_to(packet_root)
+    except ValueError:
+        return None
+    return candidate if candidate.is_file() else None
+
+
 def validate(path: Path) -> dict[str, Any]:
     payload = _load(path)
     schema_errors = sorted(
@@ -123,6 +155,20 @@ def validate(path: Path) -> dict[str, Any]:
     }
     if len(source_keys) != 1:
         issues.append("source_identity_mismatch")
+
+    # Agreement on repeated metadata is not an independent source witness.
+    # Read the referenced TypeScript bytes from the evidence packet and bind
+    # the declared digest to that content before claiming exact-source-epoch
+    # agreement.
+    source = envelopes[0]["source"]
+    source_file = _packet_source_path(path, source.get("path"))
+    if source_file is None:
+        issues.append("source_file_missing_or_unsafe")
+    else:
+        actual_digest = hashlib.sha256(source_file.read_bytes()).hexdigest()
+        declared_digest = source["content_digest"].removeprefix("sha256:")
+        if actual_digest != declared_digest:
+            issues.append("source_content_digest_mismatch")
 
     facts: dict[str, set[str]] = {}
     for envelope in envelopes:

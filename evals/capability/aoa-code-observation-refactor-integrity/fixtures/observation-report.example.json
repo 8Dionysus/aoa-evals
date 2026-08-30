@@ -6,9 +6,9 @@
     "config_digest": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
   },
   "source_epoch": {
-    "repository": "fixture-repo",
+    "repository": "mechanics/proof-infra/parts/fixture-families/fixtures/refactor-torture-v1/cases.json",
     "revision": "source-epoch-001",
-    "digest": "sha256:bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+    "digest": "sha256:477a3e476c64ff92b932d6b863217663719aab1e732fbeb9609791862c8bf9a2"
   },
   "run": {
     "run_id": "refactor-torture-example-001",

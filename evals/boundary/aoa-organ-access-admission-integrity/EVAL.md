@@ -3,7 +3,7 @@ name: aoa-organ-access-admission-integrity
 category: boundary
 status: bounded
 summary: Checks that one OS Abyss organ-access proof packet preserves independent maturity axes, policy-plane ceilings, owner acceptance, freshness, and admission boundaries.
-object_under_evaluation: OS Abyss organ-access proof packet, bounded rollback-readiness candidate, and their admission inferences
+object_under_evaluation: OS Abyss organ-access proof packet, bounded rollback-readiness candidate, and matched progressive-tool-exposure disclosure candidates
 claim_type: bounded
 baseline_mode: none
 report_format: summary-with-breakdown
@@ -216,6 +216,34 @@ address, and authority ceilings. A `supported_bounded` verdict means the
 candidate passed this source contract. It does not authenticate the referenced
 live files; `abyss-stack` must revalidate them unchanged before projecting a
 rollback-readiness observation.
+
+### Progressive tool-exposure track
+
+The bundle also carries a matched, public-safe source-contract track for the
+provider-neutral `aoa_organ_exposure_plan_v1` candidate. Four fixtures use the
+same owner-qualified capability and ordered primitive selection:
+
+- `fixtures/exposure/01-default-off.json` keeps the feature and baseline gate
+  closed and therefore exposes zero tools, two serialized bytes for the empty
+  set, and no token count;
+- `fixtures/exposure/02-explicit-candidate.json` exercises the future explicit
+  disclosure path and records the ordered visible tool-set, schema digest,
+  bytes, and an explicitly estimated token count.
+- `fixtures/exposure/03-feature-off-baseline-ready.json` closes only the
+  feature gate and still exposes zero tools.
+- `fixtures/exposure/04-feature-enabled-baseline-missing.json` closes only the
+  baseline gate and still exposes zero tools.
+
+`runners/review_exposure.py` checks content addressing, effect ceilings,
+selection parity, refusal/expansion reasons, and the fixed-false activation and
+execution fields. Its report keeps the matched visibility delta separate from
+economy evidence. Because the current d0 baseline admission is not present,
+the economy read is deliberately `not_run_baseline_admission_missing`: no
+utility, latency, promotion, or economy claim is made by these fixtures.
+
+The stack-side materialization and invocation receipt contract is reviewed by
+the stack owner. This eval does not authenticate a live receipt, invoke a
+tool, or turn a source candidate into runtime admission.
 
 ## Scoring or verdict logic
 

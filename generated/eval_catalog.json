@@ -2458,6 +2458,10 @@
           "path": "notes/rollback-readiness-contract.md"
         },
         {
+          "kind": "support_note",
+          "path": "notes/progressive-exposure-contract.md"
+        },
+        {
           "kind": "integrity_check",
           "path": "checks/eval-integrity-check.md"
         }
@@ -2471,7 +2475,7 @@
       "interpretation_boundary": "evidence that a live organ is installed or reachable;; evidence that a result is grounded or fresh;; owner acceptance or control-plane admission;",
       "maturity_score": 2,
       "name": "aoa-organ-access-admission-integrity",
-      "object_under_evaluation": "OS Abyss organ-access proof packet, bounded rollback-readiness candidate, and their admission inferences",
+      "object_under_evaluation": "OS Abyss organ-access proof packet, bounded rollback-readiness candidate, and matched progressive-tool-exposure disclosure candidates",
       "portability_level": "local-shaped",
       "proof_artifacts": {
         "fixture_contract_path": "evals/boundary/aoa-organ-access-admission-integrity/fixtures/contract.json",

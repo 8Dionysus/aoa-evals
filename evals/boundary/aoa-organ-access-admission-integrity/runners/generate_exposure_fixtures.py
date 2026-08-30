@@ -155,6 +155,7 @@ def rendered() -> dict[Path, str]:
             "capability_digest": selected_capability["capability_digest"],
             "schema_digest": selected_capability["schema_digest"],
             "source_revision": selected_capability["source_revision"],
+            "owners": selected_capability["owners"],
             "requested_policy_family": "read",
             "requested_primitive_ids": ["inspect-knowledge"],
         }

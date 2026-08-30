@@ -7,6 +7,7 @@ import argparse
 import hashlib
 import json
 from collections.abc import Mapping
+from datetime import datetime
 from pathlib import Path
 from typing import Any
 
@@ -32,6 +33,14 @@ EXPECTED_MODES = {
     "feature_enabled_baseline_missing",
 }
 POLICY_RANK = {"read": 0, "candidate": 1}
+OWNER_FIELDS = {
+    "source_owner",
+    "access_owner",
+    "control_owner",
+    "runtime_owner",
+    "proof_owner",
+    "acceptance_owner",
+}
 
 
 def canonical(value: Any) -> bytes:
@@ -65,6 +74,7 @@ def selection_identity(plan: Mapping[str, Any]) -> dict[str, Any] | None:
     capability_digest = capability.get("capability_digest")
     schema_digest = capability.get("schema_digest")
     source_revision = capability.get("source_revision")
+    owners = capability.get("owners")
     policy = plan.get("requested_policy_family")
     if (
         not isinstance(qualified, str)
@@ -78,6 +88,9 @@ def selection_identity(plan: Mapping[str, Any]) -> dict[str, Any] | None:
         or not source_revision.get("revision")
         or not isinstance(source_revision.get("digest"), str)
         or not source_revision.get("digest")
+        or not isinstance(owners, Mapping)
+        or set(owners) != OWNER_FIELDS
+        or not all(isinstance(value, str) and value for value in owners.values())
         or not isinstance(policy, str)
     ):
         return None
@@ -86,6 +99,7 @@ def selection_identity(plan: Mapping[str, Any]) -> dict[str, Any] | None:
         "capability_digest": capability_digest,
         "schema_digest": schema_digest,
         "source_revision": dict(source_revision),
+        "owners": dict(owners),
         "requested_policy_family": policy,
         "requested_primitive_ids": primitive_ids,
     }
@@ -112,6 +126,16 @@ def snapshot_metrics(fixture: Mapping[str, Any]) -> tuple[int, int | None]:
         else None
     )
     return safe_bytes, safe_tokens
+
+
+def parse_timestamp(value: Any) -> datetime | None:
+    if not isinstance(value, str) or not value:
+        return None
+    try:
+        parsed = datetime.fromisoformat(value.replace("Z", "+00:00"))
+    except ValueError:
+        return None
+    return parsed if parsed.tzinfo is not None else None
 
 
 def review_fixture(fixture: dict[str, Any]) -> list[str]:
@@ -170,8 +194,14 @@ def review_fixture(fixture: dict[str, Any]) -> list[str]:
     if plan.get("activation_authorized") is not False:
         issues.append("activation_authority_not_false")
     owners = capability.get("owners")
-    if not isinstance(owners, Mapping) or capability.get("qualified_capability_id") != (
+    if (
+        not isinstance(owners, Mapping)
+        or set(owners) != OWNER_FIELDS
+        or not all(isinstance(value, str) and value for value in owners.values())
+        or capability.get("qualified_capability_id")
+        != (
         f"{owners.get('source_owner')}:{capability.get('organ_id')}:{capability.get('capability_id')}"
+        )
     ):
         issues.append("capability_not_owner_qualified")
     if capability.get("effect_ceiling") != "read":
@@ -188,10 +218,49 @@ def review_fixture(fixture: dict[str, Any]) -> list[str]:
     ):
         issues.append("requested_policy_exceeds_capability")
     freshness = capability.get("freshness")
-    if not isinstance(freshness, Mapping) or snapshot.get("source_digest") != freshness.get(
-        "source_digest"
+    source_revision = capability.get("source_revision")
+    if (
+        not isinstance(freshness, Mapping)
+        or not isinstance(source_revision, Mapping)
+        or snapshot.get("source_digest") != freshness.get("source_digest")
+        or freshness.get("source_digest") != source_revision.get("digest")
     ):
         issues.append("snapshot_source_not_capability_bound")
+    requested_at = parse_timestamp(plan.get("requested_at"))
+    plan_expires_at = parse_timestamp(plan.get("expires_at"))
+    snapshot_observed_at = parse_timestamp(snapshot.get("observed_at"))
+    snapshot_expires_at = parse_timestamp(snapshot.get("expires_at"))
+    freshness_observed_at = (
+        parse_timestamp(freshness.get("observed_at"))
+        if isinstance(freshness, Mapping)
+        else None
+    )
+    freshness_expires_at = (
+        parse_timestamp(freshness.get("expires_at"))
+        if isinstance(freshness, Mapping)
+        else None
+    )
+    windows = (
+        requested_at,
+        plan_expires_at,
+        snapshot_observed_at,
+        snapshot_expires_at,
+        freshness_observed_at,
+        freshness_expires_at,
+    )
+    if (
+        any(value is None for value in windows)
+        or requested_at != snapshot_observed_at
+        or requested_at != freshness_observed_at
+        or plan_expires_at != snapshot_expires_at
+        or plan_expires_at != freshness_expires_at
+        or requested_at >= plan_expires_at
+        or not isinstance(freshness.get("ttl_seconds"), int)
+        or isinstance(freshness.get("ttl_seconds"), bool)
+        or freshness.get("ttl_seconds")
+        != int((plan_expires_at - requested_at).total_seconds())
+    ):
+        issues.append("exposure_window_invalid")
     if plan.get("rollback_route") != capability.get("rollback_route"):
         issues.append("rollback_route_not_capability_bound")
     requested_primitive_ids = plan.get("requested_primitive_ids")
@@ -239,6 +308,9 @@ def review_fixture(fixture: dict[str, Any]) -> list[str]:
             issues.append("tool_effect_ceiling_widened")
         if tool.get("schema_digest") != capability.get("schema_digest"):
             issues.append("visible_tool_schema_not_capability_bound")
+        for schema_field in ("input_schema_ref", "output_schema_ref"):
+            if not isinstance(tool.get(schema_field), str) or not tool.get(schema_field):
+                issues.append("visible_tool_schema_ref_missing")
         if tool.get("capability_id") != requested_capability_id:
             issues.append("visible_tool_capability_mismatch")
         if tool.get("primitive_id") not in requested_ids_for_check:
@@ -250,8 +322,12 @@ def review_fixture(fixture: dict[str, Any]) -> list[str]:
             issues.append("candidate_token_posture_invalid")
         if snapshot.get("token_count_method") != "utf8_bytes_per_4_v1":
             issues.append("candidate_token_method_invalid")
-        if not isinstance(rendered_bytes, int) or rendered_tokens != max(
-            1, (rendered_bytes + 3) // 4
+        if (
+            not isinstance(rendered_bytes, int)
+            or isinstance(rendered_bytes, bool)
+            or not isinstance(rendered_tokens, int)
+            or isinstance(rendered_tokens, bool)
+            or rendered_tokens != max(1, (rendered_bytes + 3) // 4)
         ):
             issues.append("candidate_token_estimate_invalid")
     elif rendered_tokens is not None:
@@ -277,12 +353,13 @@ def review_fixture(fixture: dict[str, Any]) -> list[str]:
             issues.append("default_off_revealed_schema")
         if snapshot.get("rendered_tokens") is not None:
             issues.append("default_off_reported_tokens")
-        if not plan.get("refusal_reasons"):
-            issues.append("default_off_refusal_reasons_missing")
-        if mode == "feature_disabled_baseline_ready" and "progressive_exposure_disabled" not in plan.get("refusal_reasons", []):
-            issues.append("feature_gate_refusal_missing")
-        if mode == "feature_enabled_baseline_missing" and "baseline_not_ready" not in plan.get("refusal_reasons", []):
-            issues.append("baseline_gate_refusal_missing")
+        expected_refusals = []
+        if not expected_feature:
+            expected_refusals.append("progressive_exposure_disabled")
+        if not expected_baseline:
+            expected_refusals.append("baseline_not_ready")
+        if plan.get("refusal_reasons") != expected_refusals:
+            issues.append("blocked_plan_refusal_reasons_invalid")
     elif mode == "explicit_candidate":
         if plan.get("plan_state") != "candidate":
             issues.append("candidate_plan_not_candidate")
@@ -302,6 +379,8 @@ def review_fixture(fixture: dict[str, Any]) -> list[str]:
         issues.append("fixture_mode_unknown")
     if plan.get("plan_state") != "candidate" and plan.get("expansion_reasons"):
         issues.append("blocked_plan_expansion_reasons_present")
+    if snapshot.get("refusal_reasons") != []:
+        issues.append("snapshot_refusal_reasons_present")
     if expected.get("plan_state") != plan.get("plan_state"):
         issues.append("expected_plan_state_mismatch")
     if expected.get("visible_tool_count") != len(tools):

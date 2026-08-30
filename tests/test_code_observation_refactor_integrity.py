@@ -660,6 +660,22 @@ def test_report_rejects_duplicate_invalidation_paths(tmp_path: Path) -> None:
     assert "invalidation_duplicate_paths:rename-symbol:recomputed" in errors
 
 
+def test_report_rejects_declared_parity_failure_in_ordinary_case(
+    tmp_path: Path,
+) -> None:
+    report = json.loads(EXAMPLE.read_text(encoding="utf-8"))
+    report["observations"][0]["invalidation"]["delta_full_parity"] = "different"
+    path = tmp_path / "ordinary-parity-failure.json"
+    path.write_text(json.dumps(report), encoding="utf-8")
+
+    result = run_runner("validate-report", str(path))
+
+    assert result.returncode == 1
+    assert "invalidation_parity_mismatch:rename-symbol" in json.loads(
+        result.stdout
+    )["errors"]
+
+
 def test_report_rejects_affected_test_status_and_count_contradiction(
     tmp_path: Path,
 ) -> None:
@@ -1152,6 +1168,23 @@ def test_complete_provider_execution_requires_delta_full_projections(
     assert result.returncode == 1
     payload = json.loads(result.stdout)
     assert any("parity_required:execution[10]" in error for error in payload["errors"])
+
+
+def test_complete_provider_execution_binds_command_provenance(
+    tmp_path: Path,
+) -> None:
+    envelope = complete_provider_execution_payload()
+    envelope["executions"][0]["command_ref"] = "test://different-executor"  # type: ignore[index]
+    execution_path = tmp_path / "command-provenance-drift.json"
+    execution_path.write_text(json.dumps(envelope), encoding="utf-8")
+
+    result = run_runner("validate-provider-execution", str(execution_path))
+
+    assert result.returncode == 1
+    assert any(
+        "execution_command_ref:execution[0]" in error
+        for error in json.loads(result.stdout)["errors"]
+    )
 
 
 def test_complete_provider_execution_rejects_forged_deletion_semantics(

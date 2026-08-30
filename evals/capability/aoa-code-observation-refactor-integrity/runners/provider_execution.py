@@ -20,10 +20,7 @@ import run_scenarios as contract
 
 
 EXECUTION_POSTURE = "source-bound-provider-candidate"
-COMMAND_REF = (
-    "python3:evals/capability/aoa-code-observation-refactor-integrity/"
-    "runners/provider_execution.py"
-)
+COMMAND_REF = contract.PROVIDER_EXECUTION_COMMAND_REF
 CLAIM_LIMITS = list(contract.PROVIDER_EXECUTION_CLAIM_LIMITS)
 
 

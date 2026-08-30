@@ -61,6 +61,10 @@ MACHINE_WORKSPACE_MANIFEST_DIGEST = (
     "sha256:3da4c03be2d8ca518012e1228d17a4ca0018d6d3b0ad3d871fed03768489622b"
 )
 MACHINE_PROVIDER_ID = "python-ast-bootstrap"
+PROVIDER_EXECUTION_COMMAND_REF = (
+    "python3:evals/capability/aoa-code-observation-refactor-integrity/"
+    "runners/provider_execution.py"
+)
 PROVIDER_EXECUTION_CLAIM_LIMITS = [
     "source-bound execution of the checked-in synthetic fixture only",
     "provider candidate remains not_admitted and is not machine-currentness evidence",
@@ -861,6 +865,13 @@ def provider_execution_errors(
                     "complete coverage requires source-bound posture",
                 )
             )
+        if run.get("command_ref") != PROVIDER_EXECUTION_COMMAND_REF:
+            errors.append(
+                issue(
+                    "run_command_ref",
+                    "complete source-bound coverage must use the candidate executor",
+                )
+            )
         provider = envelope.get("provider", {})
         expected_provider = execution_fixture.get("provider", {})
         if provider.get("id") != expected_provider.get("id"):
@@ -910,6 +921,8 @@ def provider_execution_errors(
 
         if execution["environment_digest"] != run["environment_digest"]:
             errors.append(issue("environment_digest", location))
+        if complete_coverage and execution["command_ref"] != run["command_ref"]:
+            errors.append(issue("execution_command_ref", location))
         if not math.isfinite(execution["latency_ms"]):
             errors.append(issue("latency", f"{location}:not-finite"))
         state = execution["provider_state"]
@@ -1631,6 +1644,11 @@ def semantic_case_issues(
         errors.append(issue("invalidation_recompute_incomplete", case_id))
     if invalidation.get("scope") == "full" and set(affected_paths) != source_paths:
         errors.append(issue("invalidation_full_scope", case_id))
+    expected_parity_status = (
+        "equal" if case_id == "delta-full-parity" else "not-run"
+    )
+    if invalidation.get("delta_full_parity") != expected_parity_status:
+        errors.append(issue("invalidation_parity_mismatch", case_id))
     expected_affected_paths = (
         sorted(source_paths)
         if invalidation.get("scope") == "full"

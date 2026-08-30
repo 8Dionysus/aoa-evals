@@ -1549,6 +1549,39 @@ def test_complete_provider_execution_covers_the_whole_fixture_family(
     assert payload["case_ids"] == sorted(envelope["coverage"]["case_ids"])  # type: ignore[index]
 
 
+def test_complete_provider_execution_rejects_unbound_environment_digest(
+    tmp_path: Path,
+) -> None:
+    envelope = complete_provider_execution_payload()
+    fake_environment_digest = "sha256:" + ("f" * 64)
+    envelope["run"]["environment_digest"] = fake_environment_digest  # type: ignore[index]
+    for execution in envelope["executions"]:  # type: ignore[index]
+        execution["environment_digest"] = fake_environment_digest
+    execution_fixture = runner.load_json(runner.PROVIDER_EXECUTION_FIXTURE_PATH)
+    fake_config_digest = runner.provider_execution_config_digest(
+        execution_fixture, fake_environment_digest, envelope["provider"]
+    )
+    envelope["provider"]["config_digest"] = fake_config_digest  # type: ignore[index]
+    for execution in envelope["executions"]:  # type: ignore[index]
+        state = execution["provider_state"]
+        state["config"]["digest"] = fake_config_digest
+        execution["state_digest"] = runner.canonical_digest(state)
+        execution["repeated_state_digest"] = runner.stable_provider_state_digest(
+            state
+        )
+    path = tmp_path / "unbound-environment-digest.json"
+    path.write_text(json.dumps(envelope), encoding="utf-8")
+
+    result = run_runner("validate-provider-execution", str(path))
+
+    assert result.returncode == 1
+    errors = json.loads(result.stdout)["errors"]
+    assert (
+        "run_environment_digest:not bound to independently derived executor metadata"
+        in errors
+    )
+
+
 def test_complete_provider_execution_rejects_incomplete_coverage(
     tmp_path: Path,
 ) -> None:

@@ -9,6 +9,7 @@ import copy
 import hashlib
 import json
 import math
+import platform
 import sys
 from datetime import datetime
 from pathlib import Path, PurePosixPath
@@ -186,6 +187,19 @@ def canonical_digest(value: Any) -> str:
         value, ensure_ascii=True, sort_keys=True, separators=(",", ":")
     )
     return "sha256:" + hashlib.sha256(payload.encode("utf-8")).hexdigest()
+
+
+def provider_execution_environment_digest() -> str:
+    """Derive the candidate executor identity independently of an envelope."""
+
+    return canonical_digest(
+        {
+            "executor": "aoa-evals-provider-execution",
+            "executor_version": "1.0.0",
+            "implementation": platform.python_implementation(),
+            "python_version": platform.python_version(),
+        }
+    )
 
 
 def controlled_source_epoch() -> dict[str, str]:
@@ -947,6 +961,14 @@ def provider_execution_errors(
                     "complete source-bound coverage must use the candidate executor",
                 )
             )
+        expected_environment_digest = provider_execution_environment_digest()
+        if run.get("environment_digest") != expected_environment_digest:
+            errors.append(
+                issue(
+                    "run_environment_digest",
+                    "not bound to independently derived executor metadata",
+                )
+            )
         provider = envelope.get("provider", {})
         expected_provider = execution_fixture.get("provider", {})
         if provider.get("id") != expected_provider.get("id"):
@@ -964,7 +986,7 @@ def provider_execution_errors(
                 )
             )
         expected_config_digest = provider_execution_config_digest(
-            execution_fixture, run["environment_digest"], provider
+            execution_fixture, expected_environment_digest, provider
         )
         if provider.get("config_digest") != expected_config_digest:
             errors.append(

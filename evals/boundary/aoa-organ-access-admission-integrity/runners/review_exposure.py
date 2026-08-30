@@ -6,9 +6,9 @@ from __future__ import annotations
 import argparse
 import hashlib
 import json
+from collections.abc import Mapping
 from pathlib import Path
-from typing import Any, Mapping
-
+from typing import Any
 
 BUNDLE_ROOT = Path(__file__).resolve().parents[1]
 FIXTURE_ROOT = BUNDLE_ROOT / "fixtures" / "exposure"
@@ -50,7 +50,7 @@ def digest(value: Any) -> str:
 def load(path: Path) -> dict[str, Any]:
     value = json.loads(path.read_text(encoding="utf-8"))
     if not isinstance(value, dict):
-        raise ValueError(f"{path}: fixture must be an object")
+        raise TypeError(f"{path}: fixture must be an object")
     return value
 
 
@@ -62,11 +62,30 @@ def selection_identity(plan: Mapping[str, Any]) -> dict[str, Any] | None:
     if not all(isinstance(item, str) and item for item in primitive_ids):
         return None
     qualified = capability.get("qualified_capability_id")
+    capability_digest = capability.get("capability_digest")
+    schema_digest = capability.get("schema_digest")
+    source_revision = capability.get("source_revision")
     policy = plan.get("requested_policy_family")
-    if not isinstance(qualified, str) or not qualified or not isinstance(policy, str):
+    if (
+        not isinstance(qualified, str)
+        or not qualified
+        or not isinstance(capability_digest, str)
+        or not capability_digest
+        or not isinstance(schema_digest, str)
+        or not schema_digest
+        or not isinstance(source_revision, Mapping)
+        or not isinstance(source_revision.get("revision"), str)
+        or not source_revision.get("revision")
+        or not isinstance(source_revision.get("digest"), str)
+        or not source_revision.get("digest")
+        or not isinstance(policy, str)
+    ):
         return None
     return {
         "qualified_capability_id": qualified,
+        "capability_digest": capability_digest,
+        "schema_digest": schema_digest,
+        "source_revision": dict(source_revision),
         "requested_policy_family": policy,
         "requested_primitive_ids": primitive_ids,
     }
@@ -117,6 +136,10 @@ def review_fixture(fixture: dict[str, Any]) -> list[str]:
     if not isinstance(tools, list):
         issues.append("visible_tools_not_array")
         return issues
+    if plan.get("schema_version") != "aoa_organ_exposure_plan_v1":
+        issues.append("plan_schema_version_invalid")
+    if snapshot.get("schema_version") != "aoa_organ_exposure_snapshot_v1":
+        issues.append("snapshot_schema_version_invalid")
     snapshot_tools = snapshot.get("tools")
     if snapshot_tools != tools:
         issues.append("plan_snapshot_tool_set_mismatch")
@@ -273,6 +296,8 @@ def review_fixture(fixture: dict[str, Any]) -> list[str]:
             issues.append("candidate_expansion_reasons_missing")
         if tuple(plan.get("expansion_reasons", ())) != EXPECTED_EXPANSION_REASONS:
             issues.append("candidate_expansion_reasons_invalid")
+        if plan.get("refusal_reasons") != []:
+            issues.append("candidate_refusal_reasons_present")
     else:
         issues.append("fixture_mode_unknown")
     if plan.get("plan_state") != "candidate" and plan.get("expansion_reasons"):

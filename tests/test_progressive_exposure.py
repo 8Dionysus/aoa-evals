@@ -1,13 +1,13 @@
 from __future__ import annotations
 
-import json
+import copy
 import importlib.util
+import json
 import subprocess
 import sys
 from pathlib import Path
 
 from jsonschema import Draft202012Validator
-
 
 ROOT = Path(__file__).resolve().parents[1]
 BUNDLE = ROOT / "evals/boundary/aoa-organ-access-admission-integrity"
@@ -89,3 +89,59 @@ def test_progressive_exposure_rejects_malformed_and_unmatched_inputs() -> None:
     issues = runner.review_fixture(fixture)
     assert "source_selection_digest_invalid" in issues
     assert "visible_tool_selection_mismatch" in issues
+
+
+def _rehash_plan(runner, fixture: dict) -> None:
+    snapshot = fixture["plan"]["rendered_snapshot"]
+    snapshot["snapshot_id"] = runner.digest(
+        {key: value for key, value in snapshot.items() if key != "snapshot_id"}
+    )
+    plan = fixture["plan"]
+    plan["plan_id"] = runner.digest(
+        {key: value for key, value in plan.items() if key not in {"plan_id", "claim_limit"}}
+    )
+
+
+def test_progressive_exposure_binds_immutable_identity_and_nested_versions() -> None:
+    runner = _runner_module()
+    fixture = json.loads(
+        (BUNDLE / "fixtures/exposure/02-explicit-candidate.json").read_text(
+            encoding="utf-8"
+        )
+    )
+
+    changed_identity = copy.deepcopy(fixture)
+    changed_identity["plan"]["capability"]["schema_digest"] = "sha256:" + "e" * 64
+    changed_identity["plan"]["visible_tools"][0]["schema_digest"] = "sha256:" + "e" * 64
+    changed_identity["plan"]["rendered_snapshot"]["tools"][0]["schema_digest"] = (
+        "sha256:" + "e" * 64
+    )
+    tools = changed_identity["plan"]["visible_tools"]
+    snapshot = changed_identity["plan"]["rendered_snapshot"]
+    snapshot["rendered_schema_digest"] = runner.digest(tools)
+    snapshot["rendered_bytes"] = len(runner.canonical(tools))
+    snapshot["rendered_tokens"] = max(1, (snapshot["rendered_bytes"] + 3) // 4)
+    _rehash_plan(runner, changed_identity)
+    assert "source_selection_digest_invalid" in runner.review_fixture(changed_identity)
+
+    unknown_versions = copy.deepcopy(fixture)
+    unknown_versions["plan"]["schema_version"] = "aoa_organ_exposure_plan_v2"
+    unknown_versions["plan"]["rendered_snapshot"]["schema_version"] = (
+        "aoa_organ_exposure_snapshot_v2"
+    )
+    _rehash_plan(runner, unknown_versions)
+    issues = runner.review_fixture(unknown_versions)
+    assert "plan_schema_version_invalid" in issues
+    assert "snapshot_schema_version_invalid" in issues
+
+
+def test_progressive_exposure_rejects_candidate_refusal_reasons() -> None:
+    runner = _runner_module()
+    fixture = json.loads(
+        (BUNDLE / "fixtures/exposure/02-explicit-candidate.json").read_text(
+            encoding="utf-8"
+        )
+    )
+    fixture["plan"]["refusal_reasons"] = ["baseline_not_ready"]
+    _rehash_plan(runner, fixture)
+    assert "candidate_refusal_reasons_present" in runner.review_fixture(fixture)

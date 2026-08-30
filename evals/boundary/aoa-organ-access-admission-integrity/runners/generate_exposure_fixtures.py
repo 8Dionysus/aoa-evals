@@ -9,7 +9,6 @@ import json
 from pathlib import Path
 from typing import Any
 
-
 BUNDLE_ROOT = Path(__file__).resolve().parents[1]
 FIXTURE_ROOT = BUNDLE_ROOT / "fixtures" / "exposure"
 OBSERVED_AT = "2026-08-26T05:00:00Z"
@@ -149,9 +148,13 @@ def plan(*, feature_enabled: bool, baseline_ready: bool) -> dict[str, Any]:
 
 
 def rendered() -> dict[Path, str]:
+    selected_capability = capability()
     selection_digest = digest(
         {
-            "qualified_capability_id": capability()["qualified_capability_id"],
+            "qualified_capability_id": selected_capability["qualified_capability_id"],
+            "capability_digest": selected_capability["capability_digest"],
+            "schema_digest": selected_capability["schema_digest"],
+            "source_revision": selected_capability["source_revision"],
             "requested_policy_family": "read",
             "requested_primitive_ids": ["inspect-knowledge"],
         }

@@ -182,6 +182,47 @@ def test_provider_agreement_rejects_duplicate_normalized_observations(
     )
 
 
+def test_provider_agreement_rejects_conflicting_normalized_fact_identity(
+    tmp_path: Path,
+) -> None:
+    facts = ["definition:render"]
+    payload = {
+        "schema_version": "aoa_code_observation_provider_agreement_v1",
+        "observed_at": "2026-08-29T00:00:00Z",
+        "required_facts": facts,
+        "claim_boundary": provider_agreement.CLAIM_BOUNDARY,
+        "envelopes": [
+            _agreement_envelope(provider_id, facts)
+            for provider_id in ("tree-sitter", "scip", "lsp")
+        ],
+    }
+    source_path = tmp_path / "src" / "render.ts"
+    source_path.parent.mkdir(parents=True)
+    source_path.write_bytes(AGREEMENT_SOURCE)
+    path = tmp_path / "conflicting-agreement.json"
+
+    mutations = (
+        lambda observation: observation.__setitem__(
+            "semantic_key", "typescript:definition:other"
+        ),
+        lambda observation: observation["subject"].__setitem__(
+            "qualified_name", "other.render"
+        ),
+        lambda observation: observation["subject"].__setitem__(
+            "symbol_kind", "class"
+        ),
+        lambda observation: observation["occurrence"].__setitem__(
+            "end_column", 7
+        ),
+    )
+    for index, mutate in enumerate(mutations):
+        candidate = copy.deepcopy(payload)
+        mutate(candidate["envelopes"][1]["observations"][0])
+        path.write_text(json.dumps(candidate), encoding="utf-8")
+        issues = provider_agreement.validate(path)["issues"]
+        assert "fact_normalized_identity_mismatch:definition:render" in issues, index
+
+
 def test_provider_agreement_rejects_claim_boundary_drift(tmp_path: Path) -> None:
     facts = ["definition:render"]
     payload = {

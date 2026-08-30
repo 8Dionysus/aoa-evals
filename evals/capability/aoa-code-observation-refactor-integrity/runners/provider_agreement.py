@@ -122,6 +122,43 @@ def _source_occurrence_issue(
     return None
 
 
+def _fact_signature(
+    observation: dict[str, Any],
+) -> tuple[str, tuple[Any, ...]] | None:
+    """Return the fact and normalized identity that backs an observation."""
+
+    subject = observation.get("subject", {})
+    label = str(subject.get("label", ""))
+    if not label:
+        return None
+    relation = observation.get("relation")
+    if observation.get("observation_kind") == "symbol":
+        fact = f"definition:{label}"
+    elif isinstance(relation, dict):
+        target = str(relation.get("target_name") or label)
+        fact = f"{relation.get('kind', 'relation')}:{target}"
+    else:
+        return None
+
+    occurrence = observation["occurrence"]
+    signature = (
+        observation.get("capability_class"),
+        observation.get("observation_kind"),
+        observation.get("semantic_key"),
+        label,
+        subject.get("qualified_name"),
+        subject.get("symbol_id"),
+        subject.get("symbol_kind"),
+        occurrence["start_line"],
+        occurrence["start_column"],
+        occurrence["end_line"],
+        occurrence["end_column"],
+        relation.get("kind") if isinstance(relation, dict) else None,
+        relation.get("target_name") if isinstance(relation, dict) else None,
+    )
+    return fact, signature
+
+
 def _packet_source_path(packet_path: Path, source_path: Any) -> Path | None:
     """Resolve a source witness without allowing a packet to escape its root."""
 
@@ -202,6 +239,7 @@ def validate(path: Path) -> dict[str, Any]:
                 source_lines.append("")
 
     facts: dict[str, set[str]] = {}
+    fact_signatures: dict[str, dict[str, set[tuple[Any, ...]]]] = {}
     for envelope in envelopes:
         provider_id = envelope["provider"]["id"]
         lane = envelope["provider"].get("lane", {})
@@ -222,6 +260,7 @@ def validate(path: Path) -> dict[str, Any]:
             issues.append(f"provider_not_parsed:{provider_id}")
 
         provider_facts: set[str] = set()
+        provider_fact_signatures: dict[str, set[tuple[Any, ...]]] = {}
         observation_ids: set[str] = set()
         semantic_occurrences: set[tuple[str, int, int, int, int]] = set()
         for observation_index, observation in enumerate(envelope["observations"]):
@@ -264,16 +303,14 @@ def validate(path: Path) -> dict[str, Any]:
                 )
             semantic_occurrences.add(occurrence_key)
 
-            label = str(observation.get("subject", {}).get("label", ""))
-            if not label:
+            fact_signature = _fact_signature(observation)
+            if fact_signature is None:
                 continue
-            if observation.get("observation_kind") == "symbol":
-                provider_facts.add(f"definition:{label}")
-            relation = observation.get("relation")
-            if isinstance(relation, dict):
-                target = str(relation.get("target_name") or label)
-                provider_facts.add(f"{relation.get('kind', 'relation')}:{target}")
+            fact, signature = fact_signature
+            provider_facts.add(fact)
+            provider_fact_signatures.setdefault(fact, set()).add(signature)
         facts[provider_id] = provider_facts
+        fact_signatures[provider_id] = provider_fact_signatures
 
     for required_fact in payload["required_facts"]:
         missing_fact = sorted(
@@ -283,6 +320,15 @@ def validate(path: Path) -> dict[str, Any]:
         )
         if missing_fact:
             issues.append(f"fact_not_shared:{required_fact}:" + ",".join(missing_fact))
+            continue
+        signatures = {
+            frozenset(
+                fact_signatures.get(provider, {}).get(required_fact, set())
+            )
+            for provider in REQUIRED_PROVIDERS
+        }
+        if len(signatures) != 1:
+            issues.append(f"fact_normalized_identity_mismatch:{required_fact}")
     return _result(payload, issues, facts)
 
 

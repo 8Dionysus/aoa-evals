@@ -1,0 +1,17 @@
+{
+  "allowed_bytes": 17649681,
+  "allowed_tracked_bytes": 28376185,
+  "approved_by": "repository-owner",
+  "base_ref": "13841f6be1fba71d1b5db4cfb006dd03381eb22c",
+  "changed_generated_bytes": 17649681,
+  "changed_generated_files": 262,
+  "decision_ref": "aoa-kag:docs/decisions/AOA-KAG-D-0017-portable-content-addressed-repository-family.md",
+  "default_limit_bytes": 1048576,
+  "head_family_digest": "0898b85dcb7be56c74f426c220b7f8983a21fa661df743c8926c89a022338b93",
+  "reason": "Close PR #457 review wave by binding exact freshness to the report run and independently declared current provider epoch; refresh deterministic owner-local family after source contract repair without raising standing budgets or promoting eval evidence.",
+  "repo": "aoa-evals",
+  "schema_version": "aoa-repo-local-kag-budget-receipt-v1",
+  "scope": "generated_delta_and_tracked_size",
+  "tracked_bytes": 28376185,
+  "tracked_bytes_max": 26214400
+}

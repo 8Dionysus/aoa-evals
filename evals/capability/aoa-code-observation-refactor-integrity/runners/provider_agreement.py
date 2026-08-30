@@ -176,14 +176,23 @@ def validate(path: Path) -> dict[str, Any]:
         lane = envelope["provider"].get("lane", {})
         admission = envelope.get("qualification", {}).get("machine_admission", {})
         if (
-            lane.get("status") != "supplied_unadmitted"
+            lane.get("id") != provider_id
+            or lane.get("status") != "supplied_unadmitted"
             or admission.get("state") != "not_admitted"
         ):
-            issues.append(f"provider_not_bounded:{provider_id}")
+            if lane.get("id") != provider_id:
+                issues.append(f"provider_lane_identity_mismatch:{provider_id}")
+            if (
+                lane.get("status") != "supplied_unadmitted"
+                or admission.get("state") != "not_admitted"
+            ):
+                issues.append(f"provider_not_bounded:{provider_id}")
         if envelope.get("parse_status") != "parsed":
             issues.append(f"provider_not_parsed:{provider_id}")
 
         provider_facts: set[str] = set()
+        observation_ids: set[str] = set()
+        semantic_occurrences: set[tuple[str, int, int, int, int]] = set()
         for observation_index, observation in enumerate(envelope["observations"]):
             observation_issue = _normalized_observation_issue(observation)
             if observation_issue is not None:
@@ -191,6 +200,30 @@ def validate(path: Path) -> dict[str, Any]:
                     f"invalid_normalized_observation:{provider_id}:{observation_index}:{observation_issue}"
                 )
                 continue
+
+            # Reject repeated normalized records before reducing observations to
+            # provider facts.  A set of facts would otherwise hide both a
+            # repeated observation id and a repeated semantic occurrence.
+            observation_id = observation["observation_id"]
+            if observation_id in observation_ids:
+                issues.append(
+                    f"duplicate_observation_id:{provider_id}:{observation_id}"
+                )
+            observation_ids.add(observation_id)
+            occurrence = observation["occurrence"]
+            occurrence_key = (
+                observation["semantic_key"],
+                occurrence["start_line"],
+                occurrence["start_column"],
+                occurrence["end_line"],
+                occurrence["end_column"],
+            )
+            if occurrence_key in semantic_occurrences:
+                issues.append(
+                    f"duplicate_semantic_occurrence:{provider_id}:{observation['semantic_key']}"
+                )
+            semantic_occurrences.add(occurrence_key)
+
             label = str(observation.get("subject", {}).get("label", ""))
             if not label:
                 continue

@@ -45,6 +45,7 @@ RAW_EVIDENCE_KEYS = {
     "document_structure": "document_markdown",
 }
 EXPECTED_PROVIDER_IDS = {provider_id for provider_id, _ in EXPECTED.values()}
+EXPECTED_RUNTIME_POSTURE = "candidate_unadmitted"
 # SARIF's driver name is a human-facing identity rather than the normalized
 # provider id.  Keep the accepted identity explicit so a packet cannot retain
 # Semgrep's version/results while naming an unrelated scanner.
@@ -82,6 +83,29 @@ def _normalize_provider_version(value: Any, provider_id: str) -> str | None:
     if normalized[:1].casefold() == "v":
         normalized = normalized[1:].strip()
     return normalized or None
+
+
+def _expected_provider_execution_refs(
+    provider_id: str, provider: dict[str, Any]
+) -> dict[str, str]:
+    """Build the canonical references for one declared provider execution.
+
+    The adjacent packet has no separate execution-receipt object.  Its
+    extractor and parser references therefore carry the provider id, the
+    normalized batch version, and the batch configuration digest directly.
+    A non-empty opaque token is not enough to establish which execution
+    produced the normalized observations.
+    """
+
+    version = _normalize_provider_version(provider.get("version"), provider_id)
+    config_digest = _digest_hex(provider.get("config_digest"))
+    if version is None or config_digest is None:
+        return {}
+    canonical_config = "sha256:" + config_digest
+    return {
+        "extractor_ref": f"fixture:{provider_id}@{version}#{canonical_config}",
+        "parser_ref": f"{provider_id}@{version}#{canonical_config}",
+    }
 
 
 def _raw_evidence_path(packet_path: Path, declared_path: Any) -> tuple[Path | None, str | None]:
@@ -724,10 +748,11 @@ def _provider_execution_issues(
             batch_version, provider_id
         ):
             issues.append(f"provider_version_mismatch:{provider_id}")
-        if not isinstance(provider_meta.get("runtime_posture"), str) or not provider_meta[
-            "runtime_posture"
-        ].strip():
+        runtime_posture = provider_meta.get("runtime_posture")
+        if not isinstance(runtime_posture, str) or not runtime_posture.strip():
             issues.append(f"provider_runtime_posture_missing:{provider_id}")
+        elif runtime_posture != EXPECTED_RUNTIME_POSTURE:
+            issues.append(f"provider_runtime_posture_mismatch:{provider_id}")
 
     config_digest = provider.get("config_digest")
     if not isinstance(config_digest, str) or _DIGEST_RE.fullmatch(config_digest) is None:
@@ -747,10 +772,13 @@ def _provider_execution_issues(
     if not isinstance(provenance, dict):
         issues.append(f"provider_execution_provenance_missing:{provider_id}")
     else:
+        expected_refs = _expected_provider_execution_refs(provider_id, provider)
         for field in ("extractor_ref", "parser_ref"):
             value = provenance.get(field)
             if not isinstance(value, str) or not value.strip():
                 issues.append(f"provider_execution_{field}_missing:{provider_id}")
+            elif expected_refs and value != expected_refs[field]:
+                issues.append(f"provider_execution_{field}_mismatch:{provider_id}")
         source_refs = provenance.get("source_refs")
         if not isinstance(source_refs, list) or not source_refs:
             issues.append(f"provider_execution_source_refs_missing:{provider_id}")

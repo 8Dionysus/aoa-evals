@@ -72,7 +72,7 @@ def _agreement_envelope(provider_id: str, facts: list[str]) -> dict[str, object]
             "id": provider_id,
             "version": "1.0.0",
             "config_digest": "0" * 64,
-            "lane": {"status": "supplied_unadmitted"},
+            "lane": {"id": provider_id, "status": "supplied_unadmitted"},
         },
         "source": {
             "repo": "fixture",
@@ -110,9 +110,59 @@ def test_typescript_provider_agreement_requires_shared_source_and_facts(
     assert result["issues"] == []
     assert result["verdict"] == "supports bounded cross-provider agreement"
 
+    payload["envelopes"][2]["provider"]["lane"]["id"] = "tree-sitter"
+    path.write_text(json.dumps(payload), encoding="utf-8")
+    assert "provider_lane_identity_mismatch:lsp" in provider_agreement.validate(
+        path
+    )["issues"]
+    payload["envelopes"][2]["provider"]["lane"]["id"] = "lsp"
+
     payload["envelopes"][2]["source"]["source_epoch"] = "git:other"
     path.write_text(json.dumps(payload), encoding="utf-8")
     assert "source_identity_mismatch" in provider_agreement.validate(path)["issues"]
+
+
+def test_provider_agreement_rejects_duplicate_normalized_observations(
+    tmp_path: Path,
+) -> None:
+    facts = ["definition:render"]
+    payload = {
+        "schema_version": "aoa_code_observation_provider_agreement_v1",
+        "observed_at": "2026-08-29T00:00:00Z",
+        "required_facts": facts,
+        "claim_boundary": provider_agreement.CLAIM_BOUNDARY,
+        "envelopes": [
+            _agreement_envelope(provider_id, facts)
+            for provider_id in ("tree-sitter", "scip", "lsp")
+        ],
+    }
+    source_path = tmp_path / "src" / "render.ts"
+    source_path.parent.mkdir(parents=True)
+    source_path.write_bytes(AGREEMENT_SOURCE)
+    path = tmp_path / "duplicate-agreement.json"
+
+    duplicate_id_payload = copy.deepcopy(payload)
+    duplicate_id_payload["envelopes"][0]["observations"].append(
+        copy.deepcopy(duplicate_id_payload["envelopes"][0]["observations"][0])
+    )
+    path.write_text(json.dumps(duplicate_id_payload), encoding="utf-8")
+    duplicate_id_issues = provider_agreement.validate(path)["issues"]
+    assert "duplicate_observation_id:tree-sitter:tree-sitter:0" in duplicate_id_issues
+
+    duplicate_occurrence_payload = copy.deepcopy(payload)
+    duplicate_observation = copy.deepcopy(
+        duplicate_occurrence_payload["envelopes"][0]["observations"][0]
+    )
+    duplicate_observation["observation_id"] = "tree-sitter:distinct"
+    duplicate_occurrence_payload["envelopes"][0]["observations"].append(
+        duplicate_observation
+    )
+    path.write_text(json.dumps(duplicate_occurrence_payload), encoding="utf-8")
+    duplicate_occurrence_issues = provider_agreement.validate(path)["issues"]
+    assert (
+        "duplicate_semantic_occurrence:tree-sitter:typescript:definition:render"
+        in duplicate_occurrence_issues
+    )
 
 
 def test_provider_agreement_rejects_claim_boundary_drift(tmp_path: Path) -> None:
@@ -170,6 +220,7 @@ def test_adjacent_provider_evidence_requires_all_unadmitted_classes(
     source_path = "fixture.py"
     source_contents = b"def fixture():\n    return 1\n"
     source_digest = "sha256:" + hashlib.sha256(source_contents).hexdigest()
+    config_digest = "sha256:" + "0" * 64
     specs = {
         "static_security": ("semgrep", "static-security"),
         "software_components": ("syft", "software-components"),
@@ -204,19 +255,19 @@ def test_adjacent_provider_evidence_requires_all_unadmitted_classes(
             "provider": {
                 "id": provider_id,
                 "version": "1.0.0",
-                "config_digest": "sha256:" + "0" * 64,
+                "config_digest": config_digest,
                 "lane": {"id": provider_id, "status": "supplied_unadmitted"},
             },
             "currentness": {
                 "provider": {
                     "id": provider_id,
                     "version": "1.0.0",
-                    "config_digest": "sha256:" + "0" * 64,
+                    "config_digest": config_digest,
                 }
             },
             "provenance": {
-                "extractor_ref": f"fixture:{provider_id}",
-                "parser_ref": f"{provider_id}@1.0.0",
+                "extractor_ref": f"fixture:{provider_id}@1.0.0#{config_digest}",
+                "parser_ref": f"{provider_id}@1.0.0#{config_digest}",
                 "source_refs": [
                     {
                         "repo": source_repo,
@@ -540,6 +591,42 @@ def test_adjacent_provider_evidence_requires_all_unadmitted_classes(
         path
     )["issues"]
     payload["providers"]["semgrep"]["version"] = original_semgrep_version
+
+    original_runtime_posture = payload["providers"]["semgrep"]["runtime_posture"]
+    payload["providers"]["semgrep"]["runtime_posture"] = "deployed_and_admitted"
+    path.write_text(json.dumps(payload), encoding="utf-8")
+    assert "provider_runtime_posture_mismatch:semgrep" in (
+        adjacent_provider_evidence.validate(path)["issues"]
+    )
+    payload["providers"]["semgrep"]["runtime_posture"] = original_runtime_posture
+
+    original_extractor_ref = payload["batches"]["static_security"]["provenance"][
+        "extractor_ref"
+    ]
+    payload["batches"]["static_security"]["provenance"]["extractor_ref"] = (
+        f"fixture:semgrep@1.0.0#{'1' * 64}"
+    )
+    path.write_text(json.dumps(payload), encoding="utf-8")
+    assert "provider_execution_extractor_ref_mismatch:semgrep" in (
+        adjacent_provider_evidence.validate(path)["issues"]
+    )
+    payload["batches"]["static_security"]["provenance"][
+        "extractor_ref"
+    ] = original_extractor_ref
+
+    original_parser_ref = payload["batches"]["static_security"]["provenance"][
+        "parser_ref"
+    ]
+    payload["batches"]["static_security"]["provenance"]["parser_ref"] = (
+        f"semgrep@9.9.9#{config_digest}"
+    )
+    path.write_text(json.dumps(payload), encoding="utf-8")
+    assert "provider_execution_parser_ref_mismatch:semgrep" in (
+        adjacent_provider_evidence.validate(path)["issues"]
+    )
+    payload["batches"]["static_security"]["provenance"]["parser_ref"] = (
+        original_parser_ref
+    )
 
     provider_metadata = payload["providers"]
     payload["providers"] = {}
@@ -2223,8 +2310,8 @@ def test_adjacent_provider_evidence_rejects_placeholder_observation(
                 }
             },
             "provenance": {
-                "extractor_ref": f"fixture:{provider_id}",
-                "parser_ref": f"{provider_id}@1.0.0",
+                "extractor_ref": f"fixture:{provider_id}@1.0.0#sha256:{'0' * 64}",
+                "parser_ref": f"{provider_id}@1.0.0#sha256:{'0' * 64}",
                 "source_refs": [
                     {
                         "repo": source_repo,

@@ -1,0 +1,17 @@
+{
+  "allowed_bytes": 17646041,
+  "allowed_tracked_bytes": 28372545,
+  "approved_by": "repository-owner",
+  "base_ref": "13841f6be1fba71d1b5db4cfb006dd03381eb22c",
+  "changed_generated_bytes": 17646041,
+  "changed_generated_files": 262,
+  "decision_ref": "aoa-kag:docs/decisions/AOA-KAG-D-0017-portable-content-addressed-repository-family.md",
+  "default_limit_bytes": 1048576,
+  "head_family_digest": "a66afc6d2cb7db24acff6cf4afc3d0b1afcb091b34fa17f55e30f0a2ee0cda93",
+  "reason": "Close PR #457 review wave by binding adjacent-provider batches to repository/path/content digest identity with raw-evidence and provenance correlation; refresh deterministic owner-local family after source contract repair without raising standing budgets or promoting eval evidence.",
+  "repo": "aoa-evals",
+  "schema_version": "aoa-repo-local-kag-budget-receipt-v1",
+  "scope": "generated_delta_and_tracked_size",
+  "tracked_bytes": 28372545,
+  "tracked_bytes_max": 26214400
+}

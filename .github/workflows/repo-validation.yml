@@ -13,6 +13,11 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd
+        with:
+          # The KAG family is content-addressed against the durable PR head.
+          # GitHub's synthetic merge SHA is intentionally reserved for the
+          # integration checks that follow the KAG source check.
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
 
       - name: Check repository skill home
         uses: 8Dionysus/aoa-skills/.github/actions/home-skill-port@42c6afa8c817ac3732e9a6710fd0ddf251cd4a97
@@ -22,6 +27,12 @@ jobs:
         with:
           history-ref: ${{ github.event.pull_request.base.sha || github.event.before || format('{0}^', github.sha) }}
           event-history-ref: ${{ github.event.pull_request.base.sha || github.event.before || format('{0}^', github.sha) }}
+
+      - name: Checkout pull request integration candidate
+        if: github.event_name == 'pull_request'
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd
+        with:
+          ref: ${{ github.sha }}
 
       - name: Setup Python
         uses: actions/setup-python@a309ff8b426b58ec0e2a45f0f869d46889d02405

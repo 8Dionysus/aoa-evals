@@ -1,0 +1,17 @@
+{
+  "allowed_bytes": 17574806,
+  "allowed_tracked_bytes": 28096574,
+  "approved_by": "repository-owner",
+  "base_ref": "d29fda71258d902068a6426b8d6475ea7c464744",
+  "changed_generated_bytes": 17574806,
+  "changed_generated_files": 263,
+  "decision_ref": "aoa-kag:docs/decisions/AOA-KAG-D-0017-portable-content-addressed-repository-family.md",
+  "default_limit_bytes": 1048576,
+  "head_family_digest": "56ab437773cd528775e1a1f5a55290fb965e8f27fce93b8deb7e6a264952d98d",
+  "reason": "Close PR #457 review gaps by binding stale-index source epochs, enforcing not-applicable lineage certainty, bounding incremental after parsing, and requiring adjacent provider execution provenance; regenerate the deterministic owner-local family without raising standing KAG budgets or promoting eval evidence.",
+  "repo": "aoa-evals",
+  "schema_version": "aoa-repo-local-kag-budget-receipt-v1",
+  "scope": "generated_delta_and_tracked_size",
+  "tracked_bytes": 28096574,
+  "tracked_bytes_max": 26214400
+}

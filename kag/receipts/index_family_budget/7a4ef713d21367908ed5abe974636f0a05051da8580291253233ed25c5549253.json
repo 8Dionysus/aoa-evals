@@ -1,0 +1,17 @@
+{
+  "allowed_bytes": 17827623,
+  "allowed_tracked_bytes": 28560376,
+  "approved_by": "repository-owner",
+  "base_ref": "402b364003eb4ffd19d083cff7645dda58ee406a",
+  "changed_generated_bytes": 17827623,
+  "changed_generated_files": 263,
+  "decision_ref": "aoa-kag:docs/decisions/AOA-KAG-D-0017-portable-content-addressed-repository-family.md",
+  "default_limit_bytes": 1048576,
+  "head_family_digest": "7a4ef713d21367908ed5abe974636f0a05051da8580291253233ed25c5549253",
+  "reason": "Regenerate the incremental portable owner family after synchronizing the code-observation proof bundle with current origin/main while retaining continuity-capsule source.",
+  "repo": "aoa-evals",
+  "schema_version": "aoa-repo-local-kag-budget-receipt-v1",
+  "scope": "generated_delta_and_tracked_size",
+  "tracked_bytes": 28560376,
+  "tracked_bytes_max": 26214400
+}

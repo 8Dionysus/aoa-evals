@@ -1,0 +1,17 @@
+{
+  "allowed_bytes": 18016377,
+  "allowed_tracked_bytes": 28600958,
+  "approved_by": "repository-owner",
+  "base_ref": "402b364003eb4ffd19d083cff7645dda58ee406a",
+  "changed_generated_bytes": 18016377,
+  "changed_generated_files": 265,
+  "decision_ref": "aoa-kag:docs/decisions/AOA-KAG-D-0017-portable-content-addressed-repository-family.md",
+  "default_limit_bytes": 1048576,
+  "head_family_digest": "56fb3a561a89ae24ab72fc8db809a982bb4a556e7c61765daf99230e03714560",
+  "reason": "Regenerate the incremental portable owner family after binding source epochs to witnessed content and adjacent occurrences to source bounds.",
+  "repo": "aoa-evals",
+  "schema_version": "aoa-repo-local-kag-budget-receipt-v1",
+  "scope": "generated_delta_and_tracked_size",
+  "tracked_bytes": 28600958,
+  "tracked_bytes_max": 26214400
+}

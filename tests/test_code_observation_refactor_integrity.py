@@ -1369,6 +1369,54 @@ def test_delta_projection_parses_only_invalidated_after_paths(monkeypatch) -> No
     assert calls == [{"src/changed.py"}]
 
 
+def test_case_execution_reuses_cached_baseline_for_delta_after_observation(
+    monkeypatch,
+) -> None:
+    fixture = runner.load_json(runner.FIXTURE_PATH)
+    fixture_case = next(
+        case for case in fixture["cases"] if case["case_id"] == "rename-symbol"
+    )
+    before = {
+        "src/changed.py": ["def value():", "    return 1"],
+        "src/reused.py": ["def reused():", "    return 2"],
+    }
+    after = {
+        "src/changed.py": ["def value():", "    return 3"],
+        "src/reused.py": ["def reused():", "    return 2"],
+    }
+    scenario = {"before": before, "after": after, "test_dependencies": {}}
+    calls = []
+    real_source_index = provider_execution.source_index
+
+    def record_source_index(tree):
+        calls.append({path: list(lines) for path, lines in tree.items()})
+        return real_source_index(tree)
+
+    monkeypatch.setattr(provider_execution, "source_index", record_source_index)
+
+    execution = provider_execution.case_execution(
+        fixture_case,
+        scenario,
+        {"id": "python-ast-bootstrap", "version": "1.0.0"},
+        "sha256:" + "0" * 64,
+        "sha256:" + "1" * 64,
+    )
+
+    # The complete before tree is parsed once as the cached baseline.  Every
+    # subsequent provider projection is restricted to the changed path; a
+    # complete after-tree parse would invalidate the advertised reuse evidence.
+    assert calls == [
+        before,
+        {"src/changed.py": after["src/changed.py"]},
+        {"src/changed.py": after["src/changed.py"]},
+        {"src/changed.py": after["src/changed.py"]},
+    ]
+    assert calls[0] != after
+    assert {
+        symbol["path"] for symbol in execution["observation"]["after_symbols"]
+    } == {"src/changed.py", "src/reused.py"}
+
+
 def test_provider_execution_rejects_added_deleted_record_drift(tmp_path: Path) -> None:
     envelope = complete_provider_execution_payload()
     add_execution = next(

@@ -229,8 +229,23 @@ def _case_execution(
     )
     before_epoch = contract.source_snapshot_digest(before)
     after_epoch = contract.source_snapshot_digest(after)
+    full_rebuild = fixture_case["case_id"] == "delta-full-parity"
+    stale = fixture_case["case_id"] == "stale-index"
+    universe = sorted(set(before) | set(after))
+    invalidated = sorted(set([*changed, *added, *deleted, *dependency_impacted]))
+
+    # The before projection is the cached baseline for ordinary cases.  Their
+    # after observation must be assembled through the same invalidated-path
+    # projection used for delta execution; parsing the complete after tree
+    # here would make reuse/resource evidence describe a different execution
+    # from the one that produced the state.
     before_index = source_index(before)
-    after_index = source_index(after)
+    if full_rebuild:
+        after_index = source_index(after)
+        delta_index = delta_source_index(before, after, invalidated, before_index)
+    else:
+        after_index = delta_source_index(before, after, invalidated, before_index)
+        delta_index = None
     before_symbols = before_index["symbols"]
     after_symbols = after_index["symbols"]
     before_keys = {symbol_key(symbol) for symbol in before_symbols}
@@ -251,20 +266,11 @@ def _case_execution(
         ),
         key=lambda symbol: symbol_key(symbol),
     )
-    full_rebuild = fixture_case["case_id"] == "delta-full-parity"
-    universe = sorted(set(before) | set(after))
-    invalidated = sorted(set([*changed, *added, *deleted, *dependency_impacted]))
     reused = [] if full_rebuild else sorted(set(universe) - set(invalidated))
     indexed_epoch = (
         before_epoch if fixture_case["case_id"] == "stale-index" else after_epoch
     )
-    stale = fixture_case["case_id"] == "stale-index"
     full_projection = projection_digest(after_index) if full_rebuild else None
-    delta_index = (
-        delta_source_index(before, after, invalidated, before_index)
-        if full_rebuild
-        else None
-    )
     delta_projection = (
         projection_digest(delta_index) if delta_index is not None else None
     )
@@ -338,7 +344,16 @@ def _case_execution(
     else:
         def projection_runner() -> dict[str, Any]:
             return delta_source_index(before, after, invalidated, before_index)
-    first_projection = projection_runner()
+
+    # For ordinary cases, after_index is already the first delta execution.
+    # Reusing it avoids a fourth delta pass while retaining a genuinely
+    # independent repeated and measured execution below.  Full and stale
+    # cases keep their explicitly distinct execution paths.
+    first_projection = (
+        after_index
+        if not stale and not full_rebuild
+        else projection_runner()
+    )
     repeated_projection = projection_runner()
     state = build_state(first_projection)
     repeated_state = build_state(repeated_projection)

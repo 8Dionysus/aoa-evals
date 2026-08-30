@@ -1386,13 +1386,28 @@ def test_case_execution_reuses_cached_baseline_for_delta_after_observation(
     }
     scenario = {"before": before, "after": after, "test_dependencies": {}}
     calls = []
+    events = []
     real_source_index = provider_execution.source_index
 
     def record_source_index(tree):
+        events.append("source-index")
         calls.append({path: list(lines) for path, lines in tree.items()})
         return real_source_index(tree)
 
+    class RecordingMeasurement:
+        def __init__(self):
+            events.append("measurement-start")
+
+        def peak_bytes(self):
+            return 1
+
+        def close(self):
+            events.append("measurement-close")
+
     monkeypatch.setattr(provider_execution, "source_index", record_source_index)
+    monkeypatch.setattr(
+        provider_execution, "CaseResourceMeasurement", RecordingMeasurement
+    )
 
     execution = provider_execution.case_execution(
         fixture_case,
@@ -1412,9 +1427,37 @@ def test_case_execution_reuses_cached_baseline_for_delta_after_observation(
         {"src/changed.py": after["src/changed.py"]},
     ]
     assert calls[0] != after
+    assert events[:2] == ["source-index", "measurement-start"]
     assert {
         symbol["path"] for symbol in execution["observation"]["after_symbols"]
     } == {"src/changed.py", "src/reused.py"}
+
+
+def test_report_rejects_stale_freshness_without_independent_prior_epoch(
+    tmp_path: Path,
+) -> None:
+    report = json.loads(EXAMPLE.read_text(encoding="utf-8"))
+    for field, current_value in (
+        ("observed_at", report["run"]["observed_at"]),
+        ("provider_watermark", "fixture-001"),
+    ):
+        mutated = copy.deepcopy(report)
+        mutated_stale_index = next(
+            observation
+            for observation in mutated["observations"]
+            if observation["case_id"] == "stale-index"
+        )
+        mutated_stale_index["freshness"][field] = current_value
+        path = tmp_path / f"stale-{field}-current.json"
+        path.write_text(json.dumps(mutated), encoding="utf-8")
+
+        result = run_runner("validate-report", str(path))
+
+        assert result.returncode == 1
+        errors = json.loads(result.stdout)["errors"]
+        assert any(
+            "stale_freshness_prior_epoch:stale-index" in error for error in errors
+        )
 
 
 def test_provider_execution_rejects_added_deleted_record_drift(tmp_path: Path) -> None:

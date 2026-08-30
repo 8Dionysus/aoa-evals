@@ -10,6 +10,7 @@ import hashlib
 import json
 import math
 import sys
+from datetime import datetime
 from pathlib import Path, PurePosixPath
 from typing import Any
 
@@ -147,6 +148,15 @@ EXPECTED_RELATIONS = {
 }
 CONTROLLED_SOURCE_REF_PREFIX = "fixture://"
 
+# This is an independently declared prior provider epoch for the synthetic
+# stale-index case.  A stale label alone is not evidence: the report must
+# carry this exact older watermark and timestamp, and the timestamp must
+# precede the report observation time.
+STALE_INDEX_PRIOR_EPOCH = {
+    "observed_at": "2026-08-24T15:00:00Z",
+    "provider_watermark": "fixture-000",
+}
+
 SUMMARY_LIMITATIONS = [
     "synthetic cases do not establish provider correctness or production performance",
     "live and indexed labels are declared evidence planes, not canonical owner truth",
@@ -164,6 +174,15 @@ def canonical_digest(value: Any) -> str:
         value, ensure_ascii=True, sort_keys=True, separators=(",", ":")
     )
     return "sha256:" + hashlib.sha256(payload.encode("utf-8")).hexdigest()
+
+
+def parse_observed_at(value: Any) -> datetime | None:
+    if not isinstance(value, str):
+        return None
+    try:
+        return datetime.fromisoformat(value.replace("Z", "+00:00"))
+    except ValueError:
+        return None
 
 
 def provider_execution_config_digest(
@@ -1577,6 +1596,37 @@ def semantic_case_issues(
         errors.append(
             issue("stale_state_missing", f"{case_id} must disclose stale evidence")
         )
+    if case_id == "stale-index":
+        # Tie stale freshness to an independently defined prior epoch.  This
+        # prevents a current provider watermark/timestamp from being
+        # relabelled stale while still passing the semantic contract.
+        if (
+            freshness.get("observed_at")
+            != STALE_INDEX_PRIOR_EPOCH["observed_at"]
+            or freshness.get("provider_watermark")
+            != STALE_INDEX_PRIOR_EPOCH["provider_watermark"]
+        ):
+            errors.append(
+                issue(
+                    "stale_freshness_prior_epoch",
+                    f"{case_id} must match the independently defined prior epoch",
+                )
+            )
+        prior_observed_at = parse_observed_at(freshness.get("observed_at"))
+        report_observed_at = parse_observed_at(
+            report.get("run", {}).get("observed_at")
+        )
+        if (
+            prior_observed_at is None
+            or report_observed_at is None
+            or prior_observed_at >= report_observed_at
+        ):
+            errors.append(
+                issue(
+                    "stale_freshness_order",
+                    f"{case_id} prior epoch must precede the report observation",
+                )
+            )
 
     source_paths = set(scenario.get("before", {})) | set(scenario.get("after", {}))
     source_symbol_occurrences: dict[

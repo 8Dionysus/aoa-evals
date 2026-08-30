@@ -199,6 +199,10 @@ def case_execution(
     config_digest: str,
     environment: str,
 ) -> dict[str, Any]:
+    # Build the reusable baseline before opening the per-case measurement
+    # window.  The resource evidence below describes incremental projection
+    # work, not the one-time setup needed to materialize the cached baseline.
+    before_index = source_index(scenario["before"])
     resource_measurement = CaseResourceMeasurement()
     try:
         return _case_execution(
@@ -208,6 +212,7 @@ def case_execution(
             config_digest,
             environment,
             resource_measurement,
+            before_index,
         )
     finally:
         resource_measurement.close()
@@ -220,6 +225,7 @@ def _case_execution(
     config_digest: str,
     environment: str,
     resource_measurement: CaseResourceMeasurement,
+    before_index: dict[str, Any],
 ) -> dict[str, Any]:
     before = scenario["before"]
     after = scenario["after"]
@@ -239,7 +245,6 @@ def _case_execution(
     # projection used for delta execution; parsing the complete after tree
     # here would make reuse/resource evidence describe a different execution
     # from the one that produced the state.
-    before_index = source_index(before)
     if full_rebuild:
         after_index = source_index(after)
         delta_index = delta_source_index(before, after, invalidated, before_index)

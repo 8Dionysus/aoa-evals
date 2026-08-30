@@ -1,0 +1,17 @@
+{
+  "allowed_bytes": 17523497,
+  "allowed_tracked_bytes": 28111717,
+  "approved_by": "repository-owner",
+  "base_ref": "d29fda71258d902068a6426b8d6475ea7c464744",
+  "changed_generated_bytes": 17523497,
+  "changed_generated_files": 262,
+  "decision_ref": "aoa-kag:docs/decisions/AOA-KAG-D-0017-portable-content-addressed-repository-family.md",
+  "default_limit_bytes": 1048576,
+  "head_family_digest": "7222783d63324b9fb46f96324b57e6bcc0e7e777a502c9bfc308c7d51ae3f17a",
+  "reason": "Close PR #457 review gaps by verifying raw evidence bytes, binding invalidation paths to fixture changes, requiring every lineage alternative, reusing cached baselines for delta execution, validating every declared metric, rejecting non-finite lineage confidence and duplicate invalidation paths; regenerate the deterministic owner-local family with the workflow-pinned KAG implementation without raising standing KAG budgets or promoting eval evidence.",
+  "repo": "aoa-evals",
+  "schema_version": "aoa-repo-local-kag-budget-receipt-v1",
+  "scope": "generated_delta_and_tracked_size",
+  "tracked_bytes": 28111717,
+  "tracked_bytes_max": 26214400
+}

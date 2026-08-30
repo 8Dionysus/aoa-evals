@@ -1,0 +1,17 @@
+{
+  "allowed_bytes": 17703550,
+  "allowed_tracked_bytes": 28209533,
+  "approved_by": "repository-owner",
+  "base_ref": "d29fda71258d902068a6426b8d6475ea7c464744",
+  "changed_generated_bytes": 17703550,
+  "changed_generated_files": 263,
+  "decision_ref": "aoa-kag:docs/decisions/AOA-KAG-D-0017-portable-content-addressed-repository-family.md",
+  "default_limit_bytes": 1048576,
+  "head_family_digest": "9960404af00ae951a90d97b70c2c6093be420669e721f43e4d298773a2931ebb",
+  "reason": "Close PR #457 review wave by using a cached baseline and invalidated-path projection for ordinary delta execution; refresh deterministic owner-local family with workflow-pinned KAG without raising standing budgets or promoting eval evidence.",
+  "repo": "aoa-evals",
+  "schema_version": "aoa-repo-local-kag-budget-receipt-v1",
+  "scope": "generated_delta_and_tracked_size",
+  "tracked_bytes": 28209533,
+  "tracked_bytes_max": 26214400
+}

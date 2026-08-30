@@ -1,0 +1,127 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "aoa-continuity-capsule-compaction comparative-summary report",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "eval_name",
+    "bundle_status",
+    "object_under_evaluation",
+    "comparison_mode",
+    "baseline_target",
+    "case_family",
+    "preservation_fields",
+    "admission",
+    "verdict",
+    "claim_boundary",
+    "limitations",
+    "per_case_comparisons"
+  ],
+  "properties": {
+    "eval_name": {"const": "aoa-continuity-capsule-compaction"},
+    "bundle_status": {"const": "draft"},
+    "object_under_evaluation": {
+      "const": "evidence-backed continuity capsule preservation across paired compaction materializations"
+    },
+    "comparison_mode": {"const": "fixed-baseline"},
+    "baseline_target": {
+      "const": "canonical continuity capsule before compaction"
+    },
+    "case_family": {"type": "string", "minLength": 5},
+    "preservation_fields": {
+      "type": "array",
+      "minItems": 1,
+      "items": {"type": "string", "minLength": 3}
+    },
+    "admission": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "case_count",
+        "preserved_case_count",
+        "mixed_case_count",
+        "failed_case_count",
+        "real_session_evidence",
+        "runtime_execution",
+        "baseline_ready"
+      ],
+      "properties": {
+        "case_count": {"type": "integer", "minimum": 1},
+        "preserved_case_count": {"type": "integer", "minimum": 0},
+        "mixed_case_count": {"type": "integer", "minimum": 0},
+        "failed_case_count": {"type": "integer", "minimum": 0},
+        "real_session_evidence": {"const": false},
+        "runtime_execution": {"const": false},
+        "baseline_ready": {"const": false}
+      }
+    },
+    "verdict": {
+      "type": "string",
+      "enum": [
+        "no material regression",
+        "mixed regression signal",
+        "regression present"
+      ]
+    },
+    "claim_boundary": {"type": "string", "minLength": 40},
+    "limitations": {
+      "type": "array",
+      "minItems": 1,
+      "items": {"type": "string", "minLength": 10}
+    },
+    "per_case_comparisons": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "case_id",
+          "baseline_note",
+          "candidate_note",
+          "comparative_reading",
+          "comparison_note",
+          "field_checks"
+        ],
+        "properties": {
+          "case_id": {"type": "string", "minLength": 3},
+          "baseline_note": {"type": "string", "minLength": 10},
+          "candidate_note": {"type": "string", "minLength": 10},
+          "comparative_reading": {
+            "type": "string",
+            "enum": [
+              "no material regression",
+              "mixed regression signal",
+              "regression present"
+            ]
+          },
+          "comparison_note": {"type": "string", "minLength": 10},
+          "field_checks": {
+            "type": "array",
+            "minItems": 1,
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "field",
+                "baseline_present",
+                "portable_present",
+                "private_present",
+                "preserved",
+                "reason"
+              ],
+              "properties": {
+                "field": {"type": "string", "minLength": 3},
+                "baseline_present": {"type": "boolean"},
+                "portable_present": {"type": "boolean"},
+                "private_present": {"type": "boolean"},
+                "preserved": {"type": "boolean"},
+                "reason": {"type": "string", "minLength": 3}
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

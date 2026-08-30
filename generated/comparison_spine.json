@@ -4,6 +4,42 @@
     {
       "baseline_mode": "fixed-baseline",
       "comparison_surface": {
+        "anchor_surface": "aoa-regression-same-task",
+        "baseline_target_label": "canonical continuity capsule before compaction",
+        "integrity_sidecar": "aoa-eval-integrity-check",
+        "paired_readout_path": "mechanics/comparison-spine/parts/fixed-baseline/reports/same-task-baseline-proof-flow-v1.md",
+        "selection_question": "Do you need a fixed-baseline field-preservation route for portable and private continuity capsule materializations?",
+        "shared_family_path": "mechanics/comparison-spine/parts/fixed-baseline/fixtures/frozen-same-task-v1/README.md"
+      },
+      "eval_path": "evals/comparison/fixed-baseline/aoa-continuity-capsule-compaction/EVAL.md",
+      "interpretation_boundary": "proof that the baseline or candidate ran in a live runtime; evidence of a provider, model, or host quality difference; evidence of economy improvement or a promotion recommendation",
+      "name": "aoa-continuity-capsule-compaction",
+      "proof_artifacts": {
+        "fixture_contract_path": "evals/comparison/fixed-baseline/aoa-continuity-capsule-compaction/fixtures/contract.json",
+        "paired_readout_path": "mechanics/comparison-spine/parts/fixed-baseline/reports/same-task-baseline-proof-flow-v1.md",
+        "report_example_path": "evals/comparison/fixed-baseline/aoa-continuity-capsule-compaction/reports/example-report.json",
+        "report_schema_path": "evals/comparison/fixed-baseline/aoa-continuity-capsule-compaction/reports/summary.schema.json",
+        "runner_contract_path": "evals/comparison/fixed-baseline/aoa-continuity-capsule-compaction/runners/contract.json",
+        "runner_surface_path": "evals/comparison/fixed-baseline/aoa-continuity-capsule-compaction/runners/run_continuity_capsule_compaction.py",
+        "scorer_helper_paths": [],
+        "shared_fixture_family_path": "mechanics/comparison-spine/parts/fixed-baseline/fixtures/frozen-same-task-v1/README.md"
+      },
+      "relations": [
+        {
+          "target": "aoa-regression-same-task",
+          "type": "complements"
+        },
+        {
+          "target": "aoa-eval-integrity-check",
+          "type": "used_together_for"
+        }
+      ],
+      "selection_summary": "Do you need a fixed-baseline field-preservation route for portable and private continuity capsule materializations?",
+      "status": "draft"
+    },
+    {
+      "baseline_mode": "fixed-baseline",
+      "comparison_surface": {
         "anchor_surface": "aoa-runtime-latency-tradeoff",
         "baseline_target_label": "legacy serial full-release path",
         "integrity_sidecar": "aoa-eval-integrity-check",

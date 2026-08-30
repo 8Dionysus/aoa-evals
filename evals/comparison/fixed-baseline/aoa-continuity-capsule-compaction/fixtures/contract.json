@@ -1,0 +1,13 @@
+{
+  "contract_version": 1,
+  "shared_fixture_family_path": "mechanics/comparison-spine/parts/fixed-baseline/fixtures/frozen-same-task-v1/README.md",
+  "shared_case_surface": "public-safe paired continuity capsule cases with one canonical baseline and exact portable and private materializations",
+  "bounded_replacement_rule": "A local replacement may add capsule cases only when the canonical baseline, exact reference and digest binding, non-tail parity, portable tail omission, private verbatim tail posture, and explicit failure states remain visible.",
+  "public_safe_requirements": [
+    "raw session transcripts, private host fingerprints, credentials, and runtime logs are not copied into the public bundle",
+    "the canonical capsule and both materializations keep exact owner, schema, object, and digest identity",
+    "portable materializations never contain protected-tail bytes",
+    "private materializations preserve the protected-tail digest and byte count",
+    "synthetic field preservation cannot be reported as runtime, semantic, economy, promotion, or owner-acceptance evidence"
+  ]
+}

@@ -25,7 +25,7 @@ active `mechanics/proof-infra/` package.
 Read only the route needed for the touched source; consult the nearest README when its human or semantic contract is required, then follow source-owner and validation routes conditionally.
 ## Route Rules
 
-- Start from `mechanics/proof-infra/README.md` and `PARTS.md` before reading
+- Start from `../README.md` and `PARTS.md` before reading
   legacy.
 - Keep old root paths mapped to current active routes.
 - Place current fixture-family contracts, bundle meaning, and generated truth

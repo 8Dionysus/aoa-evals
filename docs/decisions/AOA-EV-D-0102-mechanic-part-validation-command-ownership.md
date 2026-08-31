@@ -1,26 +1,38 @@
 # Mechanic Part Validation Command Ownership
 
 - Decision ID: AOA-EV-D-0102
-- Status: Accepted
+- Status: Superseded
+- Superseded by: AOA-EV-D-0256-prompt-light-agent-routes-and-on-demand-validation
 - Date: 2026-05-21
 - Owner surface: `mechanics/README.md`
 
 ## Current Applicability
 
-As of 2026-05-24:
+As of 2026-08-30:
 
-- Still valid: executable child validation checks live in parent
-  `mechanics/<parent>/parts/AGENTS.md` route cards, keyed by child
-  `VALIDATION.md` paths.
-- Clarified: active atlas and topology surfaces should describe the route as a
-  validation route, with command ownership staying in AGENTS.
-- Source surfaces updated: `mechanics/README.md`,
-  `docs/architecture/PROOF_TOPOLOGY.md`, `scripts/validate_repo.py`, and
-  `tests/test_validate_repo.py`.
-- Validation route: `mechanics/AGENTS.md#validation` and root
-  `AGENTS.md#verify`.
+- Still valid: every part README routes to its local `VALIDATION.md`; commands
+  remain repo-relative and reachable; payload-bearing parts retain a coverage
+  anchor.
+- Changed: exact local commands live in the nearest on-demand `VALIDATION.md`,
+  not in inherited parent `parts/AGENTS.md` route cards.
+- Superseded by:
+  AOA-EV-D-0256-prompt-light-agent-routes-and-on-demand-validation.
 
 ## Review Log
+
+### 2026-08-30 - Local validation becomes on-demand
+
+- Previous assumption: future agents should inherit centralized child command
+  blocks from the parent `parts/AGENTS.md`.
+- New reality: automatically inherited command ledgers impose unrelated
+  context before the agent has selected a part; the existing local
+  `VALIDATION.md` is the lower-cost command home.
+- Reason: preserve validation reachability while separating prompt-light agent
+  routing from on-demand execution detail.
+- Source surfaces updated: AOA-EV-D-0256 records the replacement route; active
+  topology, route cards, validation files, and validators migrate in its
+  implementation slice.
+- Validation: decision index parity and the current owner validation route.
 
 ### 2026-05-24 - Active surfaces use validation-route language
 
@@ -42,7 +54,7 @@ As of 2026-05-24:
 - Surface classes: mechanic part, validation guard
 - Mechanic parents: cross-parent
 - Guard families: part and payload
-- Posture: active guard rationale
+- Posture: superseded rationale
 
 ## Context
 

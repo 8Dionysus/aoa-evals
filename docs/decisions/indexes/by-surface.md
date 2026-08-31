@@ -30,6 +30,7 @@
 - [AOA-EV-D-0218 Decision-index Validator Layer Split](../AOA-EV-D-0218-decision-index-validator-layer-split.md) (`docs/decisions/AOA-EV-D-0218-decision-index-validator-layer-split.md`)
 - [AOA-EV-D-0246 Owner Skill Projection Boundary](../AOA-EV-D-0246-owner-skill-projection-boundary.md) (`docs/decisions/AOA-EV-D-0246-owner-skill-projection-boundary.md`)
 - [AOA-EV-D-0247 aoa-evals-skills Owner Skill Bundle](../AOA-EV-D-0247-aoa-evals-owner-skill-bundle.md) (`docs/decisions/AOA-EV-D-0247-aoa-evals-owner-skill-bundle.md`)
+- [AOA-EV-D-0256 Prompt-light Agent Routes and On-demand Validation](../AOA-EV-D-0256-prompt-light-agent-routes-and-on-demand-validation.md) (`docs/decisions/AOA-EV-D-0256-prompt-light-agent-routes-and-on-demand-validation.md`)
 
 ## proof topology
 
@@ -117,6 +118,7 @@
 - [AOA-EV-D-0195 Mechanic Part Validation Aggregate Removal](../AOA-EV-D-0195-mechanic-part-validation-aggregate-removal.md) (`docs/decisions/AOA-EV-D-0195-mechanic-part-validation-aggregate-removal.md`)
 - [AOA-EV-D-0204 Mechanic Part Contract Aggregate Removal](../AOA-EV-D-0204-mechanic-part-contract-aggregate-removal.md) (`docs/decisions/AOA-EV-D-0204-mechanic-part-contract-aggregate-removal.md`)
 - [AOA-EV-D-0225 Mechanic Part Validation-command Layer Split](../AOA-EV-D-0225-mechanic-part-validation-command-layer-split.md) (`docs/decisions/AOA-EV-D-0225-mechanic-part-validation-command-layer-split.md`)
+- [AOA-EV-D-0256 Prompt-light Agent Routes and On-demand Validation](../AOA-EV-D-0256-prompt-light-agent-routes-and-on-demand-validation.md) (`docs/decisions/AOA-EV-D-0256-prompt-light-agent-routes-and-on-demand-validation.md`)
 
 ## validation guard
 
@@ -279,6 +281,7 @@
 - [AOA-EV-D-0242 Output Process Bridge Precondition](../AOA-EV-D-0242-output-process-bridge-precondition.md) (`docs/decisions/AOA-EV-D-0242-output-process-bridge-precondition.md`)
 - [AOA-EV-D-0243 Local Memo Port](../AOA-EV-D-0243-local-memo-port.md) (`docs/decisions/AOA-EV-D-0243-local-memo-port.md`)
 - [AOA-EV-D-0254 Validation-routing Peer-comparison Support](../AOA-EV-D-0254-validation-routing-peer-comparison-support.md) (`docs/decisions/AOA-EV-D-0254-validation-routing-peer-comparison-support.md`)
+- [AOA-EV-D-0256 Prompt-light Agent Routes and On-demand Validation](../AOA-EV-D-0256-prompt-light-agent-routes-and-on-demand-validation.md) (`docs/decisions/AOA-EV-D-0256-prompt-light-agent-routes-and-on-demand-validation.md`)
 
 ## legacy/provenance
 
@@ -538,6 +541,7 @@
 - [AOA-EV-D-0236 RPG Validator Layer Split](../AOA-EV-D-0236-rpg-validator-layer-split.md) (`docs/decisions/AOA-EV-D-0236-rpg-validator-layer-split.md`)
 - [AOA-EV-D-0237 Growth-cycle Validator Layer Split](../AOA-EV-D-0237-growth-cycle-validator-layer-split.md) (`docs/decisions/AOA-EV-D-0237-growth-cycle-validator-layer-split.md`)
 - [AOA-EV-D-0238 Distillation Validator Layer Split](../AOA-EV-D-0238-distillation-validator-layer-split.md) (`docs/decisions/AOA-EV-D-0238-distillation-validator-layer-split.md`)
+- [AOA-EV-D-0256 Prompt-light Agent Routes and On-demand Validation](../AOA-EV-D-0256-prompt-light-agent-routes-and-on-demand-validation.md) (`docs/decisions/AOA-EV-D-0256-prompt-light-agent-routes-and-on-demand-validation.md`)
 
 ## memory context
 

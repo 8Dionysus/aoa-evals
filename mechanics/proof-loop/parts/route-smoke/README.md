@@ -56,4 +56,4 @@ completeness proof each route to their owning surface before adoption.
 
 ## Validation
 
-Use [VALIDATION](VALIDATION.md) for this part's validation route. Executable command ownership is centralized in the parent `parts/AGENTS.md` lane.
+Use [VALIDATION](VALIDATION.md) for this part's validation route. Executable commands are owned by this part-local VALIDATION.md route.

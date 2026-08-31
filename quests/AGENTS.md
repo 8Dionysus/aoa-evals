@@ -40,17 +40,7 @@ handoffs that still need a bounded next route.
 | legacy path vocabulary | provenance or decision surfaces named by the affected route |
 
 ## Read before editing
-
-1. root `AGENTS.md`
-2. `DESIGN.md`
-3. `DESIGN.AGENTS.md`
-4. `QUESTBOOK.md`
-5. `quests/README.md`
-6. `quests/LIFECYCLE.md`
-7. `mechanics/questbook/parts/source-record-contract/schemas/quest.schema.json`
-8. `mechanics/questbook/parts/dispatch-reader/schemas/quest_dispatch.schema.json`
-9. `docs/decisions/AOA-EV-D-0004-questbook-topology.md`
-
+Read only the route needed for the touched source: consult the nearest README when its human or semantic contract is required, then follow the source-owner and validation routes conditionally.
 ## Route Rules
 
 - `quests/<lane>/<state>/*.yaml` are source quest records.
@@ -75,19 +65,11 @@ handoffs that still need a bounded next route.
 
 ## Validation
 
+Use the on-demand [VALIDATION.md](VALIDATION.md) route for executable checks.
+
 After editing source quest records or quest route docs, run:
 
-```bash
-python scripts/build_catalog.py --check
-python scripts/validate_repo.py
-python scripts/validate_semantic_agents.py
-```
-
 If generated quest outputs are stale, rebuild them through:
-
-```bash
-python scripts/build_catalog.py
-```
 
 Then rerun the checks.
 

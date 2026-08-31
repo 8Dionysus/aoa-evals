@@ -14,8 +14,8 @@ tool lane, and validation lane.
 | output | progression evidence record route, unlock proof card route, condition route, caution route, owner handoff, or deferred part-family note |
 | owner | `aoa-evals` owns proof wording, schemas, examples, unlock-card posture, and claim limits; stronger owners keep role, ability, feat, campaign, quest, runtime, and summary truth |
 | next route | `mechanics/rpg/PARTS.md`, selected part README, source playbook/quest/bundle route, comparison/growth owner route, and parent validation lane |
-| tools | generated quest projection checks, repo validator, semantic AGENTS validator, and RPG route checks through `mechanics/rpg/AGENTS.md#validation` |
-| validation | `mechanics/rpg/parts/AGENTS.md#validation` and `mechanics/rpg/AGENTS.md#validation` |
+| tools | generated quest projection checks, repo validator, semantic AGENTS validator, and RPG route checks through `mechanics/rpg/VALIDATION.md` |
+| validation | `mechanics/rpg/parts/VALIDATION.md` and `mechanics/rpg/VALIDATION.md` |
 
 ## Active Parts
 

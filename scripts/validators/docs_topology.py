@@ -13,6 +13,7 @@ TOPOLOGY_CONTRACT_PATH = DOCS_DIR / "architecture" / "topology_contract.yaml"
 ROOT_FILES = (
     DOCS_DIR / "AGENTS.md",
     DOCS_DIR / "README.md",
+    DOCS_DIR / "VALIDATION.md",
 )
 ARCHITECTURE_FILES = (
     DOCS_DIR / "architecture" / "AGENT_INDEX.md",
@@ -47,12 +48,14 @@ OPERATION_FILES = (
 )
 VALIDATION_FILES = (
     DOCS_DIR / "validation" / "AGENTS.md",
+    DOCS_DIR / "validation" / "VALIDATION.md",
     DOCS_DIR / "validation" / "VALIDATOR_TOPOLOGY.md",
     DOCS_DIR / "validation" / "COMMAND_AUTHORITY.md",
     DOCS_DIR / "validation" / "SCRIPT_TOPOLOGY.md",
 )
 TESTING_FILES = (
     DOCS_DIR / "testing" / "AGENTS.md",
+    DOCS_DIR / "testing" / "VALIDATION.md",
     DOCS_DIR / "testing" / "TEST_TOPOLOGY.md",
 )
 EXPECTED_FLAT_DOC_FILES = ROOT_FILES

@@ -19,7 +19,7 @@ MECHANIC_LOWER_PARTS_INDEX_REQUIRED_TOKENS = (
     "| validation |",
     "## Active Parts",
     "## Part Admission Route",
-    "AGENTS.md#validation",
+    "VALIDATION.md",
 )
 
 

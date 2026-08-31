@@ -94,7 +94,7 @@ def validate_mechanic_part_readme_contract_surfaces(
         for path in sorted(parts_root.iterdir(), key=lambda item: item.name):
             relative = path.relative_to(repo_root).as_posix()
             if path.is_file():
-                if path.name not in {"AGENTS.md", "README.md"}:
+                if path.name not in {"AGENTS.md", "README.md", "VALIDATION.md"}:
                     issues.append(
                         ValidationIssue(
                             relative,

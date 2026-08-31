@@ -63,24 +63,14 @@ already provide.
 
 ## Validation
 
-For one touched bundle:
+Use the on-demand [VALIDATION.md](VALIDATION.md) route for executable checks.
 
-```bash
-python scripts/validate_repo.py --eval <bundle-name>
-```
+For one touched bundle:
+use the bundle-scoped `validate_repo.py --eval <bundle-name>` route.
 
 For bundle index, generated reader, source-tree topology, or cross-bundle
 wording changes:
-
-```bash
-python scripts/validate_repo.py
-python scripts/build_catalog.py --check
-python scripts/generate_eval_report_index.py --check
-```
+use the source-tree topology route recorded in [VALIDATION.md](VALIDATION.md), including the catalog and report-index checks.
 
 For validator, generated contract, report schema, source-tree topology
 validator, or shared proof infrastructure changes:
-
-```bash
-python -m pytest -q
-```

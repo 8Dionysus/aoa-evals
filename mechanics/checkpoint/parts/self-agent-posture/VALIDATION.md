@@ -1,5 +1,15 @@
 # Checkpoint / Self-Agent Posture Validation
 
-Executable validation commands for this part live in [parent parts AGENTS](../AGENTS.md#validation).
+Executable validation commands for this part are kept in this on-demand route.
 
 Use the `self-agent-posture` child validation block there. This file is the part-local validation route marker so the README can remain a contract map.
+
+
+Source anchor: `mechanics/checkpoint/parts/self-agent-posture`.
+
+## Commands
+
+```bash
+python mechanics/audit/parts/candidate-readers/scripts/generate_runtime_candidate_template_index.py --check
+python scripts/validate_repo.py
+```

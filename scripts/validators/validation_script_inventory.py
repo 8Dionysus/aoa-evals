@@ -64,7 +64,12 @@ def validate_script_inventory(repo_root: Path) -> list[tuple[str, str]]:
     if len(paths) != len(set(paths)):
         issues.append((SCRIPT_INVENTORY_PATH.as_posix(), "script inventory paths must be unique"))
 
-    discovered = _discovered_script_surfaces(repo_root)
+    # VALIDATION.md is a route companion, not an executable script surface.
+    discovered = {
+        path_name
+        for path_name in _discovered_script_surfaces(repo_root)
+        if Path(path_name).name != "VALIDATION.md"
+    }
     for path_name in sorted(discovered - set(paths)):
         issues.append((path_name, "script inventory must classify every active script surface"))
     for path_name in sorted(set(paths) - discovered):

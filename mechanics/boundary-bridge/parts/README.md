@@ -15,8 +15,8 @@ validation lane.
 | output | compatibility map route, canary matrix route, proof-anchor map route, Phase Alpha eval matrix route, generated reader route, or sibling-owner handoff |
 | owner | `aoa-evals` owns local reference compatibility and proof-review routing; sibling repositories own source truth |
 | next route | `mechanics/boundary-bridge/PARTS.md`, selected part README, sibling owner route, generated matrix route, and parent validation lane |
-| tools | latest-sibling canary runner, Phase Alpha matrix generator, repo validator, and semantic AGENTS validator through `mechanics/boundary-bridge/AGENTS.md#validation` |
-| validation | `mechanics/boundary-bridge/parts/AGENTS.md#validation` and `mechanics/boundary-bridge/AGENTS.md#validation` |
+| tools | latest-sibling canary runner, Phase Alpha matrix generator, repo validator, and semantic AGENTS validator through `mechanics/boundary-bridge/VALIDATION.md` |
+| validation | `mechanics/boundary-bridge/parts/VALIDATION.md` and `mechanics/boundary-bridge/VALIDATION.md` |
 
 ## Active Parts
 
@@ -50,6 +50,6 @@ validation lane.
 
 ## Validation
 
-Use [AGENTS](AGENTS.md#validation) for executable validation commands. This
+Use [AGENTS](VALIDATION.md) for executable validation commands. This
 parts index names the active parts and their roles; the parts route card owns
 the command lane.

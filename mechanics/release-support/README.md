@@ -44,10 +44,10 @@ objects own claim strength.
 - `mechanics/release-support/parts/strategic-closeout/tests/test_strategic_closeout_audit.py`
 - `mechanics/release-support/parts/pr-handoff/reports/release-prep-pr-handoff-v1.json`
 - `mechanics/release-support/parts/pr-handoff/tests/test_release_prep_pr_handoff.py`
-- generated catalog check routed through `AGENTS.md#validation`
-- repository validation routed through `AGENTS.md#validation`
-- full local test gate routed through `AGENTS.md#validation`
-- latest sibling canary route routed through `AGENTS.md#validation`
+- generated catalog check routed through `VALIDATION.md`
+- repository validation routed through `VALIDATION.md`
+- full local test gate routed through `VALIDATION.md`
+- latest sibling canary route routed through `VALIDATION.md`
 
 ## Inputs
 
@@ -156,7 +156,7 @@ live status.
 
 ## Validation
 
-Use [AGENTS](AGENTS.md#validation) for executable validation commands. This
+Use [AGENTS](VALIDATION.md) for executable validation commands. This
 README names the mechanic role, routes, and boundaries; the nearest route card
 owns command execution.
 

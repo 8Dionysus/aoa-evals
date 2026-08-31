@@ -54,7 +54,7 @@ readiness/strategic closeout artifacts remain stronger than PR-body wording.
 
 ## Validation
 
-Use [VALIDATION](VALIDATION.md) for this part's validation route. Executable command ownership is centralized in the parent `parts/AGENTS.md` lane.
+Use [VALIDATION](VALIDATION.md) for this part's validation route. Executable commands are owned by this part-local VALIDATION.md route.
 ## Next Route
 
 Use this part when updating the owner landing handoff. Use current git and

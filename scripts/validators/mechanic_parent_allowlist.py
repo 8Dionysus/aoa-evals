@@ -24,6 +24,7 @@ MECHANICS_ROOT_ALLOWED_FILES = (
     "AGENTS.md",
     "EVIDENCE_CLUSTERS.md",
     "README.md",
+    "VALIDATION.md",
 )
 MECHANIC_ROUTE_CARD_FILES = tuple(
     route

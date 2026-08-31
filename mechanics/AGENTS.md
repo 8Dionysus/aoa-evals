@@ -24,6 +24,9 @@ can carry the work.
 | tools | root validator, semantic AGENTS validator, catalog/report builders when generated readers move |
 | validation | this card's `Validation` section |
 
+Each target package keeps current operating direction in `DIRECTION.md`; the target package `DIRECTION.md` is the current direction source. Use the active-to-archive bridge in its `PROVENANCE.md` when legacy names are involved.
+The architecture proof route remains `docs/architecture/PROOF_TOPOLOGY.md`.
+
 ## Owner Routes
 
 | Need | Owner route |
@@ -37,18 +40,7 @@ can carry the work.
 | part payload contract | `mechanics/<parent>/parts/<part>/README.md` and `VALIDATION.md` |
 
 ## Read before editing
-
-1. root `AGENTS.md`
-2. `DESIGN.md`
-3. `DESIGN.AGENTS.md`
-4. `docs/architecture/PROOF_TOPOLOGY.md`
-5. `mechanics/EVIDENCE_CLUSTERS.md`
-6. `mechanics/README.md`
-7. the target package `README.md`
-8. the target package `DIRECTION.md` for current operating direction
-9. the target package `AGENTS.md`
-10. `docs/decisions/` for package-creation or package-boundary changes
-
+Read only the route needed for the touched source: consult the nearest README when its human or semantic contract is required, then follow the source-owner and validation routes conditionally.
 ## Route Rules
 
 - Create packages for live operations with evidence cluster support and a
@@ -68,33 +60,19 @@ can carry the work.
 
 ## Validation
 
-After package route changes, run:
+Use the on-demand [VALIDATION.md](VALIDATION.md) route for executable checks.
 
-```bash
-python scripts/validate_repo.py
-python scripts/validate_semantic_agents.py
-```
+After package route changes, run:
 
 If the changed package touches generated quest readers, catalogs, report
 indexes, runtime-candidate readers, or boundary-bridge matrices, add the owning
 builder check named by the package card, commonly:
-
-```bash
-python scripts/build_catalog.py --check
-python scripts/generate_eval_report_index.py --check
-```
 
 Run package-specific builders or checks named in the package card before the
 broader mechanics lane.
 
 Focused mechanic topology checks live in this lane when the changed source
 surface names a narrower guard:
-
-```bash
-python -m pytest -q tests/test_mechanic_root_district_recon.py -k mechanic_root_district_recon
-python -m pytest -q tests/test_mechanic_part_contracts.py -k mechanic_part_payload_inventory
-python -m pytest -q tests/test_mechanic_part_validation_commands.py -k mechanic_part_validation_command
-```
 
 ## Closeout
 

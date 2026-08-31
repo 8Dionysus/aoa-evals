@@ -8,9 +8,9 @@
 | input | selected runtime evidence, artifact-to-verdict hook pressure, candidate-reader drift, integrity-review packet, or new audit suboperation pressure |
 | output | part route, source surface set, generated-reader route, validation lane, or stronger-owner handoff |
 | owner | `mechanics/audit/parts/AGENTS.md` for part-lane law; part README for local contract; parent `audit` package for the candidate-evidence loop |
-| next route | parent [README](../README.md), [PARTS](../PARTS.md), part README, part source surfaces, and [audit AGENTS validation](../AGENTS.md#validation) |
-| tools | candidate-reader generators, drift checks, repo validator, and focused tests through `mechanics/audit/AGENTS.md#validation` |
-| validation | `mechanics/audit/AGENTS.md#validation`, focused validator tests, and generated candidate-reader checks when source examples move |
+| next route | parent [README](../README.md), [PARTS](../PARTS.md), part README, part source surfaces, and [audit AGENTS validation](../VALIDATION.md) |
+| tools | candidate-reader generators, drift checks, repo validator, and focused tests through `mechanics/audit/VALIDATION.md` |
+| validation | `mechanics/audit/VALIDATION.md`, focused validator tests, and generated candidate-reader checks when source examples move |
 
 ## Active Parts
 
@@ -32,7 +32,7 @@ answer:
 | --- | --- |
 | source surfaces | docs, schemas, examples, fixtures, generated readers, scripts, tests, or reports that the part owns together |
 | operation | one bounded audit suboperation inside the candidate-evidence loop |
-| validation | drift-catching validation named by the part and reachable from `mechanics/audit/AGENTS.md#validation` |
+| validation | drift-catching validation named by the part and reachable from `mechanics/audit/VALIDATION.md` |
 | owner boundary | stronger-owner boundary for runtime, trace, playbook, memory, stats, or bundle-local proof authority |
 | next route | parent `PARTS.md`, parent `DIRECTION.md`, part README, and generated-reader checks when applicable |
 

@@ -16,9 +16,9 @@ Use this index when a path needs an explicit owner route.
 | role | agent-facing pass-through index for agents |
 | entry | start from the current path or from `README.md` |
 | output | next owner surface and validation route |
-| owner | `docs/` source guidance; executable commands stay in the nearest `AGENTS.md` |
+| owner | `docs/` source guidance; executable commands stay in the nearest on-demand `VALIDATION.md` |
 | next route | `docs/architecture/PROOF_TOPOLOGY.md`, `mechanics/README.md`, or a bundle-local source file |
-| validation | `docs/AGENTS.md#validation` and root `AGENTS.md#verify` |
+| validation | nearest on-demand `VALIDATION.md` and root `AGENTS.md#verify` |
 
 ## Canonical Chain
 
@@ -57,7 +57,7 @@ owning authority class is explicit.
 | `kag/*` | local KAG provider record | `kag/AGENTS.md`, `kag/manifest.json`, owner validator, and `aoa-kag` local subtree validation |
 | `quests/<lane>/<state>/*.yaml` | source quest record | `quests/AGENTS.md`, `QUESTBOOK.md`, and quest schemas |
 | `mechanics/<parent>/` | mechanic parent operation | parent `AGENTS.md`, `README.md`, `DIRECTION.md`, `PARTS.md`, `PROVENANCE.md` |
-| `mechanics/<parent>/parts/<part>/` | mechanic part operation | part `README.md`, `VALIDATION.md`, and parent `parts/AGENTS.md` |
+| `mechanics/<parent>/parts/<part>/` | mechanic part operation | part `README.md`, local `VALIDATION.md`, and nearest route card |
 | `.agents/` | maintained agent lanes | `.agents/AGENTS.md` and lane-local cards |
 | `.aoa/live_receipts/` | receipt sidecar | `.aoa/live_receipts/AGENTS.md`; receipts stay below reports and bundles |
 
@@ -92,13 +92,13 @@ mechanics/README.md
 -> mechanics/<parent>/PARTS.md
 -> mechanics/<parent>/parts/<part>/README.md
 -> mechanics/<parent>/parts/<part>/VALIDATION.md
--> mechanics/<parent>/parts/AGENTS.md
+-> mechanics/<parent>/parts/VALIDATION.md
 ```
 
 `README.md` and `PARTS.md` explain role and map. `DIRECTION.md` names current
 contour. `PROVENANCE.md` is the bridge for old names. `VALIDATION.md` names the
 part-local route, while executable child validation commands live in the parent
-`parts/AGENTS.md` lane.
+part-local `VALIDATION.md` lane.
 
 ## Bottom-Up Checks
 
@@ -117,8 +117,8 @@ When starting from a payload, ask these in order:
 
 ## Validation Route
 
-Executable validation commands belong in the nearest `AGENTS.md`.
+Executable validation commands belong in the nearest on-demand `VALIDATION.md`.
 
-For this index, use `docs/AGENTS.md#validation` and root `AGENTS.md#verify`.
-For mechanic parts, follow the part `VALIDATION.md` to the parent
-`parts/AGENTS.md` centralized child validation lane.
+For this index, use the nearest on-demand `VALIDATION.md` and root `AGENTS.md#verify`.
+For mechanic parts, follow the part-local `VALIDATION.md`; named repository
+lanes remain in `docs/validation/validation_lanes.json`.

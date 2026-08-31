@@ -42,7 +42,7 @@ def modeled_decision_lane_surfaces(
             issues.append((INDEX_CONTRACT_PATH.as_posix(), f"modeled_surfaces entry must live under {DECISIONS_DIR.as_posix()}: {item}"))
             continue
         relative = Path(item)
-        if relative.parent == DECISIONS_DIR and relative.suffix == ".md" and not FULL_ID_FILENAME_RE.match(relative.name):
+        if relative.parent == DECISIONS_DIR and relative.suffix == ".md" and relative.name != "VALIDATION.md" and not FULL_ID_FILENAME_RE.match(relative.name):
             issues.append((INDEX_CONTRACT_PATH.as_posix(), f"modeled_surfaces must not include root non-record Markdown: {item}"))
             continue
         if not (repo_root / relative).is_file():
@@ -74,6 +74,8 @@ def validate_decision_lane_surfaces(repo_root: Path) -> list[tuple[str, str]]:
         relative = path.relative_to(repo_root)
         relative_text = relative.as_posix()
         if relative_text in allowed_paths:
+            continue
+        if relative == DECISIONS_DIR / "VALIDATION.md":
             continue
         decision_relative = path.relative_to(decisions_root)
         if len(decision_relative.parts) == 1 and FULL_ID_FILENAME_RE.match(path.name):

@@ -30,14 +30,7 @@ This `AGENTS.md` is the operating policy for Spark work.
 | validation | this card's `Validation` section |
 
 ## Read before editing
-
-1. root `AGENTS.md`
-2. `DESIGN.AGENTS.md`
-3. `.agents/AGENTS.md`
-4. `docs/architecture/PROOF_TOPOLOGY.md`
-5. `docs/architecture/LEGACY_NAMING.md`
-6. the target proof source surface or mechanic package
-
+Read only the route needed for the touched source: consult the nearest README when its human or semantic contract is required, then follow the source-owner and validation routes conditionally.
 ## Default posture
 
 - Use Spark for short-loop work where a small diff is enough.
@@ -69,20 +62,12 @@ This `AGENTS.md` is the operating policy for Spark work.
 
 ## Validation
 
+Use the on-demand [VALIDATION.md](VALIDATION.md) route for executable checks.
+
 Use the narrowest relevant validation already documented by the target surface.
 For lane or route edits, run:
 
-```bash
-python scripts/validate_repo.py
-python scripts/validate_semantic_agents.py
-python scripts/validate_nested_agents.py
-```
-
 If generated catalogs are touched, run:
-
-```bash
-python scripts/build_catalog.py --check
-```
 
 ## Done signal
 

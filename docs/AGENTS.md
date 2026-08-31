@@ -42,14 +42,7 @@ bundle-local `EVAL.md` and `eval.yaml`.
   belong in the nearest `AGENTS.md`, not hidden inside ordinary guide prose.
 
 ## Read Before Editing
-
-1. root `AGENTS.md`
-2. `DESIGN.md`
-3. `DESIGN.AGENTS.md` when agent-facing guidance shape changes
-4. the target doc
-5. `EVAL_INDEX.md` and `EVAL_SELECTION.md` when public routing changes
-6. the affected bundle when a doc changes bundle interpretation
-
+Read only the route needed for the touched source: consult the nearest README when its human or semantic contract is required, then follow the source-owner and validation routes conditionally.
 ## Owner Routes
 
 | Need | Owner route |
@@ -59,6 +52,7 @@ bundle-local `EVAL.md` and `eval.yaml`.
 | runtime, trace, receipt, sibling, recurrence, or checkpoint interpretation | owning mechanic, source surface, or sibling owner before bundle-local review |
 | decision rationale | `docs/decisions/AGENTS.md` and the source surface being explained |
 | roadmap direction | root `ROADMAP.md` |
+| eval chooser | `EVAL_SELECTION.md` |
 | mechanics topology | `mechanics/AGENTS.md`, `mechanics/README.md`, and the target package card |
 
 ## Route Rules
@@ -74,25 +68,13 @@ bundle-local `EVAL.md` and `eval.yaml`.
 
 ## Validation
 
-Verify docs-only route and meaning changes with:
+Use the on-demand [VALIDATION.md](VALIDATION.md) route for executable checks.
 
-```bash
-python scripts/validate_repo.py
-python scripts/validate_semantic_agents.py
-```
+Verify docs-only route and meaning changes with:
 
 When docs-map changes touch public eval readers, generated report indexes,
 runtime-candidate readers, or boundary-bridge matrices, add the relevant
 non-mutating checks:
-
-```bash
-python scripts/build_catalog.py --check
-python scripts/generate_eval_report_index.py --check
-python mechanics/audit/parts/candidate-readers/scripts/generate_runtime_candidate_template_index.py --check
-python mechanics/audit/parts/candidate-readers/scripts/generate_runtime_candidate_intake.py --check
-python mechanics/boundary-bridge/parts/phase-alpha-eval-matrix/scripts/generate_phase_alpha_eval_matrix.py --check
-python -m pytest -q
-```
 
 For mechanic-owned payload docs, use `mechanics/AGENTS.md` and the package card
 before broadening to the root route.

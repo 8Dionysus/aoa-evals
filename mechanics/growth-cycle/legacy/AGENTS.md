@@ -22,18 +22,7 @@ This district preserves Growth Cycle provenance behind the active
 | validation | Run the Validation commands after route-card, provenance, index, log, or raw changes. |
 
 ## Read before editing
-
-1. repository root `AGENTS.md`
-2. `mechanics/AGENTS.md`
-3. `../AGENTS.md`
-4. `../README.md`
-5. `../DIRECTION.md`
-6. `../PARTS.md`
-7. `../PROVENANCE.md`
-8. `docs/architecture/LEGACY_NAMING.md`
-9. `INDEX.md`
-10. `DISTILLATION_LOG.md`
-
+Read only the route needed for the touched source: consult the nearest README when its human or semantic contract is required, then follow the source-owner and validation routes conditionally.
 ## Route Rules
 
 - Start from `../README.md`, `../PARTS.md`, and `../PROVENANCE.md`.
@@ -45,12 +34,9 @@ This district preserves Growth Cycle provenance behind the active
 
 ## Validation
 
-Run root validation after editing:
+Use the on-demand [VALIDATION.md](VALIDATION.md) route for executable checks.
 
-```bash
-python scripts/validate_repo.py
-python scripts/validate_semantic_agents.py
-```
+Run root validation after editing:
 
 ## Closeout
 

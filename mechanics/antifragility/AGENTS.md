@@ -2,7 +2,7 @@
 
 ## Entry Route
 
-Start with the package README. Then read `mechanics/antifragility/DIRECTION.md` for current operating direction, `mechanics/antifragility/PARTS.md` for active parts, and `mechanics/antifragility/PROVENANCE.md` as the active-to-archive bridge for legacy or former-placement lookup.
+When package semantics or direction are relevant, consult the package README and then the `mechanics/antifragility/DIRECTION.md`, `mechanics/antifragility/PARTS.md`, and `mechanics/antifragility/PROVENANCE.md` routes as needed for the touched source.
 
 ## Applies to
 
@@ -28,15 +28,8 @@ window, repair-proof, comparison-spine, audit, or stronger-owner handoff routes.
 | validation | this card's `Validation` section |
 
 ## Read before editing
-
-1. root `AGENTS.md`
-2. `DESIGN.md`
-3. `docs/architecture/PROOF_TOPOLOGY.md`
-4. `mechanics/EVIDENCE_CLUSTERS.md`
-5. `mechanics/README.md`
-6. `mechanics/antifragility/README.md`
-7. `mechanics/antifragility/PARTS.md`
-8. `mechanics/antifragility/PROVENANCE.md` as the active-to-archive bridge when old placement matters
+Read only the route needed for the touched source: consult the nearest README when its human or semantic contract is required, then follow the source-owner and validation routes conditionally.
+Each package keeps current operating direction in `DIRECTION.md`; the active-to-archive bridge in `PROVENANCE.md` is consulted only when legacy names are involved.
 
 ## Route Rules
 
@@ -53,14 +46,7 @@ window, repair-proof, comparison-spine, audit, or stronger-owner handoff routes.
 
 ## Validation
 
-```bash
-python scripts/validate_repo.py --eval aoa-antifragility-posture
-python scripts/validate_repo.py --eval aoa-stress-recovery-window
-python scripts/validate_repo.py --eval aoa-repair-boundedness
-python scripts/build_catalog.py --check
-python scripts/validate_repo.py
-python scripts/validate_semantic_agents.py
-```
+Use the on-demand [VALIDATION.md](VALIDATION.md) route for executable checks.
 
 ## Closeout
 

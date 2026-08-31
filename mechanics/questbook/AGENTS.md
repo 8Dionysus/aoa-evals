@@ -2,7 +2,7 @@
 
 ## Entry Route
 
-Start with the package README. Then read `mechanics/questbook/DIRECTION.md` for current operating direction, `mechanics/questbook/PARTS.md` for active parts, and `mechanics/questbook/PROVENANCE.md` as the active-to-archive bridge for legacy or former-placement lookup.
+When package semantics or direction are relevant, consult the package README and then the `mechanics/questbook/DIRECTION.md`, `mechanics/questbook/PARTS.md`, and `mechanics/questbook/PROVENANCE.md` routes as needed for the touched source.
 
 ## Applies to
 
@@ -27,24 +27,8 @@ This package protects the quest obligation loop:
 | validation | this card's `Validation` section |
 
 ## Read before editing
-
-1. root `AGENTS.md`
-2. `DESIGN.md`
-3. `DESIGN.AGENTS.md`
-4. `docs/architecture/PROOF_TOPOLOGY.md`
-5. `mechanics/README.md`
-6. `mechanics/questbook/README.md`
-7. `mechanics/questbook/PARTS.md`
-8. `mechanics/questbook/PROVENANCE.md`
-9. `QUESTBOOK.md`
-10. `quests/README.md`
-11. `quests/AGENTS.md`
-12. `quests/LIFECYCLE.md`
-13. `mechanics/questbook/parts/source-record-contract/schemas/quest.schema.json`
-14. `mechanics/questbook/parts/dispatch-reader/schemas/quest_dispatch.schema.json`
-15. `docs/decisions/AOA-EV-D-0004-questbook-topology.md`
-16. `docs/decisions/AOA-EV-D-0006-questbook-mechanic-package.md`
-17. `docs/decisions/AOA-EV-D-0047-questbook-schema-parts.md`
+Read only the route needed for the touched source: consult the nearest README when its human or semantic contract is required, then follow the source-owner and validation routes conditionally.
+Each package keeps current operating direction in `DIRECTION.md`; the active-to-archive bridge in `PROVENANCE.md` is consulted only when legacy names are involved.
 
 ## Route Rules
 
@@ -64,20 +48,12 @@ This package protects the quest obligation loop:
 
 ## Validation
 
-Run:
+Use the on-demand [VALIDATION.md](VALIDATION.md) route for executable checks.
 
-```bash
-python scripts/build_catalog.py --check
-python scripts/validate_repo.py
-python scripts/validate_semantic_agents.py
-```
+Run:
 
 If source quest records changed intentionally and generated readers must be
 refreshed, rebuild them before rerunning the checks:
-
-```bash
-python scripts/build_catalog.py
-```
 
 ## Closeout
 

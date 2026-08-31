@@ -11,16 +11,7 @@ candidates, receipts, exports, and local notes before reviewed landing in
 `aoa-memo`.
 
 ## Read before editing
-
-1. Root `AGENTS.md`
-2. `README.md`
-3. `docs/decisions/AOA-EV-D-0106-memory-consumer-proof-boundary.md`
-4. `docs/decisions/AOA-EV-D-0243-local-memo-port.md`
-5. This `README.md`
-6. `PORT.yaml`
-7. `aoa-memo/docs/memory/LOCAL_MEMO_PORT_STANDARD.md` when a candidate should
-   move centrally
-
+Read only the route needed for the touched source: consult the nearest README when its human or semantic contract is required, then follow the source-owner and validation routes conditionally.
 ## Boundaries
 
 Use this port for `write_candidate_only` work. Keep proof claims, verdicts,
@@ -38,11 +29,7 @@ for review or handoff traces, `exports/` for packets meant for `aoa-memo`, and
 
 ## Validation
 
-```bash
-AOA_MEMO_ROOT="${AOA_MEMO_ROOT:-/srv/AbyssOS/aoa-memo}"
-python "$AOA_MEMO_ROOT/scripts/memory/validate_local_memo_port.py" --path memo
-python "$AOA_MEMO_ROOT/scripts/memory/build_local_memo_port_index.py" --path memo --check
-```
+Use the on-demand [VALIDATION.md](VALIDATION.md) route for executable checks.
 
 For repo-wide proof posture, use the root `AGENTS.md` validation route.
 

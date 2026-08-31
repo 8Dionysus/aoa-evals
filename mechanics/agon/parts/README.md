@@ -14,8 +14,8 @@ tool lane, and validation lane.
 | output | part README route, part-local payload home, deterministic registry, validation lane, recurrence route, or stronger-owner handoff |
 | owner | `aoa-evals` owns local proof-alignment shape and validation; stronger owners keep doctrine, canon, arena, rank, trust, and live authority |
 | next route | `mechanics/agon/PARTS.md`, selected part README, part-local source surfaces, generated payloads, and stronger-owner route |
-| tools | part-local builders and validators routed through `mechanics/agon/AGENTS.md#validation` |
-| validation | `mechanics/agon/parts/AGENTS.md#validation` and `mechanics/agon/AGENTS.md#validation` |
+| tools | part-local builders and validators routed through `mechanics/agon/VALIDATION.md` |
+| validation | `mechanics/agon/parts/VALIDATION.md` and `mechanics/agon/VALIDATION.md` |
 
 ## Active Parts
 

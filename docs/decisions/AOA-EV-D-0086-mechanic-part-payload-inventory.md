@@ -94,8 +94,8 @@ As of 2026-05-22:
 - Still valid: mechanic part README files route actual payload
   subdirectories, and `scripts/validate_repo.py` rejects hidden, empty, or
   unexpected payload homes.
-- Changed: executable validation commands for this guard route through
-  [mechanics/AGENTS.md#validation](../../mechanics/AGENTS.md#validation).
+- Changed: executable validation commands for this guard route through the
+  nearest on-demand `VALIDATION.md` companion.
 - Superseded by: active command ownership in `mechanics/AGENTS.md`.
 
 ## Review Log

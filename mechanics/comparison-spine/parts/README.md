@@ -14,8 +14,8 @@ payload home, owner route, tool lane, and validation lane.
 | output | comparison part route, fixture family route, dossier route, generated-reader route, or bundle-local review handoff |
 | owner | source bundles own claim meaning; comparison-spine owns comparison posture, read order, shared support fixtures, and bounded readouts |
 | next route | `mechanics/comparison-spine/PARTS.md`, selected part README, affected source bundle, generated comparison reader, and parent validation lane |
-| tools | comparison-spine builder, generated-surface checks, repo validator, and focused tests through `mechanics/comparison-spine/AGENTS.md#validation` |
-| validation | `mechanics/comparison-spine/parts/AGENTS.md#validation` and `mechanics/comparison-spine/AGENTS.md#validation` |
+| tools | comparison-spine builder, generated-surface checks, repo validator, and focused tests through `mechanics/comparison-spine/VALIDATION.md` |
+| validation | `mechanics/comparison-spine/parts/VALIDATION.md` and `mechanics/comparison-spine/VALIDATION.md` |
 
 ## Active Parts
 
@@ -48,6 +48,6 @@ payload home, owner route, tool lane, and validation lane.
 
 ## Validation
 
-Use [AGENTS](AGENTS.md#validation) for executable validation commands. This
+Use [AGENTS](VALIDATION.md) for executable validation commands. This
 parts index names the active parts and their roles; the parts route card owns
 the command lane.

@@ -22,16 +22,7 @@ evidence behind the active `mechanics/agon/` package.
 | validation | Run the Validation commands after route-card, provenance, index, log, or raw changes. |
 
 ## Read before editing
-
-1. repository root `AGENTS.md`
-2. `mechanics/README.md`
-3. `mechanics/EVIDENCE_CLUSTERS.md`
-4. `mechanics/agon/README.md`
-5. `mechanics/agon/PARTS.md`
-6. `mechanics/agon/PROVENANCE.md`
-7. `mechanics/agon/legacy/INDEX.md`
-8. `mechanics/agon/legacy/DISTILLATION_LOG.md`
-
+Read only the route needed for the touched source: consult the nearest README when its human or semantic contract is required, then follow the source-owner and validation routes conditionally.
 ## Route Rules
 
 - Start from active Agon parts before using legacy.
@@ -42,12 +33,9 @@ evidence behind the active `mechanics/agon/` package.
 
 ## Validation
 
-Run the root mechanics checks after changing legacy maps:
+Use the on-demand [VALIDATION.md](VALIDATION.md) route for executable checks.
 
-```bash
-python scripts/validate_repo.py
-python scripts/validate_semantic_agents.py
-```
+Run the root mechanics checks after changing legacy maps:
 
 ## Closeout
 

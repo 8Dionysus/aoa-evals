@@ -2,7 +2,7 @@
 
 ## Entry Route
 
-Start with the package README. Then read `mechanics/proof-loop/DIRECTION.md` for current operating direction, `mechanics/proof-loop/PARTS.md` for active parts, and `mechanics/proof-loop/PROVENANCE.md` as the active-to-archive bridge for legacy or former-placement lookup.
+When package semantics or direction are relevant, consult the package README and then the `mechanics/proof-loop/DIRECTION.md`, `mechanics/proof-loop/PARTS.md`, and `mechanics/proof-loop/PROVENANCE.md` routes as needed for the touched source.
 
 ## Applies to
 
@@ -41,25 +41,8 @@ the current loop segment.
 | legacy or former route | `mechanics/proof-loop/PROVENANCE.md` |
 
 ## Read before editing
-
-1. root `AGENTS.md`
-2. `DESIGN.md`
-3. `DESIGN.AGENTS.md`
-4. `ROADMAP.md`
-5. `docs/architecture/PROOF_TOPOLOGY.md`
-6. `mechanics/README.md`
-7. `mechanics/proof-loop/README.md`
-8. `mechanics/proof-loop/PARTS.md`
-9. `mechanics/proof-loop/parts/README.md`
-10. `mechanics/proof-object/README.md`
-11. `mechanics/proof-infra/README.md`
-12. `mechanics/audit/README.md`
-13. `mechanics/publication-receipts/README.md`
-14. `mechanics/boundary-bridge/README.md`
-15. `mechanics/publication-receipts/parts/intake-dry-review/reports/eval-result-receipt-intake-dry-review-v1.json` when the loop
-    reaches receipt-intake dry review
-16. `docs/decisions/AOA-EV-D-0019-proof-loop-mechanic-package.md`
-17. `docs/decisions/AOA-EV-D-0030-proof-loop-route-smoke-part.md`
+Read only the route needed for the touched source: consult the nearest README when its human or semantic contract is required, then follow the source-owner and validation routes conditionally.
+Each package keeps current operating direction in `DIRECTION.md`; the active-to-archive bridge in `PROVENANCE.md` is consulted only when legacy names are involved.
 
 ## Route Rules
 
@@ -76,12 +59,9 @@ the current loop segment.
 
 ## Validation
 
-Run:
+Use the on-demand [VALIDATION.md](VALIDATION.md) route for executable checks.
 
-```bash
-python scripts/validate_repo.py
-python scripts/validate_semantic_agents.py
-```
+Run:
 
 Add owning generated-surface checks when generated readers or candidate intake
 surfaces change.

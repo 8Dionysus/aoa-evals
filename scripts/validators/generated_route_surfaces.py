@@ -100,10 +100,15 @@ def validate_generated_route_surfaces(repo_root: Path) -> list[tuple[str, str]]:
                     )
                 )
 
+    generated_validation = _read_text(repo_root, Path("generated/VALIDATION.md"), issues)
+    if generated_agents and "VALIDATION.md" not in generated_agents:
+        issues.append(
+            (GENERATED_AGENTS.as_posix(), "generated route card must link its on-demand VALIDATION.md route")
+        )
     for command in GENERATOR_CHECK_COMMANDS:
-        if generated_agents and command not in generated_agents:
+        if generated_validation and command not in generated_validation:
             issues.append(
-                (GENERATED_AGENTS.as_posix(), f"generated route card must expose check command {command!r}")
+                ("generated/VALIDATION.md", f"generated validation route must expose check command {command!r}")
             )
 
     for generated_dir in PART_LOCAL_GENERATED_SURFACES:

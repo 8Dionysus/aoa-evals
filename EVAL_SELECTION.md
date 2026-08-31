@@ -1,5 +1,7 @@
 # Eval Bundle Selection Chooser
 
+Executable checks use the local [VALIDATION.md](VALIDATION.md) route.
+
 This file is the repository-wide chooser for public eval bundles.
 
 Use it when you need one bounded evaluation surface before reading the full

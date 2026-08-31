@@ -2,7 +2,7 @@
 
 ## Entry Route
 
-Start with the package README. Then read `mechanics/growth-cycle/DIRECTION.md` for current operating direction, `mechanics/growth-cycle/PARTS.md` for active parts, and `mechanics/growth-cycle/PROVENANCE.md` as the active-to-archive bridge for legacy or former-placement lookup.
+When package semantics or direction are relevant, consult the package README and then the `mechanics/growth-cycle/DIRECTION.md`, `mechanics/growth-cycle/PARTS.md`, and `mechanics/growth-cycle/PROVENANCE.md` routes as needed for the touched source.
 
 ## Applies to
 
@@ -30,18 +30,8 @@ runtime, quest, and stats truth.
 | validation | this card's `Validation` section |
 
 ## Read before editing
-
-1. root `AGENTS.md`
-2. `DESIGN.md`
-3. `docs/architecture/PROOF_TOPOLOGY.md`
-4. `mechanics/EVIDENCE_CLUSTERS.md`
-5. `mechanics/README.md`
-6. `mechanics/growth-cycle/README.md`
-7. `mechanics/growth-cycle/PARTS.md`
-8. the target part README
-9. affected bundle `EVAL.md` and `eval.yaml`
-10. `mechanics/growth-cycle/PROVENANCE.md` as the active-to-archive bridge for old deferred-placement
-    questions
+Read only the route needed for the touched source: consult the nearest README when its human or semantic contract is required, then follow the source-owner and validation routes conditionally.
+Each package keeps current operating direction in `DIRECTION.md`; the active-to-archive bridge in `PROVENANCE.md` is consulted only when legacy names are involved.
 
 ## Route Rules
 
@@ -57,19 +47,11 @@ runtime, quest, and stats truth.
 
 ## Validation
 
+Use the on-demand [VALIDATION.md](VALIDATION.md) route for executable checks.
+
 Run the affected bundle validation first:
 
-```bash
-python scripts/validate_repo.py --eval aoa-diagnosis-cause-discipline
-```
-
 When package route, source-of-truth surfaces, or generated readers change, run:
-
-```bash
-python scripts/build_catalog.py --check
-python scripts/validate_repo.py
-python scripts/validate_semantic_agents.py
-```
 
 ## Closeout
 

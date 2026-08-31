@@ -22,24 +22,11 @@ route to later scorer or stronger-owner surfaces.
 | output | seed-defined canary update, validation route, future scorer handoff, or stronger-owner route |
 | owner | this directory owns public-safe seed shape; the seed-boundary part owns the canary contract; stronger owners keep incarnation, summon, memory, runtime, and activation law |
 | next route | parent `parts/AGENTS.md`, seed-boundary README, seed README, Titan canary guides, affected `titan*.yaml`, and `validate_titan_canary_surfaces` |
-| tools | parent centralized child validation, root validator, semantic AGENTS validator, and titan canary tests |
-| validation | [parent parts/AGENTS.md](../../AGENTS.md#centralized-child-validation) |
+| tools | nearest on-demand VALIDATION.md route, root validator, semantic AGENTS validator, and titan canary tests |
+| validation | [local VALIDATION.md](../VALIDATION.md) |
 
 ## Read before editing
-
-1. repository root `AGENTS.md`
-2. `DESIGN.md`
-3. `DESIGN.AGENTS.md`
-4. `docs/architecture/PROOF_TOPOLOGY.md`
-5. `docs/architecture/LEGACY_NAMING.md`
-6. `mechanics/titan/README.md`
-7. `mechanics/titan/parts/AGENTS.md`
-8. `mechanics/titan/parts/seed-boundary/README.md`
-9. `mechanics/titan/parts/seed-boundary/seeds/README.md`
-10. `mechanics/titan/parts/seed-boundary/docs/TITAN_INCARNATION_CANARIES.md`
-11. `mechanics/titan/parts/seed-boundary/docs/TITAN_SUMMON_DISCIPLINE_CANARIES.md`
-12. `scripts/validate_repo.py` function `validate_titan_canary_surfaces`
-
+Read only the route needed for the touched source: consult the nearest README when its human or semantic contract is required, then follow the source-owner and validation routes conditionally.
 ## Boundary Routes
 
 | Pressure | Route |
@@ -53,8 +40,9 @@ route to later scorer or stronger-owner surfaces.
 
 ## Validation
 
-Use the centralized child validation lane in
-[parent parts/AGENTS.md](../../AGENTS.md#centralized-child-validation).
+Use the on-demand [VALIDATION.md](VALIDATION.md) route for executable checks.
+
+Use this part's local on-demand VALIDATION.md route.md](../../AGENTS.md#centralized-child-validation).
 Run broader checks through the package route when canary edits affect
 generated, release, or public selection surfaces.
 

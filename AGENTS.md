@@ -36,6 +36,7 @@ Route outward for:
 | source proof meaning | `evals/**/EVAL.md` and `evals/**/eval.yaml` |
 | authority class | `docs/architecture/PROOF_TOPOLOGY.md` and `docs/architecture/AGENT_INDEX.md` |
 | proof operation | `mechanics/README.md`, then parent `README.md`, `DIRECTION.md`, `PARTS.md`, and part `README.md` |
+| roadmap direction | `ROADMAP.md` |
 | local memory candidates | `memo/AGENTS.md`, `memo/README.md`, and `memo/PORT.yaml` |
 | local statistics | `stats/AGENTS.md`, `stats/README.md`, and `stats/port.manifest.json` |
 | owner callable procedure | `skills/AGENTS.md`, `skills/README.md`, `skills/port.manifest.json`, then `skills/aoa-evals-skills/SKILL.md` |
@@ -44,27 +45,8 @@ Route outward for:
 | tools and checks | this card's `Verify` section and the nearest nested `AGENTS.md` |
 
 ## Start here
-
-1. `README.md`
-2. `DESIGN.md`
-3. `DESIGN.AGENTS.md` when agent-facing guidance, lane topology, or route cards change
-4. `ROADMAP.md`
-5. `docs/architecture/PROOF_TOPOLOGY.md` when artifact classes, legacy, mechanics, or root districts change
-6. `mechanics/EVIDENCE_CLUSTERS.md` before moving root-district artifacts into or between mechanics
-7. `skills/AGENTS.md` when the owner callable procedure or projection changes
-8. `capabilities/AGENTS.md` when semantic navigation, ABI, typed relations, or capability projections change
-9. `mechanics/README.md` when a repeatable proof operation or package changes
-10. `stats/README.md` when eval-owned statistical questions, contracts, or reference packets change
-11. `docs/architecture/ARCHITECTURE.md`
-12. `docs/guides/EVAL_PHILOSOPHY.md`
-13. `AUDIT.md` when auditing or reviewing proof claims
-14. the target `evals/**/EVAL.md`
-15. affected generated catalogs, capsules, comparison, receipt, or section surfaces
-16. upstream skill or technique docs if the claim depends on them
-17. `docs/decisions/` when a structural, topology, validation, or workflow route changes
-18. `docs/operations/AGENTS_ROOT_REFERENCE.md` for preserved full root branches
-
-
+Read only the route needed for the touched source: consult the nearest README when its human or semantic contract is required, then follow the source-owner and validation routes conditionally.
+For architecture or topology work, consult `DESIGN.md`, `DESIGN.AGENTS.md`, and `mechanics/EVIDENCE_CLUSTERS.md` as needed for the touched surface.
 ## AGENTS stack law
 
 - Start with this root card, then follow the nearest nested `AGENTS.md` for every touched path.
@@ -161,35 +143,12 @@ If GitHub status or merge permissions cannot be observed, stop the landing route
 
 Install local dependencies when the environment lacks the development tools:
 
-```bash
-python -m pip install -r requirements-dev.txt
-```
-
 Minimum repository validation:
-
-```bash
-python scripts/validate_repo.py
-python scripts/validate_semantic_agents.py
-```
 
 Use the non-mutating proof-surface battery when authored sources, generated
 readers, runtime-candidate readers, or mechanic readouts need parity:
 
-```bash
-python scripts/build_catalog.py --check
-python scripts/generate_eval_report_index.py --check
-python mechanics/audit/parts/candidate-readers/scripts/generate_runtime_candidate_template_index.py --check
-python mechanics/audit/parts/candidate-readers/scripts/generate_runtime_candidate_intake.py --check
-python mechanics/boundary-bridge/parts/phase-alpha-eval-matrix/scripts/generate_phase_alpha_eval_matrix.py --check
-python -m pytest -q
-```
-
 Refresh generated readers only when the change intentionally rewrites them:
-
-```bash
-python scripts/build_catalog.py
-python scripts/generate_eval_report_index.py
-```
 
 Use the narrower route card first when the change is local to `evals/`,
 `generated/`, `docs/`, `mechanics/`, `scripts/`, or `tests/`.

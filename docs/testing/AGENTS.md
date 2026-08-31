@@ -22,11 +22,9 @@ release lane, or topology authority.
 
 ## Validation
 
-Use:
+Use the on-demand [VALIDATION.md](VALIDATION.md) route for executable checks.
 
-```bash
-python -m pytest -q tests/test_test_topology.py
-```
+Use:
 
 Run broader suites only after the focused topology inventory passes.
 

@@ -3,6 +3,7 @@ role: docs-topology-contract
 root_files:
   - docs/AGENTS.md
   - docs/README.md
+  - docs/VALIDATION.md
 architecture:
   - docs/architecture/AGENT_INDEX.md
   - docs/architecture/ARCHITECTURE.md
@@ -33,10 +34,12 @@ operations:
   - docs/operations/AGENTS_ROOT_REFERENCE.md
 validation:
   - docs/validation/AGENTS.md
+  - docs/validation/VALIDATION.md
   - docs/validation/VALIDATOR_TOPOLOGY.md
   - docs/validation/COMMAND_AUTHORITY.md
   - docs/validation/SCRIPT_TOPOLOGY.md
 testing:
   - docs/testing/AGENTS.md
+  - docs/testing/VALIDATION.md
   - docs/testing/TEST_TOPOLOGY.md
 decision_surface: docs/decisions/

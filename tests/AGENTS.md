@@ -58,10 +58,6 @@ from this public regression mesh.
 
 ## Verify
 
-Run:
+Use the on-demand [VALIDATION.md](VALIDATION.md) route for executable checks.
 
-```bash
-python -m pytest -q
-python -m pytest -q tests
-python scripts/validate_semantic_agents.py
-```
+Run:

@@ -11,7 +11,7 @@ current source is `skills/aoa-evals-skills/SKILL.md`. Global Codex exposure is a
 managed OS user-profile copy and never source truth.
 
 ## Read before editing
-
+Read only the route needed for the touched source: consult the nearest README when its human or semantic contract is required, then follow the source-owner and validation routes conditionally.
 Read root `AGENTS.md`, `skills/README.md`, the target `SKILL.md`, the admission
 decision named by `port.manifest.json`, and the proof owner surfaces touched by
 the selected mode.
@@ -36,6 +36,8 @@ the selected mode.
   single OS user profile through the owning `aoa-skills` route.
 
 ## Validation
+
+Use the on-demand [VALIDATION.md](VALIDATION.md) route for executable checks.
 
 Manual isolated, negative, held-out, coexistence, no-skill, and bounded-effect
 tasks decide usefulness. `skills-ref validate skills/aoa-evals-skills` checks portable

@@ -8,7 +8,7 @@ from typing import Any, Sequence
 
 import yaml
 
-from validators.common import ValidationIssue, read_text_or_issue, relative_location
+from validators.common import ValidationIssue, read_text_or_issue, relative_location, token_in_route, validation_companion_text
 
 SOURCE_EVALS_DIR_NAME = "evals"
 EVALS_DIR = Path(SOURCE_EVALS_DIR_NAME)
@@ -33,8 +33,10 @@ def require_tokens(
     text = read_text_or_issue(repo_root / path_name, issues, root=repo_root)
     if not text:
         return ""
+    route_text = validation_companion_text(repo_root / path_name, root=repo_root)
+    search_text = "\n\n".join((text, route_text)) if route_text else text
     for token in tokens:
-        if token not in text:
+        if not token_in_route(token, search_text, companion_text=route_text):
             issues.append(
                 ValidationIssue(path_name, f"missing required text token: {token}")
             )

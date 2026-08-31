@@ -26,14 +26,7 @@ sibling-owner authority stays with the owning source surface.
 | validation | this card's `Validation` section |
 
 ## Read before editing
-
-1. repository root `AGENTS.md`
-2. `DESIGN.md`
-3. `DESIGN.AGENTS.md`
-4. `docs/decisions/README.md`
-5. `docs/decisions/TEMPLATE.md`
-6. the source surface whose route or authority the decision records
-
+Read only the route needed for the touched source: consult the nearest README when its human or semantic contract is required, then follow the source-owner and validation routes conditionally.
 ## Owner Routes
 
 | Need | Owner route |
@@ -117,15 +110,12 @@ validation evidence.
 
 ## Validation
 
+Use the on-demand [VALIDATION.md](VALIDATION.md) route for executable checks.
+The route covers `validate_repo.py` and decision-index parity without copying command sequences into this card.
+
 Run the narrow docs checks after editing this lane:
 
-```bash
-python scripts/generate_decision_indexes.py --check
-python scripts/validate_repo.py
-python scripts/validate_semantic_agents.py
-```
-
-When decision metadata changes, run `python scripts/generate_decision_indexes.py`
+When decision metadata changes, run the local validation route
 before the `--check` form.
 
 If a decision changes generated, schema, quest, bundle, receipt, runtime, or

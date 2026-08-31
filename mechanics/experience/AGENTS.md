@@ -2,7 +2,7 @@
 
 ## Entry Route
 
-Start with the package README. Then read `mechanics/experience/DIRECTION.md` for current operating direction, `mechanics/experience/PARTS.md` for active parts, and `mechanics/experience/PROVENANCE.md` as the active-to-archive bridge for legacy or former-placement lookup.
+When package semantics or direction are relevant, consult the package README and then the `mechanics/experience/DIRECTION.md`, `mechanics/experience/PARTS.md`, and `mechanics/experience/PROVENANCE.md` routes as needed for the touched source.
 
 ## Applies to
 
@@ -29,17 +29,8 @@ bundle-local review, or stronger-owner handoff routes.
 | validation | this card's `Validation` section |
 
 ## Read before editing
-
-1. root `AGENTS.md`
-2. `DESIGN.md`
-3. `DESIGN.AGENTS.md`
-4. `docs/architecture/PROOF_TOPOLOGY.md`
-5. `mechanics/EVIDENCE_CLUSTERS.md`
-6. `mechanics/README.md`
-7. `mechanics/experience/README.md`
-8. `mechanics/experience/PARTS.md`
-9. `mechanics/experience/PROVENANCE.md` when old root path or wave naming is involved
-10. the target part `README.md`
+Read only the route needed for the touched source: consult the nearest README when its human or semantic contract is required, then follow the source-owner and validation routes conditionally.
+Each package keeps current operating direction in `DIRECTION.md`; the active-to-archive bridge in `PROVENANCE.md` is consulted only when legacy names are involved.
 
 ## Route Rules
 
@@ -55,18 +46,9 @@ bundle-local review, or stronger-owner handoff routes.
 
 ## Validation
 
-Run the part-local tests for the touched part and then:
+Use the on-demand [VALIDATION.md](VALIDATION.md) route for executable checks.
 
-```bash
-python -m pytest -q mechanics/experience/parts/protocol-integrity/tests/test_experience_protocol_integrity.py
-python -m pytest -q mechanics/experience/parts/certification-gate/tests
-python -m pytest -q mechanics/experience/parts/adoption-federation/tests
-python -m pytest -q mechanics/experience/parts/governance-runtime-boundary/tests
-python -m pytest -q mechanics/experience/parts/office-release-train/tests
-python scripts/build_catalog.py --check
-python scripts/validate_repo.py
-python scripts/validate_semantic_agents.py
-```
+Run the part-local tests for the touched part and then:
 
 ## Closeout
 

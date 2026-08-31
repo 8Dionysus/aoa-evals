@@ -27,11 +27,9 @@ or security owners.
 
 ## Validation
 
-Use focused topology tests first:
+Use the on-demand [VALIDATION.md](VALIDATION.md) route for executable checks.
 
-```bash
-python -m pytest -q tests/test_validation_topology.py tests/test_script_topology.py
-```
+Use focused topology tests first:
 
 When command authority or generated parity lanes change, add the touched lane
 or release command from `docs/validation/COMMAND_AUTHORITY.md`.

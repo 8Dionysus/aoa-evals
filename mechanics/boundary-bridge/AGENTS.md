@@ -2,7 +2,7 @@
 
 ## Entry Route
 
-Start with the package README. Then read `mechanics/boundary-bridge/DIRECTION.md` for current operating direction, `mechanics/boundary-bridge/PARTS.md` for active parts, and `mechanics/boundary-bridge/PROVENANCE.md` as the active-to-archive bridge for legacy or former-placement lookup.
+When package semantics or direction are relevant, consult the package README and then the `mechanics/boundary-bridge/DIRECTION.md`, `mechanics/boundary-bridge/PARTS.md`, and `mechanics/boundary-bridge/PROVENANCE.md` routes as needed for the touched source.
 
 ## Applies to
 
@@ -36,23 +36,8 @@ It also protects the Phase Alpha eval matrix bridge:
 | validation | this card's `Validation` section |
 
 ## Read before editing
-
-1. root `AGENTS.md`
-2. `DESIGN.md`
-3. `DESIGN.AGENTS.md`
-4. `docs/architecture/PROOF_TOPOLOGY.md`
-5. `mechanics/boundary-bridge/parts/compatibility-map/docs/SIBLING_PROOF_REFS.md`
-6. `mechanics/boundary-bridge/PARTS.md`
-7. `mechanics/boundary-bridge/parts/README.md`
-8. `mechanics/README.md`
-9. `mechanics/boundary-bridge/README.md`
-10. `docs/decisions/AOA-EV-D-0003-sibling-proof-reference-compatibility.md`
-11. `docs/decisions/AOA-EV-D-0008-boundary-bridge-mechanic-package.md`
-12. `mechanics/boundary-bridge/parts/orchestrator-proof-anchors/docs/ORCHESTRATOR_PROOF_ALIGNMENT.md`
-13. `mechanics/boundary-bridge/parts/latest-sibling-canary/config/sibling_canary_matrix.json`
-14. `mechanics/boundary-bridge/parts/latest-sibling-canary/scripts/run_sibling_canary.py`
-15. `mechanics/boundary-bridge/parts/phase-alpha-eval-matrix/README.md`
-16. `mechanics/boundary-bridge/parts/phase-alpha-eval-matrix/scripts/generate_phase_alpha_eval_matrix.py`
+Read only the route needed for the touched source: consult the nearest README when its human or semantic contract is required, then follow the source-owner and validation routes conditionally.
+Each package keeps current operating direction in `DIRECTION.md`; the active-to-archive bridge in `PROVENANCE.md` is consulted only when legacy names are involved.
 
 ## Route Rules
 
@@ -73,15 +58,9 @@ It also protects the Phase Alpha eval matrix bridge:
 
 ## Validation
 
-Run:
+Use the on-demand [VALIDATION.md](VALIDATION.md) route for executable checks.
 
-```bash
-python scripts/validate_repo.py
-python scripts/build_catalog.py --check
-python mechanics/boundary-bridge/parts/latest-sibling-canary/scripts/run_sibling_canary.py --repo-root . --format json
-python mechanics/boundary-bridge/parts/phase-alpha-eval-matrix/scripts/generate_phase_alpha_eval_matrix.py --check
-python scripts/validate_semantic_agents.py
-```
+Run:
 
 ## Closeout
 

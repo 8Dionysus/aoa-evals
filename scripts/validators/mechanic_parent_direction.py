@@ -59,7 +59,7 @@ MECHANIC_PARENT_README_DIRECTION_ROUTE_REQUIRED_TOKENS = (
     "[PROVENANCE.md](PROVENANCE.md)",
     "active-to-archive bridge",
     "## Validation",
-    "AGENTS.md#validation",
+    "VALIDATION.md",
     "## Next Route",
 )
 MECHANIC_PARENT_README_STALE_STOP_LINE_LEAD_IN = "Do not use this package to claim:"

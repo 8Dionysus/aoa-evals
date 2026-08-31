@@ -2,7 +2,7 @@
 
 ## Entry Route
 
-Start with the package README. Then read `mechanics/proof-object/DIRECTION.md` for current operating direction, `mechanics/proof-object/PARTS.md` for active parts, and `mechanics/proof-object/PROVENANCE.md` as the active-to-archive bridge for legacy or former-placement lookup.
+When package semantics or direction are relevant, consult the package README and then the `mechanics/proof-object/DIRECTION.md`, `mechanics/proof-object/PARTS.md`, and `mechanics/proof-object/PROVENANCE.md` routes as needed for the touched source.
 
 ## Applies to
 
@@ -36,27 +36,12 @@ present.
 | source proof object meaning | `evals/**/EVAL.md` and `evals/**/eval.yaml` |
 | authoring template | `mechanics/proof-object/parts/eval-authoring/templates/EVAL.template.md` |
 | schema-backed eval contract | `mechanics/proof-object/parts/eval-contracts/schemas/` |
-| generated catalog or capsule drift | source bundle plus `python scripts/build_catalog.py --check` |
+| generated catalog or capsule drift | source bundle plus the local validation route |
 | historical aliases or former placement | `mechanics/proof-object/PROVENANCE.md` and archive-local legacy surfaces |
 | reports, receipts, runtime candidates, or sibling refs | the stronger owner named by the affected surface before proof adoption |
 
 ## Read before editing
-
-1. repository root `AGENTS.md`
-2. `DESIGN.md`
-3. `DESIGN.AGENTS.md`
-4. `docs/architecture/PROOF_TOPOLOGY.md`
-5. `docs/decisions/AOA-EV-D-0002-proof-object-authority-contract.md`
-6. `mechanics/README.md`
-7. `mechanics/proof-object/README.md`
-8. `mechanics/proof-object/PARTS.md`
-9. `mechanics/proof-object/PROVENANCE.md`
-10. affected `evals/**/EVAL.md` and `evals/**/eval.yaml`
-11. `mechanics/proof-object/parts/eval-authoring/templates/EVAL.template.md` when authoring or reshaping eval anatomy
-12. `mechanics/proof-object/parts/eval-contracts/schemas/eval-frontmatter.schema.json`
-13. `mechanics/proof-object/parts/eval-contracts/schemas/eval-manifest.schema.json`
-14. `docs/decisions/AOA-EV-D-0048-proof-object-contract-parts.md`
-
+Read only the route needed for the touched source: consult the nearest README when its human or semantic contract is required, then follow the source-owner and validation routes conditionally.
 ## Local Law
 
 - Keep source proof objects stronger than generated readers, reports,
@@ -69,6 +54,8 @@ present.
 - Keep status movement evidence-backed.
 - Route skill, technique, memory, runtime, routing, stats, role, playbook, and
   AoA law meaning back to stronger owners.
+
+Each package keeps current operating direction in `DIRECTION.md`; the active-to-archive bridge in `PROVENANCE.md` is consulted only when legacy names are involved.
 
 ## Route Rules
 
@@ -84,13 +71,9 @@ present.
 
 ## Validation
 
-Run the narrow package route checks:
+Use the on-demand [VALIDATION.md](VALIDATION.md) route for executable checks.
 
-```bash
-python scripts/validate_repo.py
-python scripts/build_catalog.py --check
-python scripts/validate_semantic_agents.py
-```
+Run the narrow package route checks:
 
 If the change touches generated runtime candidate, quest, comparison, receipt,
 or phase-alpha surfaces, also run the owning builder or validator.

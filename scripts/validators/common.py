@@ -31,6 +31,27 @@ def read_text_or_issue(path: Path, issues: list[ValidationIssue], *, root: Path)
         return ""
 
 
+def validation_companion_text(path: Path, *, root: Path) -> str:
+    """Read the nearest on-demand validation route for a route card."""
+    if path.name not in {"AGENTS.md", "README.md"}:
+        return ""
+    companion = path.with_name("VALIDATION.md")
+    if not companion.is_file():
+        return ""
+    return companion.read_text(encoding="utf-8")
+
+
+def token_in_route(token: str, search_text: str, *, companion_text: str = "") -> bool:
+    """Match legacy validation anchors against their local route companion."""
+    if token in search_text:
+        return True
+    if companion_text and token in companion_text:
+        return True
+    if "AGENTS.md#validation" in token or "centralized-child-validation" in token:
+        return "VALIDATION.md" in search_text or "VALIDATION.md" in companion_text
+    return False
+
+
 def load_json_payload(path: Path, issues: list[ValidationIssue], *, root: Path) -> Any | None:
     try:
         return json.loads(path.read_text(encoding="utf-8"))

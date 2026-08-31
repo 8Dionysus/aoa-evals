@@ -16,72 +16,28 @@ Parts are operation nodes. They route part contracts, payload homes, source surf
 | --- | --- |
 | role | part-contract and payload route law for this mechanic parent |
 | input | part boundary change, payload movement, source-surface pressure, validation route change, or legacy placement question |
-| output | parent `PARTS.md` alignment, nearest part `README.md`, part `VALIDATION.md`, centralized child validation command, or stronger-owner handoff |
-| owner | parent `PARTS.md` owns the part map; nearest part `README.md` owns the part contract; this card owns executable child validation commands |
+| output | parent `PARTS.md` alignment, nearest part `README.md`, part `VALIDATION.md`, on-demand part validation route, or stronger-owner handoff |
+| owner | parent `PARTS.md` owns the part map; nearest part `README.md` owns the part contract; the nearest part VALIDATION.md owns executable child validation commands |
 | next route | parent `AGENTS.md`, parent `DIRECTION.md`, parent `PARTS.md`, nearest part `README.md`, nearest part `VALIDATION.md`, and affected payload home |
-| tools | parent validation lane, centralized child validation commands, root validator, semantic AGENTS validator |
+| tools | parent validation lane, on-demand part validation routes, root validator, semantic AGENTS validator |
 | validation | this card's `Validation` section |
 
 ## Read Before Editing
-
-Read root `AGENTS.md`, `mechanics/AGENTS.md`, the parent `AGENTS.md`, parent `DIRECTION.md`, parent `PARTS.md`, parent `PROVENANCE.md`, and the nearest part `README.md` plus `VALIDATION.md` before editing a part.
+Read only the route needed for the touched source: consult the nearest README when its human or semantic contract is required, then follow the source-owner and validation routes conditionally.
+Read the root and nearest owner routes conditionally for the touched source; do not preload unrelated README or sibling validation material.
 
 ## Route Rules
 
 - Keep each part tied to one row in the parent `PARTS.md`.
 - Keep source proof meaning in bundles or source docs; validation text carries check route and evidence coverage.
-- Keep executable child validation commands in this card so README files stay route maps and contracts.
+- Keep executable child validation commands in child VALIDATION.md files so README files stay route maps and contracts.
 - Route legacy placement through parent `PROVENANCE.md` and `legacy/` rather than recreating old root payload paths.
 
 ## Validation
 
+Use the on-demand [VALIDATION.md](VALIDATION.md) route for executable checks.
+
 Run the parent validation lane first when part topology or route shape changes:
-
-```bash
-python scripts/validate_repo.py
-python scripts/validate_semantic_agents.py
-```
-
-<!-- centralized-child-validation:start -->
-
-### Centralized Child Validation
-
-Executable validation commands from child part routes live here. Child README and VALIDATION files route to this section instead of carrying command blocks.
-
-### `mechanics/audit/parts/artifact-verdict-hooks/VALIDATION.md`
-
-```bash
-python mechanics/audit/parts/candidate-readers/scripts/generate_runtime_candidate_template_index.py --check
-python mechanics/audit/parts/candidate-readers/scripts/generate_runtime_candidate_intake.py --check
-python scripts/validate_repo.py
-```
-
-### `mechanics/audit/parts/candidate-readers/VALIDATION.md`
-
-```bash
-python scripts/validate_eval_candidate_packets.py --schema-only
-python scripts/validate_eval_candidate_packets.py mechanics/audit/parts/candidate-readers/packets
-python mechanics/audit/parts/candidate-readers/scripts/generate_runtime_candidate_template_index.py --check
-python mechanics/audit/parts/candidate-readers/scripts/generate_runtime_candidate_intake.py --check
-python scripts/validate_repo.py
-```
-
-### `mechanics/audit/parts/integrity-review/VALIDATION.md`
-
-```bash
-python scripts/validate_repo.py
-python -m pytest -q tests/test_runtime_evidence_surfaces.py -k runtime_integrity_review
-```
-
-### `mechanics/audit/parts/selected-evidence-packets/VALIDATION.md`
-
-```bash
-python mechanics/audit/parts/candidate-readers/scripts/generate_runtime_candidate_template_index.py --check
-python mechanics/audit/parts/candidate-readers/scripts/generate_runtime_candidate_intake.py --check
-python scripts/validate_repo.py
-```
-
-<!-- centralized-child-validation:end -->
 
 ## Closeout
 

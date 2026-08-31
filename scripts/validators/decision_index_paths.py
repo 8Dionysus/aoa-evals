@@ -17,7 +17,7 @@ GENERATED_INDEX_PATHS = (
     INDEXES_DIR / "by-mechanic.md",
     INDEXES_DIR / "by-validation-guard.md",
 )
-DECISION_ROOT_FILENAMES = {"AGENTS.md", "README.md", "TEMPLATE.md"}
+DECISION_ROOT_FILENAMES = {"AGENTS.md", "README.md", "TEMPLATE.md", "VALIDATION.md"}
 FULL_ID_FILENAME_RE = re.compile(r"^(AOA-EV-D-(\d{4}))-.+\.md$")
 
 

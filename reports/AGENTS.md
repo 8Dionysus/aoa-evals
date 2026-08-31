@@ -52,9 +52,6 @@ weaker than bundle-local interpretation guidance.
 
 ## Validation
 
-Use the touched runner or scorer route plus:
+Use the on-demand [VALIDATION.md](VALIDATION.md) route for executable checks.
 
-```bash
-python scripts/validate_repo.py
-python scripts/validate_semantic_agents.py
-```
+Use the touched runner or scorer route plus:

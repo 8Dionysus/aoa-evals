@@ -124,7 +124,7 @@ MECHANIC_PART_PAYLOAD_INVENTORY_DECISION_REQUIRED_TOKENS = (
     "Previous assumption",
     "New reality",
     "Source surfaces updated",
-    "mechanics/AGENTS.md#validation",
+    "VALIDATION.md",
     "focused mechanic part payload-inventory guard",
 )
 MECHANIC_PART_SOURCE_SURFACE_REF_DECISION_REQUIRED_TOKENS = (

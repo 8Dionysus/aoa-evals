@@ -5,7 +5,7 @@ from __future__ import annotations
 from pathlib import Path
 from typing import Iterable
 
-from validators.common import ValidationIssue, read_text_or_issue
+from validators.common import ValidationIssue, read_text_or_issue, token_in_route, validation_companion_text
 
 DECISION_RECORDS_README_NAME = "docs/decisions/README.md"
 DECISION_INDEX_PATHS = (
@@ -27,7 +27,8 @@ def require_tokens(
     text = read_text_or_issue(repo_root / path_name, issues, root=repo_root)
     if not text:
         return ""
-    search_text = text
+    route_text = validation_companion_text(repo_root / path_name, root=repo_root)
+    search_text = "\n\n".join((text, route_text)) if route_text else text
     if path_name == DECISION_RECORDS_README_NAME:
         index_texts = []
         for relative_path in DECISION_INDEX_PATHS:
@@ -37,7 +38,7 @@ def require_tokens(
         if index_texts:
             search_text = "\n\n".join((text, *index_texts))
     for token in tokens:
-        if token not in search_text:
+        if not token_in_route(token, search_text, companion_text=route_text):
             issues.append(ValidationIssue(path_name, f"file must mention '{token}'"))
     return text
 

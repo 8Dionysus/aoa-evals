@@ -5,6 +5,7 @@ from __future__ import annotations
 from dataclasses import dataclass
 from pathlib import Path
 import sys
+import re
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
 
@@ -23,7 +24,7 @@ REQUIRED_DOCS: tuple[AgentsDocSpec, ...] = (
             'not new verdict authority',
             'object under evaluation',
             'public-safe',
-            'validate_repo.py',
+            'the on-demand [VALIDATION.md](VALIDATION.md) route',
         ),
     ),
     AgentsDocSpec(
@@ -35,7 +36,7 @@ REQUIRED_DOCS: tuple[AgentsDocSpec, ...] = (
             'draft',
             'bounded',
             'EVAL_SELECTION.md',
-            'validate_repo.py',
+            'the on-demand [VALIDATION.md](VALIDATION.md) route',
         ),
     ),
     AgentsDocSpec(
@@ -55,7 +56,7 @@ REQUIRED_DOCS: tuple[AgentsDocSpec, ...] = (
             'public-safe',
             'proof limits',
             'schemas',
-            'validate_repo.py',
+            'the on-demand [VALIDATION.md](VALIDATION.md) route',
         ),
     ),
     AgentsDocSpec(
@@ -65,7 +66,7 @@ REQUIRED_DOCS: tuple[AgentsDocSpec, ...] = (
             'Active root manifest payloads route with the mechanic part',
             'mechanics/agon/parts',
             'mechanics/recurrence/parts/control-plane-integrity/manifests/',
-            'validate_repo.py',
+            'the on-demand [VALIDATION.md](VALIDATION.md) route',
         ),
     ),
     AgentsDocSpec(
@@ -75,7 +76,7 @@ REQUIRED_DOCS: tuple[AgentsDocSpec, ...] = (
             'object under evaluation',
             'blind spots',
             'public-safe',
-            'validate_repo.py',
+            'the on-demand [VALIDATION.md](VALIDATION.md) route',
         ),
     ),
     AgentsDocSpec(
@@ -85,7 +86,7 @@ REQUIRED_DOCS: tuple[AgentsDocSpec, ...] = (
             '$schema',
             'verdict interpretation',
             'examples',
-            'validate_repo.py',
+            'the on-demand [VALIDATION.md](VALIDATION.md) route',
         ),
     ),
     AgentsDocSpec(
@@ -95,7 +96,7 @@ REQUIRED_DOCS: tuple[AgentsDocSpec, ...] = (
             'deterministic',
             'generated catalogs',
             'bounded proof posture',
-            'validate_repo.py',
+            'the on-demand [VALIDATION.md](VALIDATION.md) route',
         ),
     ),
     AgentsDocSpec(
@@ -105,11 +106,31 @@ REQUIRED_DOCS: tuple[AgentsDocSpec, ...] = (
             'mechanic-owned tests',
             'anti-overread posture',
             'public-safe',
-            'python -m pytest -q tests',
-            'validate_semantic_agents.py',
+            'the on-demand [VALIDATION.md](VALIDATION.md) route',
+            'semantic AGENTS validator',
         ),
     ),
 )
+
+RUNNABLE_AGENT_LINE_RE = re.compile(
+    r"(?m)^\s*(?:\$\s*)?(?:python3?\s+|pytest(?:\s|$)|git\s+(?:check|diff|status|log|show|rev-parse|ls-files)\b)"
+)
+RUNNABLE_AGENT_INLINE_RE = re.compile(r"`(?:python3?\s+|pytest(?:\s|`)|git\s+(?:check|diff|status|log|show|rev-parse|ls-files)\b)")
+
+
+def validate_all_agent_docs(repo_root: Path) -> list[str]:
+    """Keep executable checks in local on-demand VALIDATION.md companions."""
+    issues: list[str] = []
+    for path in sorted(repo_root.rglob("AGENTS.md")):
+        if ".git" in path.parts or "__pycache__" in path.parts:
+            continue
+        text = path.read_text(encoding="utf-8")
+        if RUNNABLE_AGENT_LINE_RE.search(text) or RUNNABLE_AGENT_INLINE_RE.search(text):
+            issues.append(f"{path.relative_to(repo_root).as_posix()}: executable command belongs in nearest VALIDATION.md")
+        read_match = re.search(r"(?ms)^## Read [Bb]efore [Ee]diting\s*\n(.*?)(?=^## |\Z)", text)
+        if read_match and re.search(r"(?m)^\s*(?:[-*]\s+|\d+[.)]\s+)", read_match.group(1)):
+            issues.append(f"{path.relative_to(repo_root).as_posix()}: unconditional read inventory belongs in conditional route prose")
+    return issues
 
 
 def _display(path: Path, repo_root: Path) -> str:
@@ -134,6 +155,7 @@ def validate(repo_root: Path = REPO_ROOT) -> list[str]:
                 issues.append(
                     f"{spec.path.as_posix()}: missing required snippet {snippet!r}"
                 )
+    issues.extend(validate_all_agent_docs(repo_root))
     return issues
 
 

@@ -24,7 +24,7 @@ receive, transform, emit, or route onward?
 | output | authority class, stronger owner route, allowed transformation, next route, and validation guard |
 | owner | `docs/AGENTS.md` for docs law; this map for authority classes; `mechanics/EVIDENCE_CLUSTERS.md` for parent evidence |
 | next route | `docs/architecture/AGENT_INDEX.md`, `mechanics/README.md`, parent route cards, source eval packages, generated builders, or `docs/decisions/` |
-| validation | `docs/AGENTS.md#validation` and the nearest route card for the touched authority class |
+| validation | nearest on-demand `VALIDATION.md` and the focused validator for the touched authority class |
 
 ## Topology Thesis
 
@@ -273,7 +273,7 @@ Unclear answers route back to topology clarification before file movement.
 ## Validation
 
 Executable checks that keep this topology visible live in
-[docs/AGENTS.md#validation](../AGENTS.md#validation) and root
+[nearest on-demand `VALIDATION.md`] and root
 [AGENTS.md#verify](../../AGENTS.md#verify).
 
 When generated readers change, run the owning builder in `--check` mode. When a

@@ -22,16 +22,7 @@ This district preserves Antifragility provenance behind the active
 | validation | Run the Validation commands after route-card, provenance, index, log, or raw changes. |
 
 ## Read before editing
-
-1. repository root `AGENTS.md`
-2. `mechanics/AGENTS.md`
-3. `mechanics/antifragility/AGENTS.md`
-4. `mechanics/antifragility/README.md`
-5. `mechanics/antifragility/DIRECTION.md`
-6. `mechanics/antifragility/PARTS.md`
-7. `mechanics/antifragility/PROVENANCE.md`
-8. `docs/architecture/LEGACY_NAMING.md`
-
+Read only the route needed for the touched source: consult the nearest README when its human or semantic contract is required, then follow the source-owner and validation routes conditionally.
 ## Route Rules
 
 - Start from active Antifragility surfaces before using legacy.
@@ -42,10 +33,7 @@ This district preserves Antifragility provenance behind the active
 
 ## Validation
 
-```bash
-python scripts/validate_repo.py
-python scripts/validate_semantic_agents.py
-```
+Use the on-demand [VALIDATION.md](VALIDATION.md) route for executable checks.
 
 ## Closeout
 

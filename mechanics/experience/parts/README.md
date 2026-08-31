@@ -15,8 +15,8 @@ validation lane.
 | output | part README route, schema/example contract, fixture family route, bounded proof reading, generated catalog route, owner handoff, or bundle-local review route |
 | owner | `aoa-evals` owns bounded Experience proof support; stronger owners keep center law, live runtime, office installation, certification, release approval, memory, routing, playbooks, ToS meaning, KAG graph truth, and owner-local adoption |
 | next route | `mechanics/experience/PARTS.md`, selected part README, affected source proof bundle, stronger-owner route, and parent validation lane |
-| tools | part-local tests, generated catalog checks, repo validator, and semantic AGENTS validator through `mechanics/experience/AGENTS.md#validation` |
-| validation | `mechanics/experience/parts/AGENTS.md#validation` and `mechanics/experience/AGENTS.md#validation` |
+| tools | part-local tests, generated catalog checks, repo validator, and semantic AGENTS validator through `mechanics/experience/VALIDATION.md` |
+| validation | `mechanics/experience/parts/VALIDATION.md` and `mechanics/experience/VALIDATION.md` |
 
 ## Active Parts
 

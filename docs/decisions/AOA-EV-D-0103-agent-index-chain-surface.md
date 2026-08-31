@@ -40,9 +40,8 @@ compatibility districts.
 must list every active mechanic parent so agents can enter the operation layer
 from docs without silently seeing only a partial parent set.
 
-Executable validation commands remain in the nearest `AGENTS.md`, with mechanic
-part routes flowing through part `VALIDATION.md` into the parent
-`parts/AGENTS.md` centralized child validation lane.
+Executable validation commands live in the nearest on-demand `VALIDATION.md`,
+with mechanic part routes flowing through their local validation surface.
 
 ## Consequences
 

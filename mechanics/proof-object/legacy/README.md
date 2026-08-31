@@ -19,7 +19,7 @@ Active route first:
 
 ## Validation Route
 
-Validation commands route through [AGENTS.md](AGENTS.md#validation).
+Validation commands route through [AGENTS.md](VALIDATION.md).
 
 ## Required Route
 

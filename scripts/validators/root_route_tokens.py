@@ -7,7 +7,7 @@ from pathlib import Path
 from typing import Iterable, Sequence
 
 from validators import decision_index_paths
-from validators.common import ValidationIssue, read_text_or_issue
+from validators.common import ValidationIssue, read_text_or_issue, token_in_route, validation_companion_text
 
 PROOF_TOPOLOGY_NAME = "docs/architecture/PROOF_TOPOLOGY.md"
 ROUTE_RESIDUE_GUARDS_NAME = "docs/architecture/ROUTE_RESIDUE_GUARDS.md"
@@ -128,7 +128,10 @@ def require_tokens(
                     mechanic_parent_validation_route_text(repo_root, path_name),
                 )
             )
-        if token not in search_text:
+        route_text = validation_companion_text(repo_root / path_name, root=repo_root)
+        if route_text:
+            search_text = "\n\n".join((search_text, route_text))
+        if not token_in_route(token, search_text, companion_text=route_text):
             issues.append(ValidationIssue(path_name, f"file must mention '{token}'"))
     return text
 

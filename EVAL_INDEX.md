@@ -1,5 +1,7 @@
 # Eval Bundle Index
 
+Executable checks use the local [VALIDATION.md](VALIDATION.md) route.
+
 This file is the repository-wide agent-facing index of public eval bundles.
 
 ## Operating Card

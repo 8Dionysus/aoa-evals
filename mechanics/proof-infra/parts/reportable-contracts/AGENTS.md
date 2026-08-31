@@ -24,25 +24,11 @@ owner truth.
 | output | reportable contract route, bundle-local contract alignment, generated catalog check, focused scorer/schema test, honest experiment-status contract, or stronger-owner handoff |
 | owner | this part owns reusable reportable contracts; source bundles and active mechanics own interpretation semantics |
 | next route | parent `parts/AGENTS.md`, parent `PARTS.md`, this part `README.md`, runner/scorer/schema payload, affected bundle runner contract, and affected report schema |
-| tools | parent centralized child validation, root validator, semantic AGENTS validator, catalog builder, and bounded rubric scorer test |
-| validation | [parent parts/AGENTS.md](../AGENTS.md#centralized-child-validation) |
+| tools | nearest on-demand VALIDATION.md route, root validator, semantic AGENTS validator, catalog builder, and bounded rubric scorer test |
+| validation | [VALIDATION.md](VALIDATION.md) |
 
 ## Read before editing
-
-1. repository root `AGENTS.md`
-2. `DESIGN.md`
-3. `docs/architecture/PROOF_TOPOLOGY.md`
-4. `mechanics/EVIDENCE_CLUSTERS.md`
-5. `mechanics/proof-infra/README.md`
-6. `mechanics/proof-infra/PARTS.md`
-7. `mechanics/proof-infra/parts/AGENTS.md`
-8. `mechanics/proof-infra/parts/reportable-contracts/README.md`
-9. affected `evals/**/EVAL.md`
-10. affected `evals/**/runners/contract.json`
-11. affected `evals/**/reports/summary.schema.json`
-12. `docs/ACTIVE_ORGAN_EXPERIMENT_CONTRACTS.md` when C21-C23 change
-13. affected active-organ schema, example, and negative case
-
+Read only the route needed for the touched source: consult the nearest README when its human or semantic contract is required, then follow the source-owner and validation routes conditionally.
 ## Boundary Routes
 
 | Pressure | Route |
@@ -59,8 +45,9 @@ owner truth.
 
 ## Validation
 
-Use the centralized child validation lane in
-[parent parts/AGENTS.md](../AGENTS.md#centralized-child-validation).
+Use the on-demand [VALIDATION.md](VALIDATION.md) route for executable checks.
+
+Use this part's local on-demand VALIDATION.md route.
 Run broader catalog and validation checks through the parent or affected bundle
 route when bundle-local runner contracts or generated `proof_artifacts` change.
 

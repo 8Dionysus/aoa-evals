@@ -14,8 +14,8 @@ payload home, owner route, tool lane, and validation lane.
 | output | source quest record route, lifecycle contract route, generated catalog route, dispatch reader route, open-obligation visibility route, or owner handoff |
 | owner | `quests/<lane>/<state>/` owns source records; `QUESTBOOK.md` owns human open-obligation visibility; generated readers stay derived |
 | next route | `mechanics/questbook/PARTS.md`, selected part README, source quest record, generated reader, `QUESTBOOK.md`, and parent validation lane |
-| tools | quest reader builders, generated-surface checks, repo validator, and focused quest tests through `mechanics/questbook/AGENTS.md#validation` |
-| validation | `mechanics/questbook/parts/AGENTS.md#validation` and `mechanics/questbook/AGENTS.md#validation` |
+| tools | quest reader builders, generated-surface checks, repo validator, and focused quest tests through `mechanics/questbook/VALIDATION.md` |
+| validation | `mechanics/questbook/parts/VALIDATION.md` and `mechanics/questbook/VALIDATION.md` |
 
 ## Active Parts
 
@@ -46,6 +46,6 @@ payload home, owner route, tool lane, and validation lane.
 
 ## Validation
 
-Use [AGENTS](AGENTS.md#validation) for executable validation commands. This
+Use [AGENTS](VALIDATION.md) for executable validation commands. This
 parts index names the active parts and their roles; the parts route card owns
 the command lane.

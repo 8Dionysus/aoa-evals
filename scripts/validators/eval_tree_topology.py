@@ -32,7 +32,7 @@ SOURCE_EVAL_TREE_TOPOLOGY_DECISION_REQUIRED_TOKENS = (
     "Source Eval Tree Topology",
     "`evals/<claim-family>/<eval-name>/`",
     "recursive",
-    "evals/AGENTS.md#validation",
+    "on-demand `VALIDATION.md`",
     "source-tree topology path",
 )
 REQUIRED_FAMILIES = (
@@ -51,7 +51,7 @@ REQUIRED_ROUTE_TOKENS = (
 )
 README_ROUTE_TOKENS = (
     *REQUIRED_ROUTE_TOKENS,
-    "evals/AGENTS.md#validation",
+    "local `VALIDATION.md`",
 )
 AGENTS_ROUTE_TOKENS = (
     *REQUIRED_ROUTE_TOKENS,
@@ -80,7 +80,7 @@ def validate_source_eval_tree_topology_surfaces(repo_root: Path) -> list[Validat
         issues.append(
             ValidationIssue(
                 SOURCE_EVAL_TREE_TOPOLOGY_DECISION_NAME,
-                "decision validation must route executable commands to evals/AGENTS.md#validation",
+                "decision validation must route executable commands to evals/VALIDATION.md",
             )
         )
 
@@ -91,7 +91,9 @@ def validate_source_eval_tree_topology_surfaces(repo_root: Path) -> list[Validat
         issues=issues,
     )
     if agents_text:
-        agents_validation_section = markdown_heading_section(agents_text, "Validation")
+        validation_path = repo_root / "evals" / "VALIDATION.md"
+        validation_text = validation_path.read_text(encoding="utf-8") if validation_path.is_file() else ""
+        agents_validation_section = markdown_heading_section(validation_text, "Commands")
         for command in SOURCE_EVAL_TREE_TOPOLOGY_COMMANDS:
             if command not in agents_validation_section:
                 issues.append(

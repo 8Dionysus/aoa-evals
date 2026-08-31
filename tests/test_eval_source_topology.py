@@ -123,7 +123,7 @@ def test_source_eval_tree_topology_rejects_decision_command_list(
 
     assert any(
         issue.location == eval_tree_topology_validator.SOURCE_EVAL_TREE_TOPOLOGY_DECISION_NAME
-        and "evals/AGENTS.md#validation" in issue.message
+        and "evals/VALIDATION.md" in issue.message
         for issue in issues
     )
 

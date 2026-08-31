@@ -20,7 +20,7 @@ payload residue.
 | output | current owner route, allowed residue posture, and validation guard |
 | owner | this file for guard contracts; `docs/architecture/PROOF_TOPOLOGY.md` for authority class; `mechanics/EVIDENCE_CLUSTERS.md` for mechanic evidence ledgers |
 | next route | source eval package, active mechanic parent or part, generated builder, route card, decision note, or repo config owner |
-| validation | `docs/AGENTS.md#validation`, root `AGENTS.md#verify`, and the focused validator that names the guard |
+| validation | nearest on-demand `VALIDATION.md`, root `AGENTS.md#verify`, and the focused validator that names the guard |
 
 ## Guard Contracts
 
@@ -68,11 +68,10 @@ sibling ref, or an explicit placeholder route, so old root payload names cannot
 remain as active part guidance.
 
 Mechanic part validation route reachability is the child-validation companion
-guard: every concrete part validation route flows from part README to
-`VALIDATION.md` to the parent `parts/AGENTS.md` centralized child validation
-block. The parent AGENTS child block keeps executable checks reachable and
-repo-relative, so moved scripts, tests, scorers, or reports update through one
-owner lane. A payload-bearing part also carries a payload coverage anchor in
+guard: every concrete part validation route flows from part README to its
+local `VALIDATION.md`. The local route keeps executable checks reachable and
+repo-relative, so moved scripts, tests, scorers, or reports update beside the
+owning part. A payload-bearing part also carries a payload coverage anchor in
 its validation route: either a part-local path or a bundle-specific eval
 validation route named through the nearest route card.
 

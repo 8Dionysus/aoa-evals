@@ -33,19 +33,7 @@ The admitted `aoa-evals` bundle is exposed once through the OS user profile;
 it is not copied into this district.
 
 ## Read before editing
-
-1. root `AGENTS.md`
-2. `DESIGN.AGENTS.md`
-3. `docs/architecture/PROOF_TOPOLOGY.md`
-4. `docs/architecture/LEGACY_NAMING.md`
-5. the target lane's `AGENTS.md`
-6. `docs/decisions/AOA-EV-D-0017-spark-agent-lane-placement.md` for Spark lane
-   placement changes
-7. `docs/decisions/AOA-EV-D-0246-owner-skill-projection-boundary.md` before
-   adding a repository skill home or projection
-8. `docs/decisions/AOA-EV-D-0247-aoa-evals-owner-skill-bundle.md` and
-   `skills/AGENTS.md` before changing the admitted bundle or exposure
-
+Read only the route needed for the touched source: consult the nearest README when its human or semantic contract is required, then follow the source-owner and validation routes conditionally.
 ## Owner Routes
 
 - Keep maintained lanes under `.agents/<lane>/`.
@@ -69,13 +57,9 @@ stay outside checked-in agent lanes.
 
 ## Validation
 
-After editing `.agents/` route surfaces, run:
+Use the on-demand [VALIDATION.md](VALIDATION.md) route for executable checks.
 
-```bash
-python scripts/validate_repo.py
-python scripts/validate_semantic_agents.py
-python scripts/validate_nested_agents.py
-```
+After editing `.agents/` route surfaces, run:
 
 If a lane changes generated readers, bundle contracts, or proof reports, also
 run the owning builder or test for that surface.

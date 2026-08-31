@@ -1,5 +1,7 @@
 # Eval Source Index
 
+Use the local `VALIDATION.md` route for executable checks; see [VALIDATION.md](VALIDATION.md).
+
 `evals/` is the source proof object district for `aoa-evals`.
 Its active shape is `evals/<claim-family>/<eval-name>/`, so an agent can read
 the proof class from the path before opening the manifest.

@@ -192,7 +192,7 @@
       "mode": "non_blocking",
       "owner_surface": "scripts/AGENTS.md",
       "source_truth": ["docs/decisions/indexes", "mechanics/audit/AGENTS.md", "mechanics/audit/parts/*/VALIDATION.md", "mechanics/audit/parts/AGENTS.md"],
-      "input": ["audit route text", "decision indexes", "mechanic parent AGENTS validation cards", "part validation route text"],
+      "input": ["audit route text", "decision indexes", "mechanic parent route cards", "part VALIDATION route text"],
       "output": ["audit route token lookup companion text"],
       "command_sequences": ["source_fast", "release_check"],
       "failure_route": "Fix the helper or focused audit route validator that consumes it; this helper must not own audit route semantics, runtime evidence acceptance, or source bundle review.",
@@ -1235,7 +1235,7 @@
       "input": ["mechanic parent PARTS indexes", "mechanic lower parts indexes", "markdown python command blocks"],
       "output": ["mechanic index command ownership and lower parts operating-card issues"],
       "command_sequences": ["source_fast", "release_check"],
-      "failure_route": "Fix the parent PARTS index, lower parts README operating card, or AGENTS validation route; parent allowlist, direction contracts, guidance docs, part validation command reachability, and mechanic payload truth remain outside index-validator authority.",
+      "failure_route": "Fix the parent PARTS index, lower parts README operating card, or local VALIDATION route; parent allowlist, direction contracts, guidance docs, part validation command reachability, and mechanic payload truth remain outside index-validator authority.",
       "disposition": "add"
     },
     {
@@ -1336,7 +1336,7 @@
       "mode": "non_blocking",
       "owner_surface": "scripts/AGENTS.md",
       "source_truth": ["mechanics/*/parts/*/README.md", "mechanics/*/parts/*/VALIDATION.md", "mechanics/*/parts/AGENTS.md"],
-      "input": ["part README validation sections", "part VALIDATION files", "parent parts AGENTS validation blocks", "payload directories", "source-surface refs"],
+      "input": ["part README validation sections", "part VALIDATION files", "nearest local validation routes", "payload directories", "source-surface refs"],
       "output": ["validation route source text and payload-anchor support"],
       "command_sequences": ["source_fast", "release_check"],
       "failure_route": "Fix the source helper or the focused validation-command validator that consumes it; this helper must not own stale-path, absolute-path, or decision-token checks.",
@@ -1362,10 +1362,10 @@
       "mode": "blocking",
       "owner_surface": "mechanics/AGENTS.md",
       "source_truth": ["mechanics/*/parts/*/VALIDATION.md", "mechanics/*/parts/AGENTS.md", "docs/decisions/AOA-EV-D-0087-mechanic-part-validation-command-reachability.md", "docs/decisions/AOA-EV-D-0102-mechanic-part-validation-command-ownership.md"],
-      "input": ["part VALIDATION files", "parent parts AGENTS validation blocks", "validation command parser", "validation source helper", "validation-command token helper", "decision-index companion context"],
+      "input": ["part VALIDATION files", "nearest local validation routes", "validation command parser", "validation source helper", "validation-command token helper", "decision-index companion context"],
       "output": ["mechanic part validation-command reachability, ownership, and payload-anchor issues"],
       "command_sequences": ["source_fast", "release_check"],
-      "failure_route": "Fix the owning part VALIDATION.md, parts AGENTS validation route, command target, payload anchor, or related decision record; this validator does not own helper constants, parser behavior, source collection helpers, PARTS index sync, part README contracts, source refs, or payload meaning.",
+      "failure_route": "Fix the owning part VALIDATION.md, local validation route, command target, payload anchor, or related decision record; this validator does not own helper constants, parser behavior, source collection helpers, PARTS index sync, part README contracts, source refs, or payload meaning.",
       "disposition": "add"
     },
     {

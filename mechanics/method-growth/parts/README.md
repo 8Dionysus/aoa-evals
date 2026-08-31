@@ -14,8 +14,8 @@ home, owner route, tool lane, and validation lane.
 | output | lineage-integrity verdict route, owner-fit routing read, nearest-wrong-target note, derivative-drift note, or owner handoff |
 | owner | `aoa-evals` owns proof wording and claim limits; AoA center, final owner repositories, skills, seed, techniques, playbooks, memo, and stats keep local truths |
 | next route | `mechanics/method-growth/PARTS.md`, selected part README, affected source bundle, final owner route, and parent validation lane |
-| tools | affected bundle validation, generated catalog check, repo validator, and method-growth route checks through `mechanics/method-growth/AGENTS.md#validation` |
-| validation | `mechanics/method-growth/parts/AGENTS.md#validation` and `mechanics/method-growth/AGENTS.md#validation` |
+| tools | affected bundle validation, generated catalog check, repo validator, and method-growth route checks through `mechanics/method-growth/VALIDATION.md` |
+| validation | `mechanics/method-growth/parts/VALIDATION.md` and `mechanics/method-growth/VALIDATION.md` |
 
 ## Active Parts
 

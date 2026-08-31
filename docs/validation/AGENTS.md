@@ -29,10 +29,10 @@ or security owners.
 
 Use the on-demand [VALIDATION.md](VALIDATION.md) route for executable checks.
 
-Use focused topology tests first:
-
-When command authority or generated parity lanes change, add the touched lane
-or release command from `docs/validation/COMMAND_AUTHORITY.md`.
+Use the focused topology lane first. When command authority or generated
+parity changes, follow the touched lane in
+`docs/validation/COMMAND_AUTHORITY.md`; widen to the release route only when
+the changed boundary requires it.
 
 ## Closeout
 

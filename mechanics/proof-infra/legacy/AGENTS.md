@@ -22,7 +22,7 @@ active `mechanics/proof-infra/` package.
 | validation | Run the Validation commands after route-card, provenance, index, log, or raw changes. |
 
 ## Read before editing
-Read only the route needed for the touched source: consult the nearest README when its human or semantic contract is required, then follow the source-owner and validation routes conditionally.
+Read only the route needed for the touched source; consult the nearest README when its human or semantic contract is required, then follow source-owner and validation routes conditionally.
 ## Route Rules
 
 - Start from `mechanics/proof-infra/README.md` and `PARTS.md` before reading

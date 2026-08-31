@@ -52,6 +52,6 @@ support. Recurrence owners own recurrence law and control-plane truth.
 
 ## Validation
 
-Use `mechanics/agon/AGENTS.md#validation` for executable validation commands.
+Use `mechanics/agon/VALIDATION.md` for executable validation commands.
 This mechanic-wide guide names recurrence review boundaries; the route card
 owns command execution.

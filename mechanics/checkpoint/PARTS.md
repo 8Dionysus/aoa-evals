@@ -43,7 +43,7 @@ Stop-lines route stronger-owner pressure through the boundary routes below.
 | final child-output quality grading | owner repository child-output acceptance route |
 | broad long-horizon competence | bundle-local proof object plus source-owner evidence review |
 
-Validation routes through [AGENTS](AGENTS.md#validation), including the
+Validation routes through [VALIDATION](VALIDATION.md), including the
 part-local test, audit candidate-reader builders, generated catalog check, and
 repo validation lanes.
 

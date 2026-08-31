@@ -13,7 +13,7 @@ contract paths.
 | output | proof-infra reportable-contract runner route or bundle-local pointer review |
 | owner | `runners/AGENTS.md` for route law; proof-infra reportable-contracts for the active shared runner |
 | next route | `mechanics/proof-infra/parts/reportable-contracts/runners/` |
-| validation | `runners/AGENTS.md` and proof-infra route checks |
+| validation | `runners/VALIDATION.md` and proof-infra route checks |
 
 The active shared reportable proof runner surface now lives at:
 

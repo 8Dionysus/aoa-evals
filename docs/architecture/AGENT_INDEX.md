@@ -18,7 +18,7 @@ Use this index when a path needs an explicit owner route.
 | output | next owner surface and validation route |
 | owner | `docs/` source guidance; executable commands stay in the nearest on-demand `VALIDATION.md` |
 | next route | `docs/architecture/PROOF_TOPOLOGY.md`, `mechanics/README.md`, or a bundle-local source file |
-| validation | nearest on-demand `VALIDATION.md` and root `AGENTS.md#verify` |
+| validation | nearest on-demand `VALIDATION.md` and root `VALIDATION.md` |
 
 ## Canonical Chain
 
@@ -119,6 +119,6 @@ When starting from a payload, ask these in order:
 
 Executable validation commands belong in the nearest on-demand `VALIDATION.md`.
 
-For this index, use the nearest on-demand `VALIDATION.md` and root `AGENTS.md#verify`.
+For this index, use the nearest on-demand `VALIDATION.md` and root `VALIDATION.md`.
 For mechanic parts, follow the part-local `VALIDATION.md`; named repository
 lanes remain in `docs/validation/validation_lanes.json`.

@@ -113,7 +113,7 @@ def test_mechanic_index_command_ownership_rejects_parts_index_commands(
 
     assert any(
         issue.location == parts_index_name
-        and "route executable validation commands to the nearest AGENTS.md"
+        and "route executable validation commands to the nearest VALIDATION.md"
         in issue.message
         for issue in issues
     )

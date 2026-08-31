@@ -48,4 +48,4 @@ bundle-local until a separate evidence pass proves active support parts.
 
 ## Validation
 
-Use the validation lane in [mechanics/recurrence/AGENTS.md](AGENTS.md#validation).
+Use the validation lane in [mechanics/recurrence/VALIDATION.md](VALIDATION.md).

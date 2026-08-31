@@ -100,4 +100,4 @@ closed records remain provenance rather than active obligations.
 ## Validation
 
 After changing lifecycle meaning, quest states, or source quest records, use
-[AGENTS](AGENTS.md#validation) for executable validation commands.
+[VALIDATION](VALIDATION.md) for executable validation commands.

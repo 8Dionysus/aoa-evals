@@ -49,7 +49,7 @@ Stop-lines route stronger-owner pressure through the boundary routes below.
 | source-truth transfer to generated projections | source owner plus generated-surface owner route |
 | accepted portable proof | source bundle authoring and owner-reviewed portable eval route |
 
-Validation routes through [AGENTS](AGENTS.md#validation), including the
+Validation routes through [VALIDATION](VALIDATION.md), including the
 part-local runner, part-local tests, generated catalog check, and repo
 validation lane.
 

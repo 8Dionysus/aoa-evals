@@ -48,4 +48,4 @@ growth-cycle diagnosis lane.
 
 ## Validation
 
-Use the validation lane in [mechanics/antifragility/AGENTS.md](AGENTS.md#validation).
+Use the validation lane in [mechanics/antifragility/VALIDATION.md](VALIDATION.md).

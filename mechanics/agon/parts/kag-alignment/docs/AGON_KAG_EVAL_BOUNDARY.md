@@ -32,6 +32,6 @@ or ToS owner for acceptance questions.
 
 ## Validation
 
-Use the part `VALIDATION.md` route and parent `parts/AGENTS.md` child validation
-block. Passing validation preserves the candidate-only boundary; it does not
+Use the part `VALIDATION.md` route. Passing validation preserves the
+candidate-only boundary; it does not
 grant owner truth.

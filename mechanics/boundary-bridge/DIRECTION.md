@@ -50,4 +50,4 @@ compatibility map before package growth.
 
 ## Validation
 
-Use the validation lane in [mechanics/boundary-bridge/AGENTS.md](AGENTS.md#validation).
+Use the validation lane in [mechanics/boundary-bridge/VALIDATION.md](VALIDATION.md).

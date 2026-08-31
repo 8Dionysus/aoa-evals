@@ -42,4 +42,4 @@ reviewable artifact and validator coverage. Ordinary changelog edits route to
 
 ## Validation
 
-Use the validation lane in [mechanics/release-support/AGENTS.md](AGENTS.md#validation).
+Use the validation lane in [mechanics/release-support/VALIDATION.md](VALIDATION.md).

@@ -255,7 +255,7 @@ def test_source_eval_command_ownership_rejects_eval_command_block(
 
     assert any(
         issue.location == "evals/boundary/sample-command-owner/EVAL.md"
-        and "route executable validation commands to evals/AGENTS.md" in issue.message
+        and "route executable validation commands to evals/VALIDATION.md" in issue.message
         for issue in issues
     )
 

@@ -17,7 +17,7 @@ Use it when the question is:
 | output | read order, bridge route, anti-collapse route, or status discipline note |
 | owner | this guide owns layer reading order; bundle-local `EVAL.md`, reports, and comparison-spine artifacts own concrete evidence |
 | next route | `mechanics/comparison-spine/`, the affected bundle, or the paired fixture/report surface named below |
-| validation | `docs/AGENTS.md#validation` |
+| validation | `docs/VALIDATION.md` |
 
 ## Read order
 

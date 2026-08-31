@@ -13,7 +13,7 @@ helper paths.
 | output | proof-infra reportable-contract scorer route or owning mechanic helper route |
 | owner | `scorers/AGENTS.md` for route law; proof-infra reportable-contracts for the active shared helper |
 | next route | `mechanics/proof-infra/parts/reportable-contracts/scorers/` |
-| validation | `scorers/AGENTS.md` and proof-infra route checks |
+| validation | `scorers/VALIDATION.md` and proof-infra route checks |
 
 The active shared scorer helper now lives at:
 

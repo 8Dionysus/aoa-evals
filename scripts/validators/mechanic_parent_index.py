@@ -39,7 +39,7 @@ def validate_mechanic_index_command_ownership(
             issues.append(
                 ValidationIssue(
                     relative_name,
-                    "mechanic index surfaces must route executable validation commands to the nearest AGENTS.md instead of carrying python command blocks",
+                    "mechanic index surfaces must route executable validation commands to the nearest VALIDATION.md instead of carrying python command blocks",
                 )
             )
 

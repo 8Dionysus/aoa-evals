@@ -51,7 +51,7 @@ Stop-lines route stronger-owner pressure through the boundary routes below.
 Runtime distillation candidate adoption routes through
 `mechanics/distillation/parts/runtime-candidate-adoption/`.
 
-Validation routes through [AGENTS](AGENTS.md#validation), including the
+Validation routes through [VALIDATION](VALIDATION.md), including the
 part-local test battery, generated catalog check, and repo validation lane.
 
 ## Deferred Part Families

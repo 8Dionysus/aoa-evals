@@ -273,8 +273,8 @@ Unclear answers route back to topology clarification before file movement.
 ## Validation
 
 Executable checks that keep this topology visible live in
-[nearest on-demand `VALIDATION.md`] and root
-[AGENTS.md#verify](../../AGENTS.md#verify).
+[nearest on-demand `VALIDATION.md`](../VALIDATION.md) and root
+[VALIDATION.md](../../VALIDATION.md).
 
 When generated readers change, run the owning builder in `--check` mode. When a
 mechanic package is later introduced, add package-shape checks only after that

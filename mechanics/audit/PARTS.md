@@ -86,7 +86,7 @@ Stop-lines keep every part candidate-scoped. Verdict acceptance, runtime
 activation, sibling truth changes, and proof adoption route through their
 owning surfaces before audit output can support a bundle.
 
-Validation routes through [AGENTS](AGENTS.md#validation), candidate-reader
+Validation routes through [VALIDATION](VALIDATION.md), candidate-reader
 builders, schema checks, and example tests.
 
 ## Stop Lines

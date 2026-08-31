@@ -47,4 +47,4 @@ and validator-backed replacement paths.
 
 ## Validation
 
-Use the validation lane in [mechanics/titan/AGENTS.md](AGENTS.md#validation).
+Use the validation lane in [mechanics/titan/VALIDATION.md](VALIDATION.md).

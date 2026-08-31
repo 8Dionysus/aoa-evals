@@ -45,4 +45,4 @@ the narrower owning mechanic before Experience grows a new part.
 
 ## Validation
 
-Use the validation lane in [mechanics/experience/AGENTS.md](AGENTS.md#validation).
+Use the validation lane in [mechanics/experience/VALIDATION.md](VALIDATION.md).

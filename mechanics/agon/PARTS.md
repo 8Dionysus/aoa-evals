@@ -13,15 +13,15 @@ builder or validator code, tests, and recurrence surfaces when present.
 
 | Part | Owns | Main validation surface |
 | --- | --- | --- |
-| `court-prebinding` | court prebinding model, court prebinding docs, seed config, generated prebinding registry, schemas, examples, recurrence component, hooks | `mechanics/agon/parts/court-prebinding/scripts/validate_agon_eval_prebindings.py` through `mechanics/agon/AGENTS.md#validation` |
-| `ccs-alignment` | Agon CCS law alignment seed and registry | `mechanics/agon/parts/ccs-alignment/scripts/validate_agon_ccs_eval_alignment.py` through `mechanics/agon/AGENTS.md#validation` |
-| `vds-alignment` | verdict draft status alignment and verdict draft checks | `mechanics/agon/parts/vds-alignment/scripts/validate_agon_vds_eval_alignment.py` through `mechanics/agon/AGENTS.md#validation` |
-| `mechanical-trial-suites` | candidate trial-suite alignment against mechanical trial surfaces | `mechanics/agon/parts/mechanical-trial-suites/scripts/validate_agon_mechanical_trial_eval_suites.py` through `mechanics/agon/AGENTS.md#validation` |
-| `retention-rank-alignment` | retention and rank pressure alignment with rank and trust authority routed to stronger owners | `mechanics/agon/parts/retention-rank-alignment/scripts/validate_agon_retention_rank_eval_alignment.py` through `mechanics/agon/AGENTS.md#validation` |
-| `epistemic-alignment` | epistemic boundary alignment with doctrine and live judgment routed to owner surfaces | `mechanics/agon/parts/epistemic-alignment/scripts/validate_agon_epistemic_eval_alignment.py` through `mechanics/agon/AGENTS.md#validation` |
-| `slc-alignment` | schools, lineages, and campaigns alignment with canon and arena authority routed to owners | `mechanics/agon/parts/slc-alignment/scripts/validate_agon_slc_eval_alignment_registry.py` through `mechanics/agon/AGENTS.md#validation` |
-| `kag-alignment` | KAG promotion-path alignment with KAG canon and source truth routed to KAG owner surfaces | `mechanics/agon/parts/kag-alignment/scripts/validate_agon_kag_eval_alignment_registry.py` through `mechanics/agon/AGENTS.md#validation` |
-| `sophian-threshold-alignment` | Sophian threshold alignment with Tree of Sophia canon writes routed to ToS owner surfaces | `mechanics/agon/parts/sophian-threshold-alignment/scripts/validate_agon_sophian_eval_alignment_registry.py` through `mechanics/agon/AGENTS.md#validation` |
+| `court-prebinding` | court prebinding model, court prebinding docs, seed config, generated prebinding registry, schemas, examples, recurrence component, hooks | `mechanics/agon/parts/court-prebinding/scripts/validate_agon_eval_prebindings.py` through `mechanics/agon/parts/court-prebinding/VALIDATION.md` |
+| `ccs-alignment` | Agon CCS law alignment seed and registry | `mechanics/agon/parts/ccs-alignment/scripts/validate_agon_ccs_eval_alignment.py` through `mechanics/agon/parts/ccs-alignment/VALIDATION.md` |
+| `vds-alignment` | verdict draft status alignment and verdict draft checks | `mechanics/agon/parts/vds-alignment/scripts/validate_agon_vds_eval_alignment.py` through `mechanics/agon/parts/vds-alignment/VALIDATION.md` |
+| `mechanical-trial-suites` | candidate trial-suite alignment against mechanical trial surfaces | `mechanics/agon/parts/mechanical-trial-suites/scripts/validate_agon_mechanical_trial_eval_suites.py` through `mechanics/agon/parts/mechanical-trial-suites/VALIDATION.md` |
+| `retention-rank-alignment` | retention and rank pressure alignment with rank and trust authority routed to stronger owners | `mechanics/agon/parts/retention-rank-alignment/scripts/validate_agon_retention_rank_eval_alignment.py` through `mechanics/agon/parts/retention-rank-alignment/VALIDATION.md` |
+| `epistemic-alignment` | epistemic boundary alignment with doctrine and live judgment routed to owner surfaces | `mechanics/agon/parts/epistemic-alignment/scripts/validate_agon_epistemic_eval_alignment.py` through `mechanics/agon/parts/epistemic-alignment/VALIDATION.md` |
+| `slc-alignment` | schools, lineages, and campaigns alignment with canon and arena authority routed to owners | `mechanics/agon/parts/slc-alignment/scripts/validate_agon_slc_eval_alignment_registry.py` through `mechanics/agon/parts/slc-alignment/VALIDATION.md` |
+| `kag-alignment` | KAG promotion-path alignment with KAG canon and source truth routed to KAG owner surfaces | `mechanics/agon/parts/kag-alignment/scripts/validate_agon_kag_eval_alignment_registry.py` through `mechanics/agon/parts/kag-alignment/VALIDATION.md` |
+| `sophian-threshold-alignment` | Sophian threshold alignment with Tree of Sophia canon writes routed to ToS owner surfaces | `mechanics/agon/parts/sophian-threshold-alignment/scripts/validate_agon_sophian_eval_alignment_registry.py` through `mechanics/agon/parts/sophian-threshold-alignment/VALIDATION.md` |
 
 ## Part Contract
 
@@ -52,7 +52,7 @@ keep their doctrine, canon, and live authority.
 Stop-lines route live verdict, promotion, arena, rank, trust, doctrine rewrite,
 and sibling-owner acceptance to stronger owners.
 
-Validation routes through [AGENTS](AGENTS.md#validation). This part map names
+Validation routes through [VALIDATION](VALIDATION.md). This part map names
 the primary validation surfaces without owning executable commands.
 
 ## Routing Rules

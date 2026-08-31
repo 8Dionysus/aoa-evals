@@ -12,7 +12,7 @@
 | output | owning mechanic part route or documented repo-wide config decision |
 | owner | `config/AGENTS.md` for route law; owning mechanic or bundle for payload meaning |
 | next route | Agon part config, boundary-bridge sibling canary config, or `docs/architecture/PROOF_TOPOLOGY.md` for a new repo-wide class |
-| validation | `config/AGENTS.md` and the owning mechanic route card |
+| validation | `config/VALIDATION.md` and the owning mechanic route card |
 
 Active root config payloads route to the operation that owns them:
 

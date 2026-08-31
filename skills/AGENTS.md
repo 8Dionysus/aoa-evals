@@ -12,9 +12,10 @@ managed OS user-profile copy and never source truth.
 
 ## Read before editing
 Read only the route needed for the touched source: consult the nearest README when its human or semantic contract is required, then follow the source-owner and validation routes conditionally.
-Read root `AGENTS.md`, `skills/README.md`, the target `SKILL.md`, the admission
-decision named by `port.manifest.json`, and the proof owner surfaces touched by
-the selected mode.
+When editing a skill, consult root `AGENTS.md`, `skills/README.md`, the target
+`SKILL.md`, the admission decision named by `port.manifest.json`, and the proof
+owner surfaces touched by the selected mode; otherwise follow only the route
+needed for the touched source.
 
 ## Boundaries
 

@@ -31,6 +31,6 @@ the seed and registry back to the owner refs named by the record.
 
 ## Validation
 
-Use the part `VALIDATION.md` route and parent `parts/AGENTS.md` child validation
-block. A passing registry proves shape and boundary discipline; it does not
+Use the part `VALIDATION.md` route. A passing registry proves shape and boundary
+discipline; it does not
 prove the epistemic claim itself.

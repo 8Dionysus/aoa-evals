@@ -26,7 +26,7 @@ See also:
 | output | approve/defer outcome, remaining-gap route, review-evidence route, promotion route, or integrity-sidecar route |
 | owner | this guide owns docs-level maturity review discipline; bundle-local `EVAL.md`, `eval.yaml`, `support_note`, `portable_review`, and `canonical_readiness` own concrete review evidence |
 | next route | affected bundle, [Eval Rubric](EVAL_RUBRIC.md), [Score Semantics Guide](SCORE_SEMANTICS_GUIDE.md), [Verdict Interpretation Guide](VERDICT_INTERPRETATION_GUIDE.md), [Blind Spot Disclosure Guide](BLIND_SPOT_DISCLOSURE_GUIDE.md), or comparison guide |
-| validation | [docs/AGENTS.md#validation](../AGENTS.md#validation) |
+| validation | [docs/VALIDATION.md](../VALIDATION.md) |
 
 ## Outcomes
 

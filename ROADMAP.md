@@ -44,7 +44,7 @@ only land a local surface?
 | output | direction, horizon order, current public contour, and exit gates |
 | owner | root roadmap for sequencing; owner surfaces above for detail |
 | next route | `docs/architecture/AGENT_INDEX.md`, `docs/architecture/PROOF_TOPOLOGY.md`, `mechanics/README.md`, then nearest local route card |
-| validation | [AGENTS.md#verify](AGENTS.md#verify), `tests/test_roadmap_parity.py`, and roadmap contracts in `scripts/validate_repo.py` |
+| validation | root [VALIDATION.md](VALIDATION.md), `tests/test_roadmap_parity.py`, and roadmap contracts in `scripts/validate_repo.py` |
 
 ## Current Direction
 
@@ -59,7 +59,7 @@ The current movement is proof-organ maturity:
 - keep the agent index chain visible while `docs/architecture/AGENT_INDEX.md` remains the
   index
 - keep decisions as rationale crosswalks and release history in the changelog
-- keep executable commands in local `AGENTS.md` cards while authored docs carry
+- keep executable commands in local `VALIDATION.md` routes while authored docs carry
   proof meaning, topology, and read models
 - keep mechanics wayfinding clear before parent splits, removals, or validator
   decomposition
@@ -176,6 +176,6 @@ Executable commands live in route cards.
 
 For roadmap, questbook, decision, source quest, generated-reader,
 runtime-candidate, or broader proof-surface changes, follow
-[AGENTS.md#verify](AGENTS.md#verify) and the nearest local route card. When the
+[VALIDATION.md](VALIDATION.md) and the nearest local route card. When the
 verification posture itself changes, update this section as the directional
 gate, then keep command detail in `AGENTS.md`.

@@ -31,7 +31,7 @@ for review or handoff traces, `exports/` for packets meant for `aoa-memo`, and
 
 Use the on-demand [VALIDATION.md](VALIDATION.md) route for executable checks.
 
-For repo-wide proof posture, use the root `AGENTS.md` validation route.
+For repo-wide proof posture, use the root `VALIDATION.md` route.
 
 ## Candidate Route
 

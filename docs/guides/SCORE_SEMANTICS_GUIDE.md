@@ -20,7 +20,7 @@ See also:
 | output | score interpretation bound, expanded result shape, per-case note route, bundle-level verdict route, or review gap |
 | owner | this guide owns score semantics; bundle-local `EVAL.md`, `eval.yaml`, reports, and review notes own concrete claim meaning |
 | next route | `docs/guides/EVAL_REVIEW_GUIDE.md`, `docs/guides/VERDICT_INTERPRETATION_GUIDE.md`, `docs/guides/EVAL_RUBRIC.md`, or the affected bundle |
-| validation | `docs/AGENTS.md#validation` |
+| validation | `docs/VALIDATION.md` |
 
 ## Default posture
 

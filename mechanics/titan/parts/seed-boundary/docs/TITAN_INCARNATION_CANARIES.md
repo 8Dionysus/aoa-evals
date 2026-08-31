@@ -58,6 +58,6 @@ The validator expects:
 
 ## Validation
 
-Use `mechanics/titan/parts/AGENTS.md#validation` for executable validation
+Use `mechanics/titan/parts/seed-boundary/VALIDATION.md` for executable validation
 commands. This guide names incarnation canary boundaries; the route card owns
 command execution.

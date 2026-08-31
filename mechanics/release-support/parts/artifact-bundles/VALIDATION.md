@@ -1,7 +1,7 @@
 # Release Support / Artifact Bundles Validation
 
 Executable validation commands for this part live in
-[the parent validation card](../AGENTS.md#validation).
+[the parent validation card](../VALIDATION.md).
 
 Use the `artifact-bundles` child validation block there. This file is the
 part-local validation route marker so the README can remain a contract map.

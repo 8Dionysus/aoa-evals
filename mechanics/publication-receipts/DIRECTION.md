@@ -44,4 +44,4 @@ routes back to bundle-local review before any receipt surface grows.
 
 ## Validation
 
-Use the validation lane in [mechanics/publication-receipts/AGENTS.md](AGENTS.md#validation).
+Use the validation lane in [mechanics/publication-receipts/VALIDATION.md](VALIDATION.md).

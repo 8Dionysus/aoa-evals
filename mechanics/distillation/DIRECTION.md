@@ -57,4 +57,4 @@ evidence pass may promote a recurring operation into this package.
 
 ## Validation
 
-Use the validation lane in [mechanics/distillation/AGENTS.md](AGENTS.md#validation).
+Use the validation lane in [mechanics/distillation/VALIDATION.md](VALIDATION.md).

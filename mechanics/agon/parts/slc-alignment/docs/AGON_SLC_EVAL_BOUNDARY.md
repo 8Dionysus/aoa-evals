@@ -30,6 +30,6 @@ questions to the stronger owner.
 
 ## Validation
 
-Use the part `VALIDATION.md` route and parent `parts/AGENTS.md` child validation
-block. Passing validation keeps this as a candidate-only proof route, not owner
+Use the part `VALIDATION.md` route. Passing validation keeps this as a
+candidate-only proof route, not owner
 acceptance.

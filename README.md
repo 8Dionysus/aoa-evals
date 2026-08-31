@@ -49,7 +49,7 @@ Read only what matches the job.
 | Shortest honest overview | this README -> [DESIGN.md](DESIGN.md) -> [DESIGN.AGENTS.md](DESIGN.AGENTS.md) |
 | Agent location in the tree | [docs/architecture/AGENT_INDEX.md](docs/architecture/AGENT_INDEX.md) |
 | Artifact authority class | [docs/architecture/PROOF_TOPOLOGY.md](docs/architecture/PROOF_TOPOLOGY.md) |
-| Eval Forge session readiness | [Eval Forge Readiness Layer](docs/guides/EVAL_FORGE_READINESS_LAYER.md); `check_eval_forge_readiness.py` command route stays in [AGENTS.md#verify](AGENTS.md#verify) |
+| Eval Forge session readiness | [Eval Forge Readiness Layer](docs/guides/EVAL_FORGE_READINESS_LAYER.md); `check_eval_forge_readiness.py` command route stays in root [VALIDATION.md](VALIDATION.md) |
 | Proof operation or mechanic parent | [mechanics/README.md](mechanics/README.md), then parent `README.md`, `DIRECTION.md`, `PARTS.md`, and part `README.md` |
 | Eval bundle selection | [Eval Bundle Selection Chooser](EVAL_SELECTION.md) and [Eval Bundle Index](EVAL_INDEX.md) |
 | Central proof selection, review, or evolution procedure | [aoa-evals-skills owner router](skills/aoa-evals-skills/SKILL.md) |
@@ -58,7 +58,7 @@ Read only what matches the job.
 | Mechanics or payload movement | [mechanics/EVIDENCE_CLUSTERS.md](mechanics/EVIDENCE_CLUSTERS.md), then the owning mechanic |
 | Legacy, provenance, or accepted-input vocabulary | [docs/architecture/LEGACY_NAMING.md](docs/architecture/LEGACY_NAMING.md) |
 | Decision rationale | [docs/decisions/README.md](docs/decisions/README.md) |
-| Executable validation route | [AGENTS.md#verify](AGENTS.md#verify), then the nearest nested route card |
+| Executable validation route | root [VALIDATION.md](VALIDATION.md), then the nearest local [VALIDATION.md](VALIDATION.md) |
 
 Maintained agent lane routing is under [.agents/AGENTS.md](.agents/AGENTS.md)
 and [.agents/spark/AGENTS.md](.agents/spark/AGENTS.md).
@@ -110,8 +110,8 @@ surfaces. Active payloads live with the owning bundle or mechanic.
 
 ## Validation
 
-Executable validation routes live in [AGENTS.md#verify](AGENTS.md#verify) and
-the nearest nested `AGENTS.md`.
+Executable validation routes live in root [VALIDATION.md](VALIDATION.md) and
+the nearest local [VALIDATION.md](VALIDATION.md).
 
 For bundle edits, start with [evals/AGENTS](evals/AGENTS.md). For generated
 reader parity, start with [generated/AGENTS](generated/AGENTS.md). For proof

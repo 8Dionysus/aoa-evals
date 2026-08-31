@@ -74,7 +74,7 @@ keep stronger proof meaning.
 Stop-lines route fixture-family parent pressure, former root aliases, and
 bundle-local proof objects through the boundary routes below.
 
-Validation routes through [AGENTS](AGENTS.md#validation) and the affected part
+Validation routes through [VALIDATION](VALIDATION.md) and the affected part
 route cards, plus targeted bundle checks when shared fixture or reportable
 paths move.
 
@@ -95,7 +95,7 @@ paths move.
 ## Validation
 
 After part movement, fixture-family path changes, or reportable contract path
-changes, use [AGENTS](AGENTS.md#validation) for executable validation commands.
+changes, use [VALIDATION](VALIDATION.md) for executable validation commands.
 
 Run targeted bundle validation for every bundle whose
 `shared_fixture_family_path`, `runner_surface_path`, or `scorer_helper_paths`

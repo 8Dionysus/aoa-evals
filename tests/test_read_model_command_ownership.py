@@ -46,7 +46,7 @@ def test_read_model_command_ownership_rejects_command_block(
 
     assert any(
         issue.location == readme_name
-        and "route executable validation commands to the nearest AGENTS.md"
+        and "route executable validation commands to the nearest VALIDATION.md"
         in issue.message
         for issue in issues
     )
@@ -87,6 +87,6 @@ def test_read_model_command_ownership_rejects_eval_selection_command(
 
     assert any(
         issue.location == "EVAL_SELECTION.md"
-        and "nearest AGENTS.md" in issue.message
+        and "nearest VALIDATION.md" in issue.message
         for issue in issues
     )

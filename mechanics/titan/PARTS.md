@@ -47,5 +47,5 @@ Stop-lines pressure routes:
 | mutation-gate or judgment-gate bypass pressure appears | keep the gate named in seed docs and validation |
 | executable scorer-backed proof pressure appears | wait for scorer, fixture, report, and validator contracts |
 
-Validation routes through [AGENTS](AGENTS.md#validation), including the
+Validation routes through [VALIDATION](VALIDATION.md), including the
 `validate_titan_canary_surfaces` repo validation lane.

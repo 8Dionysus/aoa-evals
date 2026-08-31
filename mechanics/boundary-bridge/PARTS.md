@@ -40,5 +40,5 @@ Stop-lines route sibling edit pressure, sibling approval pressure,
 orchestrator class-identity pressure, and canary proof-acceptance pressure back
 to their stronger owners.
 
-Validation routes through [AGENTS](AGENTS.md#validation), including the
+Validation routes through [VALIDATION](VALIDATION.md), including the
 latest-sibling canary, Phase Alpha matrix check, and repo validation lanes.

@@ -47,7 +47,7 @@ def token_in_route(token: str, search_text: str, *, companion_text: str = "") ->
         return True
     if companion_text and token in companion_text:
         return True
-    if "AGENTS.md#validation" in token or "centralized-child-validation" in token:
+    if "AGENTS.md#validation" in token:
         return "VALIDATION.md" in search_text or "VALIDATION.md" in companion_text
     return False
 

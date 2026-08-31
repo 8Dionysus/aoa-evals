@@ -20,7 +20,7 @@ payload residue.
 | output | current owner route, allowed residue posture, and validation guard |
 | owner | this file for guard contracts; `docs/architecture/PROOF_TOPOLOGY.md` for authority class; `mechanics/EVIDENCE_CLUSTERS.md` for mechanic evidence ledgers |
 | next route | source eval package, active mechanic parent or part, generated builder, route card, decision note, or repo config owner |
-| validation | nearest on-demand `VALIDATION.md`, root `AGENTS.md#verify`, and the focused validator that names the guard |
+| validation | nearest on-demand `VALIDATION.md`, root `VALIDATION.md`, and the focused validator that names the guard |
 
 ## Guard Contracts
 

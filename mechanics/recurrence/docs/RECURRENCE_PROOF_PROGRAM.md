@@ -270,6 +270,6 @@ runtime, memory, routing, stats, scenario, or role surface.
 
 ## Validation
 
-Use `mechanics/recurrence/AGENTS.md#validation` for executable validation
+Use `mechanics/recurrence/VALIDATION.md` for executable validation
 commands. This mechanic-wide guide names the recurrence proof program; the
 route card owns command execution.

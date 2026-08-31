@@ -42,7 +42,7 @@ Read only the route needed for the touched source: consult the nearest README wh
 
 Use the on-demand [VALIDATION.md](VALIDATION.md) route for executable checks.
 
-Use this part's local on-demand VALIDATION.md route.md](../../AGENTS.md#centralized-child-validation).
+Use this part's local on-demand [VALIDATION.md](../VALIDATION.md) route.
 Run broader checks through the package route when canary edits affect
 generated, release, or public selection surfaces.
 

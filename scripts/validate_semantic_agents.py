@@ -116,6 +116,9 @@ RUNNABLE_AGENT_LINE_RE = re.compile(
     r"(?m)^\s*(?:\$\s*)?(?:python3?\s+|pytest(?:\s|$)|git\s+(?:check|diff|status|log|show|rev-parse|ls-files)\b)"
 )
 RUNNABLE_AGENT_INLINE_RE = re.compile(r"`(?:python3?\s+|pytest(?:\s|`)|git\s+(?:check|diff|status|log|show|rev-parse|ls-files)\b)")
+STALE_EXECUTABLE_ROUTE_RE = re.compile(
+    r"(?i)(?:AGENTS\.md#(?:validation|verify)|(?:executable|validation)\s+commands?[^\n]*\bAGENTS(?:\.md)?\b)"
+)
 
 
 def validate_all_agent_docs(repo_root: Path) -> list[str]:
@@ -127,6 +130,10 @@ def validate_all_agent_docs(repo_root: Path) -> list[str]:
         text = path.read_text(encoding="utf-8")
         if RUNNABLE_AGENT_LINE_RE.search(text) or RUNNABLE_AGENT_INLINE_RE.search(text):
             issues.append(f"{path.relative_to(repo_root).as_posix()}: executable command belongs in nearest VALIDATION.md")
+        if STALE_EXECUTABLE_ROUTE_RE.search(text):
+            issues.append(
+                f"{path.relative_to(repo_root).as_posix()}: executable validation route belongs in nearest VALIDATION.md"
+            )
         read_match = re.search(r"(?ms)^## Read [Bb]efore [Ee]diting\s*\n(.*?)(?=^## |\Z)", text)
         if read_match and re.search(r"(?m)^\s*(?:[-*]\s+|\d+[.)]\s+)", read_match.group(1)):
             issues.append(f"{path.relative_to(repo_root).as_posix()}: unconditional read inventory belongs in conditional route prose")

@@ -41,4 +41,4 @@ moving proof meaning out of `evals/`.
 
 ## Validation
 
-Use the validation lane in [mechanics/proof-object/AGENTS.md](AGENTS.md#validation).
+Use the validation lane in [mechanics/proof-object/VALIDATION.md](VALIDATION.md).

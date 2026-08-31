@@ -53,6 +53,23 @@ class ValidateSemanticAgentsTests(unittest.TestCase):
             issues = module.validate(root)
         self.assertTrue(any(first_snippet in issue for issue in issues))
 
+    def test_active_validation_anchor_in_agents_fails(self) -> None:
+        module = load_validator()
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            for spec in module.REQUIRED_DOCS:
+                path = root / spec.path
+                path.parent.mkdir(parents=True, exist_ok=True)
+                path.write_text("# AGENTS.md\n" + "\n".join(spec.required_snippets) + "\n", encoding="utf-8")
+            target = root / module.REQUIRED_DOCS[0].path
+            target.write_text(
+                target.read_text(encoding="utf-8")
+                + "\nUse executable validation at AGENTS.md#verify.\n",
+                encoding="utf-8",
+            )
+            issues = module.validate(root)
+        self.assertTrue(any("executable validation route" in issue for issue in issues))
+
 
 if __name__ == "__main__":
     unittest.main()

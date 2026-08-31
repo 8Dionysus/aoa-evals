@@ -35,9 +35,7 @@ It also protects the Phase Alpha eval matrix bridge:
 | tools | root validator, catalog builder, latest-sibling canary runner, phase-alpha matrix generator, semantic AGENTS validator |
 | validation | this card's `Validation` section |
 
-## Read before editing
-Read only the route needed for the touched source: consult the nearest README when its human or semantic contract is required, then follow the source-owner and validation routes conditionally.
-Each package keeps current operating direction in `DIRECTION.md`; the active-to-archive bridge in `PROVENANCE.md` is consulted only when legacy names are involved.
+current operating direction `mechanics/boundary-bridge/DIRECTION.md`; active-to-archive bridge `mechanics/boundary-bridge/PROVENANCE.md`.
 
 ## Route Rules
 

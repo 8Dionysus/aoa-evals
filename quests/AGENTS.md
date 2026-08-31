@@ -39,8 +39,6 @@ handoffs that still need a bounded next route.
 | source eval meaning | `evals/**/EVAL.md` and `eval.yaml` |
 | legacy path vocabulary | provenance or decision surfaces named by the affected route |
 
-## Read before editing
-Read only the route needed for the touched source: consult the nearest README when its human or semantic contract is required, then follow the source-owner and validation routes conditionally.
 ## Route Rules
 
 - `quests/<lane>/<state>/*.yaml` are source quest records.

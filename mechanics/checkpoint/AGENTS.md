@@ -28,9 +28,7 @@ stronger-owner handoff routes.
 | tools | part-local pytest, runtime candidate builders, catalog builder, root validator |
 | validation | this card's `Validation` section |
 
-## Read before editing
-Read only the route needed for the touched source: consult the nearest README when its human or semantic contract is required, then follow the source-owner and validation routes conditionally.
-Each package keeps current operating direction in `DIRECTION.md`; the active-to-archive bridge in `PROVENANCE.md` is consulted only when legacy names are involved.
+current operating direction `mechanics/checkpoint/DIRECTION.md`; active-to-archive bridge `mechanics/checkpoint/PROVENANCE.md`.
 
 ## Route Rules
 

@@ -29,8 +29,6 @@ This `AGENTS.md` is the operating policy for Spark work.
 | tools | root validation, semantic AGENTS validation, nested AGENTS validation, catalog check when generated readers move |
 | validation | this card's `Validation` section |
 
-## Read before editing
-Read only the route needed for the touched source: consult the nearest README when its human or semantic contract is required, then follow the source-owner and validation routes conditionally.
 ## Default posture
 
 - Use Spark for short-loop work where a small diff is enough.

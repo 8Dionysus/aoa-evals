@@ -29,6 +29,8 @@ the current loop segment.
 | tools | root validator, semantic AGENTS validator, generated-surface builders when loop inputs move |
 | validation | this card's `Validation` section |
 
+current operating direction `mechanics/proof-loop/DIRECTION.md`; active-to-archive bridge `mechanics/proof-loop/PROVENANCE.md`.
+
 ## Owner Routes
 
 | Loop pressure | Owner route |
@@ -39,10 +41,6 @@ the current loop segment.
 | optional receipt | `mechanics/publication-receipts/` |
 | sibling reference | `mechanics/boundary-bridge/` and the sibling owner route |
 | legacy or former route | `mechanics/proof-loop/PROVENANCE.md` |
-
-## Read before editing
-Read only the route needed for the touched source: consult the nearest README when its human or semantic contract is required, then follow the source-owner and validation routes conditionally.
-Each package keeps current operating direction in `DIRECTION.md`; the active-to-archive bridge in `PROVENANCE.md` is consulted only when legacy names are involved.
 
 ## Route Rules
 

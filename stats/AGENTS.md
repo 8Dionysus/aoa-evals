@@ -10,8 +10,6 @@ This directory owns eval-local statistical questions, their embedded
 measurement contracts, and evidence-linked reference packets. Shared
 statistical grammar and cross-owner composition remain owned by `aoa-stats`.
 
-## Read before editing
-Read only the route needed for the touched source: consult the nearest README when its human or semantic contract is required, then follow the source-owner and validation routes conditionally.
 ## Boundaries
 
 - `port.manifest.json` owns the eval-local question and measurement meaning.

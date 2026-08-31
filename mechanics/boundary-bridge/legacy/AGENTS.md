@@ -20,8 +20,6 @@ This directory maps former boundary-bridge path vocabulary to active routes.
 | tools | Root validators and semantic-agent validator listed below. |
 | validation | Run the Validation commands after route-card, provenance, index, log, or raw changes. |
 
-## Read before editing
-Read only the route needed for the touched source: consult the nearest README when its human or semantic contract is required, then follow the source-owner and validation routes conditionally.
 ## Route Rules
 
 - Start from active boundary-bridge parts before using legacy.

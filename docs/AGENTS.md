@@ -41,8 +41,6 @@ bundle-local `EVAL.md` and `eval.yaml`.
 - Operational edit law, mutation posture, and local verification expectations
   belong in the nearest `AGENTS.md`, not hidden inside ordinary guide prose.
 
-## Read Before Editing
-Read only the route needed for the touched source: consult the nearest README when its human or semantic contract is required, then follow the source-owner and validation routes conditionally.
 ## Owner Routes
 
 | Need | Owner route |

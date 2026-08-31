@@ -27,6 +27,27 @@ can carry the work.
 Each target package keeps current operating direction in `DIRECTION.md`; the target package `DIRECTION.md` is the current direction source. Use the active-to-archive bridge in its `PROVENANCE.md` when legacy names are involved.
 The architecture proof route remains `docs/architecture/PROOF_TOPOLOGY.md`.
 
+## Shared Parts Card
+
+### Operating Card
+
+| Field | Route |
+| --- | --- |
+| role | part-contract and payload route law for this mechanic parent |
+| input | part boundary change, payload movement, source-surface pressure, validation route change, or legacy placement question |
+| output | parent `PARTS.md` alignment, nearest part `README.md`, part `VALIDATION.md`, on-demand part validation route, or stronger-owner handoff |
+| owner | parent `PARTS.md` owns the part map; nearest part `README.md` owns the part contract; the nearest part VALIDATION.md owns executable child validation commands |
+| next route | parent `AGENTS.md`, parent `DIRECTION.md`, parent `PARTS.md`, nearest part `README.md`, nearest part `VALIDATION.md`, and affected payload home |
+| tools | parent validation lane, on-demand part validation routes, root validator, semantic AGENTS validator |
+| validation | this card's `Validation` section |
+
+### Route Rules
+
+- Keep each part tied to one row in the parent `PARTS.md`.
+- Keep source proof meaning in bundles or source docs; validation text carries check route and evidence coverage.
+- Keep executable child validation commands in child VALIDATION.md files so README files stay route maps and contracts.
+- Route legacy placement through parent `PROVENANCE.md` and `legacy/` rather than recreating old root payload paths.
+
 ## Owner Routes
 
 | Need | Owner route |
@@ -40,7 +61,7 @@ The architecture proof route remains `docs/architecture/PROOF_TOPOLOGY.md`.
 | part payload contract | `mechanics/<parent>/parts/<part>/README.md` and `VALIDATION.md` |
 
 ## Read before editing
-Read only the route needed for the touched source: consult the nearest README when its human or semantic contract is required, then follow the source-owner and validation routes conditionally.
+Read only the route needed for the touched source: consult the nearest README when its human or semantic contract is required, then follow the source-owner and validation routes conditionally. Read the root and nearest owner routes conditionally for the touched source; do not preload unrelated README or sibling validation material.
 ## Route Rules
 
 - Create packages for live operations with evidence cluster support and a

@@ -21,8 +21,6 @@ behind the active `release-support` mechanic.
 | tools | Root validators, semantic-agent validator, and release check listed below. |
 | validation | Run the Validation commands after route-card, provenance, index, log, or raw changes. |
 
-## Read before editing
-Read only the route needed for the touched source: consult the nearest README when its human or semantic contract is required, then follow the source-owner and validation routes conditionally.
 ## Route Rules
 
 - Start from active release-support parts before reading legacy.

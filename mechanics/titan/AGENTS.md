@@ -41,8 +41,6 @@ review.
 | memory truth | memory owner route before adoption |
 | legacy canary vocabulary | `mechanics/titan/PROVENANCE.md` and validator-backed compatibility path |
 
-## Read before editing
-Read only the route needed for the touched source: consult the nearest README when its human or semantic contract is required, then follow the source-owner and validation routes conditionally.
 ## Local Law
 
 - Keep `mechanics/titan/parts/seed-boundary/seeds/titan*.yaml` seed-defined until executable scorer

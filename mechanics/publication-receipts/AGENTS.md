@@ -39,8 +39,6 @@ ownership, and append-only publication boundaries.
 | intake dry review | `mechanics/publication-receipts/parts/intake-dry-review/` |
 | report index or release posture | report/release owner route before claim strengthening |
 
-## Read before editing
-Read only the route needed for the touched source: consult the nearest README when its human or semantic contract is required, then follow the source-owner and validation routes conditionally.
 ## Local Law
 
 - Keep receipts weaker than the bundle-local report.

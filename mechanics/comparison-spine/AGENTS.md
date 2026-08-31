@@ -40,8 +40,6 @@ bundle-local interpretation.
 | generated comparison reader | source bundle plus the local validation route |
 | promotion, deprecation, or report interpretation | bundle-local review and release/report owner route |
 
-## Read before editing
-Read only the route needed for the touched source: consult the nearest README when its human or semantic contract is required, then follow the source-owner and validation routes conditionally.
 ## Local Law
 
 - Keep comparison claim meaning in the source proof object.

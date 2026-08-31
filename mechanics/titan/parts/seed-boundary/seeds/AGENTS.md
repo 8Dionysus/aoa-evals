@@ -25,8 +25,6 @@ route to later scorer or stronger-owner surfaces.
 | tools | nearest on-demand VALIDATION.md route, root validator, semantic AGENTS validator, and titan canary tests |
 | validation | [local VALIDATION.md](../VALIDATION.md) |
 
-## Read before editing
-Read only the route needed for the touched source: consult the nearest README when its human or semantic contract is required, then follow the source-owner and validation routes conditionally.
 ## Boundary Routes
 
 | Pressure | Route |

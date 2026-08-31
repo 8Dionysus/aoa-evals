@@ -32,8 +32,6 @@ Current maintained lanes:
 The admitted `aoa-evals` bundle is exposed once through the OS user profile;
 it is not copied into this district.
 
-## Read before editing
-Read only the route needed for the touched source: consult the nearest README when its human or semantic contract is required, then follow the source-owner and validation routes conditionally.
 ## Owner Routes
 
 - Keep maintained lanes under `.agents/<lane>/`.

@@ -25,8 +25,6 @@ surfaces named by this card and the part README.
 | tools | nearest on-demand VALIDATION.md route, root validator, catalog builder, runtime candidate readers, and phase-alpha eval matrix check |
 | validation | [VALIDATION.md](VALIDATION.md) |
 
-## Read before editing
-Read only the route needed for the touched source: consult the nearest README when its human or semantic contract is required, then follow the source-owner and validation routes conditionally.
 ## Boundary Routes
 
 | Pressure | Route |

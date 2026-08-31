@@ -39,8 +39,6 @@ routes shared contract pressure to the narrowest active owner.
 | receipt publication | `mechanics/publication-receipts/` |
 | generated `proof_artifacts` | source contracts plus the local validation route |
 
-## Read before editing
-Read only the route needed for the touched source: consult the nearest README when its human or semantic contract is required, then follow the source-owner and validation routes conditionally.
 ## Local Law
 
 - Keep shared proof infrastructure weaker than the source proof object.

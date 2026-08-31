@@ -40,8 +40,6 @@ present.
 | historical aliases or former placement | `mechanics/proof-object/PROVENANCE.md` and archive-local legacy surfaces |
 | reports, receipts, runtime candidates, or sibling refs | the stronger owner named by the affected surface before proof adoption |
 
-## Read before editing
-Read only the route needed for the touched source: consult the nearest README when its human or semantic contract is required, then follow the source-owner and validation routes conditionally.
 ## Local Law
 
 - Keep source proof objects stronger than generated readers, reports,

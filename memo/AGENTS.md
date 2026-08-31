@@ -10,8 +10,6 @@ This card applies to `memo/`.
 candidates, receipts, exports, and local notes before reviewed landing in
 `aoa-memo`.
 
-## Read before editing
-Read only the route needed for the touched source: consult the nearest README when its human or semantic contract is required, then follow the source-owner and validation routes conditionally.
 ## Boundaries
 
 Use this port for `write_candidate_only` work. Keep proof claims, verdicts,

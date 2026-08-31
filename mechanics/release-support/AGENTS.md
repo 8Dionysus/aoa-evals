@@ -29,8 +29,6 @@ handoff routes.
 | tools | root validator, semantic AGENTS validator, `scripts/release_check.py`, generated builders, latest-sibling canary runner |
 | validation | this card's `Validation` section |
 
-## Read before editing
-Read only the route needed for the touched source: consult the nearest README when its human or semantic contract is required, then follow the source-owner and validation routes conditionally.
 ## Local Law
 
 - Keep release scope bounded and reviewable.

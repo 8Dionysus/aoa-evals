@@ -25,8 +25,6 @@ sibling-owner authority stays with the owning source surface.
 | tools | `scripts/generate_decision_indexes.py`, root validator, and semantic AGENTS validator |
 | validation | this card's `Validation` section |
 
-## Read before editing
-Read only the route needed for the touched source: consult the nearest README when its human or semantic contract is required, then follow the source-owner and validation routes conditionally.
 ## Owner Routes
 
 | Need | Owner route |

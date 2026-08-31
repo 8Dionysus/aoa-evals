@@ -2,10 +2,10 @@
 
 This file maps the repo-local audit surfaces for `aoa-evals`.
 
-The audit route in [`AGENTS.md#audit-and-review-route`](AGENTS.md#audit-and-review-route) owns route law,
-approval gates, review severity, and report shape.
-[`AGENTS.md#verify`](AGENTS.md#verify) owns the shortest executable validation
-lane. Route cards own the commands.
+This surface owns audit orientation, claim-pressure routes, review severity,
+and report shape. Root [`AGENTS.md`](AGENTS.md) keeps the inherited proof
+boundary and approval stop-line. Root [`VALIDATION.md`](VALIDATION.md) and the
+nearest local validation companion own executable checks.
 
 Read it after `AGENTS.md` when the work needs audit or review orientation.
 
@@ -108,15 +108,42 @@ Also apply the nearest nested `AGENTS.md` when working in subdirectories.
 - `mechanics/audit/parts/artifact-verdict-hooks/examples/artifact_to_verdict_hook.*.example.json`
 - anything that could shift verdict ownership out of `aoa-evals`
 
-## Route Law
+## Claim pressure routes
 
-Use [AGENTS.md#audit-and-review-route](AGENTS.md#audit-and-review-route) for
-claim-pressure routes, approval-required changes, review severity, and report
-shape.
-Use [AGENTS.md#verify](AGENTS.md#verify) plus the nearest nested `AGENTS.md` for
-executable validation routes.
+| Pressure | Route |
+| --- | --- |
+| broad intelligence, trust, general safety, or autonomous-self claim | keep wording scoped to the source bundle, evidence, verdict logic, and validation route; send wider meaning to its owner |
+| canonical readiness or direct agent-behavior verdict | require a source owner or a new bounded proof bundle before public wording changes |
+| generated reader, chooser doc, or index outranking source proof | return to bundle-local `EVAL.md` and `eval.yaml`, then rebuild from source |
+| draft, bounded, baseline, or growth language strengthening by association | keep status, baseline mode, and report posture explicit; use the approval stop-line before public interpretation changes |
+| private dataset, secret-bearing fixture, hidden telemetry, or skipped validation | route to the private owner, a sanitized fixture, or rerun evidence before public proof |
+
+## Review severity
+
+- P0: secret-bearing or private evidence presented as public proof; bounded eval
+  wording converted into broad intelligence, safety, or trust claims; public
+  chooser/comparison wording silently changing baseline or maturity meaning.
+- P1: `EVAL.md` and `eval.yaml` semantic drift; verdict wording stronger than
+  support artifacts; erased blind spots; generated or comparison drift; shared
+  infrastructure implying stronger proof; trace/eval ownership drift; claimed
+  validation without evidence.
+
+Ignore wording nits unless the task explicitly asks for copyediting.
+
+## Report shape
+
+An audit return names scope and risk, changed or inspected proof surfaces,
+whether claim or public posture moved, checks run and skipped, current claim
+limits, remaining uncertainty, and the next owner route.
+
+## Route law
+
+Use root `AGENTS.md` for inherited proof boundaries and approval stop-lines.
+Use root `VALIDATION.md` plus the nearest local `VALIDATION.md` for executable
+checks.
 
 When touching comparison, baseline, peer-compare, or repeated-window surfaces,
 re-read the changed bundle's `EVAL.md` and `eval.yaml`, public chooser surfaces,
 generated comparison spine, and the comparison guide named above. This file maps
-the audit scope; the route cards own the commands and mandatory closeout law.
+the audit scope; validation companions own commands and root/local agent cards
+own stop-lines and closeout routing.

@@ -7,8 +7,10 @@ Local route card for contributors working under `evals/`.
 `evals/<claim-family>/<eval-name>/` is the source-owned eval bundle surface.
 The authoritative objects remain each bundle's `EVAL.md` and `eval.yaml`.
 
-Use [README.md](README.md) as the bundle source index before treating short
-`notes/`, `checks/`, or `examples/` artifacts as debris.
+For classification of short `notes/`, `checks/`, or `examples/` artifacts,
+[README.md](README.md) is the bundle source index that distinguishes owned
+support from debris. Other bundle work does not require that human index by
+convention.
 
 ## Operating Card
 
@@ -19,8 +21,8 @@ Use [README.md](README.md) as the bundle source index before treating short
 | output | bounded source eval claim plus local support artifacts |
 | owner | bundle-local `EVAL.md` and `eval.yaml` for claim meaning |
 | next route | `evals/README.md`, `mechanics/proof-object/README.md`, generated readers, or the nearest mechanic support part |
-| tools | `scripts/validate_repo.py`, catalog builders, report-index builder |
-| validation | this card's `Validation` section |
+| tools | bundle and repository validation routes |
+| validation | on-demand `VALIDATION.md` |
 
 ## Owns
 

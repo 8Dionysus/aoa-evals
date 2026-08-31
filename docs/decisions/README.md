@@ -20,7 +20,7 @@ evidence, and one-off planning thoughts route to their owning surfaces instead.
 | output | canonical decision note, metadata-backed lookup index, and route back to the source surface |
 | owner | `docs/decisions/AGENTS.md` for lane law; canonical decision notes for rationale; generated indexes for lookup only |
 | next route | source surface first, then local route card, `docs/architecture/PROOF_TOPOLOGY.md`, `mechanics/EVIDENCE_CLUSTERS.md`, the generated lookup indexes, or the affected generated/runtime/sibling owner |
-| validation | [docs/decisions/AGENTS.md#validation](AGENTS.md#validation), generated-index parity, and the owning route card for the changed surface |
+| validation | [docs/decisions/VALIDATION.md](VALIDATION.md), generated-index parity, and the owning validation route for the changed surface |
 
 ## Authority
 
@@ -135,3 +135,19 @@ Prefer short titles that name the route, not the whole debate.
 Start from [TEMPLATE.md](TEMPLATE.md) for new decisions. Keep notes concise, but
 include enough context, alternatives, consequences, index metadata, and
 validation for a future agent to avoid repeating the same mistake.
+
+## Amendment route
+
+Preserve historical rationale when an accepted decision changes:
+
+- add a dated `Review Log` for a clarification of the same decision;
+- add `Review Log` and `Current Applicability` when the rationale survives but
+  the active route narrows or moves;
+- create the next canonical decision, mark the old record `Superseded`, and
+  name `Superseded by` when a new direction replaces it;
+- record what aged out and what replaces it when material becomes obsolete.
+
+Keep the original context, options, decision, and rationale readable. Update
+the current source surface and regenerate decision indexes from source in the
+same slice. Closeout and PR text name the active route, owner surface, and
+validation evidence.

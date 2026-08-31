@@ -58,55 +58,10 @@ Read only the route needed for the touched source: consult the nearest README wh
 
 ## Amendment Route
 
-When an accepted decision needs a current-route update, preserve the original
-record and add the change as review history.
-
-Use `## Review Log` for dated reviews:
-
-```markdown
-## Review Log
-
-### YYYY-MM-DD - Route or behavior changed
-
-- Previous assumption:
-- New reality:
-- Reason:
-- Source surfaces updated:
-- Validation:
-```
-
-Use `## Current Applicability` when the decision still matters but its active
-route narrowed, moved, or was partly superseded:
-
-```markdown
-## Current Applicability
-
-As of YYYY-MM-DD:
-
-- Still valid:
-- Changed:
-- Superseded by:
-```
-
-Use this decision maintenance route:
-
-- small clarification of the same decision: add a dated `Review Log` entry;
-- application changed while the rationale still holds: add `Review Log` and
-  `Current Applicability`;
-- direction replaced by a new route: create the next canonical decision, set
-  the old record `Status` to `Superseded`, and add `Superseded by:
-  AOA-EV-D-####-...`;
-- material made obsolete: record what aged out, why, and what replaces it in a
-  dated review entry.
-
-Use strikethrough only on the old operational line or block that would misroute the
-next agent. Keep the original `Context`, `Options Considered`, `Decision`, and
-`Rationale` readable as historical cause.
-
-Update the source surface that owns active behavior in the same slice.
-
-Closeout and pull request text should state the active route, owner surface, and
-validation evidence.
+Use the human [decision index amendment route](README.md#amendment-route). This
+card keeps only the stop-line: preserve historical rationale, update the
+current owner source in the same slice, and regenerate indexes from decision
+source rather than patching generated lookup files.
 
 ## Validation
 

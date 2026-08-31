@@ -25,27 +25,27 @@ GITHUB_AGENTS_STALE_ROUTE_PHRASES = (
 )
 AUDIT_SURFACE_ROLE_REQUIRED_TOKENS = (
     "Audit Surface Map",
-    "AGENTS.md#audit-and-review-route",
-    "owns route law",
-    "AGENTS.md#verify",
-    "Route cards own the commands",
+    "claim-pressure routes",
+    "approval stop-line",
+    "Review severity",
+    "Report shape",
+    "VALIDATION.md",
     "Route outward for:",
     "reusable technique truth: `aoa-techniques`",
     "execution workflow meaning: `aoa-skills`",
     "artifact-contract meaning",
     "sanitized evidence route",
-)
-AGENTS_AUDIT_ROUTE_REQUIRED_TOKENS = (
-    "## Audit and review route",
-    "`AUDIT.md` is the audit surface map",
-    "approval gates",
-    "Claim pressure routes",
     "generated reader, chooser doc, or index outranking source proof",
     "private dataset, secret-bearing fixture, hidden telemetry, or skipped validation",
-    "Review severity",
     "P0",
     "P1",
-    "report shape",
+)
+AGENTS_AUDIT_ROUTE_REQUIRED_TOKENS = (
+    "audit or review",
+    "`AUDIT.md`",
+    "Get explicit human confirmation",
+    "Do not turn a bounded eval",
+    "## Closeout",
 )
 ROOT_AGENTS_STALE_NEGATIVE_ROUTE_PHRASES = (
     "Hard boundaries:",

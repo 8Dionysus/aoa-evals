@@ -20,8 +20,28 @@ See also:
 | output | release scope route, local check route, readiness/live-status route, changelog route, or publication record route |
 | owner | this guide for the release procedure; `CHANGELOG.md` for public narrative; release-support mechanics for readiness and handoff artifacts; GitHub surfaces for live PR/CI/merge state |
 | next route | `mechanics/release-support/AGENTS.md`, `mechanics/release-support/README.md`, `CHANGELOG.md`, `scripts/release_check.py`, `.github/AGENTS.md`, affected source bundle, or generated builder |
-| tools | nearest `AGENTS.md`, release-support validation lane, root validation lane, release check, generated-reader checks, and latest-sibling canary when current sibling compatibility is part of the release claim |
-| validation | `docs/AGENTS.md#validation` and `mechanics/release-support/AGENTS.md#validation` |
+| tools | nearest on-demand `VALIDATION.md`, release-support validation lane, root validation lane, release check, generated-reader checks, and latest-sibling canary when current sibling compatibility is part of the release claim |
+| validation | root `VALIDATION.md`, `docs/VALIDATION.md`, and `mechanics/release-support/VALIDATION.md` |
+
+## Ordinary change landing
+
+Use this route only when the operator asks to land a repository change:
+
+1. Start from a branch based on current `origin/main`. Inventory a dirty
+   worktree first and preserve unrelated owner work.
+2. Commit only the intended diff with a message that names the changed surface.
+3. Push the branch and open a pull request that states changed surfaces,
+   validation run, skipped checks, and remaining risk.
+4. Wait for GitHub `Repo Validation` and every required check. Fix failures on
+   the branch and wait for the replacement result.
+5. Merge through GitHub only after required checks are green. Use the method
+   allowed by current repository settings and report the method that landed.
+6. Return to `main`, fast-forward from `origin/main`, and confirm the canonical
+   worktree is clean.
+
+If GitHub status or merge permissions cannot be observed, stop and report the
+exact blocker. A local green check does not prove remote CI, review, merge,
+release, or post-landing sync.
 
 ## Release units
 
@@ -39,9 +59,8 @@ Prefer bounded releases over mixed large batches.
 Recommended local release loop:
 - confirm the bounded release scope first
 - update `CHANGELOG.md` with the release section that will anchor the human release narrative
-- follow `mechanics/release-support/AGENTS.md#validation` for release-route
-  commands
-- follow root `AGENTS.md#verify` when the release touches generated readers or
+- follow `mechanics/release-support/VALIDATION.md` for release-route commands
+- follow root `VALIDATION.md` when the release touches generated readers or
   repository-wide proof topology
 - when release audit reaches the OS Abyss report-index artifact bundle check,
   provide `ABYSS_MACHINE_REPO_ROOT` or an installed `abyss_machine` verifier if
@@ -49,7 +68,7 @@ Recommended local release loop:
 
 When you need the latest-sibling canary rather than the pinned repo-validation
 lane, use the boundary-bridge validation route in
-`mechanics/boundary-bridge/AGENTS.md#validation`.
+`mechanics/boundary-bridge/VALIDATION.md`.
 
 With pinned sibling repos unavailable locally, the validator stays permissive
 about dependency-target existence. CI is the strict path-existence gate because

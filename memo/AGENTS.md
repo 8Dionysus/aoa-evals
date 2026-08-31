@@ -35,14 +35,9 @@ For repo-wide proof posture, use the root `AGENTS.md` validation route.
 
 ## Candidate Route
 
-Create candidates only when the lesson has a source ref and should be reviewed
-later without becoming a proof verdict.
-
-The normal route is:
-
-```text
-candidate -> receipt -> optional export -> reviewed aoa-memo route
-```
+Use the human [memo port map](README.md) when creating or reviewing a candidate.
+Keep source refs explicit and do not turn the local progression into proof or
+durable-memory authority.
 
 ## Closeout
 

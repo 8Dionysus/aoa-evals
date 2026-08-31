@@ -684,7 +684,7 @@ def test_audit_surface_role_rejects_missing_agents_audit_route(
 
     assert any(
         issue.location == "AGENTS.md"
-        and "## Audit and review route" in issue.message
+        and "audit or review" in issue.message
         for issue in issues
     )
 

@@ -152,9 +152,10 @@ necessary for repository integrity.
 
 ### VERIFY
 
-Current executable validation commands live in root `AGENTS.md#verify` and the
-nearest nested `AGENTS.md`. This preserved reference keeps the old contribution
-shape, not a competing command ledger.
+The former command placement in root and nested AGENTS cards is superseded.
+Current executable checks live in root and nearest on-demand `VALIDATION.md`
+surfaces. This preserved reference keeps the old contribution shape, not a
+competing route or command ledger.
 
 Confirm that:
 

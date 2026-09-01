@@ -134,6 +134,10 @@ def validate_all_agent_docs(repo_root: Path) -> list[str]:
             issues.append(
                 f"{path.relative_to(repo_root).as_posix()}: executable validation route belongs in nearest VALIDATION.md"
             )
+        if "[VALIDATION.md](VALIDATION.md)" in text and not path.with_name("VALIDATION.md").is_file():
+            issues.append(
+                f"{path.relative_to(repo_root).as_posix()}: linked local VALIDATION.md companion is missing"
+            )
         read_match = re.search(r"(?ms)^## Read [Bb]efore [Ee]diting\s*\n(.*?)(?=^## |\Z)", text)
         if read_match and re.search(r"(?m)^\s*(?:[-*]\s+|\d+[.)]\s+)", read_match.group(1)):
             issues.append(f"{path.relative_to(repo_root).as_posix()}: unconditional read inventory belongs in conditional route prose")

@@ -61,6 +61,7 @@ checkout, never an ephemeral `.worktrees/` implementation path. V1 or unknown
 inventory input is normalized to suite state `absent` before projection.
 The dashboard `--check` route compares source-derived fields and the checked-in
 JSON-to-Markdown snapshot. It does not treat naturally changed MCP, `.aoa`,
+Git, or local-port observations as source drift merely because they differ
 from the recorded snapshot; freshness is inspected through the live readiness
 route.
 Use `--no-live-checks --write-generated` when source inventory or another
@@ -72,8 +73,6 @@ readiness snapshot.
 ## Validation
 
 Use the on-demand [VALIDATION.md](VALIDATION.md) route for executable checks.
-
-For generated-reader freshness, run the matching non-mutating checks:
 
 Use source-owner checks as well when generated drift comes from bundle, quest,
 report, or mechanic payload changes.

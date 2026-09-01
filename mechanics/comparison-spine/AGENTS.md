@@ -47,7 +47,8 @@ bundle-local interpretation.
   `eval.yaml`.
 - Keep bundle-local `evals/<family>/<eval>/fixtures/contract.json` paths aligned
   with the part-local comparison fixture family paths.
-- Keep `generated/comparison_spine.json` derived from source via
+- Keep `generated/comparison_spine.json` derived from source through the
+  catalog builder routed by the local validation companion.
 - Keep fixed-baseline, peer-compare, and longitudinal-window semantics
   separate.
 - Keep style-only movement weaker than capability movement.
@@ -72,8 +73,6 @@ Each package keeps current operating direction in `DIRECTION.md`; the active-to-
 ## Validation
 
 Use the on-demand [VALIDATION.md](VALIDATION.md) route for executable checks.
-
-Run the narrow package route checks:
 
 If the change touches runtime candidate readers, quest readers, reports,
 schemas, or phase-alpha matrices, also run the owning builder or validator.

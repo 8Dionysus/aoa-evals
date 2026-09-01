@@ -1,4 +1,4 @@
-# Comparison Spine Validation
+# Live Receipts Validation
 
 This on-demand route owns exact local checks for the surrounding source surface.
 
@@ -6,6 +6,5 @@ This on-demand route owns exact local checks for the surrounding source surface.
 
 ```bash
 python scripts/validate_repo.py
-python scripts/build_catalog.py --check
 python scripts/validate_semantic_agents.py
 ```

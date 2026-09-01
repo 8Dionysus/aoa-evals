@@ -70,6 +70,21 @@ class ValidateSemanticAgentsTests(unittest.TestCase):
             issues = module.validate(root)
         self.assertTrue(any("executable validation route" in issue for issue in issues))
 
+    def test_linked_local_validation_companion_must_exist(self) -> None:
+        module = load_validator()
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            card = root / "district" / "AGENTS.md"
+            card.parent.mkdir(parents=True)
+            card.write_text(
+                "# AGENTS.md\n\nUse [VALIDATION.md](VALIDATION.md).\n",
+                encoding="utf-8",
+            )
+
+            issues = module.validate_all_agent_docs(root)
+
+        self.assertTrue(any("linked local VALIDATION.md companion is missing" in issue for issue in issues))
+
 
 if __name__ == "__main__":
     unittest.main()

@@ -23,22 +23,6 @@ MECHANIC_PROVENANCE_FILES = tuple(
     f"mechanics/{parent_name}/PROVENANCE.md"
     for parent_name in mechanics_validator.ACTIVE_MECHANIC_PARENT_NAMES
 )
-MECHANIC_LEGACY_README_FILES = tuple(
-    f"mechanics/{parent_name}/legacy/README.md"
-    for parent_name in mechanics_validator.ACTIVE_MECHANIC_PARENT_NAMES
-)
-MECHANIC_LEGACY_INDEX_FILES = tuple(
-    f"mechanics/{parent_name}/legacy/INDEX.md"
-    for parent_name in mechanics_validator.ACTIVE_MECHANIC_PARENT_NAMES
-)
-MECHANIC_LEGACY_DISTILLATION_LOG_FILES = tuple(
-    f"mechanics/{parent_name}/legacy/DISTILLATION_LOG.md"
-    for parent_name in mechanics_validator.ACTIVE_MECHANIC_PARENT_NAMES
-)
-MECHANIC_LEGACY_RAW_README_FILES = tuple(
-    f"mechanics/{parent_name}/legacy/raw/README.md"
-    for parent_name in mechanics_validator.ACTIVE_MECHANIC_PARENT_NAMES
-)
 ROADMAP_LEGACY_BRIDGE_DIRECTION_TOKENS = (
     "Legacy bridge",
     "single controlled bridge posture",
@@ -84,10 +68,6 @@ __all__ = (
     "LEGACY_NAMING_NAME",
     "MECHANICS_EVIDENCE_CLUSTERS_NAME",
     "MECHANICS_README_NAME",
-    "MECHANIC_LEGACY_DISTILLATION_LOG_FILES",
-    "MECHANIC_LEGACY_INDEX_FILES",
-    "MECHANIC_LEGACY_RAW_README_FILES",
-    "MECHANIC_LEGACY_README_FILES",
     "MECHANIC_PROVENANCE_FILES",
     "PROOF_TOPOLOGY_NAME",
     "ROADMAP_LEGACY_BRIDGE_DIRECTION_TOKENS",

@@ -59,22 +59,34 @@ def mechanics_issues(repo_root: Path = REPO_ROOT) -> list[ValidationIssue]:
     return mechanics_routes_validator.validate_mechanics_surfaces(repo_root)
 
 
-def assert_no_mechanics_issue_for_locations(locations: set[str]) -> None:
-    assert not any(issue.location in locations for issue in mechanics_issues())
+@pytest.fixture(scope="module")
+def current_mechanics_issues() -> tuple[ValidationIssue, ...]:
+    """Share the immutable current-tree result across location assertions."""
+    return tuple(mechanics_issues())
 
 
-def assert_no_mechanics_issue_for_location(location: str) -> None:
-    assert not any(issue.location == location for issue in mechanics_issues())
+def assert_no_mechanics_issue_for_locations(
+    locations: set[str], issues: tuple[ValidationIssue, ...],
+) -> None:
+    assert not any(issue.location in locations for issue in issues)
 
 
-def test_proof_loop_mechanic_surfaces_validate_current_routes() -> None:
+def assert_no_mechanics_issue_for_location(
+    location: str, issues: tuple[ValidationIssue, ...],
+) -> None:
+    assert not any(issue.location == location for issue in issues)
+
+
+def test_proof_loop_mechanic_surfaces_validate_current_routes(
+    current_mechanics_issues: tuple[ValidationIssue, ...],
+) -> None:
     assert not any(
         issue.location.startswith("mechanics/proof-loop/")
         or issue.location == "docs/decisions/AOA-EV-D-0019-proof-loop-mechanic-package.md"
         or issue.location == "docs/decisions/AOA-EV-D-0020-proof-loop-local-smoke-report.md"
         or issue.location
         == "mechanics/proof-loop/parts/route-smoke/reports/proof-loop-local-route-smoke-v1.md"
-        for issue in mechanics_issues()
+        for issue in current_mechanics_issues
     )
 
 
@@ -140,14 +152,17 @@ def test_proof_loop_smoke_report_rejects_validation_command_block(
 def test_mechanic_parent_surfaces_validate_current_routes(
     prefix: str,
     decision_name: str,
+    current_mechanics_issues: tuple[ValidationIssue, ...],
 ) -> None:
     assert not any(
         issue.location.startswith(prefix) or issue.location == decision_name
-        for issue in mechanics_issues()
+        for issue in current_mechanics_issues
     )
 
 
-def test_audit_and_release_support_provenance_validate_current_routes() -> None:
+def test_audit_and_release_support_provenance_validate_current_routes(
+    current_mechanics_issues: tuple[ValidationIssue, ...],
+) -> None:
     protected_locations = {
         audit_paths_validator.AUDIT_MECHANIC_PROVENANCE_NAME,
         audit_paths_validator.AUDIT_LEGACY_INDEX_NAME,
@@ -171,15 +186,17 @@ def test_audit_and_release_support_provenance_validate_current_routes() -> None:
         boundary_bridge_validator.BOUNDARY_BRIDGE_LEGACY_RAW_README_NAME,
     }
 
-    assert_no_mechanics_issue_for_locations(protected_locations)
+    assert_no_mechanics_issue_for_locations(protected_locations, current_mechanics_issues)
 
 
 def test_titan_canary_surfaces_validate_current_seed_set() -> None:
     assert titan_canary_validator.validate_titan_canary_surfaces(REPO_ROOT) == []
 
 
-def test_titan_seed_boundary_part_readme_validates_current_contract() -> None:
-    assert_no_mechanics_issue_for_location(titan_paths_validator.TITAN_SEED_BOUNDARY_PART_README_NAME)
+def test_titan_seed_boundary_part_readme_validates_current_contract(
+    current_mechanics_issues: tuple[ValidationIssue, ...],
+) -> None:
+    assert_no_mechanics_issue_for_location(titan_paths_validator.TITAN_SEED_BOUNDARY_PART_README_NAME, current_mechanics_issues)
 
 
 def test_titan_direction_rejects_missing_aoa_agents_owner_boundary(
@@ -204,8 +221,10 @@ def test_titan_direction_rejects_missing_aoa_agents_owner_boundary(
     )
 
 
-def test_titan_parts_index_readme_keeps_canary_as_payload_form() -> None:
-    assert_no_mechanics_issue_for_location(titan_paths_validator.TITAN_PARTS_INDEX_README_NAME)
+def test_titan_parts_index_readme_keeps_canary_as_payload_form(
+    current_mechanics_issues: tuple[ValidationIssue, ...],
+) -> None:
+    assert_no_mechanics_issue_for_location(titan_paths_validator.TITAN_PARTS_INDEX_README_NAME, current_mechanics_issues)
 
 
 def test_titan_parts_index_readme_rejects_canary_named_parts_district(
@@ -413,9 +432,10 @@ def test_titan_seed_boundary_surfaces_reject_stale_negative_claim_limits(
 def test_mechanic_part_readmes_validate_current_contracts(
     surface_group: str,
     protected_locations: set[str],
+    current_mechanics_issues: tuple[ValidationIssue, ...],
 ) -> None:
     assert surface_group
-    assert_no_mechanics_issue_for_locations(protected_locations)
+    assert_no_mechanics_issue_for_locations(protected_locations, current_mechanics_issues)
 
 
 @pytest.mark.parametrize(
@@ -429,8 +449,9 @@ def test_mechanic_part_readmes_validate_current_contracts(
 )
 def test_single_mechanic_part_readmes_validate_current_contracts(
     readme_name: str,
+    current_mechanics_issues: tuple[ValidationIssue, ...],
 ) -> None:
-    assert_no_mechanics_issue_for_location(readme_name)
+    assert_no_mechanics_issue_for_location(readme_name, current_mechanics_issues)
 
 
 @pytest.mark.parametrize(
@@ -443,8 +464,9 @@ def test_single_mechanic_part_readmes_validate_current_contracts(
 )
 def test_single_part_lower_indexes_validate_current_operating_cards(
     readme_name: str,
+    current_mechanics_issues: tuple[ValidationIssue, ...],
 ) -> None:
-    assert_no_mechanics_issue_for_location(readme_name)
+    assert_no_mechanics_issue_for_location(readme_name, current_mechanics_issues)
 
 
 @pytest.mark.parametrize(
@@ -476,7 +498,9 @@ def test_single_part_lower_indexes_reject_missing_operating_card(
     )
 
 
-def test_repair_diagnosis_route_boundary_validates_current_contract() -> None:
+def test_repair_diagnosis_route_boundary_validates_current_contract(
+    current_mechanics_issues: tuple[ValidationIssue, ...],
+) -> None:
     protected_locations = {
         antifragility_paths_validator.ANTIFRAGILITY_MECHANIC_README_NAME,
         antifragility_paths_validator.ANTIFRAGILITY_MECHANIC_PARTS_NAME,
@@ -484,7 +508,7 @@ def test_repair_diagnosis_route_boundary_validates_current_contract() -> None:
         growth_cycle_paths_validator.REPAIR_DIAGNOSIS_ROUTE_BOUNDARY_DECISION_NAME,
     }
 
-    assert_no_mechanics_issue_for_locations(protected_locations)
+    assert_no_mechanics_issue_for_locations(protected_locations, current_mechanics_issues)
 
 
 def test_audit_part_readmes_reject_missing_inputs_contract(tmp_path: Path) -> None:

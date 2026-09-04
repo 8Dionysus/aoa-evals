@@ -282,6 +282,7 @@
 - [AOA-EV-D-0243 Local Memo Port](../AOA-EV-D-0243-local-memo-port.md) (`docs/decisions/AOA-EV-D-0243-local-memo-port.md`)
 - [AOA-EV-D-0254 Validation-routing Peer-comparison Support](../AOA-EV-D-0254-validation-routing-peer-comparison-support.md) (`docs/decisions/AOA-EV-D-0254-validation-routing-peer-comparison-support.md`)
 - [AOA-EV-D-0256 Prompt-light Agent Routes and On-demand Validation](../AOA-EV-D-0256-prompt-light-agent-routes-and-on-demand-validation.md) (`docs/decisions/AOA-EV-D-0256-prompt-light-agent-routes-and-on-demand-validation.md`)
+- [AOA-EV-D-0257 Spark and Legacy Surface Retirement](../AOA-EV-D-0257-spark-and-legacy-surface-retirement.md) (`docs/decisions/AOA-EV-D-0257-spark-and-legacy-surface-retirement.md`)
 
 ## legacy/provenance
 
@@ -472,6 +473,10 @@
 
 - [AOA-EV-D-0129 Boundary Bridge Validator Module Boundary](../AOA-EV-D-0129-boundary-bridge-validator-module-boundary.md) (`docs/decisions/AOA-EV-D-0129-boundary-bridge-validator-module-boundary.md`)
 - [AOA-EV-D-0206 Boundary Bridge Aggregate Removal](../AOA-EV-D-0206-boundary-bridge-aggregate-removal.md) (`docs/decisions/AOA-EV-D-0206-boundary-bridge-aggregate-removal.md`)
+
+## legacy
+
+- [AOA-EV-D-0257 Spark and Legacy Surface Retirement](../AOA-EV-D-0257-spark-and-legacy-surface-retirement.md) (`docs/decisions/AOA-EV-D-0257-spark-and-legacy-surface-retirement.md`)
 
 ## local-eval-port
 
@@ -737,6 +742,7 @@
 - [AOA-EV-D-0237 Growth-cycle Validator Layer Split](../AOA-EV-D-0237-growth-cycle-validator-layer-split.md) (`docs/decisions/AOA-EV-D-0237-growth-cycle-validator-layer-split.md`)
 - [AOA-EV-D-0238 Distillation Validator Layer Split](../AOA-EV-D-0238-distillation-validator-layer-split.md) (`docs/decisions/AOA-EV-D-0238-distillation-validator-layer-split.md`)
 - [AOA-EV-D-0248 Typed Capability Dependencies](../AOA-EV-D-0248-typed-capability-dependencies.md) (`docs/decisions/AOA-EV-D-0248-typed-capability-dependencies.md`)
+- [AOA-EV-D-0257 Spark and Legacy Surface Retirement](../AOA-EV-D-0257-spark-and-legacy-surface-retirement.md) (`docs/decisions/AOA-EV-D-0257-spark-and-legacy-surface-retirement.md`)
 
 ## trace/eval
 

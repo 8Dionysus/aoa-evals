@@ -123,7 +123,7 @@ def test_release_support_readiness_audit_lists_local_gates_and_limits() -> None:
         "python -m pytest -q tests/test_mechanic_legacy_bridge.py -k mechanic_legacy_single_bridge",
         "python -m pytest -q tests/test_mechanic_legacy_bridge.py -k mechanic_provenance_bridge_posture",
         "python -m pytest -q tests/test_root_surface_roles.py -k legacy_naming_single_bridge_language",
-        "python -m pytest -q tests/test_mechanic_legacy_archive_routes.py -k active_legacy_parent_wording",
+            "python -m pytest -q tests/test_mechanic_legacy_bridge.py -k active_legacy_parent_wording",
         "python -m pytest -q tests/test_validate_repo.py -k mechanic_provenance_entry",
         "python -m pytest -q tests/test_mechanic_root_district_recon.py -k mechanic_root_district_recon",
         "python -m pytest -q tests/test_mechanics_topology.py",

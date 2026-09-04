@@ -24,7 +24,6 @@ def validate_proof_infra_route_surfaces(repo_root: Path) -> list[ValidationIssue
             route_tokens.PROOF_INFRA_REPORTABLE_CONTRACTS_REQUIRED_TOKENS,
         ),
         (common.PROOF_INFRA_PROVENANCE_NAME, route_tokens.PROOF_INFRA_PROVENANCE_REQUIRED_TOKENS),
-        (common.PROOF_INFRA_LEGACY_INDEX_NAME, route_tokens.PROOF_INFRA_LEGACY_INDEX_REQUIRED_TOKENS),
         (
             common.PROOF_INFRA_MECHANIC_DECISION_NAME,
             route_tokens.PROOF_INFRA_MECHANIC_DECISION_REQUIRED_TOKENS,

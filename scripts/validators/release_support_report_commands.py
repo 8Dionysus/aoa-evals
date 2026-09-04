@@ -6,7 +6,7 @@ LEGACY_NAMING_SINGLE_BRIDGE_LANGUAGE_COMMAND = (
     "python -m pytest -q tests/test_root_surface_roles.py -k legacy_naming_single_bridge_language"
 )
 ACTIVE_LEGACY_PARENT_WORDING_COMMAND = (
-    "python -m pytest -q tests/test_mechanic_legacy_archive_routes.py -k active_legacy_parent_wording"
+    "python -m pytest -q tests/test_mechanic_legacy_bridge.py -k active_legacy_parent_wording"
 )
 ACTIVE_MECHANIC_ROUTE_RESIDUE_COMMAND = (
     "python -m pytest -q tests/test_route_residue.py -k active_mechanic_route_residue"

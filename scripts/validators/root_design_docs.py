@@ -84,7 +84,6 @@ DESIGN_AGENTS_REQUIRED_TOKENS = (
     "mechanics/EVIDENCE_CLUSTERS.md",
     "active mechanics, and file-movement boundaries",
     "Maintained agent lanes",
-    ".agents/spark/",
     "closeout",
 )
 ROOT_DESIGN_FORBIDDEN_STALE_MECHANIC_WORDING = ("mechanic-ready",)

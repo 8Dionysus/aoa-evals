@@ -12,9 +12,9 @@ Use active surfaces first:
 - [parts/](parts/)
 
 Historical questbook, old-placement, or source-lineage questions
-route through the legacy archive after the active route identifies the owner.
+route through the pinned Git history after the active route identifies the owner.
 
-The bridge opens [legacy/README.md](legacy/README.md). The legacy archive owns its own details
-and archive-local accounting.
-
-Legacy archive details stay in the legacy archive.
+The historical record is preserved at [legacy/README.md](https://github.com/8Dionysus/aoa-evals/blob/f44dbe693d1236d4e3adf7ab61bf21a444fcb929/mechanics/questbook/legacy/README.md).
+The immutable commit is historical context only; active routes remain authoritative.
+The legacy archive details remain historical context and are not an active route.
+The legacy archive owns its own details; archive details stay in the legacy archive.

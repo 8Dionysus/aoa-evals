@@ -17,7 +17,7 @@ ACTIVE_LEGACY_PARENT_WORDING_DECISION_NAME = (
     "docs/decisions/AOA-EV-D-0092-active-legacy-parent-wording-boundary.md"
 )
 ACTIVE_LEGACY_PARENT_WORDING_COMMAND = (
-    "python -m pytest -q tests/test_mechanic_legacy_archive_routes.py -k active_legacy_parent_wording"
+    "python -m pytest -q tests/test_mechanic_legacy_bridge.py -k active_legacy_parent_wording"
 )
 ACTIVE_LEGACY_PARENT_WORDING_DECISION_REQUIRED_TOKENS = (
     "Active Legacy Parent Wording Boundary",

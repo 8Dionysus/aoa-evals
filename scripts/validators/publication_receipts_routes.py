@@ -70,15 +70,6 @@ def validate_publication_receipts_route_surfaces(repo_root: Path) -> list[Valida
                 "Publication Receipts Part Contract Guard",
             ),
         ),
-        (PUBLICATION_RECEIPTS_LEGACY_INDEX_NAME, PUBLICATION_RECEIPTS_LEGACY_INDEX_REQUIRED_TOKENS),
-        (
-            PUBLICATION_RECEIPTS_LEGACY_DISTILLATION_LOG_NAME,
-            PUBLICATION_RECEIPTS_LEGACY_DISTILLATION_REQUIRED_TOKENS,
-        ),
-        (
-            PUBLICATION_RECEIPTS_LEGACY_RAW_README_NAME,
-            PUBLICATION_RECEIPTS_LEGACY_RAW_README_REQUIRED_TOKENS,
-        ),
         (PUBLICATION_RECEIPTS_MECHANIC_DECISION_NAME, PUBLICATION_RECEIPTS_MECHANIC_DECISION_REQUIRED_TOKENS),
     ):
         require_tokens(repo_root=repo_root, path_name=path_name, tokens=tokens, issues=issues)

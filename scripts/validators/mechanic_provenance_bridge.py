@@ -1,4 +1,4 @@
-"""Mechanic PROVENANCE active-to-archive bridge contracts."""
+"""Mechanic PROVENANCE active-route and immutable-history bridge contracts."""
 
 from __future__ import annotations
 
@@ -54,9 +54,8 @@ MECHANIC_PROVENANCE_BRIDGE_POSTURE_REQUIRED_TOKENS = (
     "PARTS.md",
     "parts/",
     "legacy archive",
-    "legacy/README.md",
-    "owns its own details",
-    "archive details stay in the legacy archive",
+    "pinned Git history",
+    "immutable commit",
 )
 MECHANIC_PROVENANCE_BRIDGE_POSTURE_DECISION_REQUIRED_TOKENS = (
     "Mechanic Provenance Bridge Posture",
@@ -71,8 +70,8 @@ MECHANIC_PROVENANCE_BRIDGE_POSTURE_DECISION_REQUIRED_TOKENS = (
 )
 MECHANIC_PROVENANCE_ENTRY_REQUIRED_TOKENS = (
     "active",
-    "legacy/README.md",
-    "legacy archive owns",
+    "pinned Git history",
+    "immutable commit",
     "archive details",
 )
 MECHANIC_PROVENANCE_ENTRY_DECISION_REQUIRED_TOKENS = (
@@ -93,6 +92,7 @@ MECHANIC_PROVENANCE_ARCHIVE_DETAIL_RE = re.compile(
     r"legacy/(?:INDEX\.md|DISTILLATION_LOG\.md|raw(?:/|`|\)|\]|\s|$))"
     r"|raw/README\.md"
 )
+MECHANIC_PROVENANCE_HISTORY_COMMIT = "f44dbe693d1236d4e3adf7ab61bf21a444fcb929"
 
 
 def validate_mechanic_legacy_single_bridge_surfaces(
@@ -177,6 +177,18 @@ def validate_mechanic_provenance_entry_surfaces(
         )
         text = read_text_or_issue(repo_root / path_name, issues, root=repo_root)
         if text:
+            parent_name = Path(path_name).parent.name
+            expected_uri = (
+                "https://github.com/8Dionysus/aoa-evals/blob/"
+                f"{MECHANIC_PROVENANCE_HISTORY_COMMIT}/mechanics/{parent_name}/legacy/README.md"
+            )
+            if expected_uri not in text:
+                issues.append(
+                    ValidationIssue(
+                        path_name,
+                        "PROVENANCE.md must link historical details through the pinned Git history URI",
+                    )
+                )
             for match in MECHANIC_PROVENANCE_ARCHIVE_DETAIL_RE.finditer(text):
                 issues.append(
                     ValidationIssue(
@@ -283,6 +295,7 @@ __all__ = (
     "MECHANIC_PROVENANCE_ENTRY_DECISION_REQUIRED_TOKENS",
     "MECHANIC_PROVENANCE_ENTRY_REQUIRED_TOKENS",
     "MECHANIC_PROVENANCE_FILES",
+    "MECHANIC_PROVENANCE_HISTORY_COMMIT",
     "validate_mechanic_legacy_bridge_surfaces",
     "validate_mechanic_legacy_single_bridge_surfaces",
     "validate_mechanic_provenance_bridge_posture_surfaces",

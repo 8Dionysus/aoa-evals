@@ -180,14 +180,9 @@ def run_validation(
         )
 
     if source_evals_dir_exists and eval_name is None and not source_issues:
-        all_source_issues, all_records = (
-            source_eval_collection_validator.collect_catalog_records(
-                repo_root,
-                dependency_roots=source_eval_domains.source_eval_dependency_roots(),
-            )
-        )
-        if not all_source_issues:
-            issues.extend(validate_repo_wide_readouts(repo_root, all_records))
+        # The full route already validated every source bundle above. Readouts
+        # consume that same collection, rather than rebuilding it a second time.
+        issues.extend(validate_repo_wide_readouts(repo_root, records))
     elif source_evals_dir_exists and eval_name is not None and not source_issues:
         issues.extend(validate_target_eval_readouts(repo_root, records, target_evals=target_evals))
 

@@ -42,6 +42,33 @@ Use these active entrypoints:
 | `nightly` | `python scripts/ci_gate.py --mode nightly` |
 | `advisory` | `python scripts/ci_gate.py --mode advisory` |
 
+## Full-suite execution cost
+
+The existing release test step uses two pytest-xdist workers with file-based
+scheduling. This preserves the complete collection and reuses module-scoped
+fixtures within each file; it does not select fewer tests or add a new runner.
+Focused commands remain serial unless their measured workload benefits from
+parallel execution. The serial full-suite route remains available in
+`tests/VALIDATION.md`.
+
+The choice follows work reduction, not just extra CPU allocation. On the same
+local source baseline and shared Python 3.14 host (2026-09-04), the complete
+suite reported 1267 passed, 6 skipped and 1780 successful subtests in all three
+runs:
+
+| Execution | Process elapsed | User + system CPU |
+| --- | ---: | ---: |
+| Before source/fixture reuse, serial | 92.53 s | 85.02 s |
+| After source/fixture reuse, serial | 49.37 s | 43.89 s |
+| After reuse, two file-scheduled workers | 29.94 s | 51.02 s |
+
+These are local observations, not a hosted-CI speed guarantee. Two workers
+trade some duplicated imports and concurrent memory for shorter elapsed time;
+the removed duplicate validation remains beneficial in serial mode. Revisit
+the worker count when the workload or runner changes rather than treating it
+as a permanent upper bound. Bundle proof meaning and negative cases are
+unchanged.
+
 ## Promotion Rule
 
 Advisory and compatibility boundaries become hard gates only when a current

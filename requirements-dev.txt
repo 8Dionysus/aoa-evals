@@ -1,3 +1,4 @@
 PyYAML
 jsonschema
 pytest
+pytest-xdist

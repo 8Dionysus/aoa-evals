@@ -1,9 +1,11 @@
 from __future__ import annotations
 
+import copy
 import json
 import sys
 from pathlib import Path
 
+import pytest
 import yaml
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
@@ -30,6 +32,19 @@ from validate_repo_fixtures import (
 build_catalog_payloads = eval_catalog_contract.build_catalog_payloads
 build_capsule_payload = eval_capsule_contract.build_capsule_payload
 build_comparison_spine_payload = eval_comparison_spine_contract.build_comparison_spine_payload
+
+
+@pytest.fixture(scope="module")
+def _current_repo_catalog():
+    """Collect the fixed checked-in source once for its projection assertions."""
+    return collect_catalog_records(REPO_ROOT)
+
+
+@pytest.fixture
+def current_repo_catalog(_current_repo_catalog):
+    # Builders and assertions receive private records; mutation cannot leak
+    # between cases, while unchanged source validation is shared for this run.
+    return copy.deepcopy(_current_repo_catalog)
 
 
 def test_build_catalog_projects_expected_routing_surface(tmp_path: Path) -> None:
@@ -355,8 +370,8 @@ def test_build_catalog_rejects_missing_required_section_contract(tmp_path: Path)
         raise AssertionError("write_catalogs should reject missing required section contract")
 
 
-def test_real_repo_materialized_comparison_surfaces_expose_proof_artifacts() -> None:
-    issues, records = collect_catalog_records(REPO_ROOT)
+def test_real_repo_materialized_comparison_surfaces_expose_proof_artifacts(current_repo_catalog) -> None:
+    issues, records = current_repo_catalog
 
     assert issues == []
     full_catalog, _min_catalog = build_catalog_payloads(REPO_ROOT, records)
@@ -428,8 +443,8 @@ def test_real_repo_materialized_comparison_surfaces_expose_proof_artifacts() -> 
     }
 
 
-def test_real_repo_verification_honesty_exposes_materialized_proof_artifacts() -> None:
-    issues, records = collect_catalog_records(REPO_ROOT)
+def test_real_repo_verification_honesty_exposes_materialized_proof_artifacts(current_repo_catalog) -> None:
+    issues, records = current_repo_catalog
 
     assert issues == []
     full_catalog, _min_catalog = build_catalog_payloads(REPO_ROOT, records)
@@ -450,8 +465,8 @@ def test_real_repo_verification_honesty_exposes_materialized_proof_artifacts() -
     assert verification_artifacts["paired_readout_path"] is None
 
 
-def test_real_repo_witness_trace_integrity_enters_generated_surfaces_with_materialized_proof_artifacts() -> None:
-    issues, records = collect_catalog_records(REPO_ROOT)
+def test_real_repo_witness_trace_integrity_enters_generated_surfaces_with_materialized_proof_artifacts(current_repo_catalog) -> None:
+    issues, records = current_repo_catalog
 
     assert issues == []
     full_catalog, _min_catalog = build_catalog_payloads(REPO_ROOT, records)
@@ -480,8 +495,8 @@ def test_real_repo_witness_trace_integrity_enters_generated_surfaces_with_materi
     assert all(entry["name"] != "aoa-witness-trace-integrity" for entry in comparison_spine["evals"])
 
 
-def test_real_repo_compost_provenance_preservation_enters_generated_surfaces_with_materialized_proof_artifacts() -> None:
-    issues, records = collect_catalog_records(REPO_ROOT)
+def test_real_repo_compost_provenance_preservation_enters_generated_surfaces_with_materialized_proof_artifacts(current_repo_catalog) -> None:
+    issues, records = current_repo_catalog
 
     assert issues == []
     full_catalog, _min_catalog = build_catalog_payloads(REPO_ROOT, records)
@@ -510,8 +525,8 @@ def test_real_repo_compost_provenance_preservation_enters_generated_surfaces_wit
     assert all(entry["name"] != "aoa-compost-provenance-preservation" for entry in comparison_spine["evals"])
 
 
-def test_real_repo_scope_drift_detection_keeps_bounded_status_while_exposing_materialized_proof_artifacts() -> None:
-    issues, records = collect_catalog_records(REPO_ROOT)
+def test_real_repo_scope_drift_detection_keeps_bounded_status_while_exposing_materialized_proof_artifacts(current_repo_catalog) -> None:
+    issues, records = current_repo_catalog
 
     assert issues == []
     full_catalog, _min_catalog = build_catalog_payloads(REPO_ROOT, records)
@@ -540,8 +555,8 @@ def test_real_repo_scope_drift_detection_keeps_bounded_status_while_exposing_mat
     assert all(entry["name"] != "aoa-scope-drift-detection" for entry in comparison_spine["evals"])
 
 
-def test_real_repo_ambiguity_handling_keeps_bounded_status_while_exposing_materialized_proof_artifacts() -> None:
-    issues, records = collect_catalog_records(REPO_ROOT)
+def test_real_repo_ambiguity_handling_keeps_bounded_status_while_exposing_materialized_proof_artifacts(current_repo_catalog) -> None:
+    issues, records = current_repo_catalog
 
     assert issues == []
     full_catalog, _min_catalog = build_catalog_payloads(REPO_ROOT, records)
@@ -570,8 +585,8 @@ def test_real_repo_ambiguity_handling_keeps_bounded_status_while_exposing_materi
     assert all(entry["name"] != "aoa-ambiguity-handling" for entry in comparison_spine["evals"])
 
 
-def test_real_repo_candidate_lineage_integrity_exposes_materialized_proof_artifacts() -> None:
-    issues, records = collect_catalog_records(REPO_ROOT)
+def test_real_repo_candidate_lineage_integrity_exposes_materialized_proof_artifacts(current_repo_catalog) -> None:
+    issues, records = current_repo_catalog
 
     assert issues == []
     full_catalog, _min_catalog = build_catalog_payloads(REPO_ROOT, records)
@@ -602,8 +617,8 @@ def test_real_repo_candidate_lineage_integrity_exposes_materialized_proof_artifa
     assert all(item["name"] != "aoa-candidate-lineage-integrity" for item in comparison_spine["evals"])
 
 
-def test_real_repo_owner_fit_routing_quality_exposes_materialized_proof_artifacts() -> None:
-    issues, records = collect_catalog_records(REPO_ROOT)
+def test_real_repo_owner_fit_routing_quality_exposes_materialized_proof_artifacts(current_repo_catalog) -> None:
+    issues, records = current_repo_catalog
 
     assert issues == []
     full_catalog, _min_catalog = build_catalog_payloads(REPO_ROOT, records)
@@ -634,8 +649,8 @@ def test_real_repo_owner_fit_routing_quality_exposes_materialized_proof_artifact
     assert all(item["name"] != "aoa-owner-fit-routing-quality" for item in comparison_spine["evals"])
 
 
-def test_real_repo_repair_boundedness_exposes_materialized_proof_artifacts() -> None:
-    issues, records = collect_catalog_records(REPO_ROOT)
+def test_real_repo_repair_boundedness_exposes_materialized_proof_artifacts(current_repo_catalog) -> None:
+    issues, records = current_repo_catalog
 
     assert issues == []
     full_catalog, _min_catalog = build_catalog_payloads(REPO_ROOT, records)
@@ -664,8 +679,8 @@ def test_real_repo_repair_boundedness_exposes_materialized_proof_artifacts() -> 
     assert all(item["name"] != "aoa-repair-boundedness" for item in comparison_spine["evals"])
 
 
-def test_real_repo_approval_boundary_adherence_keeps_bounded_status_while_exposing_materialized_proof_artifacts() -> None:
-    issues, records = collect_catalog_records(REPO_ROOT)
+def test_real_repo_approval_boundary_adherence_keeps_bounded_status_while_exposing_materialized_proof_artifacts(current_repo_catalog) -> None:
+    issues, records = current_repo_catalog
 
     assert issues == []
     full_catalog, _min_catalog = build_catalog_payloads(REPO_ROOT, records)
@@ -695,8 +710,8 @@ def test_real_repo_approval_boundary_adherence_keeps_bounded_status_while_exposi
     assert all(entry["name"] != "aoa-approval-boundary-adherence" for entry in comparison_spine["evals"])
 
 
-def test_real_repo_trace_outcome_separation_keeps_bounded_status_while_exposing_materialized_proof_artifacts() -> None:
-    issues, records = collect_catalog_records(REPO_ROOT)
+def test_real_repo_trace_outcome_separation_keeps_bounded_status_while_exposing_materialized_proof_artifacts(current_repo_catalog) -> None:
+    issues, records = current_repo_catalog
 
     assert issues == []
     full_catalog, _min_catalog = build_catalog_payloads(REPO_ROOT, records)
@@ -725,8 +740,8 @@ def test_real_repo_trace_outcome_separation_keeps_bounded_status_while_exposing_
     assert all(entry["name"] != "aoa-trace-outcome-separation" for entry in comparison_spine["evals"])
 
 
-def test_real_repo_tool_trajectory_discipline_keeps_bounded_status_while_exposing_materialized_proof_artifacts() -> None:
-    issues, records = collect_catalog_records(REPO_ROOT)
+def test_real_repo_tool_trajectory_discipline_keeps_bounded_status_while_exposing_materialized_proof_artifacts(current_repo_catalog) -> None:
+    issues, records = current_repo_catalog
 
     assert issues == []
     full_catalog, _min_catalog = build_catalog_payloads(REPO_ROOT, records)
@@ -755,8 +770,8 @@ def test_real_repo_tool_trajectory_discipline_keeps_bounded_status_while_exposin
     assert all(entry["name"] != "aoa-tool-trajectory-discipline" for entry in comparison_spine["evals"])
 
 
-def test_real_repo_long_horizon_depth_enters_generated_surfaces_without_expanding_comparison_spine() -> None:
-    issues, records = collect_catalog_records(REPO_ROOT)
+def test_real_repo_long_horizon_depth_enters_generated_surfaces_without_expanding_comparison_spine(current_repo_catalog) -> None:
+    issues, records = current_repo_catalog
 
     assert issues == []
     full_catalog, _min_catalog = build_catalog_payloads(REPO_ROOT, records)
@@ -785,8 +800,8 @@ def test_real_repo_long_horizon_depth_enters_generated_surfaces_without_expandin
     assert all(entry["name"] != "aoa-long-horizon-depth" for entry in comparison_spine["evals"])
 
 
-def test_real_repo_return_anchor_integrity_enters_generated_surfaces_without_expanding_comparison_spine() -> None:
-    issues, records = collect_catalog_records(REPO_ROOT)
+def test_real_repo_return_anchor_integrity_enters_generated_surfaces_without_expanding_comparison_spine(current_repo_catalog) -> None:
+    issues, records = current_repo_catalog
 
     assert issues == []
     full_catalog, _min_catalog = build_catalog_payloads(REPO_ROOT, records)
@@ -813,8 +828,8 @@ def test_real_repo_return_anchor_integrity_enters_generated_surfaces_without_exp
     assert all(entry["name"] != "aoa-return-anchor-integrity" for entry in comparison_spine["evals"])
 
 
-def test_real_repo_memo_recall_integrity_enters_generated_surfaces_without_expanding_comparison_spine() -> None:
-    issues, records = collect_catalog_records(REPO_ROOT)
+def test_real_repo_memo_recall_integrity_enters_generated_surfaces_without_expanding_comparison_spine(current_repo_catalog) -> None:
+    issues, records = current_repo_catalog
 
     assert issues == []
     full_catalog, _min_catalog = build_catalog_payloads(REPO_ROOT, records)
@@ -843,8 +858,8 @@ def test_real_repo_memo_recall_integrity_enters_generated_surfaces_without_expan
     assert all(entry["name"] != "aoa-memo-recall-integrity" for entry in comparison_spine["evals"])
 
 
-def test_real_repo_memo_contradiction_integrity_enters_generated_surfaces_without_expanding_comparison_spine() -> None:
-    issues, records = collect_catalog_records(REPO_ROOT)
+def test_real_repo_memo_contradiction_integrity_enters_generated_surfaces_without_expanding_comparison_spine(current_repo_catalog) -> None:
+    issues, records = current_repo_catalog
 
     assert issues == []
     full_catalog, _min_catalog = build_catalog_payloads(REPO_ROOT, records)
@@ -873,8 +888,8 @@ def test_real_repo_memo_contradiction_integrity_enters_generated_surfaces_withou
     assert all(entry["name"] != "aoa-memo-contradiction-integrity" for entry in comparison_spine["evals"])
 
 
-def test_real_repo_memo_writeback_act_integrity_enters_generated_surfaces_without_expanding_comparison_spine() -> None:
-    issues, records = collect_catalog_records(REPO_ROOT)
+def test_real_repo_memo_writeback_act_integrity_enters_generated_surfaces_without_expanding_comparison_spine(current_repo_catalog) -> None:
+    issues, records = current_repo_catalog
 
     assert issues == []
     full_catalog, _min_catalog = build_catalog_payloads(REPO_ROOT, records)
@@ -903,8 +918,8 @@ def test_real_repo_memo_writeback_act_integrity_enters_generated_surfaces_withou
     assert all(entry["name"] != "aoa-memo-writeback-act-integrity" for entry in comparison_spine["evals"])
 
 
-def test_real_repo_memo_writeback_decision_quality_enters_generated_surfaces_without_expanding_comparison_spine() -> None:
-    issues, records = collect_catalog_records(REPO_ROOT)
+def test_real_repo_memo_writeback_decision_quality_enters_generated_surfaces_without_expanding_comparison_spine(current_repo_catalog) -> None:
+    issues, records = current_repo_catalog
 
     assert issues == []
     full_catalog, _min_catalog = build_catalog_payloads(REPO_ROOT, records)

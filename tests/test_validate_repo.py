@@ -458,6 +458,19 @@ def test_validate_repo_requires_strategic_closeout_repo_validation_route_token(
 
 
 def test_validate_repo_allows_local_run_without_sibling_dependency_repos(monkeypatch) -> None:
+    original_collect = validate_repo.source_eval_collection_validator.collect_catalog_records
+    collection_calls = 0
+
+    def counted_collect(*args, **kwargs):
+        nonlocal collection_calls
+        collection_calls += 1
+        return original_collect(*args, **kwargs)
+
+    monkeypatch.setattr(
+        validate_repo.source_eval_collection_validator,
+        "collect_catalog_records",
+        counted_collect,
+    )
     missing_techniques_root = REPO_ROOT / ".tmp" / "missing-aoa-techniques"
     missing_skills_root = REPO_ROOT / ".tmp" / "missing-aoa-skills"
     missing_agents_root = REPO_ROOT / ".tmp" / "missing-aoa-agents"
@@ -487,6 +500,7 @@ def test_validate_repo_allows_local_run_without_sibling_dependency_repos(monkeyp
 
     issues = run_validation(REPO_ROOT)
 
+    assert collection_calls == 1
     assert not any(
         "dependency target does not exist: aoa-techniques/" in issue.message
         or "dependency target does not exist: aoa-skills/" in issue.message

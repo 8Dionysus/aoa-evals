@@ -12,5 +12,6 @@ Source anchor: `mechanics/recurrence/parts/memory-recall`.
 ```bash
 python scripts/validate_repo.py --eval aoa-memo-recall-integrity
 python -m pytest -q mechanics/recurrence/parts/memory-recall/tests/test_memo_recall_phase_alpha_report.py
-python scripts/build_catalog.py --check
 ```
+
+Shared checks live in [VALIDATION.md — Non-mutating checks](../../../../VALIDATION.md#non-mutating-checks).

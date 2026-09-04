@@ -51,7 +51,7 @@ current operating direction `mechanics/agon/DIRECTION.md`; active-to-archive bri
 
 Use the on-demand [VALIDATION.md](VALIDATION.md) route for executable checks.
 
-Run the touched part builder, validator, and test first. For a full Agon pass:
+Run the touched part builder, validator, and test first; use the [VALIDATION.md](VALIDATION.md) route for a full Agon pass.
 
 ## Closeout
 

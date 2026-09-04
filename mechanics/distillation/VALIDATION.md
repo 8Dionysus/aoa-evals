@@ -4,9 +4,6 @@ This on-demand route owns exact local checks for the surrounding source surface.
 
 ## Commands
 
-```bash
-python scripts/validate_repo.py --eval aoa-compost-provenance-preservation
-python scripts/validate_repo.py --eval aoa-memo-reviewed-candidate-adoption-integrity
-python scripts/build_catalog.py --check
-python scripts/validate_repo.py
-```
+Shared checks live in [VALIDATION.md — Non-mutating checks](../../VALIDATION.md#non-mutating-checks).
+Shared checks live in [mechanics/distillation/parts/compost-provenance/VALIDATION.md — Commands](parts/compost-provenance/VALIDATION.md#commands).
+Shared checks live in [mechanics/distillation/parts/runtime-candidate-adoption/VALIDATION.md — Commands](parts/runtime-candidate-adoption/VALIDATION.md#commands).

@@ -14,5 +14,6 @@ python scripts/validate_eval_candidate_packets.py --schema-only
 python scripts/validate_eval_candidate_packets.py mechanics/audit/parts/candidate-readers/packets
 python mechanics/audit/parts/candidate-readers/scripts/generate_runtime_candidate_template_index.py --check
 python mechanics/audit/parts/candidate-readers/scripts/generate_runtime_candidate_intake.py --check
-python scripts/validate_repo.py
 ```
+
+Shared checks live in [VALIDATION.md — Non-mutating checks](../../../../VALIDATION.md#non-mutating-checks).

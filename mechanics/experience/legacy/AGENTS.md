@@ -34,7 +34,7 @@ This district preserves Experience provenance behind the active
 
 Use the on-demand [VALIDATION.md](VALIDATION.md) route for executable checks.
 
-After changing legacy maps, run:
+After changing legacy maps, follow the checks in [VALIDATION.md](VALIDATION.md).
 
 ## Closeout
 

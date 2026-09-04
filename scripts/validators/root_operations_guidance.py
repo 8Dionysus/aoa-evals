@@ -42,7 +42,8 @@ CLOSEOUT_WRITEBACK_INGRESS_DECISION_REQUIRED_TOKENS = (
 CONTRIBUTING_ROUTE_REQUIRED_TOKENS = (
     "Operating Card",
     "public contribution route",
-    "AGENTS.md` owns agent workflow",
+    "`AGENTS.md` owns route and stop-lines",
+    "`docs/operations/RELEASING.md` owns branch, PR, CI, and merge procedure",
     "validation evidence",
     "security handoff",
     "outputs that preserve claim limits",

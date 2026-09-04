@@ -13,6 +13,7 @@ Source anchor: `mechanics/release-support/parts/artifact-bundles`.
 
 ```bash
 python scripts/validate_abyss_machine_report_index_bundle.py
-python scripts/validate_repo.py
-python scripts/release_check.py
 ```
+
+Shared checks live in [VALIDATION.md — Non-mutating checks](../../../../VALIDATION.md#non-mutating-checks).
+Shared checks live in [mechanics/release-support/VALIDATION.md — Commands](../../VALIDATION.md#commands).

@@ -24,7 +24,7 @@ release lane, or topology authority.
 
 Use the on-demand [VALIDATION.md](VALIDATION.md) route for executable checks.
 
-Use:
+Use the focused test-topology route in [VALIDATION.md](VALIDATION.md).
 
 Run broader suites only after the focused topology inventory passes.
 

@@ -8,9 +8,7 @@ Use the `selected-evidence-packets` child validation block there. This file is t
 Source anchor: `mechanics/audit/parts/selected-evidence-packets`.
 
 ## Commands
+The linked owner route retains `python mechanics/audit/parts/candidate-readers/scripts/generate_runtime_candidate_template_index.py --check` for this check.
 
-```bash
-python mechanics/audit/parts/candidate-readers/scripts/generate_runtime_candidate_template_index.py --check
-python mechanics/audit/parts/candidate-readers/scripts/generate_runtime_candidate_intake.py --check
-python scripts/validate_repo.py
-```
+Shared checks live in [VALIDATION.md — Non-mutating checks](../../../../VALIDATION.md#non-mutating-checks).
+Shared checks live in [mechanics/audit/parts/candidate-readers/VALIDATION.md — Commands](../candidate-readers/VALIDATION.md#commands).

@@ -11,6 +11,6 @@ Source anchor: `mechanics/antifragility/parts/posture-review`.
 
 ```bash
 python scripts/validate_repo.py --eval aoa-antifragility-posture
-python scripts/build_catalog.py --check
-python scripts/validate_repo.py
 ```
+
+Shared checks live in [VALIDATION.md — Non-mutating checks](../../../../VALIDATION.md#non-mutating-checks).

@@ -45,7 +45,7 @@ Bottom-up route:
 | part set | `mechanics/<parent>/PARTS.md` | which parts exist and how they relate to inputs, outputs, owner split, stop-lines, and validation |
 | local part contract | `mechanics/<parent>/parts/<part>/README.md` | source surfaces, payload classes, local validation, and part-specific boundaries |
 | payload | `docs/`, `examples/`, `fixtures/`, `schemas/`, `scripts/`, `tests/`, `reports/`, `generated/`, or other part-local payload homes | the actual proof-support material owned by the part |
-| route law | nearest on-demand `VALIDATION.md` | how an agent may edit the surface and what to verify before closeout |
+| route law | nearest `AGENTS.md` | how an agent may edit the surface, which owner and stop-lines apply, and which `VALIDATION.md` procedure to select |
 | evidence class | `mechanics/EVIDENCE_CLUSTERS.md` and `docs/architecture/PROOF_TOPOLOGY.md` | why the parent exists and what authority class the artifact belongs to |
 
 When starting from a payload, recover the nearest part first. When starting from

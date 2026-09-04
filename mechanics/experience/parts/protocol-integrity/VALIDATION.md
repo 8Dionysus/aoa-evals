@@ -11,6 +11,6 @@ Source anchor: `mechanics/experience/parts/protocol-integrity`.
 
 ```bash
 python -m pytest -q mechanics/experience/parts/protocol-integrity/tests/test_experience_protocol_integrity.py
-python scripts/build_catalog.py --check
-python scripts/validate_repo.py
 ```
+
+Shared checks live in [VALIDATION.md — Non-mutating checks](../../../../VALIDATION.md#non-mutating-checks).

@@ -54,4 +54,4 @@ weaker than bundle-local interpretation guidance.
 
 Use the on-demand [VALIDATION.md](VALIDATION.md) route for executable checks.
 
-Use the touched runner or scorer route plus:
+Use the touched runner or scorer route plus the checks in [VALIDATION.md](VALIDATION.md).

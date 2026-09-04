@@ -73,10 +73,10 @@ live PR or GitHub `Repo Validation` state stays owner-visible.
 
 Use the on-demand [VALIDATION.md](VALIDATION.md) route for executable checks.
 
-Run the narrow package route checks:
+Use the narrow package route checks in [VALIDATION.md](VALIDATION.md).
 
-Run generated and sibling checks when the release scope includes those
-surfaces:
+When the release scope includes generated or sibling surfaces, use the
+generated and sibling checks in [VALIDATION.md](VALIDATION.md).
 
 ## Closeout
 

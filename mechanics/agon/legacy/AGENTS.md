@@ -33,7 +33,7 @@ evidence behind the active `mechanics/agon/` package.
 
 Use the on-demand [VALIDATION.md](VALIDATION.md) route for executable checks.
 
-Run the root mechanics checks after changing legacy maps:
+After changing legacy maps, follow the root mechanics checks in [VALIDATION.md](VALIDATION.md).
 
 ## Closeout
 

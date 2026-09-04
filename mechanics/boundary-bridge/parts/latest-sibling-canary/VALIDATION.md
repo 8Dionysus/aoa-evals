@@ -12,5 +12,6 @@ Source anchor: `mechanics/boundary-bridge/parts/latest-sibling-canary`.
 ```bash
 python mechanics/boundary-bridge/parts/latest-sibling-canary/scripts/run_sibling_canary.py --repo-root . --format json
 python -m pytest -q mechanics/boundary-bridge/parts/latest-sibling-canary/tests/test_sibling_canary.py
-python scripts/validate_repo.py
 ```
+
+Shared checks live in [VALIDATION.md — Non-mutating checks](../../../../VALIDATION.md#non-mutating-checks).

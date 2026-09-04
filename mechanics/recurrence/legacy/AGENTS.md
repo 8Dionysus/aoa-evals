@@ -31,7 +31,7 @@ This directory preserves recurrence placement lineage and old insertion notes.
 
 Use the on-demand [VALIDATION.md](VALIDATION.md) route for executable checks.
 
-Run:
+Use the legacy recurrence checks in [VALIDATION.md](VALIDATION.md).
 
 ## Closeout
 

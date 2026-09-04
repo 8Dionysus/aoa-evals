@@ -8,8 +8,6 @@ Use the `spine-overview` child validation block there. This file is the part-loc
 Source anchor: `mechanics/comparison-spine/parts/spine-overview`.
 
 ## Commands
+The linked owner route retains `python scripts/build_catalog.py --check` for this check.
 
-```bash
-python scripts/build_catalog.py --check
-python scripts/validate_repo.py
-```
+Shared checks live in [VALIDATION.md — Non-mutating checks](../../../../VALIDATION.md#non-mutating-checks).

@@ -42,7 +42,7 @@ owning authority class is explicit.
 | Which operation owns this proof support? | `mechanics/README.md` | operation atlas |
 | Why does this route exist? | `docs/decisions/README.md` | durable rationale index |
 | What is the current direction? | `ROADMAP.md` | direction and horizon order |
-| What is executable route law here? | nearest `AGENTS.md` | local edit, validation, and closeout route |
+| Which executable route applies here? | nearest `VALIDATION.md`, selected by the nearest `AGENTS.md` | local procedure, with edit law and closeout limits remaining in the card |
 
 ## Authority Classes By Name
 

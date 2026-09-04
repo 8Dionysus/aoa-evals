@@ -11,5 +11,6 @@ Source anchor: `mechanics/experience/parts/office-release-train`.
 
 ```bash
 python -m pytest -q mechanics/experience/parts/office-release-train/tests
-python scripts/validate_repo.py
 ```
+
+Shared checks live in [VALIDATION.md — Non-mutating checks](../../../../VALIDATION.md#non-mutating-checks).

@@ -11,6 +11,6 @@ Source anchor: `mechanics/experience/parts/adoption-federation`.
 
 ```bash
 python -m pytest -q mechanics/experience/parts/adoption-federation/tests
-python scripts/build_catalog.py --check
-python scripts/validate_repo.py
 ```
+
+Shared checks live in [VALIDATION.md — Non-mutating checks](../../../../VALIDATION.md#non-mutating-checks).

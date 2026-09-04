@@ -10,6 +10,7 @@ Source anchor: `mechanics/audit/parts/integrity-review`.
 ## Commands
 
 ```bash
-python scripts/validate_repo.py
 python -m pytest -q tests/test_runtime_evidence_surfaces.py -k runtime_integrity_review
 ```
+
+Shared checks live in [VALIDATION.md — Non-mutating checks](../../../../VALIDATION.md#non-mutating-checks).

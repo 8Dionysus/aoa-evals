@@ -7,8 +7,6 @@ routing quality, installed parity, or outcomes.
 ## Repository checks
 
 ```bash
-python scripts/validate_repo.py
-python scripts/validate_semantic_agents.py
 python skills/aoa-evals-skills/scripts/eval_contract_packet.py --help
 ```
 
@@ -26,3 +24,5 @@ environment-specific observation:
 ```bash
 skills-ref validate skills/aoa-evals-skills
 ```
+
+Shared checks live in [VALIDATION.md — Non-mutating checks](../VALIDATION.md#non-mutating-checks).

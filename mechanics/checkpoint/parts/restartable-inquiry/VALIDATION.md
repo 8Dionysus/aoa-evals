@@ -8,9 +8,7 @@ Use the `restartable-inquiry` child validation block there. This file is the par
 Source anchor: `mechanics/checkpoint/parts/restartable-inquiry`.
 
 ## Commands
+The linked owner route retains `python mechanics/audit/parts/candidate-readers/scripts/generate_runtime_candidate_template_index.py --check` for this check.
 
-```bash
-python mechanics/audit/parts/candidate-readers/scripts/generate_runtime_candidate_template_index.py --check
-python scripts/build_catalog.py --check
-python scripts/validate_repo.py
-```
+Shared checks live in [VALIDATION.md — Non-mutating checks](../../../../VALIDATION.md#non-mutating-checks).
+Shared checks live in [mechanics/audit/parts/candidate-readers/VALIDATION.md — Commands](../../../audit/parts/candidate-readers/VALIDATION.md#commands).

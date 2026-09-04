@@ -11,7 +11,6 @@ Source anchor: `mechanics/proof-object/parts/eval-authoring`.
 
 ```bash
 python -m pytest -q mechanics/proof-object/parts/eval-authoring/tests
-python scripts/validate_repo.py
-python scripts/build_catalog.py --check
-python scripts/validate_semantic_agents.py
 ```
+
+Shared checks live in [VALIDATION.md — Non-mutating checks](../../../../VALIDATION.md#non-mutating-checks).

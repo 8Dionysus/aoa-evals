@@ -11,6 +11,6 @@ Source anchor: `mechanics/antifragility/parts/repair-proof`.
 
 ```bash
 python scripts/validate_repo.py --eval aoa-repair-boundedness
-python scripts/build_catalog.py --check
-python scripts/validate_repo.py
 ```
+
+Shared checks live in [VALIDATION.md — Non-mutating checks](../../../../VALIDATION.md#non-mutating-checks).

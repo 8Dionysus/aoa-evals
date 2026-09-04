@@ -75,4 +75,4 @@ wording changes:
 use the source-tree topology route recorded in [VALIDATION.md](VALIDATION.md), including the catalog and report-index checks.
 
 For validator, generated contract, report schema, source-tree topology
-validator, or shared proof infrastructure changes:
+validator, or shared proof infrastructure changes, follow the repository-wide route in [VALIDATION.md](VALIDATION.md).

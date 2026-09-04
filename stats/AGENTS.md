@@ -24,9 +24,9 @@ statistical grammar and cross-owner composition remain owned by `aoa-stats`.
 
 Use the on-demand [VALIDATION.md](VALIDATION.md) route for executable checks.
 
-Inspect the owner evidence first:
+Inspect the owner evidence first through the [VALIDATION.md](VALIDATION.md) route.
 
-Then validate the port and its referenced packets with the central owner:
+Then validate the port and its referenced packets with the central owner through the [VALIDATION.md](VALIDATION.md) route.
 
 ## Closeout
 

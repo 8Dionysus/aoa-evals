@@ -4,8 +4,5 @@ This on-demand route owns exact local checks for the surrounding source surface.
 
 ## Commands
 
-```bash
-python scripts/validate_repo.py
-python scripts/validate_semantic_agents.py
-python -m pytest -q tests/test_mechanic_surface_contracts.py -k titan
-```
+Shared checks live in [VALIDATION.md — Non-mutating checks](../../VALIDATION.md#non-mutating-checks).
+Shared checks live in [mechanics/titan/parts/seed-boundary/VALIDATION.md — Commands](parts/seed-boundary/VALIDATION.md#commands).

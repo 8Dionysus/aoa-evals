@@ -66,7 +66,7 @@ source rather than patching generated lookup files.
 Use the on-demand [VALIDATION.md](VALIDATION.md) route for executable checks.
 The route covers `validate_repo.py` and decision-index parity without copying command sequences into this card.
 
-Run the narrow docs checks after editing this lane:
+After editing this lane, follow the narrow docs checks in [VALIDATION.md](VALIDATION.md).
 
 When decision metadata changes, run the local validation route
 before the `--check` form.

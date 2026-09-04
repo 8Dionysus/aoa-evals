@@ -6,10 +6,7 @@ provider view proof authority.
 
 ## Owner-local check
 
-```bash
-python scripts/validate_repo.py
-```
-
+Use the repository [non-mutating checks](../VALIDATION.md#non-mutating-checks).
 ## Cross-owner provider check
 
 Set `AOA_KAG_ROOT` to the exact prepared `aoa-kag` checkout. Its provider

@@ -65,9 +65,9 @@ handoffs that still need a bounded next route.
 
 Use the on-demand [VALIDATION.md](VALIDATION.md) route for executable checks.
 
-After editing source quest records or quest route docs, run:
+After editing source quest records or quest route docs, follow the checks in [VALIDATION.md](VALIDATION.md).
 
-If generated quest outputs are stale, rebuild them through:
+If generated quest outputs are stale, follow the rebuild route in [VALIDATION.md](VALIDATION.md).
 
 Then rerun the checks.
 

@@ -57,7 +57,7 @@ stay outside checked-in agent lanes.
 
 Use the on-demand [VALIDATION.md](VALIDATION.md) route for executable checks.
 
-After editing `.agents/` route surfaces, run:
+After editing `.agents/` route surfaces, follow the [VALIDATION.md](VALIDATION.md) route.
 
 If a lane changes generated readers, bundle contracts, or proof reports, also
 run the owning builder or test for that surface.

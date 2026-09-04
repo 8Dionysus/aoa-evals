@@ -12,5 +12,6 @@ Source anchor: `mechanics/recurrence/parts/stats-regrounding-boundary`.
 ```bash
 python scripts/validate_repo.py --eval aoa-stats-regrounding-boundary-integrity
 python -m pytest -q mechanics/recurrence/parts/stats-regrounding-boundary/tests/test_stats_regrounding_boundary_eval.py
-python scripts/build_catalog.py --check
 ```
+
+Shared checks live in [VALIDATION.md — Non-mutating checks](../../../../VALIDATION.md#non-mutating-checks).

@@ -12,7 +12,7 @@ inspect, rerun, compare, review, or route to its owner.
 | role | public contribution route for bounded proof work |
 | input | eval bundle, proof guide, scorer, fixture, report contract, mechanic support, validation, or public-safety pressure |
 | output | focused PR, owner route, validation evidence, review evidence, or security handoff |
-| owner | this file owns public contribution posture; `AGENTS.md` owns agent workflow, branch, PR, CI, merge, and verification law |
+| owner | this file owns public contribution posture; `AGENTS.md` owns route and stop-lines; `docs/operations/RELEASING.md` owns branch, PR, CI, and merge procedure |
 | next route | nearest owner surface: bundle `EVAL.md`, `eval.yaml`, docs guide, mechanic route card, `scripts/`, `tests/`, or sibling owner |
 | validation | root `VALIDATION.md`, nearest local `VALIDATION.md`, and affected bundle/mechanic route |
 

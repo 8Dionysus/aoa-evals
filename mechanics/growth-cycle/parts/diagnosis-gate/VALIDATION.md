@@ -9,6 +9,6 @@ Use the `diagnosis-gate` child validation block there. This file is the part-loc
 
 ```bash
 python scripts/validate_repo.py --eval aoa-diagnosis-cause-discipline
-python scripts/build_catalog.py --check
-python scripts/validate_repo.py
 ```
+
+Shared checks live in [VALIDATION.md — Non-mutating checks](../../../../VALIDATION.md#non-mutating-checks).

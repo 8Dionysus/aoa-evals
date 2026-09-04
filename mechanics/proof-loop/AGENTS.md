@@ -59,7 +59,7 @@ current operating direction `mechanics/proof-loop/DIRECTION.md`; active-to-archi
 
 Use the on-demand [VALIDATION.md](VALIDATION.md) route for executable checks.
 
-Run:
+Use the proof-loop checks in [VALIDATION.md](VALIDATION.md).
 
 Add owning generated-surface checks when generated readers or candidate intake
 surfaces change.

@@ -6,7 +6,12 @@ import re
 from pathlib import Path
 from typing import Sequence
 
-from validators.common import ValidationIssue, read_text_or_issue
+from validators.common import (
+    ValidationIssue,
+    read_text_or_issue,
+    token_in_route,
+    validation_companion_text,
+)
 
 
 def require_tokens(
@@ -18,8 +23,10 @@ def require_tokens(
     text = read_text_or_issue(repo_root / path_name, issues, root=repo_root)
     if not text:
         return text
+    route_text = validation_companion_text(repo_root / path_name, root=repo_root)
+    search_text = "\n\n".join((text, route_text)) if route_text else text
     for token in tokens:
-        if token not in text:
+        if not token_in_route(token, search_text, companion_text=route_text):
             issues.append(ValidationIssue(path_name, f"file must mention '{token}'"))
     return text
 

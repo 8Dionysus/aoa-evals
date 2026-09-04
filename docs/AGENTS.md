@@ -68,11 +68,11 @@ bundle-local `EVAL.md` and `eval.yaml`.
 
 Use the on-demand [VALIDATION.md](VALIDATION.md) route for executable checks.
 
-Verify docs-only route and meaning changes with:
+Verify docs-only route and meaning changes with the [VALIDATION.md](VALIDATION.md) route.
 
 When docs-map changes touch public eval readers, generated report indexes,
-runtime-candidate readers, or boundary-bridge matrices, add the relevant
-non-mutating checks:
+runtime-candidate readers, or boundary-bridge matrices, use the relevant
+non-mutating checks from [VALIDATION.md](VALIDATION.md).
 
 For mechanic-owned payload docs, use `mechanics/AGENTS.md` and the package card
 before broadening to the root route.

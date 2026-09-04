@@ -8,11 +8,8 @@ Use the `portable-proof-beacons` child validation block there. This file is the 
 Source anchor: `mechanics/recurrence/parts/portable-proof-beacons`.
 
 ## Commands
+The linked owner route retains `python mechanics/audit/parts/candidate-readers/scripts/generate_runtime_candidate_template_index.py --check` for this check.
 
-```bash
-python scripts/validate_repo.py
-python scripts/build_catalog.py --check
-python mechanics/audit/parts/candidate-readers/scripts/generate_runtime_candidate_template_index.py --check
-python mechanics/audit/parts/candidate-readers/scripts/generate_runtime_candidate_intake.py --check
-python mechanics/boundary-bridge/parts/phase-alpha-eval-matrix/scripts/generate_phase_alpha_eval_matrix.py --check
-```
+Shared checks live in [VALIDATION.md — Non-mutating checks](../../../../VALIDATION.md#non-mutating-checks).
+Shared checks live in [mechanics/audit/parts/candidate-readers/VALIDATION.md — Commands](../../../audit/parts/candidate-readers/VALIDATION.md#commands).
+Shared checks live in [mechanics/boundary-bridge/parts/phase-alpha-eval-matrix/VALIDATION.md — Commands](../../../boundary-bridge/parts/phase-alpha-eval-matrix/VALIDATION.md#commands).

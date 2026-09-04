@@ -3,11 +3,17 @@
 from __future__ import annotations
 
 import json
+import re
 from dataclasses import dataclass
 from pathlib import Path
 from typing import Any, Iterable
 
 from jsonschema import Draft202012Validator, SchemaError
+
+
+VALIDATION_LINK_RE = re.compile(
+    r"\[[^\]]*\]\(\s*<?(?P<target>[^)>\s]+VALIDATION\.md(?:#[^)>\s]*)?)>?\s*\)"
+)
 
 
 @dataclass(frozen=True)
@@ -32,13 +38,50 @@ def read_text_or_issue(path: Path, issues: list[ValidationIssue], *, root: Path)
 
 
 def validation_companion_text(path: Path, *, root: Path) -> str:
-    """Read the nearest on-demand validation route for a route card."""
-    if path.name not in {"AGENTS.md", "README.md"}:
+    """Read the explicit on-demand validation route closure for a route card.
+
+    A route-only companion may point to a parent, root, or sibling owner. Follow
+    only explicit repository-local ``VALIDATION.md`` links, stop expansion at
+    the root validation surface, and bound traversal so an unrelated docs link
+    cannot turn validation into repository-wide text search.
+    """
+    if path.name not in {"AGENTS.md", "README.md", "VALIDATION.md"}:
         return ""
-    companion = path.with_name("VALIDATION.md")
+    repo_root = root.resolve()
+    companion = path if path.name == "VALIDATION.md" else path.with_name("VALIDATION.md")
     if not companion.is_file():
         return ""
-    return companion.read_text(encoding="utf-8")
+
+    pending: list[tuple[Path, int]] = [(companion.resolve(), 0)]
+    seen: set[Path] = set()
+    chunks: list[str] = []
+    while pending:
+        current, depth = pending.pop(0)
+        if current in seen or depth > 4:
+            continue
+        try:
+            current.relative_to(repo_root)
+        except ValueError:
+            continue
+        if not current.is_file() or current.name != "VALIDATION.md":
+            continue
+        seen.add(current)
+        text = current.read_text(encoding="utf-8")
+        chunks.append(text)
+        if current == repo_root / "VALIDATION.md":
+            continue
+        for match in VALIDATION_LINK_RE.finditer(text):
+            raw_target = match.group("target").split("#", 1)[0]
+            if "://" in raw_target or raw_target.startswith("/"):
+                continue
+            target = (current.parent / raw_target).resolve()
+            try:
+                target.relative_to(repo_root)
+            except ValueError:
+                continue
+            if target.name == "VALIDATION.md" and target not in seen:
+                pending.append((target, depth + 1))
+    return "\n\n".join(chunks)
 
 
 def token_in_route(token: str, search_text: str, *, companion_text: str = "") -> bool:

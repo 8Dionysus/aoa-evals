@@ -36,7 +36,7 @@ behind the active `mechanics/titan/` package.
 
 Use the on-demand [VALIDATION.md](VALIDATION.md) route for executable checks.
 
-Run:
+Use the legacy Titan checks in [VALIDATION.md](VALIDATION.md).
 
 ## Closeout
 

@@ -11,5 +11,6 @@ Source anchor: `mechanics/distillation/parts/runtime-candidate-adoption`.
 
 ```bash
 python scripts/validate_repo.py --eval aoa-memo-reviewed-candidate-adoption-integrity
-python scripts/build_catalog.py --check
 ```
+
+Shared checks live in [VALIDATION.md — Non-mutating checks](../../../../VALIDATION.md#non-mutating-checks).

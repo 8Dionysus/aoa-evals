@@ -8,9 +8,6 @@ Use the `source-record-contract` child validation block there. This file is the 
 Source anchor: `mechanics/questbook/parts/source-record-contract`.
 
 ## Commands
+The linked owner route retains `python scripts/build_catalog.py --check` for this check.
 
-```bash
-python scripts/build_catalog.py --check
-python scripts/validate_repo.py
-python scripts/validate_semantic_agents.py
-```
+Shared checks live in [VALIDATION.md — Non-mutating checks](../../../../VALIDATION.md#non-mutating-checks).

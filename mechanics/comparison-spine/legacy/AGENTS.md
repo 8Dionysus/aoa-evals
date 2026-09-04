@@ -33,7 +33,7 @@ fixture families.
 
 Use the on-demand [VALIDATION.md](VALIDATION.md) route for executable checks.
 
-Run:
+Use the legacy route-card checks in [VALIDATION.md](VALIDATION.md).
 
 ## Closeout
 

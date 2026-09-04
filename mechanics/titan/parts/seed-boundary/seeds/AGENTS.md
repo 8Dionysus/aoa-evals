@@ -22,8 +22,8 @@ route to later scorer or stronger-owner surfaces.
 | output | seed-defined canary update, validation route, future scorer handoff, or stronger-owner route |
 | owner | this directory owns public-safe seed shape; the seed-boundary part owns the canary contract; stronger owners keep incarnation, summon, memory, runtime, and activation law |
 | next route | parent `parts/AGENTS.md`, seed-boundary README, seed README, Titan canary guides, affected `titan*.yaml`, and `validate_titan_canary_surfaces` |
-| tools | nearest on-demand VALIDATION.md route, root validator, semantic AGENTS validator, and titan canary tests |
-| validation | [local VALIDATION.md](../VALIDATION.md) |
+| tools | parent seed-boundary validation route, root validator, semantic AGENTS validator, and titan canary tests |
+| validation | [seed-boundary VALIDATION.md](../VALIDATION.md) |
 
 ## Boundary Routes
 
@@ -38,7 +38,7 @@ route to later scorer or stronger-owner surfaces.
 
 ## Validation
 
-Use this part's local on-demand [VALIDATION.md](../VALIDATION.md) route.
+Use the parent seed-boundary on-demand [VALIDATION.md](../VALIDATION.md) route.
 Run broader checks through the package route when canary edits affect
 generated, release, or public selection surfaces.
 

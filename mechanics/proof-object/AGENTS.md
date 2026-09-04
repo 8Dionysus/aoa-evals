@@ -71,7 +71,7 @@ Each package keeps current operating direction in `DIRECTION.md`; the active-to-
 
 Use the on-demand [VALIDATION.md](VALIDATION.md) route for executable checks.
 
-Run the narrow package route checks:
+Use the narrow package route checks in [VALIDATION.md](VALIDATION.md).
 
 If the change touches generated runtime candidate, quest, comparison, receipt,
 or phase-alpha surfaces, also run the owning builder or validator.

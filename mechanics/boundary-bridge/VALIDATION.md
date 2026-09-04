@@ -4,10 +4,6 @@ This on-demand route owns exact local checks for the surrounding source surface.
 
 ## Commands
 
-```bash
-python scripts/validate_repo.py
-python scripts/build_catalog.py --check
-python mechanics/boundary-bridge/parts/latest-sibling-canary/scripts/run_sibling_canary.py --repo-root . --format json
-python mechanics/boundary-bridge/parts/phase-alpha-eval-matrix/scripts/generate_phase_alpha_eval_matrix.py --check
-python scripts/validate_semantic_agents.py
-```
+Shared checks live in [VALIDATION.md — Non-mutating checks](../../VALIDATION.md#non-mutating-checks).
+Shared checks live in [mechanics/boundary-bridge/parts/latest-sibling-canary/VALIDATION.md — Commands](parts/latest-sibling-canary/VALIDATION.md#commands).
+Shared checks live in [mechanics/boundary-bridge/parts/phase-alpha-eval-matrix/VALIDATION.md — Commands](parts/phase-alpha-eval-matrix/VALIDATION.md#commands).

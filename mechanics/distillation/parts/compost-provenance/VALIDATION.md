@@ -11,5 +11,6 @@ Source anchor: `mechanics/distillation/parts/compost-provenance`.
 
 ```bash
 python scripts/validate_repo.py --eval aoa-compost-provenance-preservation
-python scripts/build_catalog.py --check
 ```
+
+Shared checks live in [VALIDATION.md — Non-mutating checks](../../../../VALIDATION.md#non-mutating-checks).

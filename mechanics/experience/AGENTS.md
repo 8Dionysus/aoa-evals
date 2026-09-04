@@ -46,7 +46,7 @@ current operating direction `mechanics/experience/DIRECTION.md`; active-to-archi
 
 Use the on-demand [VALIDATION.md](VALIDATION.md) route for executable checks.
 
-Run the part-local tests for the touched part and then:
+Run the part-local tests for the touched part, then follow the [VALIDATION.md](VALIDATION.md) route.
 
 ## Closeout
 

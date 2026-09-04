@@ -11,6 +11,6 @@ Source anchor: `mechanics/method-growth/parts/candidate-lineage`.
 
 ```bash
 python scripts/validate_repo.py --eval aoa-candidate-lineage-integrity
-python scripts/build_catalog.py --check
-python scripts/validate_repo.py
 ```
+
+Shared checks live in [VALIDATION.md — Non-mutating checks](../../../../VALIDATION.md#non-mutating-checks).

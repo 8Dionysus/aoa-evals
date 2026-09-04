@@ -23,7 +23,9 @@ This district preserves Growth Cycle provenance behind the active
 
 ## Route Rules
 
-- Start from `../README.md`, `../PARTS.md`, and `../PROVENANCE.md`.
+- When historical placement or package context is material, consult
+  `../README.md`, `../PARTS.md`, and `../PROVENANCE.md` before the legacy
+  accounting files.
 - Place current Growth Cycle work in the active parent or owning part.
 - Treat deferred closeout, harvest, repair, progression, and quest pressure as
   historical input that maps back to active topology.
@@ -34,7 +36,7 @@ This district preserves Growth Cycle provenance behind the active
 
 Use the on-demand [VALIDATION.md](VALIDATION.md) route for executable checks.
 
-Run root validation after editing:
+After editing, follow the root validation route in [VALIDATION.md](VALIDATION.md).
 
 ## Closeout
 

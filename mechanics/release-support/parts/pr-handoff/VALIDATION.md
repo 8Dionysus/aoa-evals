@@ -11,6 +11,7 @@ Source anchor: `mechanics/release-support/parts/pr-handoff`.
 
 ```bash
 python -m pytest -q mechanics/release-support/parts/pr-handoff/tests/test_release_prep_pr_handoff.py
-python scripts/validate_repo.py
-python scripts/release_check.py
 ```
+
+Shared checks live in [VALIDATION.md — Non-mutating checks](../../../../VALIDATION.md#non-mutating-checks).
+Shared checks live in [mechanics/release-support/VALIDATION.md — Commands](../../VALIDATION.md#commands).

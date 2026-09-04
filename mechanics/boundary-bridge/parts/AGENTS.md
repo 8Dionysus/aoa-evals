@@ -14,7 +14,7 @@ Parts are operation nodes. They route part contracts, payload homes, source surf
 
 Use the on-demand [VALIDATION.md](VALIDATION.md) route for executable checks.
 
-Run the parent validation lane first when part topology or route shape changes:
+For part topology or route shape changes, use the parent [VALIDATION.md](../VALIDATION.md) lane first.
 
 ## Closeout
 

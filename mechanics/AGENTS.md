@@ -83,17 +83,17 @@ Read only the route needed for the touched source: consult the nearest README wh
 
 Use the on-demand [VALIDATION.md](VALIDATION.md) route for executable checks.
 
-After package route changes, run:
+After package route changes, follow the [VALIDATION.md](VALIDATION.md) route.
 
 If the changed package touches generated quest readers, catalogs, report
 indexes, runtime-candidate readers, or boundary-bridge matrices, add the owning
-builder check named by the package card, commonly:
+builder check named by the package card, commonly through the [VALIDATION.md](VALIDATION.md) route.
 
 Run package-specific builders or checks named in the package card before the
 broader mechanics lane.
 
 Focused mechanic topology checks live in this lane when the changed source
-surface names a narrower guard:
+surface names a narrower guard, use the corresponding check in [VALIDATION.md](VALIDATION.md).
 
 ## Closeout
 

@@ -45,9 +45,9 @@ current operating direction `mechanics/rpg/DIRECTION.md`; active-to-archive brid
 
 Use the on-demand [VALIDATION.md](VALIDATION.md) route for executable checks.
 
-Run the root validation after changing this package:
+After changing this package, follow the root validation route in [VALIDATION.md](VALIDATION.md).
 
-If quest owner surfaces or generated quest projections change, rebuild first:
+If quest owner surfaces or generated quest projections change, follow the rebuild route in [VALIDATION.md](VALIDATION.md) first.
 
 ## Closeout
 

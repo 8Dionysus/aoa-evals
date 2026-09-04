@@ -58,7 +58,7 @@ Read only what matches the job.
 | Mechanics or payload movement | [mechanics/EVIDENCE_CLUSTERS.md](mechanics/EVIDENCE_CLUSTERS.md), then the owning mechanic |
 | Legacy, provenance, or accepted-input vocabulary | [docs/architecture/LEGACY_NAMING.md](docs/architecture/LEGACY_NAMING.md) |
 | Decision rationale | [docs/decisions/README.md](docs/decisions/README.md) |
-| Executable validation route | root [VALIDATION.md](VALIDATION.md), then the nearest local [VALIDATION.md](VALIDATION.md) |
+| Executable validation route | root [VALIDATION.md](VALIDATION.md), then the nearest path-specific `VALIDATION.md` after the owner lane is selected |
 
 Maintained agent lane routing is under [.agents/AGENTS.md](.agents/AGENTS.md)
 and [.agents/spark/AGENTS.md](.agents/spark/AGENTS.md).
@@ -75,7 +75,7 @@ that can answer the question.
 | Which repeatable operation owns the movement? | [mechanics/README.md](mechanics/README.md), then the parent mechanic |
 | Which guide or evidence anchor explains the route? | [docs/README.md](docs/README.md) |
 | Is memory context involved? | `aoa-evals` can cite reviewed recall as bounded context from reviewed `aoa-memo` object ids and provenance; local `memo/` can hold write-candidate-only proof-layer memory; proof authority stays with the eval bundle or owning mechanic |
-| How should the change close? | nearest `AGENTS.md` validation lane |
+| How should the change close? | nearest `AGENTS.md` selects scope and stop-lines; nearest `VALIDATION.md` owns procedure |
 
 ## Current Contour
 
@@ -111,7 +111,8 @@ surfaces. Active payloads live with the owning bundle or mechanic.
 ## Validation
 
 Executable validation routes live in root [VALIDATION.md](VALIDATION.md) and
-the nearest local [VALIDATION.md](VALIDATION.md).
+the nearest path-specific `VALIDATION.md`; the latter is selected only after
+the owner lane is known.
 
 For bundle edits, start with [evals/AGENTS](evals/AGENTS.md). For generated
 reader parity, start with [generated/AGENTS](generated/AGENTS.md). For proof

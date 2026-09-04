@@ -11,6 +11,6 @@ Source anchor: `mechanics/boundary-bridge/parts/phase-alpha-eval-matrix`.
 
 ```bash
 python mechanics/boundary-bridge/parts/phase-alpha-eval-matrix/scripts/generate_phase_alpha_eval_matrix.py --check
-python scripts/validate_repo.py
-python scripts/validate_semantic_agents.py
 ```
+
+Shared checks live in [VALIDATION.md — Non-mutating checks](../../../../VALIDATION.md#non-mutating-checks).

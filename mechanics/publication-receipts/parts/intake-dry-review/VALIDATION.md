@@ -11,5 +11,6 @@ Source anchor: `mechanics/publication-receipts/parts/intake-dry-review`.
 
 ```bash
 python -m pytest -q mechanics/publication-receipts/parts/intake-dry-review/tests/test_receipt_intake_dry_review.py
-python scripts/validate_repo.py
 ```
+
+Shared checks live in [VALIDATION.md — Non-mutating checks](../../../../VALIDATION.md#non-mutating-checks).

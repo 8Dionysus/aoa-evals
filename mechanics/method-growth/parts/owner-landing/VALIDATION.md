@@ -11,6 +11,6 @@ Source anchor: `mechanics/method-growth/parts/owner-landing`.
 
 ```bash
 python scripts/validate_repo.py --eval aoa-owner-fit-routing-quality
-python scripts/build_catalog.py --check
-python scripts/validate_repo.py
 ```
+
+Shared checks live in [VALIDATION.md — Non-mutating checks](../../../../VALIDATION.md#non-mutating-checks).

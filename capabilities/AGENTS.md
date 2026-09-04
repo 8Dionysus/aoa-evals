@@ -31,7 +31,7 @@ runtime state, or generated graph authority.
 
 Use the on-demand [VALIDATION.md](VALIDATION.md) route for executable checks.
 
-From the matching `aoa-skills` checkout, run:
+From the matching `aoa-skills` checkout, follow the owner validation route in [VALIDATION.md](VALIDATION.md).
 
 Green structure checks do not prove routing, proof meaning, safety, or outcome
 benefit. Manual isolated, negative, held-out, coexistence, and composed cases

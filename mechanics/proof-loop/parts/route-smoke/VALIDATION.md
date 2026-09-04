@@ -10,7 +10,7 @@ Source anchor: `mechanics/proof-loop/parts/route-smoke`.
 ## Commands
 
 ```bash
-python scripts/validate_repo.py
-python scripts/validate_semantic_agents.py
 python -m pytest -q tests/test_validate_repo.py -k proof_loop
 ```
+
+Shared checks live in [VALIDATION.md — Non-mutating checks](../../../../VALIDATION.md#non-mutating-checks).

@@ -82,10 +82,10 @@ Each package keeps current operating direction in `DIRECTION.md`; the active-to-
 
 Use the on-demand [VALIDATION.md](VALIDATION.md) route for executable checks.
 
-Run the narrow package route checks:
+Use the narrow package route checks in [VALIDATION.md](VALIDATION.md).
 
 When scorer, schema, catalog, or validator logic changes, run the focused
-part-local scorer route:
+part-local scorer route in [parts/reportable-contracts/VALIDATION.md](parts/reportable-contracts/VALIDATION.md).
 
 ## Closeout
 

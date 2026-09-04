@@ -60,4 +60,4 @@ from this public regression mesh.
 
 Use the on-demand [VALIDATION.md](VALIDATION.md) route for executable checks.
 
-Run:
+Use the test and semantic-validator checks in [VALIDATION.md](VALIDATION.md).

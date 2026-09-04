@@ -73,7 +73,7 @@ before any additional root path becomes mechanic-owned payload:
 | --- | --- | --- |
 | `mechanics/EVIDENCE_CLUSTERS.md` | mechanics evidence gate | Root District Reconnaissance Ledger, residual root-authored surface classification for every unclassified root-authored surface, mechanic-owned payload routes, and validation guards |
 | `docs/architecture/AGENT_INDEX.md` | agent-facing pass-through reader | path name -> authority class -> stronger owner surface |
-| nearest `AGENTS.md` | route law | editing law, command lane, validation posture, and closeout route |
+| nearest `AGENTS.md` | route law | editing law, validation selection, stop-lines, and closeout route; executable procedure stays in `VALIDATION.md` |
 | source eval package or mechanic part | stronger owner surface | bundle meaning, payload ownership, part-local contracts, and proof interpretation |
 
 | District | Current role | Current posture |

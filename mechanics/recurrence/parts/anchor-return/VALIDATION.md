@@ -11,5 +11,6 @@ Source anchor: `mechanics/recurrence/parts/anchor-return`.
 
 ```bash
 python scripts/validate_repo.py --eval aoa-return-anchor-integrity
-python scripts/build_catalog.py --check
 ```
+
+Shared checks live in [VALIDATION.md — Non-mutating checks](../../../../VALIDATION.md#non-mutating-checks).

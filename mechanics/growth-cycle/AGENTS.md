@@ -47,9 +47,9 @@ current operating direction `mechanics/growth-cycle/DIRECTION.md`; active-to-arc
 
 Use the on-demand [VALIDATION.md](VALIDATION.md) route for executable checks.
 
-Run the affected bundle validation first:
+Follow the affected bundle validation route in [VALIDATION.md](VALIDATION.md) first.
 
-When package route, source-of-truth surfaces, or generated readers change, run:
+When package route, source-of-truth surfaces, or generated readers change, follow the [VALIDATION.md](VALIDATION.md) route.
 
 ## Closeout
 

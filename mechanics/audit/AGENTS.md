@@ -43,10 +43,10 @@ current operating direction `mechanics/audit/DIRECTION.md`; active-to-archive br
 
 Use the on-demand [VALIDATION.md](VALIDATION.md) route for executable checks.
 
-Run:
+Use the audit and candidate-reader checks in [VALIDATION.md](VALIDATION.md).
 
 If source examples changed and generated readers are intentionally refreshed,
-rebuild them before rerunning the checks:
+use the rebuild route in [VALIDATION.md](VALIDATION.md) before rerunning the checks.
 
 ## Closeout
 

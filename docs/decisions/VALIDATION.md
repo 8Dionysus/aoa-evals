@@ -6,6 +6,6 @@ This on-demand route owns exact local checks for the surrounding source surface.
 
 ```bash
 python scripts/generate_decision_indexes.py --check
-python scripts/validate_repo.py
-python scripts/validate_semantic_agents.py
 ```
+
+Shared checks live in [VALIDATION.md — Non-mutating checks](../../VALIDATION.md#non-mutating-checks).

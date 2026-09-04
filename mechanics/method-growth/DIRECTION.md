@@ -42,4 +42,4 @@ proof pressure routes through the current stronger owner split first.
 
 ## Validation
 
-Use the validation lane in [mechanics/method-growth/AGENTS.md](AGENTS.md#validation).
+Use the validation lane in [mechanics/method-growth/VALIDATION.md](VALIDATION.md).

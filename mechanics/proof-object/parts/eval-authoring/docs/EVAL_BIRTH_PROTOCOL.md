@@ -18,7 +18,7 @@ new draft source proof object.
 | output | existing bundle route, candidate evidence route, quest route, forge design worksheet, or explicit new draft scaffold |
 | owner | this part owns authoring support; `evals/**/EVAL.md` and `eval.yaml` own source proof meaning |
 | next route | `EVAL_SELECTION.md`, `EVAL_INDEX.md`, generated catalog, audit candidate packets, `QUESTBOOK.md`, or source eval bundle |
-| validation | parent `mechanics/proof-object/parts/AGENTS.md#validation` |
+| validation | local `mechanics/proof-object/parts/eval-authoring/VALIDATION.md` |
 
 ## Route Ladder
 

@@ -13,7 +13,7 @@ artifacts.
 | output | owning bundle report, mechanic report family, receipt dry review, or generated reader route |
 | owner | `reports/AGENTS.md` for route law; owning bundle or mechanic part for report meaning |
 | next route | bundle-local `reports/`, `mechanics/*/parts/*/reports/`, or `generated/eval_report_index.min.json` |
-| validation | `reports/AGENTS.md` and the owning route card |
+| validation | `reports/VALIDATION.md` and the owning route card |
 
 Active root reports payloads route to the owning bundle or mechanic part.
 

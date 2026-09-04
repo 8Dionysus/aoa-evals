@@ -21,21 +21,8 @@ and sibling repositories keep stronger proof meaning and owner truth.
 | output | part-local fixture family route, bundle-local contract alignment, generated catalog check, or stronger-owner handoff |
 | owner | this part owns reusable public-safe support; source bundles and active mechanics own proof meaning |
 | next route | parent `parts/AGENTS.md`, parent `PARTS.md`, this part `README.md`, affected family README, affected `evals/**/EVAL.md`, and affected `evals/**/fixtures/contract.json` |
-| tools | parent centralized child validation, root validator, semantic AGENTS validator, and catalog builder |
-| validation | [parent parts/AGENTS.md](../AGENTS.md#centralized-child-validation) |
-
-## Read before editing
-
-1. repository root `AGENTS.md`
-2. `DESIGN.md`
-3. `docs/architecture/PROOF_TOPOLOGY.md`
-4. `mechanics/EVIDENCE_CLUSTERS.md`
-5. `mechanics/proof-infra/README.md`
-6. `mechanics/proof-infra/PARTS.md`
-7. `mechanics/proof-infra/parts/AGENTS.md`
-8. `mechanics/proof-infra/parts/fixture-families/README.md`
-9. affected `evals/**/EVAL.md`
-10. affected `evals/**/fixtures/contract.json`
+| tools | nearest on-demand VALIDATION.md route, root validator, semantic AGENTS validator, and catalog builder |
+| validation | [VALIDATION.md](VALIDATION.md) |
 
 ## Boundary Routes
 
@@ -49,8 +36,9 @@ and sibling repositories keep stronger proof meaning and owner truth.
 
 ## Validation
 
-Use the centralized child validation lane in
-[parent parts/AGENTS.md](../AGENTS.md#centralized-child-validation).
+Use the on-demand [VALIDATION.md](VALIDATION.md) route for executable checks.
+
+Use this part's local on-demand VALIDATION.md route.
 Route targeted bundle validation through the affected bundle's nearest
 `AGENTS.md` when a bundle fixture contract changes.
 

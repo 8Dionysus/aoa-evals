@@ -14,6 +14,7 @@
 - [AOA-EV-D-0108 Docs Topology Folders And Route Residue Guards](../AOA-EV-D-0108-docs-topology-folders-and-route-residue-guards.md) (`docs/decisions/AOA-EV-D-0108-docs-topology-folders-and-route-residue-guards.md`)
 - [AOA-EV-D-0109 Validator Orchestrator Domain Modules](../AOA-EV-D-0109-validator-orchestrator-domain-modules.md) (`docs/decisions/AOA-EV-D-0109-validator-orchestrator-domain-modules.md`)
 - [AOA-EV-D-0115 Validation Lane Command Authority](../AOA-EV-D-0115-validation-lane-command-authority.md) (`docs/decisions/AOA-EV-D-0115-validation-lane-command-authority.md`)
+- [AOA-EV-D-0256 Prompt-light Agent Routes and On-demand Validation](../AOA-EV-D-0256-prompt-light-agent-routes-and-on-demand-validation.md) (`docs/decisions/AOA-EV-D-0256-prompt-light-agent-routes-and-on-demand-validation.md`)
 
 ## parent and package
 
@@ -58,6 +59,7 @@
 - [AOA-EV-D-0105 Proof-object Eval Part Names](../AOA-EV-D-0105-proof-object-eval-part-names.md) (`docs/decisions/AOA-EV-D-0105-proof-object-eval-part-names.md`)
 - [AOA-EV-D-0112 Route-First Eval Birth Protocol](../AOA-EV-D-0112-route-first-eval-birth-protocol.md) (`docs/decisions/AOA-EV-D-0112-route-first-eval-birth-protocol.md`)
 - [AOA-EV-D-0113 aoa-memo Writeback Decision Quality Eval](../AOA-EV-D-0113-aoa-memo-writeback-decision-quality-eval.md) (`docs/decisions/AOA-EV-D-0113-aoa-memo-writeback-decision-quality-eval.md`)
+- [AOA-EV-D-0256 Prompt-light Agent Routes and On-demand Validation](../AOA-EV-D-0256-prompt-light-agent-routes-and-on-demand-validation.md) (`docs/decisions/AOA-EV-D-0256-prompt-light-agent-routes-and-on-demand-validation.md`)
 
 ## legacy and provenance
 
@@ -536,6 +538,7 @@
 - [AOA-EV-D-0241 Local Eval Port Write-Side MCP](../AOA-EV-D-0241-local-eval-port-write-side-mcp.md) (`docs/decisions/AOA-EV-D-0241-local-eval-port-write-side-mcp.md`)
 - [AOA-EV-D-0247 aoa-evals-skills Owner Skill Bundle](../AOA-EV-D-0247-aoa-evals-owner-skill-bundle.md) (`docs/decisions/AOA-EV-D-0247-aoa-evals-owner-skill-bundle.md`)
 - [AOA-EV-D-0254 Validation-routing Peer-comparison Support](../AOA-EV-D-0254-validation-routing-peer-comparison-support.md) (`docs/decisions/AOA-EV-D-0254-validation-routing-peer-comparison-support.md`)
+- [AOA-EV-D-0256 Prompt-light Agent Routes and On-demand Validation](../AOA-EV-D-0256-prompt-light-agent-routes-and-on-demand-validation.md) (`docs/decisions/AOA-EV-D-0256-prompt-light-agent-routes-and-on-demand-validation.md`)
 
 ## trace/eval
 

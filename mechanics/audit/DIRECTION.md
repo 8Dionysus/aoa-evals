@@ -48,4 +48,4 @@ rejected-overclaim posture before they can shape an audit part.
 
 ## Validation
 
-Use the validation lane in [mechanics/audit/AGENTS.md](AGENTS.md#validation).
+Use the validation lane in [mechanics/audit/VALIDATION.md](VALIDATION.md).

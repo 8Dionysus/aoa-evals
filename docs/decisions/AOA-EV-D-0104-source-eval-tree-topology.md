@@ -113,6 +113,6 @@ shape.
 
 ## Validation
 
-Current executable checks are owned by
+Executable checks use the on-demand `VALIDATION.md` route. Current executable checks are owned by
 `docs/validation/COMMAND_AUTHORITY.md`; the source-tree topology path for this
 decision is in [evals/AGENTS.md#validation](../../evals/AGENTS.md#validation).

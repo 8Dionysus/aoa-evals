@@ -34,6 +34,6 @@ stronger owner for verdict authority.
 
 ## Validation
 
-Use the part `VALIDATION.md` route and parent `parts/AGENTS.md` child validation
-block. The registry should make malformed draft effects visible while remaining
+Use the part `VALIDATION.md` route. The registry should make malformed draft
+effects visible while remaining
 below Agon verdict law.

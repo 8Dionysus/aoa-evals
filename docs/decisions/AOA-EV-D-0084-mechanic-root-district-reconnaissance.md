@@ -100,6 +100,8 @@ As of 2026-05-24:
   `evals/<claim-family>/<eval-name>/`.
 - Superseded by: 0104 only for active source eval tree placement. This decision
   still owns the mechanics root-district evidence ledger rationale.
+- Focused checks are exposed through the on-demand [VALIDATION.md](../../VALIDATION.md)
+  route rather than inherited command blocks.
 
 ## Review Log
 

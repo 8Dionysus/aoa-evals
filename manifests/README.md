@@ -13,7 +13,7 @@ paths.
 | output | owning mechanic part manifest route or documented repo-wide manifest decision |
 | owner | `manifests/AGENTS.md` for route law; owning mechanic part for manifest meaning |
 | next route | Agon manifests, recurrence control-plane manifests, portable-proof-beacon manifests, or `docs/architecture/PROOF_TOPOLOGY.md` |
-| validation | `manifests/AGENTS.md` and the owning mechanic route card |
+| validation | `manifests/VALIDATION.md` and the owning mechanic route card |
 
 Active root manifest payloads route next to the mechanic part whose operation
 they describe:

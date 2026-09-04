@@ -112,7 +112,7 @@ MECHANIC_ROOT_DISTRICT_RECON_DECISION_REQUIRED_TOKENS = (
     "mechanics",
     "route-card-only",
     "mechanic-owned payload",
-    "mechanics/AGENTS.md#validation",
+    "on-demand [VALIDATION.md]",
 )
 
 
@@ -227,9 +227,14 @@ def validate_mechanic_root_district_recon_surfaces(
     _require_tokens(
         repo_root=repo_root,
         path_name=MECHANICS_AGENTS_NAME,
-        tokens=("Focused mechanic topology checks", MECHANIC_ROOT_DISTRICT_RECON_COMMAND),
+        tokens=("Focused mechanic topology checks", "on-demand [VALIDATION.md]"),
         issues=issues,
     )
+    validation_path = repo_root / "mechanics" / "VALIDATION.md"
+    if not validation_path.is_file():
+        issues.append(ValidationIssue("mechanics/VALIDATION.md", "mechanics validation route is missing"))
+    elif MECHANIC_ROOT_DISTRICT_RECON_COMMAND not in validation_path.read_text(encoding="utf-8"):
+        issues.append(ValidationIssue("mechanics/VALIDATION.md", f"mechanics validation route must mention {MECHANIC_ROOT_DISTRICT_RECON_COMMAND}"))
     _require_tokens(
         repo_root=repo_root,
         path_name=PROOF_TOPOLOGY_NAME,

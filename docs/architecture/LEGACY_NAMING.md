@@ -26,7 +26,7 @@ vocabulary?
 | owner | this guide owns posture vocabulary; active mechanic surfaces own concrete legacy archive details through `PROVENANCE.md` |
 | next route | `mechanics/EVIDENCE_CLUSTERS.md`, `docs/architecture/PROOF_TOPOLOGY.md`, nearest parent `README.md`/`DIRECTION.md`/`PARTS.md`, package `PROVENANCE.md`, then archive-local legacy surfaces |
 | tools | root validator, semantic AGENTS validator, and focused legacy naming tests in `tests/test_validate_repo.py` |
-| validation | [docs/AGENTS.md#validation](../AGENTS.md#validation) and root [AGENTS.md#verify](../../AGENTS.md#verify) |
+| validation | nearest on-demand `VALIDATION.md` and root [VALIDATION.md](../../VALIDATION.md) |
 
 ## Active-first Route
 
@@ -159,5 +159,5 @@ These phrases name validation guard domains for active route residue.
 ## Validation
 
 Executable checks for legacy naming posture live in
-[docs/AGENTS.md#validation](../AGENTS.md#validation) and root
-[AGENTS.md#verify](../../AGENTS.md#verify).
+[nearest on-demand `VALIDATION.md`](../VALIDATION.md) and root
+[VALIDATION.md](../../VALIDATION.md).

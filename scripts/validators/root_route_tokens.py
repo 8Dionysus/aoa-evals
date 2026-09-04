@@ -7,7 +7,7 @@ from pathlib import Path
 from typing import Iterable, Sequence
 
 from validators import decision_index_paths
-from validators.common import ValidationIssue, read_text_or_issue
+from validators.common import ValidationIssue, read_text_or_issue, token_in_route, validation_companion_text
 
 PROOF_TOPOLOGY_NAME = "docs/architecture/PROOF_TOPOLOGY.md"
 ROUTE_RESIDUE_GUARDS_NAME = "docs/architecture/ROUTE_RESIDUE_GUARDS.md"
@@ -55,10 +55,10 @@ def mechanic_parent_validation_route_text(repo_root: Path, readme_name: str) -> 
         return ""
 
     parent_name = match.group(1)
-    agents_path = repo_root / "mechanics" / parent_name / "AGENTS.md"
-    if not agents_path.is_file():
+    validation_path = repo_root / "mechanics" / parent_name / "VALIDATION.md"
+    if not validation_path.is_file():
         return ""
-    return agents_path.read_text(encoding="utf-8")
+    return validation_path.read_text(encoding="utf-8")
 
 
 def part_validation_route_text(repo_root: Path, readme_name: str) -> str:
@@ -74,13 +74,6 @@ def part_validation_route_text(repo_root: Path, readme_name: str) -> str:
     validation_path = repo_root / validation_name
     if validation_path.is_file():
         chunks.append(validation_path.read_text(encoding="utf-8"))
-
-    agents_path = repo_root / "mechanics" / parent_name / "parts" / "AGENTS.md"
-    if agents_path.is_file():
-        agents_text = agents_path.read_text(encoding="utf-8")
-        child_section = markdown_heading_section(agents_text, f"`{validation_name}`")
-        if child_section:
-            chunks.append(child_section)
 
     return "\n\n".join(chunks)
 
@@ -128,7 +121,10 @@ def require_tokens(
                     mechanic_parent_validation_route_text(repo_root, path_name),
                 )
             )
-        if token not in search_text:
+        route_text = validation_companion_text(repo_root / path_name, root=repo_root)
+        if route_text:
+            search_text = "\n\n".join((search_text, route_text))
+        if not token_in_route(token, search_text, companion_text=route_text):
             issues.append(ValidationIssue(path_name, f"file must mention '{token}'"))
     return text
 

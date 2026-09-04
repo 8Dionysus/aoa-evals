@@ -22,22 +22,11 @@ active `mechanics/proof-infra/` package.
 | validation | Run the Validation commands after route-card, provenance, index, log, or raw changes. |
 
 ## Read before editing
-
-1. repository root `AGENTS.md`
-2. `mechanics/AGENTS.md`
-3. `../AGENTS.md`
-4. `../README.md`
-5. `../DIRECTION.md`
-6. `../PARTS.md`
-7. `../PROVENANCE.md`
-8. `docs/architecture/LEGACY_NAMING.md`
-9. `INDEX.md`
-10. `DISTILLATION_LOG.md`
-
+Read only the route needed for the touched source; consult the nearest README when its human or semantic contract is required, then follow source-owner and validation routes conditionally.
 ## Route Rules
 
-- Start from `mechanics/proof-infra/README.md` and `PARTS.md` before reading
-  legacy.
+- When historical placement or package context is material, consult
+  `../README.md` and `PARTS.md` before the legacy accounting files.
 - Keep old root paths mapped to current active routes.
 - Place current fixture-family contracts, bundle meaning, and generated truth
   in the active parent or owning part.
@@ -45,12 +34,9 @@ active `mechanics/proof-infra/` package.
 
 ## Validation
 
-Run after changing legacy maps:
+Use the on-demand [VALIDATION.md](VALIDATION.md) route for executable checks.
 
-```bash
-python scripts/validate_repo.py
-python scripts/validate_semantic_agents.py
-```
+After changing legacy maps, follow the checks in [VALIDATION.md](VALIDATION.md).
 
 ## Closeout
 

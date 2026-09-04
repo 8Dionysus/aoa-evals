@@ -14,8 +14,8 @@ home, owner route, tool lane, and validation lane.
 | output | artifact-bundle route, readiness audit route, strategic closeout route, PR handoff route, release-route review artifact, or live owner-evidence handoff |
 | owner | root release entrypoints stay in root/docs/scripts/GitHub lanes; release-support parts own state artifacts; bundle claims stay with source proof surfaces |
 | next route | `mechanics/release-support/PARTS.md`, selected part README, root release entrypoint, GitHub evidence, source bundle, and parent validation lane |
-| tools | release check, repo validator, semantic AGENTS validator, GitHub validation, and focused release-support checks through `mechanics/release-support/AGENTS.md#validation` |
-| validation | `mechanics/release-support/parts/AGENTS.md#validation` and `mechanics/release-support/AGENTS.md#validation` |
+| tools | release check, repo validator, semantic AGENTS validator, GitHub validation, and focused release-support checks through `mechanics/release-support/VALIDATION.md` |
+| validation | `mechanics/release-support/parts/VALIDATION.md` and `mechanics/release-support/VALIDATION.md` |
 
 ## Active Parts
 

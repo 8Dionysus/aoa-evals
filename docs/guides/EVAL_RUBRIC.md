@@ -19,7 +19,7 @@ See also:
 | output | field interpretation, evidence floor, review route, export posture, or bounded metadata repair |
 | owner | this guide owns metadata semantics; schemas validate shape; bundle-local files and review notes own concrete claims |
 | next route | `docs/guides/EVAL_REVIEW_GUIDE.md`, `docs/guides/SCORE_SEMANTICS_GUIDE.md`, `mechanics/proof-object/parts/eval-contracts/schemas/eval-manifest.schema.json`, generated catalog builders, or the affected bundle |
-| validation | `docs/AGENTS.md#validation` |
+| validation | `docs/VALIDATION.md` |
 
 ## Metadata And Canonical Review
 

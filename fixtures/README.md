@@ -13,7 +13,7 @@ families in `aoa-evals`.
 | output | proof-infra fixture family, comparison-spine fixture, recurrence fixture, method-growth fixture, or owning mechanic route |
 | owner | `fixtures/AGENTS.md` for route law; owning mechanic part for active fixture meaning |
 | next route | `mechanics/proof-infra/parts/fixture-families/fixtures/` or the domain mechanic part named below |
-| validation | `fixtures/AGENTS.md` and the owning part route card |
+| validation | `fixtures/VALIDATION.md` and the owning part route card |
 
 Active fixture families live under the owning mechanic part.
 

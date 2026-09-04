@@ -52,7 +52,7 @@ DOCS_README_ROUTE_MAP_REQUIRED_TOKENS = (
     "Recommended Reading Paths",
     "Mechanics Refactor Path",
     "Validation Route",
-    "docs/AGENTS.md#validation",
+    "docs/VALIDATION.md",
 )
 DOCS_README_ROUTE_MAP_FORBIDDEN_TOKENS = (
     "[Mechanics](../mechanics/README.md)",
@@ -120,7 +120,7 @@ def validate_docs_readme_route_map(repo_root: Path) -> list[ValidationIssue]:
         issues.append(
             ValidationIssue(
                 "docs/README.md",
-                "docs route map must route executable validation commands to docs/AGENTS.md instead of carrying command blocks",
+                "docs route map must route executable validation commands to docs/VALIDATION.md instead of carrying command blocks",
             )
         )
 

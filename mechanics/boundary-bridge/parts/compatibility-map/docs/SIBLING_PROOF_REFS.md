@@ -48,7 +48,7 @@ The canary matrix source is `mechanics/boundary-bridge/parts/latest-sibling-cana
 
 The runner source is
 `mechanics/boundary-bridge/parts/latest-sibling-canary/scripts/run_sibling_canary.py`.
-Use `mechanics/boundary-bridge/parts/AGENTS.md#validation` for the executable
+Use `mechanics/boundary-bridge/parts/compatibility-map/VALIDATION.md` for the executable
 canary command.
 
 GitHub `Repo Validation` is the stricter pinned public lane. For `aoa-memo`,
@@ -77,7 +77,7 @@ When a sibling proof reference fails:
 3. Check whether the sibling path is current, legacy, rejected, or unresolved.
 4. Repair the local `aoa-evals` reference or add a local compatibility note.
 5. Route sibling edits through explicit sibling-owner work.
-6. Use `mechanics/boundary-bridge/parts/AGENTS.md#validation` for local
+6. Use `mechanics/boundary-bridge/parts/compatibility-map/VALIDATION.md` for local
    validation.
 7. Add the latest-sibling canary from that route when current sibling checkout
    truth matters.
@@ -104,7 +104,7 @@ checks out or resolves that repository. Current proof inputs must route to
 
 ## Validation
 
-Use `mechanics/boundary-bridge/parts/AGENTS.md#validation` for executable
+Use `mechanics/boundary-bridge/parts/compatibility-map/VALIDATION.md` for executable
 compatibility checks.
 
 Use the full repo battery when sibling references affect generated readers,

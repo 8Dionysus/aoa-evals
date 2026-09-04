@@ -20,19 +20,6 @@ This directory preserves recurrence placement lineage and old insertion notes.
 | tools | Root validators and semantic-agent validator listed below. |
 | validation | Run the Validation commands after route-card, provenance, index, log, or raw changes. |
 
-## Read before editing
-
-1. repository root `AGENTS.md`
-2. `mechanics/AGENTS.md`
-3. `../AGENTS.md`
-4. `../README.md`
-5. `../DIRECTION.md`
-6. `../PARTS.md`
-7. `../PROVENANCE.md`
-8. `docs/architecture/LEGACY_NAMING.md`
-9. `INDEX.md`
-10. `DISTILLATION_LOG.md`
-
 ## Route Rules
 
 - Start from active recurrence parts before using legacy.
@@ -42,12 +29,9 @@ This directory preserves recurrence placement lineage and old insertion notes.
 
 ## Validation
 
-Run:
+Use the on-demand [VALIDATION.md](VALIDATION.md) route for executable checks.
 
-```bash
-python scripts/validate_repo.py
-python scripts/validate_semantic_agents.py
-```
+Use the legacy recurrence checks in [VALIDATION.md](VALIDATION.md).
 
 ## Closeout
 

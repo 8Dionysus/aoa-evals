@@ -217,7 +217,7 @@ def test_mechanic_parent_agents_rejects_stale_provenance_side_path(
     agents_path = tmp_path / agents_name
     agents_path.write_text(
         agents_path.read_text(encoding="utf-8").replace(
-            "`mechanics/titan/PROVENANCE.md` as the active-to-archive bridge for legacy or former-placement lookup.",
+            "Each package keeps current operating direction in `DIRECTION.md`; the active-to-archive bridge in `PROVENANCE.md` is consulted only when legacy names are involved.",
             "`mechanics/titan/PROVENANCE.md` only when legacy or former placement matters.",
         ),
         encoding="utf-8",

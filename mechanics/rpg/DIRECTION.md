@@ -45,4 +45,4 @@ and owner split.
 
 ## Validation
 
-Use the validation lane in [mechanics/rpg/AGENTS.md](AGENTS.md#validation).
+Use the validation lane in [mechanics/rpg/VALIDATION.md](VALIDATION.md).

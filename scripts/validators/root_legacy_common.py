@@ -6,7 +6,7 @@ from pathlib import Path
 from typing import Sequence
 
 from validators import decision_index_paths
-from validators.common import ValidationIssue, read_text_or_issue
+from validators.common import ValidationIssue, read_text_or_issue, token_in_route, validation_companion_text
 
 
 DESIGN_NAME = "DESIGN.md"
@@ -114,8 +114,9 @@ def require_tokens(
         if route_guard_path.is_file():
             companion_texts.append(route_guard_path.read_text(encoding="utf-8"))
 
-    search_text = "\n\n".join((text, *companion_texts)) if companion_texts else text
+    route_text = validation_companion_text(repo_root / path_name, root=repo_root)
+    search_text = "\n\n".join((text, *companion_texts, route_text)) if route_text or companion_texts else text
     for token in tokens:
-        if token not in search_text:
+        if not token_in_route(token, search_text, companion_text=route_text):
             issues.append(ValidationIssue(path_name, f"file must mention '{token}'"))
     return text

@@ -22,21 +22,8 @@ surfaces named by this card and the part README.
 | output | beacon status ladder, decision-closure route, owner handoff, generated reader check, or bundle-local review route |
 | owner | this part owns `component:evals:portable-proof-beacons`; audit, RPG, source bundles, runtime owners, and Agents-of-Abyss keep stronger truth |
 | next route | parent `parts/AGENTS.md`, parent `PARTS.md`, this part `README.md`, part `VALIDATION.md`, beacon manifests, closure guide, and affected owner surface |
-| tools | parent centralized child validation, root validator, catalog builder, runtime candidate readers, and phase-alpha eval matrix check |
-| validation | [parent parts/AGENTS.md](../AGENTS.md#centralized-child-validation) |
-
-## Read before editing
-
-1. root `AGENTS.md`
-2. `DESIGN.md`
-3. `docs/architecture/PROOF_TOPOLOGY.md`
-4. `mechanics/EVIDENCE_CLUSTERS.md`
-5. `mechanics/recurrence/README.md`
-6. `mechanics/recurrence/PARTS.md`
-7. `mechanics/recurrence/parts/AGENTS.md`
-8. `mechanics/recurrence/parts/portable-proof-beacons/README.md`
-9. `mechanics/recurrence/parts/portable-proof-beacons/VALIDATION.md`
-10. `mechanics/recurrence/PROVENANCE.md` as the active-to-archive bridge for old root placement
+| tools | nearest on-demand VALIDATION.md route, root validator, catalog builder, runtime candidate readers, and phase-alpha eval matrix check |
+| validation | [VALIDATION.md](VALIDATION.md) |
 
 ## Boundary Routes
 
@@ -52,8 +39,9 @@ surfaces named by this card and the part README.
 
 ## Validation
 
-Use the centralized child validation lane in
-[parent parts/AGENTS.md](../AGENTS.md#centralized-child-validation).
+Use the on-demand [VALIDATION.md](VALIDATION.md) route for executable checks.
+
+Use this part's local on-demand VALIDATION.md route.
 Route bundle-local checks through the affected bundle's nearest `AGENTS.md`
 when beacon pressure becomes source proof work.
 

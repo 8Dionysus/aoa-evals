@@ -62,7 +62,7 @@ def validate_mechanic_part_validation_command_surfaces(
                 issues.append(
                     ValidationIssue(
                         readme_name,
-                        "part README validation section must route executable commands to VALIDATION.md or parent parts/AGENTS.md instead of carrying python command blocks",
+                        "part README validation section must route executable commands to its local VALIDATION.md instead of carrying python command blocks",
                     )
                 )
 
@@ -143,7 +143,7 @@ def validate_mechanic_part_validation_command_surfaces(
         issues.append(
             ValidationIssue(
                 command_tokens.MECHANIC_PART_VALIDATION_COMMAND_DECISION_NAME,
-                "decision validation must route executable commands to mechanics/AGENTS.md#validation",
+                "decision validation must route executable commands to the on-demand VALIDATION.md route",
             )
         )
     _require_tokens(
@@ -155,10 +155,7 @@ def validate_mechanic_part_validation_command_surfaces(
     _require_tokens(
         repo_root=repo_root,
         path_name=MECHANICS_AGENTS_NAME,
-        tokens=(
-            "Focused mechanic topology checks",
-            command_tokens.MECHANIC_PART_VALIDATION_COMMAND_COMMAND,
-        ),
+        tokens=("Focused mechanic topology checks", "on-demand [VALIDATION.md]"),
         issues=issues,
     )
     _require_tokens(

@@ -24,7 +24,7 @@ See also:
 | output | read order, comparison-mode route, anti-overread route, status discipline route, or generated-spine source route |
 | owner | this guide owns docs-level comparison reading discipline; bundle-local `EVAL.md` and `eval.yaml`, comparison-spine parts, and generated builders own concrete evidence |
 | next route | `mechanics/comparison-spine/`, mode-specific part, affected bundle, `EVAL_SELECTION.md`, `generated/comparison_spine.json`, or `aoa-eval-integrity-check` |
-| validation | `docs/AGENTS.md#validation` |
+| validation | `docs/VALIDATION.md` |
 
 ## Current public comparison ladder
 

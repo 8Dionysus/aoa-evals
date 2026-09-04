@@ -2,7 +2,7 @@
 
 ## Entry Route
 
-Start with the package README. Then read `mechanics/checkpoint/DIRECTION.md` for current operating direction, `mechanics/checkpoint/PARTS.md` for active parts, and `mechanics/checkpoint/PROVENANCE.md` as the active-to-archive bridge for legacy or former-placement lookup.
+When package semantics or direction are relevant, consult the package README and then the `mechanics/checkpoint/DIRECTION.md`, `mechanics/checkpoint/PARTS.md`, and `mechanics/checkpoint/PROVENANCE.md` routes as needed for the touched source.
 
 ## Applies to
 
@@ -28,18 +28,7 @@ stronger-owner handoff routes.
 | tools | part-local pytest, runtime candidate builders, catalog builder, root validator |
 | validation | this card's `Validation` section |
 
-## Read before editing
-
-1. root `AGENTS.md`
-2. `DESIGN.md`
-3. `docs/architecture/PROOF_TOPOLOGY.md`
-4. `mechanics/EVIDENCE_CLUSTERS.md`
-5. `mechanics/checkpoint/README.md`
-6. `mechanics/checkpoint/PARTS.md`
-7. target part `README.md`
-8. `mechanics/checkpoint/PROVENANCE.md` as the active-to-archive bridge for old placement or raw lineage
-9. `mechanics/audit/parts/artifact-verdict-hooks/README.md` when hook examples
-   or candidate readers change
+current operating direction `mechanics/checkpoint/DIRECTION.md`; active-to-archive bridge `mechanics/checkpoint/PROVENANCE.md`.
 
 ## Route Rules
 
@@ -55,13 +44,7 @@ stronger-owner handoff routes.
 
 ## Validation
 
-```bash
-python -m pytest -q mechanics/checkpoint/parts/a2a-summon-return/tests/test_a2a_summon_return_checkpoint_fixture.py
-python mechanics/audit/parts/candidate-readers/scripts/generate_runtime_candidate_template_index.py --check
-python mechanics/audit/parts/candidate-readers/scripts/generate_runtime_candidate_intake.py --check
-python scripts/build_catalog.py --check
-python scripts/validate_repo.py
-```
+Use the on-demand [VALIDATION.md](VALIDATION.md) route for executable checks.
 
 ## Closeout
 

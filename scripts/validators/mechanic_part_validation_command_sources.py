@@ -9,7 +9,6 @@ from validators.common import ValidationIssue, read_text_or_issue
 from validators.mechanic_part_contract_common import MECHANIC_PART_ALLOWED_PAYLOAD_DIRS
 from validators.mechanic_part_source_surfaces import SOURCE_SURFACE_CODE_REF_RE
 from validators.mechanic_part_validation_common import (
-    markdown_heading_section,
     markdown_python_commands,
     mechanic_part_validation_block,
 )
@@ -49,6 +48,7 @@ def mechanic_part_validation_sources(
     readme_text: str,
     issues: list[ValidationIssue],
 ) -> list[tuple[str, str]]:
+    del parent_name
     sources: list[tuple[str, str]] = []
 
     readme_section = mechanic_part_validation_block(readme_text)
@@ -66,29 +66,6 @@ def mechanic_part_validation_sources(
             ValidationIssue(
                 validation_name,
                 "part validation route marker is missing",
-            )
-        )
-
-    parts_agents_name = f"mechanics/{parent_name}/parts/AGENTS.md"
-    parts_agents_path = repo_root / parts_agents_name
-    if parts_agents_path.is_file():
-        agents_text = read_text_or_issue(parts_agents_path, issues, root=repo_root)
-        if agents_text:
-            child_section = markdown_heading_section(agents_text, f"`{validation_name}`")
-            if child_section:
-                sources.append((parts_agents_name, child_section))
-            else:
-                issues.append(
-                    ValidationIssue(
-                        parts_agents_name,
-                        f"missing centralized child validation block for `{validation_name}`",
-                    )
-                )
-    else:
-        issues.append(
-            ValidationIssue(
-                parts_agents_name,
-                "parent parts AGENTS validation lane is missing",
             )
         )
 

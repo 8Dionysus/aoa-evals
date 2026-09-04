@@ -708,7 +708,7 @@ Do not treat a positive result as:
 ## Verification
 
 Use the repository commands and escalation rules in the
-[evals validation route](../../../AGENTS.md#validation). The exact
+[evals validation route](../../../VALIDATION.md). The exact
 bundle-local fixture, composition, conformance, and replay invocations remain
 declared in `runners/contract.json`; executing them validates or produces
 bounded evidence but does not accept that evidence or establish the final

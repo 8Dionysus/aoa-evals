@@ -48,7 +48,4 @@ this public fixture route.
 
 ## Validation
 
-```bash
-python scripts/validate_repo.py
-python scripts/validate_semantic_agents.py
-```
+Use the on-demand [VALIDATION.md](VALIDATION.md) route for executable checks.

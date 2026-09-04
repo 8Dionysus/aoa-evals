@@ -328,3 +328,7 @@
 ## 2026-08-22
 
 - [AOA-EV-D-0255 Identity-Bound Method Comparison Uses a Draft Fixed-Baseline ABI](../AOA-EV-D-0255-identity-bound-method-comparison-contract.md) (`docs/decisions/AOA-EV-D-0255-identity-bound-method-comparison-contract.md`)
+
+## 2026-08-30
+
+- [AOA-EV-D-0256 Prompt-light Agent Routes and On-demand Validation](../AOA-EV-D-0256-prompt-light-agent-routes-and-on-demand-validation.md) (`docs/decisions/AOA-EV-D-0256-prompt-light-agent-routes-and-on-demand-validation.md`)

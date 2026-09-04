@@ -58,4 +58,4 @@ generated, and validation route.
 
 ## Validation
 
-Use the validation lane in [mechanics/agon/AGENTS.md](AGENTS.md#validation).
+Use the validation lane in [mechanics/agon/VALIDATION.md](VALIDATION.md).

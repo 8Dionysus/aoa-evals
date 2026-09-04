@@ -14,8 +14,8 @@ payload home, owner route, tool lane, and validation lane.
 | output | payload schema route, stats-envelope mirror route, live-publisher route, dry-review preview route, optional live receipt write, or downstream envelope handoff |
 | owner | bundles and reports own verdict meaning; `aoa-stats` owns canonical stats vocabulary; publication-receipts owns eval-result receipt sidecar routing |
 | next route | `mechanics/publication-receipts/PARTS.md`, selected part README, reviewed report, source bundle, stats owner route, and parent validation lane |
-| tools | receipt schema validation, live publisher, intake dry-review checks, repo validator, and focused tests through `mechanics/publication-receipts/AGENTS.md#validation` |
-| validation | `mechanics/publication-receipts/parts/AGENTS.md#validation` and `mechanics/publication-receipts/AGENTS.md#validation` |
+| tools | receipt schema validation, live publisher, intake dry-review checks, repo validator, and focused tests through `mechanics/publication-receipts/VALIDATION.md` |
+| validation | `mechanics/publication-receipts/parts/VALIDATION.md` and `mechanics/publication-receipts/VALIDATION.md` |
 
 ## Active Parts
 

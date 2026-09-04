@@ -47,4 +47,4 @@ owner before proof-loop grows a new part.
 
 ## Validation
 
-Use the validation lane in [mechanics/proof-loop/AGENTS.md](AGENTS.md#validation).
+Use the validation lane in [mechanics/proof-loop/VALIDATION.md](VALIDATION.md).

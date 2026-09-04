@@ -43,5 +43,5 @@ Stop-lines are pressure routes:
 | generated comparison reader as source truth | source bundle, builder, and generated check route |
 | bundle promotion or deprecation | bundle-local review and release/report owner route |
 
-Validation routes through [AGENTS](AGENTS.md#validation), including generated
+Validation routes through [VALIDATION](VALIDATION.md), including generated
 comparison-spine and repo validation lanes.

@@ -2,7 +2,7 @@
 
 ## Entry Route
 
-Start with the package README. Then read `mechanics/proof-infra/DIRECTION.md` for current operating direction, `mechanics/proof-infra/PARTS.md` for active parts, and `mechanics/proof-infra/PROVENANCE.md` as the active-to-archive bridge for legacy or former-placement lookup.
+When package semantics or direction are relevant, consult the package README and then the `mechanics/proof-infra/DIRECTION.md`, `mechanics/proof-infra/PARTS.md`, and `mechanics/proof-infra/PROVENANCE.md` routes as needed for the touched source.
 
 ## Applies to
 
@@ -37,22 +37,7 @@ routes shared contract pressure to the narrowest active owner.
 | reportable contract runner/scorer/schema work | `mechanics/proof-infra/parts/reportable-contracts/` |
 | comparison semantics | `mechanics/comparison-spine/` |
 | receipt publication | `mechanics/publication-receipts/` |
-| generated `proof_artifacts` | source contracts plus `python scripts/build_catalog.py --check` |
-
-## Read before editing
-
-1. repository root `AGENTS.md`
-2. `DESIGN.md`
-3. `DESIGN.AGENTS.md`
-4. `docs/architecture/PROOF_TOPOLOGY.md`
-5. `mechanics/README.md`
-6. `mechanics/proof-object/README.md`
-7. `mechanics/proof-infra/README.md`
-8. `mechanics/proof-infra/PARTS.md`
-9. `docs/guides/SHARED_PROOF_INFRA_GUIDE.md`
-10. affected `parts/fixture-families/`, `parts/reportable-contracts/`, or
-   root route-card local `AGENTS.md`
-11. affected `evals/**/EVAL.md` and `evals/**/eval.yaml`
+| generated `proof_artifacts` | source contracts plus the local validation route |
 
 ## Local Law
 
@@ -74,6 +59,8 @@ routes shared contract pressure to the narrowest active owner.
 - Keep `scorer_helper_paths` reviewable and bounded.
 - Keep generated catalog `proof_artifacts` derived from source contracts.
 
+Each package keeps current operating direction in `DIRECTION.md`; the active-to-archive bridge in `PROVENANCE.md` is consulted only when legacy names are involved.
+
 ## Route Rules
 
 - Move only infrastructure with a concrete bundle support route into this
@@ -93,21 +80,12 @@ routes shared contract pressure to the narrowest active owner.
 
 ## Validation
 
-Run the narrow package route checks:
+Use the on-demand [VALIDATION.md](VALIDATION.md) route for executable checks.
 
-```bash
-python scripts/validate_repo.py
-python scripts/build_catalog.py --check
-python scripts/generate_eval_report_index.py --check
-python scripts/validate_semantic_agents.py
-```
+Use the narrow package route checks in [VALIDATION.md](VALIDATION.md).
 
 When scorer, schema, catalog, or validator logic changes, run the focused
-part-local scorer route:
-
-```bash
-python -m pytest -q mechanics/proof-infra/parts/reportable-contracts/tests/test_bounded_rubric_breakdown.py
-```
+part-local scorer route in [parts/reportable-contracts/VALIDATION.md](parts/reportable-contracts/VALIDATION.md).
 
 ## Closeout
 

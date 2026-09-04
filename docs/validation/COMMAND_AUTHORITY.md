@@ -14,8 +14,9 @@
 - `docs/validation/validator_inventory.json` and
   `docs/validation/script_inventory.json` are coverage inventories. They do
   not store blocking command sequences.
-- Root and nested `AGENTS.md` cards may name focused local checks and lane ids.
-  They should not become separate hidden release command stores.
+- Root and nested `AGENTS.md` cards may name focused validation routes and lane
+  ids. Exact local commands live in the nearest on-demand `VALIDATION.md`; agent
+  cards are not hidden release command stores.
 - Decision records, changelogs, release notes, receipts, and review reports
   preserve outcomes and owner routes, not copied runnable command catalogs.
 - The Eval Forge operating path, readiness guide, local-port standard, and

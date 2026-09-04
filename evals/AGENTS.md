@@ -7,8 +7,10 @@ Local route card for contributors working under `evals/`.
 `evals/<claim-family>/<eval-name>/` is the source-owned eval bundle surface.
 The authoritative objects remain each bundle's `EVAL.md` and `eval.yaml`.
 
-Use [README.md](README.md) as the bundle source index before treating short
-`notes/`, `checks/`, or `examples/` artifacts as debris.
+For classification of short `notes/`, `checks/`, or `examples/` artifacts,
+[README.md](README.md) is the bundle source index that distinguishes owned
+support from debris. Other bundle work does not require that human index by
+convention.
 
 ## Operating Card
 
@@ -19,8 +21,8 @@ Use [README.md](README.md) as the bundle source index before treating short
 | output | bounded source eval claim plus local support artifacts |
 | owner | bundle-local `EVAL.md` and `eval.yaml` for claim meaning |
 | next route | `evals/README.md`, `mechanics/proof-object/README.md`, generated readers, or the nearest mechanic support part |
-| tools | `scripts/validate_repo.py`, catalog builders, report-index builder |
-| validation | this card's `Validation` section |
+| tools | bundle and repository validation routes |
+| validation | on-demand `VALIDATION.md` |
 
 ## Owns
 
@@ -63,24 +65,14 @@ already provide.
 
 ## Validation
 
-For one touched bundle:
+Use the on-demand [VALIDATION.md](VALIDATION.md) route for executable checks.
 
-```bash
-python scripts/validate_repo.py --eval <bundle-name>
-```
+For one touched bundle:
+use the bundle-scoped `validate_repo.py --eval <bundle-name>` route.
 
 For bundle index, generated reader, source-tree topology, or cross-bundle
 wording changes:
-
-```bash
-python scripts/validate_repo.py
-python scripts/build_catalog.py --check
-python scripts/generate_eval_report_index.py --check
-```
+use the source-tree topology route recorded in [VALIDATION.md](VALIDATION.md), including the catalog and report-index checks.
 
 For validator, generated contract, report schema, source-tree topology
-validator, or shared proof infrastructure changes:
-
-```bash
-python -m pytest -q
-```
+validator, or shared proof infrastructure changes, follow the repository-wide route in [VALIDATION.md](VALIDATION.md).

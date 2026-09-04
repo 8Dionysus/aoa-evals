@@ -13,7 +13,7 @@ paths.
 | output | proof-object eval-authoring template route or documented source-template decision |
 | owner | `templates/AGENTS.md` for route law; proof-object eval-authoring for active template meaning |
 | next route | `mechanics/proof-object/parts/eval-authoring/templates/` |
-| validation | `templates/AGENTS.md` and proof-object route checks |
+| validation | `templates/VALIDATION.md` and proof-object route checks |
 
 Active root template payloads route to the eval authoring template:
 

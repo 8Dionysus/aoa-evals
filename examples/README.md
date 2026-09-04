@@ -12,7 +12,7 @@
 | output | owning bundle, mechanic part, or receipt/example route |
 | owner | `examples/AGENTS.md` for route law; owning source surface for interpretation |
 | next route | bundle-local `examples/`, audit parts, publication-receipts parts, or mechanic-owned examples |
-| validation | `examples/AGENTS.md` and the owning route card |
+| validation | `examples/VALIDATION.md` and the owning route card |
 
 Active root examples payloads route beside the source that owns their
 interpretation:

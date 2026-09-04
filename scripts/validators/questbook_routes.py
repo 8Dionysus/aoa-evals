@@ -137,6 +137,8 @@ def validate_quest_route_surfaces(
             ("quests", "LIFECYCLE.md"),
         }:
             continue
+        if markdown_path.name == "VALIDATION.md":
+            continue
         issues.append(
             ValidationIssue(
                 relative_location(markdown_path, repo_root),

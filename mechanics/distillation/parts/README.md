@@ -14,8 +14,8 @@ part, payload home, owner route, tool lane, and validation lane.
 | output | part README route, fixture family route, generated proof-artifact path, report expectation, owner handoff, or bundle-local review route |
 | owner | `aoa-evals` owns bounded proof interpretation; AoA center, Tree of Sophia, memo, agents, runtime, KAG, and owner repositories keep source authority |
 | next route | `mechanics/distillation/PARTS.md`, selected part README, affected source bundle, stronger-owner route, and parent validation lane |
-| tools | bundle-local checks, generated catalog check, repo validator, and semantic AGENTS validator through `mechanics/distillation/AGENTS.md#validation` |
-| validation | `mechanics/distillation/parts/AGENTS.md#validation` and `mechanics/distillation/AGENTS.md#validation` |
+| tools | bundle-local checks, generated catalog check, repo validator, and semantic AGENTS validator through `mechanics/distillation/VALIDATION.md` |
+| validation | `mechanics/distillation/parts/VALIDATION.md` and `mechanics/distillation/VALIDATION.md` |
 
 ## Active Parts
 

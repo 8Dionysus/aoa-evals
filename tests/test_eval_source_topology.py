@@ -108,6 +108,7 @@ def test_source_eval_tree_topology_rejects_decision_command_list(
 ) -> None:
     copy_repo_text(tmp_path, eval_tree_topology_validator.SOURCE_EVAL_TREE_TOPOLOGY_DECISION_NAME)
     copy_repo_text(tmp_path, "evals/AGENTS.md")
+    copy_repo_text(tmp_path, "evals/VALIDATION.md")
     copy_repo_text(tmp_path, eval_tree_topology_validator.DECISION_INDEX_BY_NUMBER_NAME)
     decision_path = tmp_path / eval_tree_topology_validator.SOURCE_EVAL_TREE_TOPOLOGY_DECISION_NAME
     decision_path.write_text(
@@ -123,23 +124,23 @@ def test_source_eval_tree_topology_rejects_decision_command_list(
 
     assert any(
         issue.location == eval_tree_topology_validator.SOURCE_EVAL_TREE_TOPOLOGY_DECISION_NAME
-        and "evals/AGENTS.md#validation" in issue.message
+        and "evals/VALIDATION.md" in issue.message
         for issue in issues
     )
 
 
-def test_source_eval_tree_topology_requires_agents_command_route(
+def test_source_eval_tree_topology_requires_agents_validation_route(
     tmp_path: Path,
 ) -> None:
     copy_repo_text(tmp_path, eval_tree_topology_validator.SOURCE_EVAL_TREE_TOPOLOGY_DECISION_NAME)
     copy_repo_text(tmp_path, "evals/AGENTS.md")
+    copy_repo_text(tmp_path, "evals/VALIDATION.md")
     copy_repo_text(tmp_path, eval_tree_topology_validator.DECISION_INDEX_BY_NUMBER_NAME)
     agents_path = tmp_path / "evals/AGENTS.md"
     agents_path.write_text(
         agents_path.read_text(encoding="utf-8").replace(
-            "python scripts/build_catalog.py --check",
-            "python scripts/build_wrong_catalog.py --check",
-            1,
+            eval_tree_topology_validator.EVALS_VALIDATION_ROUTE_TOKEN,
+            "[CHECKS.md](CHECKS.md)",
         ),
         encoding="utf-8",
     )
@@ -148,23 +149,24 @@ def test_source_eval_tree_topology_requires_agents_command_route(
 
     assert any(
         issue.location == "evals/AGENTS.md"
-        and "python scripts/build_catalog.py --check" in issue.message
+        and eval_tree_topology_validator.EVALS_VALIDATION_ROUTE_TOKEN in issue.message
         for issue in issues
     )
 
 
-def test_source_eval_tree_topology_requires_agents_commands_in_validation_section(
+def test_source_eval_tree_topology_requires_bundle_command_in_validation_section(
     tmp_path: Path,
 ) -> None:
     copy_repo_text(tmp_path, eval_tree_topology_validator.SOURCE_EVAL_TREE_TOPOLOGY_DECISION_NAME)
     copy_repo_text(tmp_path, "evals/AGENTS.md")
+    copy_repo_text(tmp_path, "evals/VALIDATION.md")
     copy_repo_text(tmp_path, eval_tree_topology_validator.DECISION_INDEX_BY_NUMBER_NAME)
-    agents_path = tmp_path / "evals/AGENTS.md"
-    command = "python scripts/build_catalog.py --check"
-    agents_path.write_text(
-        agents_path.read_text(encoding="utf-8").replace(
+    validation_path = tmp_path / "evals/VALIDATION.md"
+    command = eval_tree_topology_validator.SOURCE_EVAL_TREE_LOCAL_COMMAND
+    validation_path.write_text(
+        validation_path.read_text(encoding="utf-8").replace(
             command,
-            "python scripts/build_wrong_catalog.py --check",
+            "python scripts/validate_repo.py --eval <wrong-bundle>",
             1,
         )
         + f"\n## Historical Notes\n\n- `{command}`\n",
@@ -174,9 +176,9 @@ def test_source_eval_tree_topology_requires_agents_commands_in_validation_sectio
     issues = eval_tree_topology_validator.validate_source_eval_tree_topology_surfaces(tmp_path)
 
     assert any(
-        issue.location == "evals/AGENTS.md"
+        issue.location == "evals/VALIDATION.md"
         and command in issue.message
-        and "Validation section" in issue.message
+        and "Commands section" in issue.message
         for issue in issues
     )
 
@@ -255,7 +257,7 @@ def test_source_eval_command_ownership_rejects_eval_command_block(
 
     assert any(
         issue.location == "evals/boundary/sample-command-owner/EVAL.md"
-        and "route executable validation commands to evals/AGENTS.md" in issue.message
+        and "route executable validation commands to evals/VALIDATION.md" in issue.message
         for issue in issues
     )
 

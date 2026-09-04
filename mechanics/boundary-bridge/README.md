@@ -123,7 +123,7 @@ failed against stale memo paths.
 
 ## Validation
 
-Use [AGENTS](AGENTS.md#validation) for executable validation commands. This
+Use [AGENTS](VALIDATION.md) for executable validation commands. This
 README names the mechanic role, routes, and boundaries; the nearest route card
 owns command execution.
 

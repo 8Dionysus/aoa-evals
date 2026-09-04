@@ -1,117 +1,66 @@
 # AGENTS.md
 
-Root route card for `aoa-evals`.
+## Applies to
 
-## Purpose
+This root card applies to the whole `aoa-evals` repository unless a nearer
+`AGENTS.md` narrows the touched lane.
 
-`aoa-evals` is the bounded proof canon of AoA.
-It stores portable evaluation bundles for bounded claims about workflow quality, boundaries, regressions, artifact quality, comparison posture, repeated-window movement, and framed progression or checkpoint evidence.
-Claim limit: evals here prove only the bounded claim their source bundle,
-evidence, verdict logic, and validation route can support.
+## Role
 
-## Owner lane
+`aoa-evals` is the bounded proof canon of AoA. It owns eval bundle wording,
+claim framing, verdict shape, categories, baselines, reports, comparisons,
+caveats, generated proof readers, and doctrine about what an eval does and does
+not prove.
 
-This repository owns:
+Claim limit: an eval proves only the bounded claim supported by its source
+bundle, evidence, verdict logic, and validation route.
 
-- eval bundle wording, bounded claim framing, verdict shape, categories, baselines, reports, comparisons, caveats, and generated proof surfaces
-- doctrine about claim limits and proof boundaries
-- progression, recurrence, and checkpoint proof posture only when explicitly defined here
-- owner-local statistical questions and source-backed measurement declarations about eval-owned surfaces under `stats/`
-- the admitted repo-specific `aoa-evals-skills` callable procedure under top-level
-  `skills/`; it routes central proof work while source bundles and admitted
-  evidence keep proof authority
-- the owner-local semantic capability tree under `capabilities/`; it exposes
-  typed discovery and task-local composition contracts without owning runtime
-  DAG instances or generated graph authority
+This repository also owns eval-local statistical declarations under `stats/`,
+the admitted `aoa-evals-skills` callable procedure under `skills/`, and the
+owner-local semantic capability tree under `capabilities/`. Those ports do not
+absorb runtime DAG state, shared skill or technique meaning, role policy,
+routing, playbooks, durable memory, cross-owner statistics, dashboards, or
+private benchmark truth.
 
-Route outward for:
+## Routes
 
-- shared skill workflow meaning, technique practice meaning, role policy, routing, playbooks, memory objects, cross-owner statistical composition or dashboards, or hidden private benchmark truth
+Follow only the route relevant to the touched source:
 
-## Operational map
-
-| Field | Route |
+| Need | Owner route |
 | --- | --- |
-| entry | `README.md`, then the nearest nested `AGENTS.md` for the touched path |
 | source proof meaning | `evals/**/EVAL.md` and `evals/**/eval.yaml` |
-| authority class | `docs/architecture/PROOF_TOPOLOGY.md` and `docs/architecture/AGENT_INDEX.md` |
-| proof operation | `mechanics/README.md`, then parent `README.md`, `DIRECTION.md`, `PARTS.md`, and part `README.md` |
-| local memory candidates | `memo/AGENTS.md`, `memo/README.md`, and `memo/PORT.yaml` |
-| local statistics | `stats/AGENTS.md`, `stats/README.md`, and `stats/port.manifest.json` |
-| owner callable procedure | `skills/AGENTS.md`, `skills/README.md`, `skills/port.manifest.json`, then `skills/aoa-evals-skills/SKILL.md` |
-| owner capability tree | `capabilities/AGENTS.md`, `capabilities/port.manifest.json`, then `capabilities/families/*.yaml` |
-| output | bounded reports, receipts, generated readers, or owner handoffs only through their owning surface |
-| tools and checks | this card's `Verify` section and the nearest nested `AGENTS.md` |
+| human repository orientation | `README.md` |
+| proof authority class | `docs/architecture/PROOF_TOPOLOGY.md` and `docs/architecture/AGENT_INDEX.md` |
+| proof operation | `mechanics/README.md`, then the affected parent, part, and source bundle |
+| generated reader change | authored source, owning builder, generated reader, and its validator |
+| audit or review | `AUDIT.md`, then the affected proof surface |
+| direction | `ROADMAP.md` |
+| local memory candidate | `memo/AGENTS.md` and `memo/PORT.yaml`; durable reviewed memory returns to `aoa-memo` |
+| local statistics | `stats/AGENTS.md` and `stats/port.manifest.json` |
+| callable proof procedure | `skills/AGENTS.md`, `skills/port.manifest.json`, then `skills/aoa-evals-skills/SKILL.md` |
+| capability discovery | `capabilities/AGENTS.md`, `capabilities/port.manifest.json`, then the affected family source |
+| exact checks | nearest `VALIDATION.md`; named repository lanes remain in `docs/validation/validation_lanes.json` |
 
-## Start here
+For architecture or topology work, consult `DESIGN.md`, `DESIGN.AGENTS.md`, and
+`mechanics/EVIDENCE_CLUSTERS.md` only when they can change interpretation of the
+touched surface. A nearby README is not mandatory by convention.
 
-1. `README.md`
-2. `DESIGN.md`
-3. `DESIGN.AGENTS.md` when agent-facing guidance, lane topology, or route cards change
-4. `ROADMAP.md`
-5. `docs/architecture/PROOF_TOPOLOGY.md` when artifact classes, legacy, mechanics, or root districts change
-6. `mechanics/EVIDENCE_CLUSTERS.md` before moving root-district artifacts into or between mechanics
-7. `skills/AGENTS.md` when the owner callable procedure or projection changes
-8. `capabilities/AGENTS.md` when semantic navigation, ABI, typed relations, or capability projections change
-9. `mechanics/README.md` when a repeatable proof operation or package changes
-10. `stats/README.md` when eval-owned statistical questions, contracts, or reference packets change
-11. `docs/architecture/ARCHITECTURE.md`
-12. `docs/guides/EVAL_PHILOSOPHY.md`
-13. `AUDIT.md` when auditing or reviewing proof claims
-14. the target `evals/**/EVAL.md`
-15. affected generated catalogs, capsules, comparison, receipt, or section surfaces
-16. upstream skill or technique docs if the claim depends on them
-17. `docs/decisions/` when a structural, topology, validation, or workflow route changes
-18. `docs/operations/AGENTS_ROOT_REFERENCE.md` for preserved full root branches
+## Boundaries and stop-lines
 
-
-## AGENTS stack law
-
-- Start with this root card, then follow the nearest nested `AGENTS.md` for every touched path.
-- Root guidance owns repository identity, owner boundaries, route choice, and the shortest honest verification path.
-- Nested guidance owns local contracts, local risk, exact files, and local checks.
-- Authored source surfaces own meaning. Generated, exported, compact, derived, runtime, and adapter surfaces summarize, transport, or support meaning.
-- Self-agency, recurrence, quest, progression, checkpoint, or growth language must stay bounded, reviewable, evidence-linked, and reversible.
-- Report what changed, what was verified, what was not verified, and where the next agent should resume.
-
-## Memory route
-
-For recall, continuity, compaction recovery, comparison with past work, or
-preserved lessons, start with `aoa-memo` and the workspace memory map. Session
-grounding routes through `.aoa`; local candidate writing routes through this
-repository's `memo/` port; durable reviewed memory lands through `aoa-memo`.
-
-## Route away when
-
-- wording turns bounded proof into broad intelligence, trust, general safety, or autonomous-self claims
-- the change rewrites upstream skill or technique meaning
-- a stats surface, trace, or comparison becomes stronger than the evidence it carries
-
-## Audit and review route
-
-`AUDIT.md` is the audit surface map. This route card owns the mandatory audit
-law: boundaries, approval gates, verification routes, review severity, and
-report shape.
-
-Treat these as high-risk surfaces:
-
-- `evals/**/EVAL.md`, `evals/**/eval.yaml`, and fields such as
-  `object_under_evaluation`, `claim_type`, `category`, `status`,
-  `baseline_mode`, and `report_format`
-- `EVAL_INDEX.md`, `EVAL_SELECTION.md`, generated catalogs, comparison-spine
-  readers, and public chooser wording
-- comparison, repeated-window, anti-overread, shared proof-infra, trace bridge,
-  receipt, runtime-candidate, sibling-reference, and release-support surfaces
-
-Claim pressure routes:
-
-| Pressure | Route |
-| --- | --- |
-| broad intelligence, trust, general safety, or autonomous-self claim | keep the eval language scoped to its source bundle, evidence, verdict logic, and validation route; send wider meaning to the owning layer |
-| canonical readiness or direct agent-behavior verdict | route to the source owner or a new bounded proof bundle before public wording changes |
-| generated reader, chooser doc, or index outranking source proof | return to bundle-local `EVAL.md` and `eval.yaml`, then rebuild generated surfaces from source |
-| draft, bounded, baseline, or growth language strengthening by association | keep status, baseline mode, and report posture explicit; use the approval gate before public interpretation changes |
-| private dataset, secret-bearing fixture, hidden telemetry, or skipped validation | route to the private owner, a sanitized fixture, or a rerun validation record before public proof |
+- Keep authored source surfaces stronger than generated, exported, compact,
+  runtime, receipt, adapter, and dashboard views.
+- Keep self-agency, recurrence, quest, progression, checkpoint, growth,
+  comparison, and readiness language bounded, reviewable, evidence-linked, and
+  reversible.
+- Route shared skill workflow meaning, technique practice meaning, role policy,
+  routing, playbooks, memory objects, cross-owner statistics, dashboards, and
+  private benchmark truth to their owners.
+- Do not turn a bounded eval into a broad intelligence, trust, general safety,
+  or autonomous-self claim.
+- Do not let a score, report, comparison, trace, receipt, runtime candidate, or
+  generated reader become stronger than the source evidence it carries.
+- Do not conceal private data, missing evidence, blind spots, or skipped
+  validation behind polished wording.
 
 Get explicit human confirmation before changing category, status, baseline
 mode, report format, claim type, object under evaluation, default public
@@ -119,96 +68,40 @@ baseline or comparison-ladder wording, shared fixture/scorer/runner/report
 shape, a new eval bundle, starter-selection posture, or bundle-local support
 artifact shape that affects public interpretation.
 
-Review severity:
-
-- P0: secret-bearing or private evidence presented as public proof; bounded eval
-  wording converted into broad intelligence, safety, or trust claims; public
-  chooser/comparison wording silently changing baseline or maturity meaning
-- P1: `EVAL.md` and `eval.yaml` semantic drift; verdict wording stronger than
-  support artifacts; erased blind spots; generated or comparison drift; shared
-  infra names implying stronger proof; trace/eval bridge ownership drift;
-  claimed validation lacking evidence
-
-Ignore low-value wording nits unless the task explicitly requests copyediting.
-
-## Decision memory
-
-After a meaningful structural, topology, workflow, validation, public-contract,
-legacy, runtime-candidate, sibling-reference, or agent-route change, review
-`docs/decisions/`.
-
-Add or update a decision note when future agents need to know why the route was
-chosen. Decision notes preserve rationale; release notes, generated output,
-runtime logs, and bundle-local proof meaning route to their owning surfaces.
-
-## GitHub landing workflow
-
-Root `AGENTS.md` owns the repository-wide branch, PR, CI, and merge route.
-`.github/AGENTS.md` owns the GitHub-native files that support it.
-
-When the user asks to commit, push, and merge in this repository, use this route:
-
-1. Start from a branch based on the current `origin/main`. If the worktree is already dirty, inventory it first and carry forward only the intended diff.
-2. Commit the intended change with a message that names the changed surface.
-3. Push the branch and open a pull request that states changed surfaces, validation run, skipped checks, and remaining risk.
-4. Wait for GitHub `Repo Validation` and any required GitHub checks. If a check fails, fix the branch and wait for the new result.
-5. Merge through GitHub after green validation. Use squash unless repository settings report a different required method; report the method that landed.
-6. Return to `main`, fast-forward from `origin/main`, and confirm the worktree is clean before closeout.
-
-If GitHub status or merge permissions cannot be observed, stop the landing route and report the exact blocker instead of guessing.
-
 ## Verify
 
-Install local dependencies when the environment lacks the development tools:
+Use the nearest on-demand `VALIDATION.md`; use root [`VALIDATION.md`](VALIDATION.md)
+for repository-wide proof topology and generated parity. A green command proves
+only its declared check and does not establish release, runtime, proof, or owner
+acceptance beyond that scope.
 
-```bash
-python -m pip install -r requirements-dev.txt
-```
+Generated readers change through their owning builders. Do not hand-edit a
+derived surface to hide source or freshness debt.
 
-Minimum repository validation:
+## Landing route
 
-```bash
-python scripts/validate_repo.py
-python scripts/validate_semantic_agents.py
-```
+The complete branch, PR, CI, merge, post-landing sync, and release-publication
+procedure lives in `docs/operations/RELEASING.md`. `.github/AGENTS.md` owns only
+the GitHub-native support files.
 
-Use the non-mutating proof-surface battery when authored sources, generated
-readers, runtime-candidate readers, or mechanic readouts need parity:
+If GitHub status or merge permissions cannot be observed, stop and report the
+exact blocker. Do not infer a green check, successful merge, tag, release, or
+synced canonical state.
 
-```bash
-python scripts/build_catalog.py --check
-python scripts/generate_eval_report_index.py --check
-python mechanics/audit/parts/candidate-readers/scripts/generate_runtime_candidate_template_index.py --check
-python mechanics/audit/parts/candidate-readers/scripts/generate_runtime_candidate_intake.py --check
-python mechanics/boundary-bridge/parts/phase-alpha-eval-matrix/scripts/generate_phase_alpha_eval_matrix.py --check
-python -m pytest -q
-```
+## Decision review
 
-Refresh generated readers only when the change intentionally rewrites them:
+Use `docs/decisions/` when a structural, topology, workflow, validation,
+public-contract, legacy, runtime-candidate, sibling-reference, or agent-route
+choice needs durable rationale. Decision records explain why; current owner
+sources define what.
 
-```bash
-python scripts/build_catalog.py
-python scripts/generate_eval_report_index.py
-```
+## Closeout
 
-Use the narrower route card first when the change is local to `evals/`,
-`generated/`, `docs/`, `mechanics/`, `scripts/`, or `tests/`.
+Report changed proof surfaces, whether bounded claim meaning or public posture
+moved, exact checks run and skipped, generated/source parity, remaining proof
+limits, residual risk, and the next owner route. A closeout that says only
+`done` is insufficient.
 
-## Report
-
-For audits, reviews, and non-trivial patches, report:
-
-- plan: task restatement, touched or inspected bundles or public surfaces, and
-  main risk
-- diff: what changed, whether bounded claim meaning changed, and whether
-  category, status, baseline mode, or report posture changed
-- verify: exact checks run, comparison or chooser surfaces re-read, and skipped
-  checks
-- report: current bounded claim, remaining proof limits, public chooser or
-  comparison impact, and downstream follow-up if needed
-- residual risk: thin evidence, stale support artifacts, neighboring bundles
-  not re-read, or comparison/routing surfaces not fully re-audited
-
-## Full reference
-
-`docs/operations/AGENTS_ROOT_REFERENCE.md` preserves the former detailed root guidance, including branch docs, audit contract, review priorities, and cross-repo routes.
+The historical long-form root guidance remains in
+`docs/operations/AGENTS_ROOT_REFERENCE.md`; it is a reference, not active route
+law.

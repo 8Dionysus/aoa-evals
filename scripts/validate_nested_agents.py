@@ -19,14 +19,14 @@ REQUIRED_AGENTS: dict[str, tuple[str, ...]] = {
         "owner-admitted",
         ".agents/spark/",
         "proof authority",
-        "validate_repo.py",
+        "the on-demand [VALIDATION.md](VALIDATION.md) route",
     ),
     ".agents/spark/AGENTS.md": (
         "fast-loop lane",
         "one bounded claim",
         "Bundle-local `EVAL.md`",
         "generated surfaces",
-        "validate_nested_agents.py",
+        "the on-demand [VALIDATION.md](VALIDATION.md) route",
     ),
     "evals/AGENTS.md": (
         "EVAL.md",
@@ -47,7 +47,7 @@ REQUIRED_AGENTS: dict[str, tuple[str, ...]] = {
         "Operating Card",
         "Regenerate files with the owning builder",
         "Storage Route",
-        "python scripts/build_catalog.py",
+        "the owning builder",
     ),
     "fixtures/AGENTS.md": (
         "public-safe",

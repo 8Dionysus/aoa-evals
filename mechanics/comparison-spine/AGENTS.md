@@ -2,7 +2,7 @@
 
 ## Entry Route
 
-Start with the package README. Then read `mechanics/comparison-spine/DIRECTION.md` for current operating direction, `mechanics/comparison-spine/PARTS.md` for active parts, and `mechanics/comparison-spine/PROVENANCE.md` as the active-to-archive bridge for legacy or former-placement lookup.
+When package semantics or direction are relevant, consult the package README and then the `mechanics/comparison-spine/DIRECTION.md`, `mechanics/comparison-spine/PARTS.md`, and `mechanics/comparison-spine/PROVENANCE.md` routes as needed for the touched source.
 
 ## Applies to
 
@@ -37,24 +37,8 @@ bundle-local interpretation.
 | fixed baseline fixture/readout | `mechanics/comparison-spine/parts/fixed-baseline/` |
 | peer comparison fixture/readout, including validation-routing method support | `mechanics/comparison-spine/parts/peer-compare/` |
 | longitudinal-window fixture/readout | `mechanics/comparison-spine/parts/longitudinal-window/` |
-| generated comparison reader | source bundle plus `python scripts/build_catalog.py --check` |
+| generated comparison reader | source bundle plus the local validation route |
 | promotion, deprecation, or report interpretation | bundle-local review and release/report owner route |
-
-## Read before editing
-
-1. repository root `AGENTS.md`
-2. `DESIGN.md`
-3. `DESIGN.AGENTS.md`
-4. `docs/architecture/PROOF_TOPOLOGY.md`
-5. `mechanics/README.md`
-6. `mechanics/proof-object/README.md`
-7. `mechanics/comparison-spine/README.md`
-8. `mechanics/comparison-spine/PARTS.md`
-9. `mechanics/comparison-spine/parts/README.md`
-10. `docs/guides/COMPARISON_SPINE_GUIDE.md`
-11. `docs/guides/BASELINE_COMPARISON_GUIDE.md`
-12. `docs/guides/REPEATED_WINDOW_DISCIPLINE_GUIDE.md`
-13. affected `evals/**/EVAL.md` and `evals/**/eval.yaml`
 
 ## Local Law
 
@@ -63,13 +47,15 @@ bundle-local interpretation.
   `eval.yaml`.
 - Keep bundle-local `evals/<family>/<eval>/fixtures/contract.json` paths aligned
   with the part-local comparison fixture family paths.
-- Keep `generated/comparison_spine.json` derived from source via
-  `python scripts/build_catalog.py`.
+- Keep `generated/comparison_spine.json` derived from source through the
+  catalog builder routed by the local validation companion.
 - Keep fixed-baseline, peer-compare, and longitudinal-window semantics
   separate.
 - Keep style-only movement weaker than capability movement.
 - Keep `aoa-eval-integrity-check` as an integrity sidecar below promotion
   routes.
+
+Each package keeps current operating direction in `DIRECTION.md`; the active-to-archive bridge in `PROVENANCE.md` is consulted only when legacy names are involved.
 
 ## Route Rules
 
@@ -86,13 +72,7 @@ bundle-local interpretation.
 
 ## Validation
 
-Run the narrow package route checks:
-
-```bash
-python scripts/validate_repo.py
-python scripts/build_catalog.py --check
-python scripts/validate_semantic_agents.py
-```
+Use the on-demand [VALIDATION.md](VALIDATION.md) route for executable checks.
 
 If the change touches runtime candidate readers, quest readers, reports,
 schemas, or phase-alpha matrices, also run the owning builder or validator.

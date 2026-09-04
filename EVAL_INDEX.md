@@ -1,5 +1,7 @@
 # Eval Bundle Index
 
+Executable checks use the local [VALIDATION.md](VALIDATION.md) route.
+
 This file is the repository-wide agent-facing index of public eval bundles.
 
 ## Operating Card
@@ -12,7 +14,7 @@ This file is the repository-wide agent-facing index of public eval bundles.
 | owner | `EVAL_INDEX.md` owns public starter-table and layer-index wording; bundle-local source files own claim meaning |
 | next route | `EVAL_SELECTION.md`, selected `evals/**/EVAL.md`, `eval.yaml`, `generated/README.md`, or comparison/mechanic support routes |
 | tools | generated catalog/readers, comparison spine reader, report index, and eval source validator |
-| validation | [evals/AGENTS.md#validation](evals/AGENTS.md#validation) and root [AGENTS.md#verify](AGENTS.md#verify) |
+| validation | nearest [evals/VALIDATION.md](evals/VALIDATION.md) and root [VALIDATION.md](VALIDATION.md) |
 
 ## Starter eval bundles
 

@@ -51,7 +51,7 @@ mechanic.
 | Stop-lines | route eval-bundle, verdict, roadmap, release, generated-authority, and owner-acceptance pressure to the stronger owner surface |
 | Validation | parent `AGENTS.md`, affected part route cards, and generated-reader checks when source records move |
 
-Validation routes through [AGENTS](AGENTS.md#validation) and the affected part
+Validation routes through [VALIDATION](VALIDATION.md) and the affected part
 route cards. Rebuild generated quest readers through the AGENTS route when
 source quest records move.
 
@@ -68,6 +68,6 @@ source quest records move.
 
 ## Validation
 
-After changing these parts, use [AGENTS](AGENTS.md#validation) for executable
+After changing these parts, use [VALIDATION](VALIDATION.md) for executable
 validation commands. If generated quest readers are stale, rebuild them through
 the same route before rerunning checks.

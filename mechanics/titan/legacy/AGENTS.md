@@ -21,17 +21,6 @@ behind the active `mechanics/titan/` package.
 | tools | Root validators, semantic-agent validator, and Titan canary regression listed below. |
 | validation | Run the Validation commands after route-card, provenance, index, log, or raw changes. |
 
-## Read before editing
-
-1. repository root `AGENTS.md`
-2. `mechanics/README.md`
-3. `mechanics/EVIDENCE_CLUSTERS.md`
-4. `mechanics/titan/README.md`
-5. `mechanics/titan/PARTS.md`
-6. `mechanics/titan/PROVENANCE.md`
-7. `mechanics/titan/legacy/INDEX.md`
-8. `mechanics/titan/legacy/DISTILLATION_LOG.md`
-
 ## Route Rules
 
 - Start from active Titan seed-boundary surfaces before using legacy.
@@ -45,13 +34,9 @@ behind the active `mechanics/titan/` package.
 
 ## Validation
 
-Run:
+Use the on-demand [VALIDATION.md](VALIDATION.md) route for executable checks.
 
-```bash
-python scripts/validate_repo.py
-python scripts/validate_semantic_agents.py
-python -m pytest -q tests/test_mechanic_surface_contracts.py -k titan
-```
+Use the legacy Titan checks in [VALIDATION.md](VALIDATION.md).
 
 ## Closeout
 

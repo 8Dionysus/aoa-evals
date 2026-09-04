@@ -16,7 +16,7 @@ where meaning lives and which surface to open next.
 | output | the next source surface, index, proof guide, operation guide, or owner route |
 | owner | `docs/AGENTS.md` for docs edits; target source files own their meaning |
 | next route | `docs/architecture/`, `docs/guides/`, `docs/operations/`, `docs/validation/`, `docs/testing/`, `docs/decisions/`, mechanics, or bundle-local proof |
-| validation | [docs/AGENTS.md#validation](AGENTS.md#validation) and the nearest owner route card |
+| validation | [docs/VALIDATION.md](VALIDATION.md) and the nearest owner route card |
 
 ## First Route
 
@@ -29,7 +29,7 @@ where meaning lives and which surface to open next.
 | What may `aoa_evals` MCP expose without becoming proof authority? | [AoA Evals MCP Contract](architecture/AOA_EVALS_MCP_CONTRACT.md) |
 | Is this route residue, stale path, or wrong owner pressure? | [Route Residue Guards](architecture/ROUTE_RESIDUE_GUARDS.md) |
 | Is this name active, legacy, accepted input, generated projection, or candidate vocabulary? | [Legacy Naming](architecture/LEGACY_NAMING.md) |
-| How should I start eval-control work in a new agent session? | [Eval Forge Readiness Layer](guides/EVAL_FORGE_READINESS_LAYER.md); `check_eval_forge_readiness.py` command route stays in [docs/AGENTS.md#validation](AGENTS.md#validation) and the nearest owner card |
+| How should I start eval-control work in a new agent session? | [Eval Forge Readiness Layer](guides/EVAL_FORGE_READINESS_LAYER.md); `check_eval_forge_readiness.py` command route stays in [docs/VALIDATION.md](VALIDATION.md) and the nearest owner card |
 | How do I find trace/session eval candidates without keyword noise? | [Agent Trace Eval Candidate Discovery Guide](guides/AGENT_TRACE_EVAL_CANDIDATE_DISCOVERY.md) |
 | Which proof guide applies? | [Guides](#guides) |
 | How should sibling repos host local eval pressure? | [Local Eval Port Standard](guides/LOCAL_EVAL_PORT_STANDARD.md) |
@@ -112,7 +112,7 @@ The first concrete source-owned proof surface remains
 ## Validation Route
 
 Executable commands for docs-map or docs-owned proof-meaning changes live in
-[docs/AGENTS.md#validation](AGENTS.md#validation) and the nearest owner route
+[docs/VALIDATION.md](VALIDATION.md) and the nearest owner route
 card. Generated reader parity routes through
 [generated/AGENTS](../generated/AGENTS.md), while mechanic-owned payload docs
 route through [mechanics/AGENTS](../mechanics/AGENTS.md) and the package card.

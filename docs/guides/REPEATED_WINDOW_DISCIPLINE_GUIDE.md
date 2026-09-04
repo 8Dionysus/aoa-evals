@@ -17,7 +17,7 @@ Use it when the question is:
 | output | read order, comparability disclosure route, movement route, or anti-overread route |
 | owner | this guide owns docs-level reading discipline; `aoa-longitudinal-growth-snapshot`, comparison-spine readouts, and bundle-local metadata own concrete evidence |
 | next route | `mechanics/comparison-spine/parts/longitudinal-window/`, `aoa-longitudinal-growth-snapshot`, fixed-baseline route, or growth/progression owner review |
-| validation | `docs/AGENTS.md#validation` |
+| validation | `docs/VALIDATION.md` |
 
 ## Read order
 

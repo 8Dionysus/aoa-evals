@@ -32,7 +32,7 @@ owned by bundle-local proof surfaces.
 | Outputs | artifact bundle manifest, readiness audit, strategic closeout audit, PR handoff snapshot, or release-route review artifact |
 | Owner split | root release entrypoints remain where contributors expect them; package parts own release-support state artifacts; bundle claims stay with source proof surfaces |
 | Stop-lines | route tag, GitHub Release, PR approval, observed GitHub `Repo Validation`, merge, and goal completion checks to live owner evidence |
-| Validation | parent `AGENTS.md` and `parts/AGENTS.md` command lanes |
+| Validation | parent `VALIDATION.md` and affected part `VALIDATION.md` command lanes |
 
-Validation routes through [AGENTS](AGENTS.md#validation), including release
+Validation routes through [VALIDATION](VALIDATION.md), including release
 check, repo validation, and semantic AGENTS lanes.

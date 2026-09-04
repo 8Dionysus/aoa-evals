@@ -68,7 +68,7 @@ PROOF_INFRA_FIXTURE_FAMILIES_AGENTS_REQUIRED_TOKENS = (
     "evals/**/fixtures/contract.json",
     "shared_fixture_family_path",
     "Family-name parent pressure",
-    "centralized-child-validation",
+    "VALIDATION.md",
 )
 PROOF_INFRA_REPORTABLE_CONTRACTS_REQUIRED_TOKENS = (
     "bundle-local runner contract",
@@ -90,7 +90,7 @@ PROOF_INFRA_REPORTABLE_CONTRACTS_AGENTS_REQUIRED_TOKENS = (
     "scorer_helper_paths",
     "Schema weakening pressure",
     "Root alias pressure",
-    "centralized-child-validation",
+    "VALIDATION.md",
     "bounded rubric scorer test",
 )
 PROOF_INFRA_PART_AGENTS_STALE_ROUTE_PHRASES = (

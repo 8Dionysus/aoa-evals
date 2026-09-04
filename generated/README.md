@@ -16,7 +16,7 @@ authored source ownership.
 | owner | source surfaces and builders own truth; `generated/AGENTS.md` owns edit law |
 | next route | source bundle, quest record, report, mechanic part, builder, or route card |
 | tools | catalog builder, report-index builder, readiness-dashboard builder, quest readers, candidate-reader builders, and phase-alpha matrix builder |
-| validation | [generated/AGENTS.md#validation](AGENTS.md#validation) and source-owner checks |
+| validation | [generated/VALIDATION.md](VALIDATION.md) and source-owner checks |
 
 ## Current Root Readers
 
@@ -70,7 +70,7 @@ Generated readers answer "where should I look next?" Source surfaces answer
 ## Validation
 
 Executable generated-reader commands live in
-[generated/AGENTS.md#validation](AGENTS.md#validation). This index names the
+[generated/VALIDATION.md](VALIDATION.md). This index names the
 reader families, source chain, and owning builders; the route card owns the
 operational command lane.
 

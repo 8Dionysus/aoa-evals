@@ -359,7 +359,7 @@ growth candidate's owner layer rather than memory writeback routing.
   and raw session material
 - confirm report examples validate against `reports/summary.schema.json`
 - run the source-eval validation route in
-  [evals/AGENTS.md](../../AGENTS.md#validation)
+  [evals/VALIDATION.md](../../VALIDATION.md)
 
 ## Technique traceability
 

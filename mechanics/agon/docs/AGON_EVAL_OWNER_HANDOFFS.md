@@ -61,6 +61,6 @@ Output owners:
 
 ## Validation
 
-Use `mechanics/agon/AGENTS.md#validation` for executable validation commands.
+Use `mechanics/agon/VALIDATION.md` for executable validation commands.
 This mechanic-wide guide names owner handoff boundaries; the route card owns
 command execution.

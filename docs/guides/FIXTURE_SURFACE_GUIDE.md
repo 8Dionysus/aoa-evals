@@ -21,7 +21,7 @@ See also:
 | output | public-safe route, fixture hardening route, replacement contract route, or bundle-local review route |
 | owner | this guide owns docs-level fixture reading discipline; bundle-local `evals/<family>/<eval>/fixtures/contract.json`, shared fixture-family parts, and bundle `EVAL.md` own concrete evidence |
 | next route | `mechanics/proof-infra/parts/fixture-families/`, narrower mechanic fixture family, bundle-local fixture contract, `docs/guides/PORTABLE_EVAL_BOUNDARY_GUIDE.md`, or `docs/guides/BASELINE_COMPARISON_GUIDE.md` |
-| validation | `docs/AGENTS.md#validation` |
+| validation | `docs/VALIDATION.md` |
 
 ## Core question
 

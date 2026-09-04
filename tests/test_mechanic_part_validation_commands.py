@@ -57,7 +57,7 @@ def test_mechanic_part_validation_command_rejects_active_decision_command_list(
 
     assert any(
         issue.location == command_tokens.MECHANIC_PART_VALIDATION_COMMAND_DECISION_NAME
-        and "mechanics/AGENTS.md#validation" in issue.message
+        and "on-demand VALIDATION.md" in issue.message
         for issue in issues
     )
 

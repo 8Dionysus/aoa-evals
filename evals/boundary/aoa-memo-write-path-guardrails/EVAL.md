@@ -293,7 +293,7 @@ visibility.
 ## Verification
 
 Use the source-eval validation route in
-[evals/AGENTS.md](../../AGENTS.md#validation). Validate this bundle by name,
+[evals/VALIDATION.md](../../VALIDATION.md). Validate this bundle by name,
 then run generated-reader checks when source wording, manifest fields, reports,
 or index inputs move.
 

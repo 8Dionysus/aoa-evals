@@ -46,4 +46,4 @@ subdirectories are absent by design.
 
 ## Validation
 
-Use the validation lane in [mechanics/growth-cycle/AGENTS.md](AGENTS.md#validation).
+Use the validation lane in [mechanics/growth-cycle/VALIDATION.md](VALIDATION.md).

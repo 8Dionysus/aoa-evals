@@ -86,8 +86,8 @@ Rules:
 ```text
 Run the repo validation loop and report actual results.
 Required:
-- follow .agents/spark/AGENTS.md#validation for lane checks
-- follow root AGENTS.md#verify for repository-wide checks
+- follow .agents/spark/VALIDATION.md for lane checks
+- follow root VALIDATION.md for repository-wide checks
 - follow the touched district AGENTS.md for local checks
 Return:
 - commands run
@@ -108,8 +108,8 @@ Check:
 ```
 
 ## Verify
-Use `.agents/spark/AGENTS.md#validation` for executable lane commands and root
-`AGENTS.md#verify` when the swarm touches repository-wide proof surfaces.
+Use `.agents/spark/VALIDATION.md` for executable lane commands and root
+`VALIDATION.md` when the swarm touches repository-wide proof surfaces.
 
 ## Done when
 - один bounded claim оформлен как portable proof surface

@@ -273,7 +273,7 @@ runtime reliability claims.
 
 Run the exact checked-in suite and packet-validation argv recorded in
 `runners/contract.json`. The executable repository validation route is governed
-by [`evals/AGENTS.md#validation`](../../AGENTS.md#validation); that owner card
+by [`evals/VALIDATION.md`](../../VALIDATION.md); that route
 defines the surrounding source checks and command ownership.
 
 The runner is deterministic and offline. It validates packet shape and bounded
@@ -385,7 +385,7 @@ Reviewers must keep these distinctions:
 - run the bundled scenario command;
 - validate the example report against the report schema;
 - run the bundle-specific repository check routed by
-  `evals/AGENTS.md#validation`;
+  `evals/VALIDATION.md`;
 - confirm every asserted maturity axis retains its own evidence kind, revision,
   timestamp, and freshness field;
 - confirm the report keeps admission, acceptance inference, and higher-effect

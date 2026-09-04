@@ -36,4 +36,4 @@ those owners.
 Stop-lines route bundle promotion, receipt publication, runtime acceptance,
 sibling approval, and coordinator-strength pressure back to the step owners.
 
-Validation routes through [AGENTS](AGENTS.md#validation).
+Validation routes through [VALIDATION](VALIDATION.md).

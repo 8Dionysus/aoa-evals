@@ -19,7 +19,7 @@ MECHANIC_LOWER_PARTS_INDEX_REQUIRED_TOKENS = (
     "| validation |",
     "## Active Parts",
     "## Part Admission Route",
-    "AGENTS.md#validation",
+    "VALIDATION.md",
 )
 
 
@@ -39,7 +39,7 @@ def validate_mechanic_index_command_ownership(
             issues.append(
                 ValidationIssue(
                     relative_name,
-                    "mechanic index surfaces must route executable validation commands to the nearest AGENTS.md instead of carrying python command blocks",
+                    "mechanic index surfaces must route executable validation commands to the nearest VALIDATION.md instead of carrying python command blocks",
                 )
             )
 

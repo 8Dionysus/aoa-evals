@@ -2,7 +2,7 @@
 
 ## Entry Route
 
-Start with the package README. Then read `mechanics/proof-loop/DIRECTION.md` for current operating direction, `mechanics/proof-loop/PARTS.md` for active parts, and `mechanics/proof-loop/PROVENANCE.md` as the active-to-archive bridge for legacy or former-placement lookup.
+When package semantics or direction are relevant, consult the package README and then the `mechanics/proof-loop/DIRECTION.md`, `mechanics/proof-loop/PARTS.md`, and `mechanics/proof-loop/PROVENANCE.md` routes as needed for the touched source.
 
 ## Applies to
 
@@ -29,6 +29,8 @@ the current loop segment.
 | tools | root validator, semantic AGENTS validator, generated-surface builders when loop inputs move |
 | validation | this card's `Validation` section |
 
+current operating direction `mechanics/proof-loop/DIRECTION.md`; active-to-archive bridge `mechanics/proof-loop/PROVENANCE.md`.
+
 ## Owner Routes
 
 | Loop pressure | Owner route |
@@ -39,27 +41,6 @@ the current loop segment.
 | optional receipt | `mechanics/publication-receipts/` |
 | sibling reference | `mechanics/boundary-bridge/` and the sibling owner route |
 | legacy or former route | `mechanics/proof-loop/PROVENANCE.md` |
-
-## Read before editing
-
-1. root `AGENTS.md`
-2. `DESIGN.md`
-3. `DESIGN.AGENTS.md`
-4. `ROADMAP.md`
-5. `docs/architecture/PROOF_TOPOLOGY.md`
-6. `mechanics/README.md`
-7. `mechanics/proof-loop/README.md`
-8. `mechanics/proof-loop/PARTS.md`
-9. `mechanics/proof-loop/parts/README.md`
-10. `mechanics/proof-object/README.md`
-11. `mechanics/proof-infra/README.md`
-12. `mechanics/audit/README.md`
-13. `mechanics/publication-receipts/README.md`
-14. `mechanics/boundary-bridge/README.md`
-15. `mechanics/publication-receipts/parts/intake-dry-review/reports/eval-result-receipt-intake-dry-review-v1.json` when the loop
-    reaches receipt-intake dry review
-16. `docs/decisions/AOA-EV-D-0019-proof-loop-mechanic-package.md`
-17. `docs/decisions/AOA-EV-D-0030-proof-loop-route-smoke-part.md`
 
 ## Route Rules
 
@@ -76,12 +57,9 @@ the current loop segment.
 
 ## Validation
 
-Run:
+Use the on-demand [VALIDATION.md](VALIDATION.md) route for executable checks.
 
-```bash
-python scripts/validate_repo.py
-python scripts/validate_semantic_agents.py
-```
+Use the proof-loop checks in [VALIDATION.md](VALIDATION.md).
 
 Add owning generated-surface checks when generated readers or candidate intake
 surfaces change.

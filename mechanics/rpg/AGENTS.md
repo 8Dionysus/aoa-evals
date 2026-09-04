@@ -2,7 +2,7 @@
 
 ## Entry Route
 
-Start with the package README. Then read `mechanics/rpg/DIRECTION.md` for current operating direction, `mechanics/rpg/PARTS.md` for active parts, and `mechanics/rpg/PROVENANCE.md` as the active-to-archive bridge for legacy or former-placement lookup.
+When package semantics or direction are relevant, consult the package README and then the `mechanics/rpg/DIRECTION.md`, `mechanics/rpg/PARTS.md`, and `mechanics/rpg/PROVENANCE.md` routes as needed for the touched source.
 
 ## Applies to
 
@@ -28,18 +28,7 @@ handoffs for role, skill, technique, playbook, quest, runtime, and stats truth.
 | tools | root validator, catalog builder, semantic AGENTS validator |
 | validation | this card's `Validation` section |
 
-## Read before editing
-
-1. root `AGENTS.md`
-2. `DESIGN.md`
-3. `docs/architecture/PROOF_TOPOLOGY.md`
-4. `mechanics/EVIDENCE_CLUSTERS.md`
-5. `mechanics/README.md`
-6. `mechanics/rpg/README.md`
-7. `mechanics/rpg/PARTS.md`
-8. the target part README
-9. affected schema, example, quest, generated card, or validator
-10. `mechanics/rpg/PROVENANCE.md` as the active-to-archive bridge for old root progression/unlock paths
+current operating direction `mechanics/rpg/DIRECTION.md`; active-to-archive bridge `mechanics/rpg/PROVENANCE.md`.
 
 ## Route Rules
 
@@ -54,20 +43,11 @@ handoffs for role, skill, technique, playbook, quest, runtime, and stats truth.
 
 ## Validation
 
-Run the root validation after changing this package:
+Use the on-demand [VALIDATION.md](VALIDATION.md) route for executable checks.
 
-```bash
-python scripts/validate_repo.py
-python scripts/build_catalog.py --check
-python scripts/validate_semantic_agents.py
-```
+After changing this package, follow the root validation route in [VALIDATION.md](VALIDATION.md).
 
-If quest owner surfaces or generated quest projections change, rebuild first:
-
-```bash
-python scripts/build_catalog.py
-python scripts/build_catalog.py --check
-```
+If quest owner surfaces or generated quest projections change, follow the rebuild route in [VALIDATION.md](VALIDATION.md) first.
 
 ## Closeout
 

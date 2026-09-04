@@ -14,8 +14,8 @@ home, owner route, tool lane, and validation lane.
 | output | part README route, fixture family route, hook example route, generated candidate-reader route, bundle-local review handoff, or stronger-owner handoff |
 | owner | `aoa-evals` owns bounded checkpoint proof support; stronger owners keep doctrine, SDK controls, skill workflow truth, role policy, memory, runtime exports, routing, playbooks, stats, and artifact promotion |
 | next route | `mechanics/checkpoint/PARTS.md`, selected part README, audit hook/candidate route, source proof bundle, and parent validation lane |
-| tools | part-local tests, audit candidate-reader builders, generated catalog checks, repo validator, and semantic AGENTS validator through `mechanics/checkpoint/AGENTS.md#validation` |
-| validation | `mechanics/checkpoint/parts/AGENTS.md#validation` and `mechanics/checkpoint/AGENTS.md#validation` |
+| tools | part-local tests, audit candidate-reader builders, generated catalog checks, repo validator, and semantic AGENTS validator through `mechanics/checkpoint/VALIDATION.md` |
+| validation | `mechanics/checkpoint/parts/VALIDATION.md` and `mechanics/checkpoint/VALIDATION.md` |
 
 ## Active Parts
 

@@ -17,15 +17,19 @@ def _actual_district_names(repo_root: Path, district_name: str) -> set[str]:
         return {
             path.relative_to(district).as_posix()
             for path in district.rglob("*")
-            if path.is_file() and path.relative_to(district).parts[:1] != ("decisions",)
+            if path.is_file()
+            and path.relative_to(district).parts[:1] != ("decisions",)
+            and path.name != "VALIDATION.md"
         }
     if district_name == "scripts":
         return {
             path.relative_to(district).as_posix()
             for path in district.rglob("*")
-            if path.is_file() and "__pycache__" not in path.relative_to(district).parts
+            if path.is_file()
+            and "__pycache__" not in path.relative_to(district).parts
+            and path.name != "VALIDATION.md"
         }
-    return {path.name for path in district.iterdir() if path.is_file()}
+    return {path.name for path in district.iterdir() if path.is_file() and path.name != "VALIDATION.md"}
 
 
 def validate_root_authored_surface_inventory(repo_root: Path) -> list[ValidationIssue]:

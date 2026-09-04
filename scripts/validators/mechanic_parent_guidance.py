@@ -26,6 +26,7 @@ MECHANIC_PARENT_ROOT_ALLOWED_FILES = frozenset(
         "PARTS.md",
         "PROVENANCE.md",
         "README.md",
+        "VALIDATION.md",
     }
 )
 MECHANIC_PARENT_ROOT_ALLOWED_DIRS = frozenset({"legacy", "parts"})

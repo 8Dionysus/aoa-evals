@@ -76,6 +76,22 @@ def _read_text(repo_root: Path, relative_path: Path, issues: list[tuple[str, str
     return path.read_text(encoding="utf-8")
 
 
+def _bash_fence_command_lines(markdown: str) -> list[str]:
+    commands: list[str] = []
+    in_bash_fence = False
+    for line in markdown.splitlines():
+        stripped = line.strip()
+        if not in_bash_fence and stripped in {"```bash", "```sh", "```shell"}:
+            in_bash_fence = True
+            continue
+        if in_bash_fence and stripped.startswith("```"):
+            in_bash_fence = False
+            continue
+        if in_bash_fence and stripped and not stripped.startswith("#"):
+            commands.append(stripped)
+    return commands
+
+
 def validate_generated_route_surfaces(repo_root: Path) -> list[tuple[str, str]]:
     issues: list[tuple[str, str]] = []
 
@@ -100,10 +116,23 @@ def validate_generated_route_surfaces(repo_root: Path) -> list[tuple[str, str]]:
                     )
                 )
 
+    generated_validation = _read_text(repo_root, Path("generated/VALIDATION.md"), issues)
+    if generated_agents and "VALIDATION.md" not in generated_agents:
+        issues.append(
+            (GENERATED_AGENTS.as_posix(), "generated route card must link its on-demand VALIDATION.md route")
+        )
     for command in GENERATOR_CHECK_COMMANDS:
-        if generated_agents and command not in generated_agents:
+        if generated_validation and command not in generated_validation:
             issues.append(
-                (GENERATED_AGENTS.as_posix(), f"generated route card must expose check command {command!r}")
+                ("generated/VALIDATION.md", f"generated validation route must expose check command {command!r}")
+            )
+    for command_line in _bash_fence_command_lines(generated_validation):
+        if not command_line.startswith("python "):
+            issues.append(
+                (
+                    "generated/VALIDATION.md",
+                    f"generated validation command fence contains a non-command line {command_line!r}",
+                )
             )
 
     for generated_dir in PART_LOCAL_GENERATED_SURFACES:

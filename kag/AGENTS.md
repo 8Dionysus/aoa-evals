@@ -12,10 +12,8 @@ source-linked records over `eval bundles and proof report index` for `aoa-kag` r
 composition, and MCP consumers.
 
 ## Read before editing
-
-Read the root `AGENTS.md`, this card, `kag/README.md`, `kag/manifest.json`,
-`generated/eval_report_index.min.json`, and `evals/README.md` before
-changing provider records.
+Read only the route needed for the touched source: consult the nearest README when its human or semantic contract is required, then follow the source-owner and validation routes conditionally.
+For provider records, consult `kag/manifest.json` and the generated/eval source routes only when the touched record needs them.
 
 ## Boundaries
 
@@ -24,6 +22,8 @@ registry, composition, and provider validation with `aoa-kag`. Keep runtime
 serving state with `abyss-stack` or the runtime owner named by the consumer.
 
 ## Validation
+
+Use the on-demand [VALIDATION.md](VALIDATION.md) route for executable checks.
 
 Use the owner validator named in `manifest.json`, then validate this provider
 through the `aoa-kag` local subtree validator.

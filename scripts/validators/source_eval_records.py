@@ -84,7 +84,7 @@ def validate_source_eval_command_ownership(
             issues.append(
                 ValidationIssue(
                     path_name,
-                    "source EVAL.md must route executable validation commands to evals/AGENTS.md or the nearest AGENTS.md",
+                    "source EVAL.md must route executable validation commands to evals/VALIDATION.md or the nearest VALIDATION.md",
                 )
             )
 

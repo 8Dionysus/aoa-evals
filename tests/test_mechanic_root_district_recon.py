@@ -66,7 +66,8 @@ def test_mechanic_root_district_recon_requires_agents_command_route(
     tmp_path: Path,
 ) -> None:
     copy_root_district_recon_surface(tmp_path)
-    agents_path = tmp_path / mechanics_validator.MECHANICS_AGENTS_NAME
+    copy_repo_text(tmp_path, "mechanics/VALIDATION.md")
+    agents_path = tmp_path / "mechanics" / "VALIDATION.md"
     agents_path.write_text(
         agents_path.read_text(encoding="utf-8").replace(
             mechanics_validator.MECHANIC_ROOT_DISTRICT_RECON_COMMAND,
@@ -79,7 +80,7 @@ def test_mechanic_root_district_recon_requires_agents_command_route(
     issues = mechanics_validator.validate_mechanic_root_district_recon_surfaces(tmp_path)
 
     assert any(
-        issue.location == mechanics_validator.MECHANICS_AGENTS_NAME
+        issue.location == "mechanics/VALIDATION.md"
         and mechanics_validator.MECHANIC_ROOT_DISTRICT_RECON_COMMAND in issue.message
         for issue in issues
     )

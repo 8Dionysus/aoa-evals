@@ -6,7 +6,7 @@ import re
 from pathlib import Path
 
 from validators import decision_index_paths
-from validators.common import ValidationIssue, read_text_or_issue
+from validators.common import ValidationIssue, read_text_or_issue, token_in_route, validation_companion_text
 
 MECHANICS_EVIDENCE_CLUSTERS_NAME = "mechanics/EVIDENCE_CLUSTERS.md"
 MECHANICS_EVIDENCE_CLUSTERS = Path(MECHANICS_EVIDENCE_CLUSTERS_NAME)
@@ -73,9 +73,10 @@ def _require_tokens(
             index_path = repo_root / relative_path
             if index_path.is_file():
                 companion_texts.append(index_path.read_text(encoding="utf-8"))
-    search_text = "\n\n".join((text, *companion_texts)) if companion_texts else text
+    route_text = validation_companion_text(repo_root / path_name, root=repo_root)
+    search_text = "\n\n".join((text, *companion_texts, route_text)) if route_text or companion_texts else text
     for token in tokens:
-        if token not in search_text:
+        if not token_in_route(token, search_text, companion_text=route_text):
             issues.append(ValidationIssue(path_name, f"missing required token: {token!r}"))
 
 

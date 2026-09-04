@@ -141,6 +141,7 @@ def _discovered_script_surfaces(repo_root: Path) -> set[str]:
         and "/scripts/" in f"/{path.relative_to(repo_root).as_posix()}"
         and "__pycache__" not in path.parts
         and path.suffix != ".pyc"
+        and path.name != "VALIDATION.md"
     }
 
 

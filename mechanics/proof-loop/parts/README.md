@@ -14,8 +14,8 @@ owner route, and validation lane.
 | output | part README route, bounded route-smoke report, defer note, owner handoff, or receipt-intake route |
 | owner | proof-loop owns loop routeability; source proof, support contracts, candidate evidence, sibling refs, and receipts keep their step-owner authority |
 | next route | `mechanics/proof-loop/PARTS.md`, selected part README, route-smoke report, step-owner mechanic, and parent validation lane |
-| tools | route-smoke focused tests, repo validator, and semantic AGENTS validator through `mechanics/proof-loop/AGENTS.md#validation` |
-| validation | `mechanics/proof-loop/parts/AGENTS.md#validation` and `mechanics/proof-loop/AGENTS.md#validation` |
+| tools | route-smoke focused tests, repo validator, and semantic AGENTS validator through `mechanics/proof-loop/VALIDATION.md` |
+| validation | `mechanics/proof-loop/parts/VALIDATION.md` and `mechanics/proof-loop/VALIDATION.md` |
 
 ## Active Parts
 

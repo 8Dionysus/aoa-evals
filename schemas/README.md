@@ -12,7 +12,7 @@
 | output | proof-object schema route, proof-infra schema route, questbook schema route, or owning mechanic part |
 | owner | `schemas/AGENTS.md` for route law; owning mechanic part for active schema meaning |
 | next route | proof-object eval contracts, proof-infra reportable contracts, questbook parts, or domain mechanic part |
-| validation | `schemas/AGENTS.md` and the owning route card |
+| validation | `schemas/VALIDATION.md` and the owning route card |
 
 Active root schema payloads route to mechanic-local owners:
 

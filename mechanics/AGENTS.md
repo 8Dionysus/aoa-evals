@@ -24,6 +24,30 @@ can carry the work.
 | tools | root validator, semantic AGENTS validator, catalog/report builders when generated readers move |
 | validation | this card's `Validation` section |
 
+Each target package keeps current operating direction in `DIRECTION.md`; the target package `DIRECTION.md` is the current direction source. Use the active-to-archive bridge in its `PROVENANCE.md` when legacy names are involved.
+The architecture proof route remains `docs/architecture/PROOF_TOPOLOGY.md`.
+
+## Shared Parts Card
+
+### Operating Card
+
+| Field | Route |
+| --- | --- |
+| role | part-contract and payload route law for this mechanic parent |
+| input | part boundary change, payload movement, source-surface pressure, validation route change, or legacy placement question |
+| output | parent `PARTS.md` alignment, nearest part `README.md`, part `VALIDATION.md`, on-demand part validation route, or stronger-owner handoff |
+| owner | parent `PARTS.md` owns the part map; nearest part `README.md` owns the part contract; the nearest part VALIDATION.md owns executable child validation commands |
+| next route | parent `AGENTS.md`, parent `DIRECTION.md`, parent `PARTS.md`, nearest part `README.md`, nearest part `VALIDATION.md`, and affected payload home |
+| tools | parent validation lane, on-demand part validation routes, root validator, semantic AGENTS validator |
+| validation | this card's `Validation` section |
+
+### Route Rules
+
+- Keep each part tied to one row in the parent `PARTS.md`.
+- Keep source proof meaning in bundles or source docs; validation text carries check route and evidence coverage.
+- Keep executable child validation commands in child VALIDATION.md files so README files stay route maps and contracts.
+- Route legacy placement through parent `PROVENANCE.md` and `legacy/` rather than recreating old root payload paths.
+
 ## Owner Routes
 
 | Need | Owner route |
@@ -37,18 +61,7 @@ can carry the work.
 | part payload contract | `mechanics/<parent>/parts/<part>/README.md` and `VALIDATION.md` |
 
 ## Read before editing
-
-1. root `AGENTS.md`
-2. `DESIGN.md`
-3. `DESIGN.AGENTS.md`
-4. `docs/architecture/PROOF_TOPOLOGY.md`
-5. `mechanics/EVIDENCE_CLUSTERS.md`
-6. `mechanics/README.md`
-7. the target package `README.md`
-8. the target package `DIRECTION.md` for current operating direction
-9. the target package `AGENTS.md`
-10. `docs/decisions/` for package-creation or package-boundary changes
-
+Read only the route needed for the touched source: consult the nearest README when its human or semantic contract is required, then follow the source-owner and validation routes conditionally. Read the root and nearest owner routes conditionally for the touched source; do not preload unrelated README or sibling validation material.
 ## Route Rules
 
 - Create packages for live operations with evidence cluster support and a
@@ -68,33 +81,19 @@ can carry the work.
 
 ## Validation
 
-After package route changes, run:
+Use the on-demand [VALIDATION.md](VALIDATION.md) route for executable checks.
 
-```bash
-python scripts/validate_repo.py
-python scripts/validate_semantic_agents.py
-```
+After package route changes, follow the [VALIDATION.md](VALIDATION.md) route.
 
 If the changed package touches generated quest readers, catalogs, report
 indexes, runtime-candidate readers, or boundary-bridge matrices, add the owning
-builder check named by the package card, commonly:
-
-```bash
-python scripts/build_catalog.py --check
-python scripts/generate_eval_report_index.py --check
-```
+builder check named by the package card, commonly through the [VALIDATION.md](VALIDATION.md) route.
 
 Run package-specific builders or checks named in the package card before the
 broader mechanics lane.
 
 Focused mechanic topology checks live in this lane when the changed source
-surface names a narrower guard:
-
-```bash
-python -m pytest -q tests/test_mechanic_root_district_recon.py -k mechanic_root_district_recon
-python -m pytest -q tests/test_mechanic_part_contracts.py -k mechanic_part_payload_inventory
-python -m pytest -q tests/test_mechanic_part_validation_commands.py -k mechanic_part_validation_command
-```
+surface names a narrower guard, use the corresponding check in [VALIDATION.md](VALIDATION.md).
 
 ## Closeout
 

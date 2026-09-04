@@ -15,8 +15,8 @@ owner route, tool lane, and validation lane.
 | output | part README route, scorer/runner route, fixture route, manifest route, beacon route, generated/readout support route, bundle-local review handoff, decision-packet closure, or stronger-owner handoff |
 | owner | `aoa-evals` owns bounded recurrence proof support; stronger owners keep doctrine, runtime return, memory anchors, routing, scenario choreography, Agon authority, stats truth, KAG truth, and artifact promotion |
 | next route | `mechanics/recurrence/PARTS.md`, selected part README, affected source proof bundle, generated/readout support, stronger-owner route, and parent validation lane |
-| tools | part-local runners, part-local tests, generated catalog checks, repo validator, and semantic AGENTS validator through `mechanics/recurrence/AGENTS.md#validation` |
-| validation | `mechanics/recurrence/parts/AGENTS.md#validation` and `mechanics/recurrence/AGENTS.md#validation` |
+| tools | part-local runners, part-local tests, generated catalog checks, repo validator, and semantic AGENTS validator through `mechanics/recurrence/VALIDATION.md` |
+| validation | `mechanics/recurrence/parts/VALIDATION.md` and `mechanics/recurrence/VALIDATION.md` |
 
 ## Active Parts
 

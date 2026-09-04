@@ -21,7 +21,7 @@ readers, questbook mechanic support, and eval proof meaning.
 | output | lane/state source record, `QUESTBOOK.md` open-obligation entry, generated quest reader route, or source eval package route |
 | owner | `quests/AGENTS.md` for editing law; `quests/LIFECYCLE.md` for state meaning; quest schema for record shape |
 | next route | `quests/<lane>/<state>/`, `QUESTBOOK.md`, `generated/quest_catalog.min.json`, `generated/quest_dispatch.min.json`, or source eval packages under `evals/` |
-| validation | `quests/AGENTS.md` and the owning questbook mechanic route |
+| validation | `quests/VALIDATION.md` and the owning questbook mechanic route |
 
 ## Current Source Layout
 
@@ -106,4 +106,4 @@ which return posture applies when a proof-loop route defers or hands off.
 
 ## Verify
 
-Use [AGENTS](AGENTS.md#validation) for executable validation commands.
+Use [VALIDATION](VALIDATION.md) for executable validation commands.

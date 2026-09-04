@@ -178,7 +178,7 @@ RECURRENCE_PORTABLE_PROOF_BEACONS_PART_AGENTS_REQUIRED_TOKENS = (
     "Accepted portable proof pressure",
     "Progression or unlock pressure",
     "Beacon-as-verdict pressure",
-    "centralized-child-validation",
+    "VALIDATION.md",
 )
 RECURRENCE_PORTABLE_PROOF_BEACONS_PART_AGENTS_STALE_ROUTE_PHRASES = (
     "It does not own runtime evidence intake",

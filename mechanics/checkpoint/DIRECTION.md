@@ -46,4 +46,4 @@ current part map before checkpoint grows a new part.
 
 ## Validation
 
-Use the validation lane in [mechanics/checkpoint/AGENTS.md](AGENTS.md#validation).
+Use the validation lane in [mechanics/checkpoint/VALIDATION.md](VALIDATION.md).

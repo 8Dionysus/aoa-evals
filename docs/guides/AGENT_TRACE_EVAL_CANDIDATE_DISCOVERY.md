@@ -22,7 +22,7 @@ See also:
 | output | keep, reject, defer, duplicate, local-intake, central-design, trigger-skill, or runtime-owner route |
 | owner | this guide owns discovery criteria; `.aoa` owns raw/session evidence; local repos own local `evals/` pressure; `aoa-evals` owns proof doctrine and central bundles |
 | next route | `.aoa` evidence pointer, repo-local `evals/` port, `aoa-skills` trigger design, `abyss-stack` runtime owner, `aoa-evals-mcp` access-plane check, or central `aoa-evals` bundle design |
-| validation | [docs/AGENTS.md#validation](../AGENTS.md#validation) |
+| validation | [docs/VALIDATION.md](../VALIDATION.md) |
 
 ## Session Front Door
 

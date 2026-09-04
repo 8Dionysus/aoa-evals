@@ -21,16 +21,6 @@ behind the active `release-support` mechanic.
 | tools | Root validators, semantic-agent validator, and release check listed below. |
 | validation | Run the Validation commands after route-card, provenance, index, log, or raw changes. |
 
-## Read before editing
-
-1. root `AGENTS.md`
-2. `mechanics/release-support/AGENTS.md`
-3. `mechanics/release-support/README.md`
-4. `mechanics/release-support/PARTS.md`
-5. `mechanics/release-support/PROVENANCE.md`
-6. `docs/operations/RELEASING.md`
-7. `docs/architecture/LEGACY_NAMING.md`
-
 ## Route Rules
 
 - Start from active release-support parts before reading legacy.
@@ -43,11 +33,7 @@ behind the active `release-support` mechanic.
 
 ## Validation
 
-```bash
-python scripts/validate_repo.py
-python scripts/validate_semantic_agents.py
-python scripts/release_check.py
-```
+Use the on-demand [VALIDATION.md](VALIDATION.md) route for executable checks.
 
 ## Closeout
 

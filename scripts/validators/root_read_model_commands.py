@@ -41,7 +41,7 @@ def validate_read_model_command_ownership(repo_root: Path) -> list[ValidationIss
             issues.append(
                 ValidationIssue(
                     path_name,
-                    "guidance surface must route executable validation commands to the nearest AGENTS.md instead of carrying python command lines",
+                    "guidance surface must route executable validation commands to the nearest VALIDATION.md instead of carrying python command lines",
                 )
             )
 

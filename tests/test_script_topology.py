@@ -71,6 +71,7 @@ def discovered_script_surfaces() -> set[str]:
         for path in REPO_ROOT.rglob("*")
         if path.is_file()
         and "/scripts/" in f"/{path.relative_to(REPO_ROOT).as_posix()}"
+        and path.name != "VALIDATION.md"
         and "__pycache__" not in path.parts
         and path.suffix != ".pyc"
     }

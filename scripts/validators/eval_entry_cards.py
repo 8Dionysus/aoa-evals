@@ -19,7 +19,7 @@ EVAL_SOURCE_ENTRY_OPERATING_CARD_REQUIRED_TOKENS: dict[str, tuple[str, ...]] = {
         "proof question, claim class, maturity need, comparison need, or diagnostic pressure",
         "selected source eval bundle, comparison surface, or defer-to-index route",
         "`EVAL_SELECTION.md` owns first-choice chooser wording",
-        "[evals/AGENTS.md#validation](evals/AGENTS.md#validation)",
+        "[VALIDATION.md](VALIDATION.md)",
     ),
     EVAL_INDEX_NAME: (
         "## Operating Card",
@@ -27,7 +27,7 @@ EVAL_SOURCE_ENTRY_OPERATING_CARD_REQUIRED_TOKENS: dict[str, tuple[str, ...]] = {
         "public bundle inventory question, eval layer/status map question",
         "`EVAL_INDEX.md` owns public starter-table and layer-index wording",
         "generated catalog/readers, comparison spine reader, report index, and eval source validator",
-        "[evals/AGENTS.md#validation](evals/AGENTS.md#validation)",
+        "[VALIDATION.md](VALIDATION.md)",
     ),
     EVALS_README.as_posix(): (
         "## Operating Card",
@@ -35,7 +35,7 @@ EVAL_SOURCE_ENTRY_OPERATING_CARD_REQUIRED_TOKENS: dict[str, tuple[str, ...]] = {
         "source proof question, bundle lookup, claim-family path",
         "bundle-local `EVAL.md` and `eval.yaml` own claim meaning",
         "`evals/AGENTS.md` owns source-tree edit law",
-        "[evals/AGENTS.md#validation](AGENTS.md#validation)",
+        "[VALIDATION.md](VALIDATION.md)",
     ),
 }
 

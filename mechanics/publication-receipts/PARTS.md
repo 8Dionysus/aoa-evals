@@ -44,5 +44,5 @@ eval-result receipt sidecar route.
 Stop-lines route dry-review publication pressure, receipt proof-authority
 pressure, and local envelope ownership pressure back to their owners.
 
-Validation routes through [AGENTS](AGENTS.md#validation), including repo,
+Validation routes through [VALIDATION](VALIDATION.md), including repo,
 semantic AGENTS, and receipt-specific test lanes.

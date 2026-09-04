@@ -50,7 +50,7 @@ Stop-lines route stronger-owner pressure through the boundary routes below.
 | memo recall after active recurrence routing | `mechanics/recurrence/parts/memory-recall/` route |
 | nearby contradiction or base writeback proof | owning eval bundle or mechanic part route |
 
-Validation routes through [AGENTS](AGENTS.md#validation), including the two
+Validation routes through [VALIDATION](VALIDATION.md), including the two
 bundle-local eval checks, generated catalog check, and repo validation lane.
 
 ## Deferred Part Families

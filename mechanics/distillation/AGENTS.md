@@ -2,7 +2,7 @@
 
 ## Entry Route
 
-Start with the package README. Then read `mechanics/distillation/DIRECTION.md` for current operating direction, `mechanics/distillation/PARTS.md` for active parts, and `mechanics/distillation/PROVENANCE.md` as the active-to-archive bridge for legacy or former-placement lookup.
+When package semantics or direction are relevant, consult the package README and then the `mechanics/distillation/DIRECTION.md`, `mechanics/distillation/PARTS.md`, and `mechanics/distillation/PROVENANCE.md` routes as needed for the touched source.
 
 ## Applies to
 
@@ -28,18 +28,7 @@ handoff routes.
 | tools | eval-specific validators, catalog builder, root validator |
 | validation | this card's `Validation` section |
 
-## Read before editing
-
-1. root `AGENTS.md`
-2. `DESIGN.md`
-3. `DESIGN.AGENTS.md`
-4. `docs/architecture/PROOF_TOPOLOGY.md`
-5. `mechanics/EVIDENCE_CLUSTERS.md`
-6. `mechanics/README.md`
-7. `mechanics/distillation/README.md`
-8. `mechanics/distillation/PARTS.md`
-9. `mechanics/distillation/PROVENANCE.md` as the active-to-archive bridge for old placement or raw lineage
-10. the affected bundle `EVAL.md`
+current operating direction `mechanics/distillation/DIRECTION.md`; active-to-archive bridge `mechanics/distillation/PROVENANCE.md`.
 
 ## Route Rules
 
@@ -55,12 +44,7 @@ handoff routes.
 
 ## Validation
 
-```bash
-python scripts/validate_repo.py --eval aoa-compost-provenance-preservation
-python scripts/validate_repo.py --eval aoa-memo-reviewed-candidate-adoption-integrity
-python scripts/build_catalog.py --check
-python scripts/validate_repo.py
-```
+Use the on-demand [VALIDATION.md](VALIDATION.md) route for executable checks.
 
 ## Closeout
 

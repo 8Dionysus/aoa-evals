@@ -21,9 +21,9 @@ validation, and parent evidence.
 | entry | choose a parent from `Active Packages`, or recover it bottom-up from a payload |
 | input | source proof pressure, support artifact movement, route-card drift, or mechanic-owned payload work |
 | output | parent route, part contract, payload location, validation lane, or stronger-owner handoff |
-| owner | mechanic parent `README.md`, `DIRECTION.md`, `PARTS.md`, part `README.md`, and nearest `AGENTS.md` |
+| owner | mechanic parent `README.md`, `DIRECTION.md`, `PARTS.md`, part `README.md`, and nearest on-demand `VALIDATION.md` |
 | next route | `mechanics/EVIDENCE_CLUSTERS.md` for parent evidence, `docs/architecture/PROOF_TOPOLOGY.md` for authority class |
-| validation | [mechanics/AGENTS.md#validation](AGENTS.md#validation) and the nearest package card |
+| validation | the nearest package or part `VALIDATION.md` route; named repository lanes remain in `docs/validation/validation_lanes.json` |
 
 ## Traversal Index
 
@@ -45,7 +45,7 @@ Bottom-up route:
 | part set | `mechanics/<parent>/PARTS.md` | which parts exist and how they relate to inputs, outputs, owner split, stop-lines, and validation |
 | local part contract | `mechanics/<parent>/parts/<part>/README.md` | source surfaces, payload classes, local validation, and part-specific boundaries |
 | payload | `docs/`, `examples/`, `fixtures/`, `schemas/`, `scripts/`, `tests/`, `reports/`, `generated/`, or other part-local payload homes | the actual proof-support material owned by the part |
-| route law | nearest `AGENTS.md` | how an agent may edit the surface and what to verify before closeout |
+| route law | nearest `AGENTS.md` | how an agent may edit the surface, which owner and stop-lines apply, and which `VALIDATION.md` procedure to select |
 | evidence class | `mechanics/EVIDENCE_CLUSTERS.md` and `docs/architecture/PROOF_TOPOLOGY.md` | why the parent exists and what authority class the artifact belongs to |
 
 When starting from a payload, recover the nearest part first. When starting from
@@ -79,7 +79,7 @@ Use the evidence gate as an operating checklist:
 | parent part map | parent `PARTS.md` keeps the declared part route set synchronized with actual `parts/` directories; stale local part route checks keep removed parts from staying active by name; cross-parent references stay owner-split, stop-line, or handoff routes |
 | payload coverage | every actual payload subdirectory is routed from the part README; a bundle-backed thin support route points to the source eval package under `evals/` as its payload |
 | source refs | every concrete mechanic part README exposes plural `## Source Surfaces` with at least one path-like source ref that resolves as an existing repo-relative path, matching repo-relative glob, repo-qualified sibling ref, or explicit placeholder route; stale source surface ref checks keep old root payload names from steering current work |
-| validation route | every part `## Validation` section routes to part-local `VALIDATION.md`; every `VALIDATION.md` routes to the parent `parts/AGENTS.md` centralized child validation block; that block owns reachable repo-relative executable checks, stale validation path checks keep the route current, and payload-bearing parts carry a payload coverage anchor |
+| validation route | every part `## Validation` section routes to part-local `VALIDATION.md`; local routes own reachable repo-relative executable checks, stale validation path checks keep the route current, and payload-bearing parts carry a payload coverage anchor |
 | parent-level docs | parent-level `docs/` carries explicitly allowlisted mechanic-wide guidance; part-owned payload docs live under `parts/<part>/docs/`; allowed parent guides expose role, mechanic-wide scope, source surfaces, stronger owner split, stop-lines, and validation |
 
 Rationale-only decisions and generic root validator refs can support context.
@@ -412,8 +412,9 @@ surfaces own the stronger meaning.
 
 ## Validation
 
-Executable commands for this mechanics atlas live in
-[mechanics/AGENTS.md#validation](AGENTS.md#validation).
+Executable checks for this mechanics atlas live in the nearest on-demand
+`VALIDATION.md` route; named repository-wide lanes remain in
+`docs/validation/validation_lanes.json`.
 
 For package-local work, start with the nearest package `AGENTS.md` and add the
 central mechanics lane only when registry, parent topology, part topology,

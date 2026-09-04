@@ -16,7 +16,7 @@
 
 ## VERIFY
 <!--
-- root `AGENTS.md#verify` status
+- root `VALIDATION.md` status
 - generated/readout parity status when relevant
 - test modules actually run
 - comparison or chooser surfaces manually re-read

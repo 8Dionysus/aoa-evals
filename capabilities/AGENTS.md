@@ -29,14 +29,9 @@ runtime state, or generated graph authority.
 
 ## Validation
 
-From the matching `aoa-skills` checkout, run:
+Use the on-demand [VALIDATION.md](VALIDATION.md) route for executable checks.
 
-```bash
-PYTHONPATH=scripts python scripts/validate_capability_home_port.py --owner-root /path/to/aoa-evals
-PYTHONPATH=scripts python scripts/build_capability_home_projection.py --owner-root /path/to/aoa-evals
-PYTHONPATH=scripts python scripts/build_capability_home_projection.py --owner-root /path/to/aoa-evals --check
-PYTHONPATH=scripts python scripts/validate_capability_home_port.py --owner-root /path/to/aoa-evals --check-generated
-```
+From the matching `aoa-skills` checkout, follow the owner validation route in [VALIDATION.md](VALIDATION.md).
 
 Green structure checks do not prove routing, proof meaning, safety, or outcome
 benefit. Manual isolated, negative, held-out, coexistence, and composed cases

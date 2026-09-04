@@ -1,5 +1,7 @@
 # Eval Source Index
 
+Use the local `VALIDATION.md` route for executable checks; see [VALIDATION.md](VALIDATION.md).
+
 `evals/` is the source proof object district for `aoa-evals`.
 Its active shape is `evals/<claim-family>/<eval-name>/`, so an agent can read
 the proof class from the path before opening the manifest.
@@ -18,7 +20,7 @@ kept beside the bundle when they help the claim remain reviewable.
 | owner | bundle-local `EVAL.md` and `eval.yaml` own claim meaning; `evals/AGENTS.md` owns source-tree edit law |
 | next route | `EVAL_SELECTION.md`, `EVAL_INDEX.md`, `generated/README.md`, `mechanics/proof-object/README.md`, or the nearest bundle |
 | tools | eval source validator, catalog builders, report-index builder, and semantic AGENTS validator |
-| validation | [evals/AGENTS.md#validation](AGENTS.md#validation) and root [AGENTS.md#verify](../AGENTS.md#verify) |
+| validation | [evals/VALIDATION.md](VALIDATION.md) and root [VALIDATION.md](../VALIDATION.md) |
 
 ## Source Chain
 
@@ -121,7 +123,7 @@ mechanic part from the eval-local evidence path or from
 ## Validation
 
 Executable bundle validation routes live in
-[evals/AGENTS.md#validation](AGENTS.md#validation) and the target bundle's
+[evals/VALIDATION.md](VALIDATION.md) and the target bundle's
 owning proof-object route. This source index names what bundle artifacts are
 and how they relate. Executable command ownership stays in the route cards
 named above.

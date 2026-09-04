@@ -55,7 +55,7 @@ TITAN_INCARNATION_CANARIES_REQUIRED_TOKENS = (
     "runtime cohort",
     "summon authority",
     "memory sovereignty",
-    "AGENTS.md#validation",
+    "VALIDATION.md",
 )
 TITAN_SUMMON_DISCIPLINE_REQUIRED_TOKENS = (
     "mechanics/titan/README.md",
@@ -74,7 +74,7 @@ TITAN_SEED_BOUNDARY_SEEDS_AGENTS_REQUIRED_TOKENS = (
     "runtime activation",
     "validate_titan_canary_surfaces",
     "Filename or identifier drift",
-    "centralized-child-validation",
+    "VALIDATION.md",
 )
 TITAN_SEED_BOUNDARY_SEEDS_README_REQUIRED_TOKENS = (
     "Titan Canary Seeds",
@@ -83,8 +83,8 @@ TITAN_SEED_BOUNDARY_SEEDS_README_REQUIRED_TOKENS = (
     "seed-defined",
     "id` or `eval_id",
     "full incarnation proof",
-    "Use [AGENTS.md](AGENTS.md#validation)",
-    "parent `mechanics/titan/parts/AGENTS.md` lane",
+    "Use [VALIDATION.md](../VALIDATION.md)",
+    "executable validation commands are defined in that local validation route",
 )
 TITAN_SEED_BOUNDARY_PART_README_REQUIRED_TOKENS = (
     "Seed Boundary Part",
@@ -113,7 +113,7 @@ TITAN_PARTS_INDEX_README_REQUIRED_TOKENS = (
     "| executable scorer-backed proof pressure appears | wait for scorer, fixture, report, and validator contracts |",
     "## Part Admission Route",
     "| seed-defined Titan canary YAML | current source shape and validator lane match the seed-boundary contract | `seed-boundary/README.md` |",
-    "mechanics/titan/parts/AGENTS.md#validation",
+    "mechanics/titan/parts/VALIDATION.md",
 )
 TITAN_SEED_BOUNDARY_STALE_ROUTE_PHRASES = (
     "not full incarnation proof",

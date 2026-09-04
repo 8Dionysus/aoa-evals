@@ -49,4 +49,4 @@ to the owning mechanic instead of convenience placement.
 
 ## Validation
 
-Use the validation lane in [mechanics/proof-infra/AGENTS.md](AGENTS.md#validation).
+Use the validation lane in [mechanics/proof-infra/VALIDATION.md](VALIDATION.md).

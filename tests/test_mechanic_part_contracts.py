@@ -209,7 +209,7 @@ def test_mechanic_part_payload_inventory_rejects_active_decision_command_list(
 
     assert any(
         issue.location == mechanic_part_contract_common.MECHANIC_PART_PAYLOAD_INVENTORY_DECISION_NAME
-        and "mechanics/AGENTS.md#validation" in issue.message
+        and "on-demand VALIDATION.md" in issue.message
         for issue in issues
     )
 

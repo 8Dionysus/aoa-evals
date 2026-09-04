@@ -20,7 +20,7 @@ See also:
 | output | baseline-ready route, deferral route, style-only route, or comparison hygiene route |
 | owner | this guide owns docs-level baseline reading discipline; bundle-local `EVAL.md`, `eval.yaml`, comparison-spine parts, and reports own concrete evidence |
 | next route | `mechanics/comparison-spine/parts/fixed-baseline/`, `mechanics/comparison-spine/parts/longitudinal-window/`, `docs/guides/FIXTURE_SURFACE_GUIDE.md`, `docs/guides/SCORE_SEMANTICS_GUIDE.md`, or bundle-local review |
-| validation | `docs/AGENTS.md#validation` |
+| validation | `docs/VALIDATION.md` |
 
 ## What baseline means
 

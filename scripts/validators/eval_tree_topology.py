@@ -22,17 +22,13 @@ SOURCE_EVAL_TREE_TOPOLOGY_DECISION_NAME = (
     "docs/decisions/AOA-EV-D-0104-source-eval-tree-topology.md"
 )
 DECISION_INDEX_BY_NUMBER_NAME = "docs/decisions/indexes/by-number.md"
-SOURCE_EVAL_TREE_TOPOLOGY_COMMANDS = (
-    "python scripts/validate_repo.py",
-    "python scripts/build_catalog.py --check",
-    "python scripts/generate_eval_report_index.py --check",
-    "python -m pytest -q",
-)
+SOURCE_EVAL_TREE_LOCAL_COMMAND = "python scripts/validate_repo.py --eval <bundle-name>"
+EVALS_VALIDATION_ROUTE_TOKEN = "[VALIDATION.md](VALIDATION.md)"
 SOURCE_EVAL_TREE_TOPOLOGY_DECISION_REQUIRED_TOKENS = (
     "Source Eval Tree Topology",
     "`evals/<claim-family>/<eval-name>/`",
     "recursive",
-    "evals/AGENTS.md#validation",
+    "on-demand `VALIDATION.md`",
     "source-tree topology path",
 )
 REQUIRED_FAMILIES = (
@@ -51,7 +47,7 @@ REQUIRED_ROUTE_TOKENS = (
 )
 README_ROUTE_TOKENS = (
     *REQUIRED_ROUTE_TOKENS,
-    "evals/AGENTS.md#validation",
+    "local `VALIDATION.md`",
 )
 AGENTS_ROUTE_TOKENS = (
     *REQUIRED_ROUTE_TOKENS,
@@ -80,26 +76,28 @@ def validate_source_eval_tree_topology_surfaces(repo_root: Path) -> list[Validat
         issues.append(
             ValidationIssue(
                 SOURCE_EVAL_TREE_TOPOLOGY_DECISION_NAME,
-                "decision validation must route executable commands to evals/AGENTS.md#validation",
+                "decision validation must route executable commands to evals/VALIDATION.md",
             )
         )
 
     agents_text = require_tokens(
         repo_root=repo_root,
         path_name=EVALS_AGENTS_NAME,
-        tokens=("source-tree topology",),
+        tokens=("source-tree topology", EVALS_VALIDATION_ROUTE_TOKEN),
         issues=issues,
     )
     if agents_text:
-        agents_validation_section = markdown_heading_section(agents_text, "Validation")
-        for command in SOURCE_EVAL_TREE_TOPOLOGY_COMMANDS:
-            if command not in agents_validation_section:
-                issues.append(
-                    ValidationIssue(
-                        EVALS_AGENTS_NAME,
-                        f"Validation section must mention required source-tree topology command: {command}",
-                    )
+        validation_path = repo_root / "evals" / "VALIDATION.md"
+        validation_text = validation_path.read_text(encoding="utf-8") if validation_path.is_file() else ""
+        agents_validation_section = markdown_heading_section(validation_text, "Commands")
+        if SOURCE_EVAL_TREE_LOCAL_COMMAND not in agents_validation_section:
+            issues.append(
+                ValidationIssue(
+                    "evals/VALIDATION.md",
+                    "Commands section must own the bundle-local source-tree topology route: "
+                    f"{SOURCE_EVAL_TREE_LOCAL_COMMAND}",
                 )
+            )
     require_tokens(
         repo_root=repo_root,
         path_name=DECISION_INDEX_BY_NUMBER_NAME,
@@ -187,7 +185,8 @@ def validate_eval_bundle_topology(repo_root: Path) -> list[tuple[str, str]]:
 
 __all__ = (
     "DECISION_INDEX_BY_NUMBER_NAME",
-    "SOURCE_EVAL_TREE_TOPOLOGY_COMMANDS",
+    "SOURCE_EVAL_TREE_LOCAL_COMMAND",
+    "EVALS_VALIDATION_ROUTE_TOKEN",
     "SOURCE_EVAL_TREE_TOPOLOGY_DECISION_NAME",
     "SOURCE_EVAL_TREE_TOPOLOGY_DECISION_REQUIRED_TOKENS",
     "validate_eval_bundle_topology",

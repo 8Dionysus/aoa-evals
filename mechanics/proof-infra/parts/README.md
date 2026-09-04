@@ -14,8 +14,8 @@ tool lane, and validation lane.
 | output | fixture-family route, reportable-contract route, shared schema route, generated proof-artifact route, or bundle-local review handoff |
 | owner | proof-infra owns reusable support contracts; source bundles, bundle-local runner contracts, report schemas, and narrower mechanics keep stronger proof meaning |
 | next route | `mechanics/proof-infra/PARTS.md`, selected part README, affected source bundle, bundle-local contract, and parent validation lane |
-| tools | affected bundle checks, generated catalog checks, repo validator, and focused proof-infra tests through `mechanics/proof-infra/AGENTS.md#validation` |
-| validation | `mechanics/proof-infra/parts/AGENTS.md#validation` and `mechanics/proof-infra/AGENTS.md#validation` |
+| tools | affected bundle checks, generated catalog checks, repo validator, and focused proof-infra tests through `mechanics/proof-infra/VALIDATION.md` |
+| validation | `mechanics/proof-infra/parts/VALIDATION.md` and `mechanics/proof-infra/VALIDATION.md` |
 
 ## Active Parts
 

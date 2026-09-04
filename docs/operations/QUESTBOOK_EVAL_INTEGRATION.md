@@ -14,7 +14,7 @@ surface for deferred proof obligations.
 | output | quest anchor route, deferred obligation route, reviewed promotion route, generated reader route, or owner handoff route |
 | owner | this guide owns docs-level quest/eval integration; quest source records, `QUESTBOOK.md`, mechanics/questbook parts, and bundle-local proof surfaces own concrete state and evidence |
 | next route | `QUESTBOOK.md`, `quests/AGENTS.md`, `quests/LIFECYCLE.md`, `mechanics/questbook/`, affected source quest record, or affected proof bundle |
-| validation | `docs/AGENTS.md#validation` and `mechanics/questbook/AGENTS.md#validation` |
+| validation | `docs/VALIDATION.md` and `mechanics/questbook/VALIDATION.md` |
 
 ## Role split
 

@@ -2,7 +2,7 @@
 
 ## Entry Route
 
-Start with the package README. Then read `mechanics/recurrence/DIRECTION.md` for current operating direction, `mechanics/recurrence/PARTS.md` for active parts, and `mechanics/recurrence/PROVENANCE.md` as the active-to-archive bridge for legacy or former-placement lookup.
+When package semantics or direction are relevant, consult the package README and then the `mechanics/recurrence/DIRECTION.md`, `mechanics/recurrence/PARTS.md`, and `mechanics/recurrence/PROVENANCE.md` routes as needed for the touched source.
 
 ## Applies to
 
@@ -28,16 +28,7 @@ bundle-local review, or stronger-owner handoff routes.
 | tools | part-local execution checks, root validator, semantic AGENTS validator |
 | validation | this card's `Validation` section |
 
-## Read before editing
-
-1. root `AGENTS.md`
-2. `DESIGN.md`
-3. `docs/architecture/PROOF_TOPOLOGY.md`
-4. `mechanics/EVIDENCE_CLUSTERS.md`
-5. `mechanics/recurrence/README.md`
-6. `mechanics/recurrence/PARTS.md`
-7. target part `README.md`
-8. `mechanics/recurrence/PROVENANCE.md` as the active-to-archive bridge for old placement or raw lineage
+current operating direction `mechanics/recurrence/DIRECTION.md`; active-to-archive bridge `mechanics/recurrence/PROVENANCE.md`.
 
 ## Route Rules
 
@@ -52,13 +43,7 @@ bundle-local review, or stronger-owner handoff routes.
 
 ## Validation
 
-```bash
-python mechanics/recurrence/parts/control-plane-integrity/scripts/run_recurrence_control_plane_integrity_eval.py --case mechanics/recurrence/parts/control-plane-integrity/fixtures/recurrence-control-plane-integrity-v1/cases/RCPI-001.registry-mixed-manifests.json --check-expected --json
-python -m pytest -q mechanics/recurrence/parts/control-plane-integrity/tests/test_recurrence_control_plane_integrity_eval_seed.py
-python mechanics/recurrence/parts/recursor-boundary/scripts/run_recursor_readiness_boundary_eval.py --case mechanics/recurrence/parts/recursor-boundary/fixtures/recursor-readiness-boundary-v1/cases/RRB-001.no-spawn-readiness.json --check-expected --json
-python -m pytest -q mechanics/recurrence/parts/recursor-boundary/tests/test_recursor_readiness_boundary_eval_seed.py mechanics/recurrence/parts/memory-recall/tests/test_memo_recall_phase_alpha_report.py mechanics/recurrence/parts/stats-regrounding-boundary/tests/test_stats_regrounding_boundary_eval.py
-python scripts/validate_repo.py
-```
+Use the on-demand [VALIDATION.md](VALIDATION.md) route for executable checks.
 
 ## Closeout
 

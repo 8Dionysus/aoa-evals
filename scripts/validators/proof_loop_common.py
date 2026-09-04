@@ -6,7 +6,7 @@ import re
 from pathlib import Path
 from typing import Iterable
 
-from validators.common import ValidationIssue, read_text_or_issue
+from validators.common import ValidationIssue, read_text_or_issue, token_in_route, validation_companion_text
 
 
 DECISION_RECORDS_README_NAME = "docs/decisions/README.md"
@@ -151,6 +151,9 @@ def require_tokens(
             search_text = "\n\n".join((text, part_validation_route_text(repo_root, path_name)))
         elif MECHANIC_PARENT_README_PATH_RE.match(path_name) and token.lstrip("`").startswith("python "):
             search_text = "\n\n".join((text, mechanic_parent_validation_route_text(repo_root, path_name)))
-        if token not in search_text:
+        route_text = validation_companion_text(repo_root / path_name, root=repo_root)
+        if route_text:
+            search_text = "\n\n".join((search_text, route_text))
+        if not token_in_route(token, search_text, companion_text=route_text):
             issues.append(ValidationIssue(path_name, f"file must mention '{token}'"))
     return text

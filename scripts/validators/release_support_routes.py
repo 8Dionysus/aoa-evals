@@ -115,7 +115,7 @@ RELEASE_SUPPORT_PART_README_COMMON_REQUIRED_TOKENS = (
     "## Stop-Lines",
     "## Validation",
     "VALIDATION.md",
-    "parent `parts/AGENTS.md` lane",
+    "part-local VALIDATION.md route",
 )
 RELEASE_SUPPORT_READINESS_AUDIT_PART_REQUIRED_TOKENS = (
     "Readiness Audit",

@@ -10,13 +10,6 @@ This directory owns eval-local statistical questions, their embedded
 measurement contracts, and evidence-linked reference packets. Shared
 statistical grammar and cross-owner composition remain owned by `aoa-stats`.
 
-## Read before editing
-
-1. Root `AGENTS.md`, `DESIGN.md`, and the proof boundary docs they route to.
-2. `stats/README.md` and `stats/port.manifest.json`.
-3. The referenced source eval bundles and status fields.
-4. The central measurement and packet contracts under `aoa-stats/stats/`.
-
 ## Boundaries
 
 - `port.manifest.json` owns the eval-local question and measurement meaning.
@@ -29,17 +22,11 @@ statistical grammar and cross-owner composition remain owned by `aoa-stats`.
 
 ## Validation
 
-Inspect the owner evidence first:
+Use the on-demand [VALIDATION.md](VALIDATION.md) route for executable checks.
 
-```bash
-rg -N '^status: ' evals -g 'eval.yaml' | sort
-```
+Inspect the owner evidence first through the [VALIDATION.md](VALIDATION.md) route.
 
-Then validate the port and its referenced packets with the central owner:
-
-```bash
-python scripts/validate_local_stats_port.py
-```
+Then validate the port and its referenced packets with the central owner through the [VALIDATION.md](VALIDATION.md) route.
 
 ## Closeout
 

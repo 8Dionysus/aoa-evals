@@ -12,9 +12,9 @@ inspect, rerun, compare, review, or route to its owner.
 | role | public contribution route for bounded proof work |
 | input | eval bundle, proof guide, scorer, fixture, report contract, mechanic support, validation, or public-safety pressure |
 | output | focused PR, owner route, validation evidence, review evidence, or security handoff |
-| owner | this file owns public contribution posture; `AGENTS.md` owns agent workflow, branch, PR, CI, merge, and verification law |
+| owner | this file owns public contribution posture; `AGENTS.md` owns route and stop-lines; `docs/operations/RELEASING.md` owns branch, PR, CI, and merge procedure |
 | next route | nearest owner surface: bundle `EVAL.md`, `eval.yaml`, docs guide, mechanic route card, `scripts/`, `tests/`, or sibling owner |
-| validation | root `AGENTS.md#verify`, nearest nested `AGENTS.md`, and affected bundle/mechanic route |
+| validation | root `VALIDATION.md`, nearest local `VALIDATION.md`, and affected bundle/mechanic route |
 
 ## Contribution Routes
 
@@ -81,7 +81,7 @@ Local note:
 
 ## Local development setup
 
-Use root `AGENTS.md#verify` for local setup and validation commands. Use the
+Use root `VALIDATION.md` for local setup and validation commands. Use the
 nearest nested `AGENTS.md` when a contribution only touches one district such as
 `docs/`, `evals/`, `mechanics/`, `scripts/`, or `tests/`.
 

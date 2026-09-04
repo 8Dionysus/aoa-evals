@@ -73,7 +73,8 @@ def test_generated_parity_contracts_reject_missing_check_command(
         "docs/decisions/indexes/by-validation-guard.md",
     ):
         copy_repo_text(tmp_path, path_name)
-    agents_path = tmp_path / "generated" / "AGENTS.md"
+    copy_repo_text(tmp_path, "generated/VALIDATION.md")
+    agents_path = tmp_path / "generated" / "VALIDATION.md"
     agents_path.write_text(
         agents_path.read_text(encoding="utf-8").replace(
             "python scripts/generate_eval_report_index.py --check",
@@ -86,8 +87,30 @@ def test_generated_parity_contracts_reject_missing_check_command(
     issues = generated_parity_contracts(tmp_path)
 
     assert any(
-        issue.location == "generated/AGENTS.md"
+            issue.location == "generated/VALIDATION.md"
         and "python scripts/generate_eval_report_index.py --check" in issue.message
+        for issue in issues
+    )
+
+
+def test_generated_parity_contracts_reject_non_command_fence_lines(tmp_path: Path) -> None:
+    copy_generated_route_surfaces(tmp_path)
+    copy_repo_text(tmp_path, "generated/VALIDATION.md")
+    validation_path = tmp_path / "generated" / "VALIDATION.md"
+    validation_path.write_text(
+        validation_path.read_text(encoding="utf-8").replace(
+            "python scripts/build_catalog.py --check",
+            "`python scripts/build_catalog.py --check`.",
+            1,
+        ),
+        encoding="utf-8",
+    )
+
+    issues = generated_parity_contracts(tmp_path)
+
+    assert any(
+        issue.location == "generated/VALIDATION.md"
+        and "non-command line" in issue.message
         for issue in issues
     )
 

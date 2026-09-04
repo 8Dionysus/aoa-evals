@@ -1763,7 +1763,7 @@
           "key": "interpretation_guidance"
         },
         {
-          "content_markdown": "Use the repository commands and escalation rules in the\n[evals validation route](../../../AGENTS.md#validation). The exact\nbundle-local fixture, composition, conformance, and replay invocations remain\ndeclared in `runners/contract.json`; executing them validates or produces\nbounded evidence but does not accept that evidence or establish the final\nverdict by itself.",
+          "content_markdown": "Use the repository commands and escalation rules in the\n[evals validation route](../../../VALIDATION.md). The exact\nbundle-local fixture, composition, conformance, and replay invocations remain\ndeclared in `runners/contract.json`; executing them validates or produces\nbounded evidence but does not accept that evidence or establish the final\nverdict by itself.",
           "heading": "Verification",
           "key": "verification"
         },
@@ -2139,7 +2139,7 @@
           "key": "interpretation_guidance"
         },
         {
-          "content_markdown": "Use the source-eval validation route in\n[evals/AGENTS.md](../../AGENTS.md#validation). Validate this bundle by name,\nthen run generated-reader checks when source wording, manifest fields, reports,\nor index inputs move.",
+          "content_markdown": "Use the source-eval validation route in\n[evals/VALIDATION.md](../../VALIDATION.md). Validate this bundle by name,\nthen run generated-reader checks when source wording, manifest fields, reports,\nor index inputs move.",
           "heading": "Verification",
           "key": "verification"
         },
@@ -2327,7 +2327,7 @@
           "key": "interpretation_guidance"
         },
         {
-          "content_markdown": "- confirm the bounded claim is explicit\n- confirm existing eval routes were inspected first\n- confirm `aoa-memo-writeback` invocation fit is reviewable\n- confirm owner repo and stronger owner route are named\n- confirm `.aoa`, source, landed-work, memo recall, pending-export, and local\n  memo port checks are either inspected, justified as not applicable, or named\n  as gaps\n- confirm generic progress was rejected when no bounded memory question exists\n- confirm the chosen decision outcome matches evidence and port posture\n- confirm missed-search risk is a first-class report field\n- confirm public packet posture excludes private transcript detail, secrets,\n  and raw session material\n- confirm report examples validate against `reports/summary.schema.json`\n- run the source-eval validation route in\n  [evals/AGENTS.md](../../AGENTS.md#validation)",
+          "content_markdown": "- confirm the bounded claim is explicit\n- confirm existing eval routes were inspected first\n- confirm `aoa-memo-writeback` invocation fit is reviewable\n- confirm owner repo and stronger owner route are named\n- confirm `.aoa`, source, landed-work, memo recall, pending-export, and local\n  memo port checks are either inspected, justified as not applicable, or named\n  as gaps\n- confirm generic progress was rejected when no bounded memory question exists\n- confirm the chosen decision outcome matches evidence and port posture\n- confirm missed-search risk is a first-class report field\n- confirm public packet posture excludes private transcript detail, secrets,\n  and raw session material\n- confirm report examples validate against `reports/summary.schema.json`\n- run the source-eval validation route in\n  [evals/VALIDATION.md](../../VALIDATION.md)",
           "heading": "Verification",
           "key": "verification"
         },
@@ -2396,7 +2396,7 @@
           "key": "baseline_or_comparison_mode"
         },
         {
-          "content_markdown": "Run the exact checked-in suite and packet-validation argv recorded in\n`runners/contract.json`. The executable repository validation route is governed\nby [`evals/AGENTS.md#validation`](../../AGENTS.md#validation); that owner card\ndefines the surrounding source checks and command ownership.\n\nThe runner is deterministic and offline. It validates packet shape and bounded\nsemantic invariants only. Live execution evidence must be gathered elsewhere,\nthen presented as owner-qualified candidate evidence.\n\nThe live materializer is operator-invoked and reads only explicit paths. It\ndoes not discover workspaces, read credentials, probe MCP endpoints, mutate the\nregistry, or execute admission. Its tests are part of the validation commands\nin `runners/contract.json`.",
+          "content_markdown": "Run the exact checked-in suite and packet-validation argv recorded in\n`runners/contract.json`. The executable repository validation route is governed\nby [`evals/VALIDATION.md`](../../VALIDATION.md); that route\ndefines the surrounding source checks and command ownership.\n\nThe runner is deterministic and offline. It validates packet shape and bounded\nsemantic invariants only. Live execution evidence must be gathered elsewhere,\nthen presented as owner-qualified candidate evidence.\n\nThe live materializer is operator-invoked and reads only explicit paths. It\ndoes not discover workspaces, read credentials, probe MCP endpoints, mutate the\nregistry, or execute admission. Its tests are part of the validation commands\nin `runners/contract.json`.",
           "heading": "Execution contract",
           "key": "execution_contract"
         },
@@ -2421,7 +2421,7 @@
           "key": "interpretation_guidance"
         },
         {
-          "content_markdown": "- run the bundled scenario command;\n- validate the example report against the report schema;\n- run the bundle-specific repository check routed by\n  `evals/AGENTS.md#validation`;\n- confirm every asserted maturity axis retains its own evidence kind, revision,\n  timestamp, and freshness field;\n- confirm the report keeps admission, acceptance inference, and higher-effect\n  authorization fixed to `false`;\n- confirm the result names the live-evidence blind spot.\n- run the live-materializer tests and confirm output mode, negative cross-input\n  cases, secret rejection, and permanently unasserted owner/proof axes.\n- run `review_rollback.py run-scenarios` and the rollback-readiness tests;\n- confirm rollback review output is private, content-bound, source-contract\n  bound, and fixed false for execution, admission, and effects;\n- confirm only the stack-owned projector can turn unchanged live evidence into\n  a temporary rollback-readiness observation.",
+          "content_markdown": "- run the bundled scenario command;\n- validate the example report against the report schema;\n- run the bundle-specific repository check routed by\n  `evals/VALIDATION.md`;\n- confirm every asserted maturity axis retains its own evidence kind, revision,\n  timestamp, and freshness field;\n- confirm the report keeps admission, acceptance inference, and higher-effect\n  authorization fixed to `false`;\n- confirm the result names the live-evidence blind spot.\n- run the live-materializer tests and confirm output mode, negative cross-input\n  cases, secret rejection, and permanently unasserted owner/proof axes.\n- run `review_rollback.py run-scenarios` and the rollback-readiness tests;\n- confirm rollback review output is private, content-bound, source-contract\n  bound, and fixed false for execution, admission, and effects;\n- confirm only the stack-owned projector can turn unchanged live evidence into\n  a temporary rollback-readiness observation.",
           "heading": "Verification",
           "key": "verification"
         },

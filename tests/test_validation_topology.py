@@ -18,6 +18,7 @@ import validation_lanes
 import ci_gate
 import validate_abyss_machine_report_index_bundle
 from validators import (
+    common as validator_common,
     validation_lane_manifest,
     validation_script_inventory,
     validation_test_inventory,
@@ -426,6 +427,57 @@ python scripts/validate_repo.py
 
         self.assertIn("scripts/owned.py", discovered)
         self.assertNotIn(".deps/aoa-playbooks/scripts/external.py", discovered)
+
+    def test_validation_route_closure_follows_explicit_owner_links(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp_dir:
+            tmp_path = Path(tmp_dir)
+            part = tmp_path / "mechanics" / "sample" / "parts" / "leaf"
+            part.mkdir(parents=True)
+            (part / "README.md").write_text("# Leaf\n", encoding="utf-8")
+            (part / "VALIDATION.md").write_text(
+                "# Leaf validation\n\nShared checks live in "
+                "[the package route](../../VALIDATION.md).\n",
+                encoding="utf-8",
+            )
+            package = tmp_path / "mechanics" / "sample" / "VALIDATION.md"
+            package.write_text(
+                "# Package validation\n\n```bash\npython scripts/check_sample.py\n```\n",
+                encoding="utf-8",
+            )
+
+            route = validator_common.validation_companion_text(
+                part / "README.md", root=tmp_path
+            )
+
+        self.assertIn("python scripts/check_sample.py", route)
+
+    def test_validation_route_closure_stops_at_root_fanout(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp_dir:
+            tmp_path = Path(tmp_dir)
+            local = tmp_path / "local"
+            unrelated = tmp_path / "unrelated"
+            local.mkdir()
+            unrelated.mkdir()
+            (local / "AGENTS.md").write_text("# AGENTS.md\n", encoding="utf-8")
+            (local / "VALIDATION.md").write_text(
+                "# Local validation\n\n[Root checks](../VALIDATION.md).\n",
+                encoding="utf-8",
+            )
+            (tmp_path / "VALIDATION.md").write_text(
+                "# Root validation\n\n[Unrelated owner](unrelated/VALIDATION.md).\n",
+                encoding="utf-8",
+            )
+            (unrelated / "VALIDATION.md").write_text(
+                "# Unrelated validation\n\n```bash\npython scripts/unrelated.py\n```\n",
+                encoding="utf-8",
+            )
+
+            route = validator_common.validation_companion_text(
+                local / "AGENTS.md", root=tmp_path
+            )
+
+        self.assertIn("# Root validation", route)
+        self.assertNotIn("python scripts/unrelated.py", route)
 
     def test_ci_gate_expands_manifest_path_globs_without_shell(self) -> None:
         command = ("python", "-m", "pytest", "-q", "mechanics/*/parts/*/tests/test*.py")

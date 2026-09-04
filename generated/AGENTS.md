@@ -39,15 +39,9 @@ The root reader names guarded here are `generated/eval_catalog.json`,
 
 Regenerate files with the owning builder:
 
-- `python scripts/build_catalog.py`
-- `python scripts/generate_eval_report_index.py`
-- `python scripts/build_eval_readiness_dashboard.py --write-generated`
-- `python scripts/build_eval_readiness_dashboard.py --no-live-checks --write-generated`
-- `python mechanics/audit/parts/candidate-readers/scripts/generate_runtime_candidate_template_index.py`
-- `python mechanics/audit/parts/candidate-readers/scripts/generate_runtime_candidate_intake.py`
-- `python mechanics/boundary-bridge/parts/phase-alpha-eval-matrix/scripts/generate_phase_alpha_eval_matrix.py`
+Builder routes: `scripts/build_catalog.py`, `scripts/generate_eval_report_index.py`, and the candidate-reader and phase-alpha matrix builders listed in [VALIDATION.md](VALIDATION.md).
 
-Use each builder's `--check` mode or `python scripts/validate_repo.py` to
+Use each builder's `--check` mode or the local validation route to
 confirm generated surfaces stay current.
 Keep the min catalog an exact projection of the full catalog.
 Keep catalogs, capsules, sections, comparison spine, report index, readiness
@@ -78,18 +72,7 @@ readiness snapshot.
 
 ## Validation
 
-For generated-reader freshness, run the matching non-mutating checks:
-
-```bash
-python scripts/build_catalog.py --check
-python scripts/generate_eval_report_index.py --check
-python scripts/build_eval_readiness_dashboard.py --check
-python scripts/check_eval_support_registry.py --json
-python mechanics/audit/parts/candidate-readers/scripts/generate_runtime_candidate_template_index.py --check
-python mechanics/audit/parts/candidate-readers/scripts/generate_runtime_candidate_intake.py --check
-python mechanics/boundary-bridge/parts/phase-alpha-eval-matrix/scripts/generate_phase_alpha_eval_matrix.py --check
-python scripts/validate_repo.py
-```
+Use the on-demand [VALIDATION.md](VALIDATION.md) route for executable checks.
 
 Use source-owner checks as well when generated drift comes from bundle, quest,
 report, or mechanic payload changes.

@@ -2,7 +2,7 @@
 
 ## Entry Route
 
-Start with the package README. Then read `mechanics/titan/DIRECTION.md` for current operating direction, `mechanics/titan/PARTS.md` for active parts, and `mechanics/titan/PROVENANCE.md` as the active-to-archive bridge for legacy or former-placement lookup.
+When package semantics or direction are relevant, consult the package README and then the `mechanics/titan/DIRECTION.md`, `mechanics/titan/PARTS.md`, and `mechanics/titan/PROVENANCE.md` routes as needed for the touched source.
 
 ## Applies to
 
@@ -41,22 +41,6 @@ review.
 | memory truth | memory owner route before adoption |
 | legacy canary vocabulary | `mechanics/titan/PROVENANCE.md` and validator-backed compatibility path |
 
-## Read before editing
-
-1. repository root `AGENTS.md`
-2. `DESIGN.md`
-3. `DESIGN.AGENTS.md`
-4. `docs/architecture/PROOF_TOPOLOGY.md`
-5. `docs/architecture/LEGACY_NAMING.md`
-6. `mechanics/README.md`
-7. `mechanics/titan/README.md`
-8. `mechanics/titan/parts/seed-boundary/docs/TITAN_INCARNATION_CANARIES.md`
-9. `mechanics/titan/parts/seed-boundary/docs/TITAN_SUMMON_DISCIPLINE_CANARIES.md`
-10. `mechanics/titan/parts/seed-boundary/seeds/README.md`
-11. `mechanics/titan/parts/seed-boundary/seeds/AGENTS.md`
-12. affected `mechanics/titan/parts/seed-boundary/seeds/titan*.yaml`
-13. `scripts/validate_repo.py` function `validate_titan_canary_surfaces`
-
 ## Local Law
 
 - Keep `mechanics/titan/parts/seed-boundary/seeds/titan*.yaml` seed-defined until executable scorer
@@ -67,6 +51,8 @@ review.
 - Keep mutation gate and judgment gate boundaries explicit.
 - Keep memory canaries candidate-only and source-ref oriented.
 - Keep named Titan language from collapsing into generic role shadows.
+
+Each package keeps current operating direction in `DIRECTION.md`; the active-to-archive bridge in `PROVENANCE.md` is consulted only when legacy names are involved.
 
 ## Route Rules
 
@@ -81,13 +67,9 @@ review.
 
 ## Validation
 
-Run the narrow package route checks:
+Use the on-demand [VALIDATION.md](VALIDATION.md) route for executable checks.
 
-```bash
-python scripts/validate_repo.py
-python scripts/validate_semantic_agents.py
-python -m pytest -q tests/test_mechanic_surface_contracts.py -k titan
-```
+Use the narrow package route checks in [VALIDATION.md](VALIDATION.md).
 
 Run broader generated and release checks when canary changes affect public
 selection, catalogs, release posture, or generated readers.

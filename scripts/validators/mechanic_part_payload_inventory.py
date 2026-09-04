@@ -120,16 +120,13 @@ def validate_mechanic_part_payload_inventory_decision_surfaces(
         issues.append(
             ValidationIssue(
                 MECHANIC_PART_PAYLOAD_INVENTORY_DECISION_NAME,
-                "decision validation must route executable commands to mechanics/AGENTS.md#validation",
+                "decision validation must route executable commands to the on-demand VALIDATION.md route",
             )
         )
     _require_tokens(
         repo_root=repo_root,
         path_name=MECHANICS_AGENTS_NAME,
-        tokens=(
-            "Focused mechanic topology checks",
-            MECHANIC_PART_PAYLOAD_INVENTORY_COMMAND,
-        ),
+        tokens=("Focused mechanic topology checks", "on-demand [VALIDATION.md]"),
         issues=issues,
     )
     _require_tokens(

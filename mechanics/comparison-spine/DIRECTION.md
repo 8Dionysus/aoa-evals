@@ -43,4 +43,4 @@ not justify a growth claim or a new part.
 
 ## Validation
 
-Use the validation lane in [mechanics/comparison-spine/AGENTS.md](AGENTS.md#validation).
+Use the validation lane in [mechanics/comparison-spine/VALIDATION.md](VALIDATION.md).

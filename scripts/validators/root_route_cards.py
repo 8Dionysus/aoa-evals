@@ -12,15 +12,15 @@ from validators.common import ValidationIssue
 PROOF_TOPOLOGY_NAME = "docs/architecture/PROOF_TOPOLOGY.md"
 ROOT_ROUTE_CARD_GUARD_DECISION_NAME = "docs/decisions/AOA-EV-D-0051-root-route-card-guard.md"
 ROOT_ROUTE_CARD_ONLY_DISTRICTS: dict[str, tuple[str, ...]] = {
-    "config": ("AGENTS.md", "README.md"),
-    "examples": ("AGENTS.md", "README.md"),
-    "fixtures": ("AGENTS.md", "README.md"),
-    "manifests": ("AGENTS.md", "README.md"),
-    "reports": ("AGENTS.md", "README.md"),
-    "runners": ("AGENTS.md", "README.md"),
-    "schemas": ("AGENTS.md", "README.md"),
-    "scorers": ("AGENTS.md", "README.md"),
-    "templates": ("AGENTS.md", "README.md"),
+    "config": ("AGENTS.md", "README.md", "VALIDATION.md"),
+    "examples": ("AGENTS.md", "README.md", "VALIDATION.md"),
+    "fixtures": ("AGENTS.md", "README.md", "VALIDATION.md"),
+    "manifests": ("AGENTS.md", "README.md", "VALIDATION.md"),
+    "reports": ("AGENTS.md", "README.md", "VALIDATION.md"),
+    "runners": ("AGENTS.md", "README.md", "VALIDATION.md"),
+    "schemas": ("AGENTS.md", "README.md", "VALIDATION.md"),
+    "scorers": ("AGENTS.md", "README.md", "VALIDATION.md"),
+    "templates": ("AGENTS.md", "README.md", "VALIDATION.md"),
 }
 ROOT_ROUTE_CARD_README_REQUIRED_TOKENS: dict[str, tuple[str, ...]] = {
     "config/README.md": (

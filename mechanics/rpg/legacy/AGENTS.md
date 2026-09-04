@@ -21,18 +21,6 @@ proof placement.
 | tools | Root validators and semantic-agent validator listed below. |
 | validation | Run the Validation commands after route-card, provenance, index, log, or raw changes. |
 
-## Read before editing
-
-1. repository root `AGENTS.md`
-2. `mechanics/AGENTS.md`
-3. `mechanics/rpg/AGENTS.md`
-4. `mechanics/rpg/README.md`
-5. `mechanics/rpg/DIRECTION.md`
-6. `mechanics/rpg/PARTS.md`
-7. `mechanics/rpg/PROVENANCE.md`
-8. `docs/architecture/LEGACY_NAMING.md`
-9. `mechanics/rpg/legacy/INDEX.md`
-
 ## Route Rules
 
 - Start from active RPG parts before using legacy.
@@ -44,10 +32,7 @@ proof placement.
 
 ## Validation
 
-```bash
-python scripts/validate_repo.py
-python scripts/validate_semantic_agents.py
-```
+Use the on-demand [VALIDATION.md](VALIDATION.md) route for executable checks.
 
 ## Closeout
 

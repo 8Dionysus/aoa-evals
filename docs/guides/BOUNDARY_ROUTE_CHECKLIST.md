@@ -11,7 +11,7 @@ This checklist routes boundary pressure for `aoa-evals` source proof surfaces.
 | output | keep, route to owner, merge into existing proof shape, quarantine as transition material, or remove as stale residue |
 | owner | `docs/AGENTS.md` for docs edits; bundle-local proof surfaces and mechanics own their specific claims |
 | next route | `docs/architecture/PROOF_TOPOLOGY.md`, `docs/guides/EVAL_REVIEW_GUIDE.md`, `docs/guides/SCORE_SEMANTICS_GUIDE.md`, `mechanics/README.md`, or the affected bundle |
-| validation | [docs/AGENTS.md#validation](../AGENTS.md#validation) and the nearest owner route card |
+| validation | [docs/VALIDATION.md](../VALIDATION.md) and the nearest owner route card |
 
 ## Preserve
 

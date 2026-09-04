@@ -59,7 +59,7 @@ Stop-lines route source-package movement, template doctrine pressure, schema
 weakening pressure, and generated-reader authority pressure back to their
 owning surfaces.
 
-Validation routes through [AGENTS](AGENTS.md#validation) and the affected part
+Validation routes through [VALIDATION](VALIDATION.md) and the affected part
 route cards.
 
 ## Stop-Lines
@@ -75,4 +75,4 @@ route cards.
 ## Validation
 
 After part movement or proof-object contract changes, use
-[AGENTS](AGENTS.md#validation) for executable validation commands.
+[VALIDATION](VALIDATION.md) for executable validation commands.

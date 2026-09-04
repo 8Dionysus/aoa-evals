@@ -16,6 +16,10 @@ to future agents without making `aoa-evals` the central memory authority.
 
 Default write mode: `write_candidate_only`.
 
+The local progression is `candidate -> receipt -> optional export -> reviewed
+aoa-memo route`. Create a candidate only when it has a source ref and needs
+later review without becoming a proof verdict.
+
 Proof claims, verdicts, baselines, scoring, reports, and source proof meaning
 stay in their owning eval bundle, mechanic, report, generated reader, or
 decision surface. Durable reviewed memory lands in `aoa-memo`.

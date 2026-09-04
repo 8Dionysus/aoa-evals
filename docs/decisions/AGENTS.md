@@ -25,15 +25,6 @@ sibling-owner authority stays with the owning source surface.
 | tools | `scripts/generate_decision_indexes.py`, root validator, and semantic AGENTS validator |
 | validation | this card's `Validation` section |
 
-## Read before editing
-
-1. repository root `AGENTS.md`
-2. `DESIGN.md`
-3. `DESIGN.AGENTS.md`
-4. `docs/decisions/README.md`
-5. `docs/decisions/TEMPLATE.md`
-6. the source surface whose route or authority the decision records
-
 ## Owner Routes
 
 | Need | Owner route |
@@ -65,67 +56,19 @@ sibling-owner authority stays with the owning source surface.
 
 ## Amendment Route
 
-When an accepted decision needs a current-route update, preserve the original
-record and add the change as review history.
-
-Use `## Review Log` for dated reviews:
-
-```markdown
-## Review Log
-
-### YYYY-MM-DD - Route or behavior changed
-
-- Previous assumption:
-- New reality:
-- Reason:
-- Source surfaces updated:
-- Validation:
-```
-
-Use `## Current Applicability` when the decision still matters but its active
-route narrowed, moved, or was partly superseded:
-
-```markdown
-## Current Applicability
-
-As of YYYY-MM-DD:
-
-- Still valid:
-- Changed:
-- Superseded by:
-```
-
-Use this decision maintenance route:
-
-- small clarification of the same decision: add a dated `Review Log` entry;
-- application changed while the rationale still holds: add `Review Log` and
-  `Current Applicability`;
-- direction replaced by a new route: create the next canonical decision, set
-  the old record `Status` to `Superseded`, and add `Superseded by:
-  AOA-EV-D-####-...`;
-- material made obsolete: record what aged out, why, and what replaces it in a
-  dated review entry.
-
-Use strikethrough only on the old operational line or block that would misroute the
-next agent. Keep the original `Context`, `Options Considered`, `Decision`, and
-`Rationale` readable as historical cause.
-
-Update the source surface that owns active behavior in the same slice.
-
-Closeout and pull request text should state the active route, owner surface, and
-validation evidence.
+Use the human [decision index amendment route](README.md#amendment-route). This
+card keeps only the stop-line: preserve historical rationale, update the
+current owner source in the same slice, and regenerate indexes from decision
+source rather than patching generated lookup files.
 
 ## Validation
 
-Run the narrow docs checks after editing this lane:
+Use the on-demand [VALIDATION.md](VALIDATION.md) route for executable checks.
+The route covers `validate_repo.py` and decision-index parity without copying command sequences into this card.
 
-```bash
-python scripts/generate_decision_indexes.py --check
-python scripts/validate_repo.py
-python scripts/validate_semantic_agents.py
-```
+After editing this lane, follow the narrow docs checks in [VALIDATION.md](VALIDATION.md).
 
-When decision metadata changes, run `python scripts/generate_decision_indexes.py`
+When decision metadata changes, run the local validation route
 before the `--check` form.
 
 If a decision changes generated, schema, quest, bundle, receipt, runtime, or

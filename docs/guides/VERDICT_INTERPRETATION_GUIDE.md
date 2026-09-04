@@ -20,7 +20,7 @@ See also:
 | output | supported reading, boundary route, stronger-interpretation route, claim-language route, or public-summary correction route |
 | owner | this guide owns docs-level verdict reading discipline; bundle-local `EVAL.md`, `eval.yaml`, reports, and review notes own concrete verdict evidence |
 | next route | affected bundle, [Score Semantics Guide](SCORE_SEMANTICS_GUIDE.md), [Eval Review Guide](EVAL_REVIEW_GUIDE.md), comparison guide, repeated-window guide, or diagnostic bundle owner |
-| validation | [docs/AGENTS.md#validation](../AGENTS.md#validation) |
+| validation | [docs/VALIDATION.md](../VALIDATION.md) |
 
 ## Canonical Verdict Routes
 

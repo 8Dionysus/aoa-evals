@@ -83,7 +83,7 @@ Its packet schema is
 The exact checked-in scenario, packet-validation, and bundle-validation argv
 are recorded in the bundle's
 [`runners/contract.json`](../../evals/boundary/aoa-organ-access-admission-integrity/runners/contract.json)
-and governed by `evals/AGENTS.md#validation`.
+and governed by the on-demand `evals/VALIDATION.md` route.
 
 This route makes the public packet shape and its forbidden inferences
 executable. It does **not** collect or authenticate live owner, runtime,
@@ -129,7 +129,7 @@ MCP projection.
 | output | compact source refs, generated reader context, existing-route matches, candidate-only eval-need proposal context, candidate-only evidence shape, candidate validation result, stack runtime candidate export metadata/detail, mirror freshness status, local suite execution state, or report skeleton |
 | owner | `aoa-evals` owns this contract and proof authority; `abyss-stack` owns the runnable MCP service implementation |
 | next route | source bundle, generated reader builder, runtime-candidate reader, bundle-local review guide, or stack MCP package |
-| validation | root `AGENTS.md#verify`, `docs/AGENTS.md#validation`, generated-reader checks, runtime-candidate reader checks, and stack service tests |
+| validation | root `VALIDATION.md`, nearest on-demand `VALIDATION.md`, generated-reader checks, runtime-candidate reader checks, and stack service tests |
 
 ## Source Hierarchy
 
@@ -396,14 +396,14 @@ remain runtime observations, not proof, admission, or effect authorization.
 
 For this contract surface, use the docs route:
 
-- `docs/AGENTS.md#validation`
-- root `AGENTS.md#verify`
+- nearest on-demand `VALIDATION.md`
+- root `VALIDATION.md`
 
 For generated reader parity, use the generated/catalog checks named in root
-`AGENTS.md#verify`.
+`VALIDATION.md`.
 
 For runtime-candidate reader parity, use the candidate-reader checks named in
-root `AGENTS.md#verify`.
+root `VALIDATION.md`.
 
 For the runnable service, use the `abyss-stack` package-local validation in
 `mcp/services/aoa-evals-mcp/AGENTS.md`.

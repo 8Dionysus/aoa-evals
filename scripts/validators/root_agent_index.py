@@ -26,8 +26,8 @@ AGENT_INDEX_REQUIRED_TOKENS = (
     "route-card-only",
     "compatibility districts",
     "mechanics/<parent>/parts/<part>/VALIDATION.md",
-    "mechanics/<parent>/parts/AGENTS.md",
-    "Executable validation commands belong in the nearest `AGENTS.md`",
+    "local `VALIDATION.md`",
+    "Executable validation commands belong in the nearest on-demand `VALIDATION.md`",
 )
 AGENT_INDEX_FORBIDDEN_ROUTE_SCAFFOLD = (
     "path name is not enough",
@@ -41,7 +41,7 @@ AGENT_INDEX_DECISION_REQUIRED_TOKENS = (
     "active mechanic parent",
     "repo -> authority class -> operation -> mechanic parent -> part -> payload -> validation",
     "route-card-only root districts",
-    "Executable validation commands remain in the nearest `AGENTS.md`",
+    "Executable validation commands live in the nearest on-demand `VALIDATION.md`",
 )
 
 

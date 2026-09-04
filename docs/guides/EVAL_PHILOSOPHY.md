@@ -28,7 +28,7 @@ It asks:
 | owner | this guide for evaluation posture; source eval bundles for proof meaning; `docs/architecture/PROOF_TOPOLOGY.md` for authority classes |
 | next route | source eval bundle, `docs/guides/EVAL_REVIEW_GUIDE.md`, `docs/guides/SCORE_SEMANTICS_GUIDE.md`, `docs/guides/VERDICT_INTERPRETATION_GUIDE.md`, `docs/architecture/PROOF_TOPOLOGY.md`, or owning mechanic |
 | tools | nearest `AGENTS.md`, root validator, semantic AGENTS validator, generated-reader checks when derived surfaces move |
-| validation | `docs/AGENTS.md#validation` |
+| validation | `docs/VALIDATION.md` |
 
 ## Core stance
 

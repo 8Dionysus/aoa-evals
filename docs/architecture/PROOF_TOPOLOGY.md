@@ -24,7 +24,7 @@ receive, transform, emit, or route onward?
 | output | authority class, stronger owner route, allowed transformation, next route, and validation guard |
 | owner | `docs/AGENTS.md` for docs law; this map for authority classes; `mechanics/EVIDENCE_CLUSTERS.md` for parent evidence |
 | next route | `docs/architecture/AGENT_INDEX.md`, `mechanics/README.md`, parent route cards, source eval packages, generated builders, or `docs/decisions/` |
-| validation | `docs/AGENTS.md#validation` and the nearest route card for the touched authority class |
+| validation | nearest on-demand `VALIDATION.md` and the focused validator for the touched authority class |
 
 ## Topology Thesis
 
@@ -73,7 +73,7 @@ before any additional root path becomes mechanic-owned payload:
 | --- | --- | --- |
 | `mechanics/EVIDENCE_CLUSTERS.md` | mechanics evidence gate | Root District Reconnaissance Ledger, residual root-authored surface classification for every unclassified root-authored surface, mechanic-owned payload routes, and validation guards |
 | `docs/architecture/AGENT_INDEX.md` | agent-facing pass-through reader | path name -> authority class -> stronger owner surface |
-| nearest `AGENTS.md` | route law | editing law, command lane, validation posture, and closeout route |
+| nearest `AGENTS.md` | route law | editing law, validation selection, stop-lines, and closeout route; executable procedure stays in `VALIDATION.md` |
 | source eval package or mechanic part | stronger owner surface | bundle meaning, payload ownership, part-local contracts, and proof interpretation |
 
 | District | Current role | Current posture |
@@ -273,8 +273,8 @@ Unclear answers route back to topology clarification before file movement.
 ## Validation
 
 Executable checks that keep this topology visible live in
-[docs/AGENTS.md#validation](../AGENTS.md#validation) and root
-[AGENTS.md#verify](../../AGENTS.md#verify).
+[nearest on-demand `VALIDATION.md`](../VALIDATION.md) and root
+[VALIDATION.md](../../VALIDATION.md).
 
 When generated readers change, run the owning builder in `--check` mode. When a
 mechanic package is later introduced, add package-shape checks only after that

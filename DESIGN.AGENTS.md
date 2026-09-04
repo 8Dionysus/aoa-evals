@@ -194,7 +194,7 @@ When guidance pressure touches stronger meaning, route it to the owner surface:
 | receipt publication pressure | reviewed report and receipt mechanic |
 | sibling owner truth | sibling repository and local compatibility surface |
 | hidden benchmark or private evaluator pressure | public-safe evidence review or route-away boundary |
-| "docs-only" semantic pressure | source surface plus nearest `AGENTS.md` validation route |
+| "docs-only" semantic pressure | source surface plus the validation procedure selected by the nearest `AGENTS.md` |
 | mythic, quest, progression, or recurrence pressure | evidence surface, quest lifecycle, or owning mechanic |
 
 ## Canonical Card Shape

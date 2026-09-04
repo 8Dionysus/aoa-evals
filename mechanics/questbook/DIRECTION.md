@@ -40,4 +40,4 @@ source-record, dispatch, harvest, promotion, or validation operation.
 
 ## Validation
 
-Use the validation lane in [mechanics/questbook/AGENTS.md](AGENTS.md#validation).
+Use the validation lane in [mechanics/questbook/VALIDATION.md](VALIDATION.md).

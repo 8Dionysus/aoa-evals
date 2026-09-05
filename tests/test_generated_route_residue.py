@@ -191,6 +191,11 @@ def test_generated_route_residue_allows_part_local_generated_config_reference(
 
     assert route_residue_generated_validator.validate_generated_route_residue(tmp_path) == []
 
+    # The local exception is live filesystem evidence, not a remembered allow.
+    (part_root / "config" / "seed.json").unlink()
+    issues = route_residue_generated_validator.validate_generated_route_residue(tmp_path)
+    assert any("route-card-only root district 'config/'" in issue.message for issue in issues)
+
 
 def test_generated_route_residue_ignores_markdown_content_paths(
     tmp_path: Path,

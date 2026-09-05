@@ -121,24 +121,29 @@ def generated_route_residue_message(
                 f"not legacy parent route '{prefix}'"
             )
 
-    part_root = mechanic_part_root_for_generated_json(source_file, repo_root)
-    if part_root is not None and (part_root / normalized).exists():
-        return None
-
+    message = None
     for exact_route in GENERATED_ROUTE_RESIDUE_ROOT_EXACT_ROUTES:
         if normalized == exact_route:
-            return (
+            message = (
                 "generated/readout route must not point at route-card-only "
                 f"root district '{exact_route}/'"
             )
+            break
     for prefix in GENERATED_ROUTE_RESIDUE_ROOT_PREFIXES:
-        if normalized.startswith(prefix):
-            return (
+        if message is None and normalized.startswith(prefix):
+            message = (
                 "generated/readout route must not point at route-card-only "
                 f"root district '{prefix}'"
             )
+            break
 
-    return None
+    # Only a prohibited root route needs the part-local file exception. Most
+    # JSON strings are not routes; do not resolve their source or probe IO.
+    if message is not None:
+        part_root = mechanic_part_root_for_generated_json(source_file, repo_root)
+        if part_root is not None and (part_root / normalized).exists():
+            return None
+    return message
 
 
 def validate_generated_route_residue(repo_root: Path) -> list[ValidationIssue]:

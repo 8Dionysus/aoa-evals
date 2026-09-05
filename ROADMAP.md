@@ -105,7 +105,7 @@ history/token detail.
 | Mechanics evidence | `mechanics/EVIDENCE_CLUSTERS.md` | Keep parent evidence, root district posture, and residual root-authored surface classification outside roadmap body detail. |
 | Route residue guard family | `scripts/validate_repo.py`, route cards, and `docs/decisions/` | Keep generated/readout, active mechanic, root-authored, decision, repo-config, source-bundle, and mechanic-payload residue guards tied to owner contracts. |
 | Mechanic lower index | `mechanics/README.md`, parent `DIRECTION.md`, parent `PARTS.md`, part `README.md`, part `VALIDATION.md`, and parent `parts/AGENTS.md` | Keep parent direction, part/payload source surfaces, parts index synchronization, local validation routes, and payload coverage recoverable through owner surfaces. |
-| Legacy bridge | parent `PROVENANCE.md` and `legacy/` | Keep single controlled bridge posture, active mechanic surfaces, and runtime evidence limits behind the active route. |
+| Legacy bridge | parent `PROVENANCE.md` and pinned Git history | Keep single controlled bridge posture, active mechanic surfaces, and runtime evidence limits behind the active route; do not recreate retired archive directories. |
 | Proof loop route | `mechanics/proof-loop/README.md` and bundle-local `reports/` | Keep schema-backed proof-loop evidence discoverable through the owning route. |
 | Generated report readers | `generated/README.md` | Keep report and receipt readers derived from source reports. |
 | Publication receipt posture | `mechanics/publication-receipts/README.md` | Keep receipt publication status under the receipt mechanic and bundle-local review route. |

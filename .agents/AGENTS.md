@@ -9,9 +9,9 @@
 `.agents/` holds local agent-facing route guidance for `aoa-evals`.
 The former Spark lane is retired; no active lane is declared here.
 
-It routes agents to the task's source bundle and proof doctrine. Generated
-readers, runtime state and receipts remain with their named owners and do not
-replace source proof authority.
+It routes agents to the task's source bundle and proof doctrine. Proof authority stays
+with those sources; generated readers, runtime state and receipts remain with
+their named owners and do not replace it.
 
 ## Operating Card
 

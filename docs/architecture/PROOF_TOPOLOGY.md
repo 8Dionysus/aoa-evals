@@ -187,10 +187,11 @@ Each mechanic `PROVENANCE.md` is the active-to-archive bridge for its mechanic.
 
 Use active surfaces first: parent `README.md`, `DIRECTION.md`, `PARTS.md`, and
 part-local `parts/` contracts. `PROVENANCE.md` is the single controlled bridge
-from active mechanic surfaces into the legacy archive; archive details belong
-inside legacy, not in active mechanic route cards or root guidance.
-Concrete archive contents and old-name inventories belong inside the owning
-legacy archive after the bridge. Active topology surfaces may name only the
+from active mechanic surfaces into the legacy archive in pinned Git history;
+archive details remain at an immutable commit and original path, not in the
+current checkout, active mechanic route cards, or root guidance.
+Concrete archive contents and old-name inventories are historical retrieval
+after that bridge. Active topology surfaces may name only the
 current owner, posture, and stop-line needed to prevent old names from steering
 new work.
 

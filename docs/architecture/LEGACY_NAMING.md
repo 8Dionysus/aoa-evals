@@ -6,9 +6,9 @@
 that may still appear in `aoa-evals`.
 
 Use this guide to classify old vocabulary, then route through the active owner.
-Archive maps, route indexes, distillation logs, and legacy internals stay with
-the owning active surface, `PROVENANCE.md`, and the package-local `legacy/`
-archive.
+Archive maps, route indexes, distillation logs, and legacy internals are
+recoverable from pinned Git history through the owning `PROVENANCE.md`.
+They do not require a package-local archive in the current checkout.
 
 It answers one question:
 
@@ -24,7 +24,7 @@ vocabulary?
 | input | old path, overloaded name, former parent form, generated projection, candidate evidence name, or accepted compatibility vocabulary |
 | output | name posture, active owner route, provenance bridge route, rename gate, and validation guard |
 | owner | this guide owns posture vocabulary; active mechanic surfaces own concrete legacy archive details through `PROVENANCE.md` |
-| next route | `mechanics/EVIDENCE_CLUSTERS.md`, `docs/architecture/PROOF_TOPOLOGY.md`, nearest parent `README.md`/`DIRECTION.md`/`PARTS.md`, package `PROVENANCE.md`, then archive-local legacy surfaces |
+| next route | `mechanics/EVIDENCE_CLUSTERS.md`, `docs/architecture/PROOF_TOPOLOGY.md`, nearest parent `README.md`/`DIRECTION.md`/`PARTS.md`, package `PROVENANCE.md`, then immutable historical sources when needed |
 | tools | root validator, semantic AGENTS validator, and focused legacy naming tests in `tests/test_validate_repo.py` |
 | validation | nearest on-demand `VALIDATION.md` and root [VALIDATION.md](../../VALIDATION.md) |
 
@@ -36,7 +36,7 @@ The active-first route starts with the current owner before archive context.
 
 For historical, old-placement, or source-lineage questions, cross the package
 `PROVENANCE.md` bridge after the active route identifies the owner. The bridge
-opens the owning `legacy/` archive. The archive explains itself.
+opens the owning legacy archive at an immutable Git commit and original path.
 
 `PROVENANCE.md` is the active-to-archive bridge for the mechanic. It opens
 historical archive context after active surfaces identify the owner.
@@ -49,10 +49,10 @@ Use active surfaces first:
 - part-local `parts/` contracts.
 
 `PROVENANCE.md` is the single controlled bridge from active mechanic surfaces
-into the legacy archive.
+into the legacy archive in pinned Git history.
 
-Legacy archive details stay inside the owning archive after the active
-`PROVENANCE.md` bridge.
+Legacy archive details stay at their historical committed paths after the
+active `PROVENANCE.md` bridge; do not recreate retired archive directories.
 
 ## Name Postures
 
@@ -123,7 +123,9 @@ surfaces and cross only through the owning package `PROVENANCE.md`.
 - Use package `PROVENANCE.md` as the single controlled bridge from active
   mechanic surfaces into historical archive questions.
 - Start current work in the active package or owning part.
-- Keep archive details inside the owning package legacy archive.
+- Keep archive details in pinned Git history, reachable through the owning
+  package provenance bridge. New candidate evidence and operational receipts
+  belong to active parts or source bundles, not a replacement archive.
 - Regenerate generated projections from source; keep remaining projections in
   `generated/` until their builder moves.
 - Resolve generated/readout structured active references to current parent,

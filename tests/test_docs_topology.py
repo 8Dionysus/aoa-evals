@@ -78,26 +78,46 @@ def test_docs_route_contracts_reject_command_block_in_entrypoint(
     )
 
 
-def test_docs_readme_route_map_rejects_generic_mechanics_label(
-    tmp_path: Path,
+@pytest.mark.parametrize("label", ("Mechanics", "Mechanic operation map"))
+def test_docs_readme_route_map_accepts_mechanics_label_with_correct_target(
+    tmp_path: Path, label: str,
 ) -> None:
     copy_repo_text(tmp_path, "docs/README.md")
     docs_readme_path = tmp_path / "docs" / "README.md"
     docs_readme_path.write_text(
         docs_readme_path.read_text(encoding="utf-8").replace(
             "Mechanics Operation Atlas",
-            "Mechanics",
+            label,
         ),
         encoding="utf-8",
     )
 
     issues = root_frontdoor_guidance_validator.validate_docs_readme_route_map(tmp_path)
 
-    assert any(
-        issue.location == "docs/README.md"
-        and "Mechanics Operation Atlas" in issue.message
-        for issue in issues
+    assert issues == []
+
+
+@pytest.mark.parametrize(
+    "replacement",
+    (
+        "[Mechanics Operation Atlas](../README.md)",
+        "Mechanics Operation Atlas: ../mechanics/README.md",
+        "![Mechanics Operation Atlas](../mechanics/README.md)",
+    ),
+)
+def test_docs_readme_route_map_requires_mechanics_link_target(
+    tmp_path: Path, replacement: str,
+) -> None:
+    copy_repo_text(tmp_path, "docs/README.md")
+    path = tmp_path / "docs/README.md"
+    path.write_text(
+        path.read_text(encoding="utf-8").replace(
+            "[Mechanics Operation Atlas](../mechanics/README.md)", replacement,
+        ),
+        encoding="utf-8",
     )
+    issues = root_frontdoor_guidance_validator.validate_docs_readme_route_map(tmp_path)
+    assert any("must link to ../mechanics/README.md" in issue.message for issue in issues)
 
 
 def test_docs_readme_route_map_rejects_validation_block_in_reader_paths(

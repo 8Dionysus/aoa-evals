@@ -3,8 +3,10 @@
 from __future__ import annotations
 
 from pathlib import Path
+from urllib.parse import unquote
 
 from validators.common import ValidationIssue
+from validators.docs_routes import RELATIVE_LINK_RE
 from validators.root_guidance_common import markdown_python_commands, reject_tokens, require_tokens
 
 ROOT_README_SURFACE_REQUIRED_TOKENS = (
@@ -36,7 +38,6 @@ DOCS_README_ROUTE_MAP_REQUIRED_TOKENS = (
     "human and agent entrypoint",
     "Operational edit law belongs in the nearest `AGENTS.md`",
     "aoa-evals Bounded Proof Canon",
-    "Mechanics Operation Atlas",
     "Decision Records Index",
     "Eval Bundle Selection Chooser",
     "Eval Bundle Index",
@@ -55,7 +56,6 @@ DOCS_README_ROUTE_MAP_REQUIRED_TOKENS = (
     "docs/VALIDATION.md",
 )
 DOCS_README_ROUTE_MAP_FORBIDDEN_TOKENS = (
-    "[Mechanics](../mechanics/README.md)",
     "[Decisions](decisions/README.md)",
     "[README](../README.md)",
     "[EVAL_SELECTION]",
@@ -108,6 +108,18 @@ def validate_docs_readme_route_map(repo_root: Path) -> list[ValidationIssue]:
     )
     if not text:
         return issues
+
+    # Protect the operation-owner destination, not one editorial link label.
+    mechanics_target = (repo_root / "mechanics/README.md").resolve()
+    if not any(
+        not match.group(0).startswith("!")
+        and (repo_root / "docs" / unquote(match.group(1).split("#", 1)[0])).resolve()
+        == mechanics_target
+        for match in RELATIVE_LINK_RE.finditer(text)
+    ):
+        issues.append(
+            ValidationIssue("docs/README.md", "docs route map must link to ../mechanics/README.md")
+        )
 
     reject_tokens(
         text=text,

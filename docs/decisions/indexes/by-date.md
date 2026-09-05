@@ -332,3 +332,7 @@
 ## 2026-08-30
 
 - [AOA-EV-D-0256 Prompt-light Agent Routes and On-demand Validation](../AOA-EV-D-0256-prompt-light-agent-routes-and-on-demand-validation.md) (`docs/decisions/AOA-EV-D-0256-prompt-light-agent-routes-and-on-demand-validation.md`)
+
+## 2026-09-04
+
+- [AOA-EV-D-0257 Spark and Legacy Surface Retirement](../AOA-EV-D-0257-spark-and-legacy-surface-retirement.md) (`docs/decisions/AOA-EV-D-0257-spark-and-legacy-surface-retirement.md`)

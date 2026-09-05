@@ -91,13 +91,13 @@ that makes a parent operational.
 Every active parent must expose the same active-to-archive boundary:
 
 - `PROVENANCE.md` as the bridge from active route to former placement;
-- a legacy archive behind that bridge, with its own route card and
-  archive-local accounting.
+- the legacy archive in pinned Git history, retaining its historical route
+  card and archive-local accounting at an immutable commit and original path.
 
 Archive boundary route: active work starts from parent `README.md`,
 `DIRECTION.md`, `PARTS.md`, parts, owner split, stop-lines, and validation.
-Legacy explains lineage after the active form exists, and the archive explains
-its own internal route.
+Legacy explains lineage after the active form exists; historical archive
+internals are retrieved only when that lineage is needed.
 Every `PROVENANCE.md` is the active-to-archive bridge for its mechanic.
 
 Use active surfaces first:
@@ -107,12 +107,13 @@ Use active surfaces first:
 - parent `PARTS.md`;
 - part-local `parts/` contracts and payloads.
 
-Every `PROVENANCE.md` is the single controlled bridge from active mechanic surfaces into the legacy archive.
-Active mechanic surfaces route to archive internals through `PROVENANCE.md`;
-the legacy directory explains itself after the reader crosses that bridge.
-Archive-local indexes, raw lineage, distillation logs, and accounting rules
-belong inside `legacy/`; this active atlas names only the bridge and the
-current owner route.
+Every `PROVENANCE.md` is the single controlled bridge from active mechanic surfaces into the legacy archive in pinned Git history.
+Historical indexes, raw lineage, distillation logs, and accounting rules stay
+recoverable at their original committed paths, not in the current checkout.
+Do not recreate archive directories or empty accounting scaffolds. New proof
+support, candidate evidence, and operational receipts stay in their active
+owning parts or source bundles; Git history is not their working home.
+This active atlas names only the bridge and the current owner route.
 
 ## Parent Class Summary
 

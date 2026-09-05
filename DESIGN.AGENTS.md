@@ -126,10 +126,10 @@ dimensions.
 
 ### Maintained agent lanes
 
-Maintained agent lanes should live under `.agents/<lane>/`. They route
-execution posture for agents. Proof meaning stays with source proof objects and
-bundle-local review. The current Spark lane lives under `.agents/spark/` and
-stays bounded to narrow proof-surface work.
+The former Spark lane is retired; `.agents/` currently holds route guidance,
+not an active execution lane. A future maintained lane needs a concrete local
+responsibility and belongs under `.agents/<lane>/`. Proof meaning stays with
+source proof objects and bundle-local review.
 
 ### Repository skills
 
@@ -142,16 +142,16 @@ derived delivery surfaces, not alternate owners.
 `skills/aoa-evals-skills/` is the admitted canonical owner bundle with internal
 `select`, `review`, and `evolve` modes. The central `aoa-skills`
 `os-user-default` profile selects one managed user projection for global
-discovery. `.agents/` remains limited to maintained agent lanes and does not
+discovery. `.agents/` remains limited to local agent guidance and does not
 carry a duplicate skill copy. Shared cross-repository selection and local
 apply remain owned by `aoa-skills`; source eval bundles and admitted evidence
 keep proof authority.
 
-### Legacy cards
+### Historical source return
 
-`PROVENANCE.md` names the bridge and current owner route. Legacy homes explain
-old accepted names, source lineage, and archive-local accounting after that
-bridge is crossed.
+`PROVENANCE.md` names the current owner route and, when history is needed, the
+exact repository commit and original path. Retired archive contents remain
+recoverable in Git; they are not active cards or required checkout files.
 
 ## Design as Operation
 
@@ -280,7 +280,7 @@ posture and epistemic limits.
 classes, active mechanics, and file-movement boundaries.
 [`mechanics/EVIDENCE_CLUSTERS.md`](mechanics/EVIDENCE_CLUSTERS.md) records why
 a mechanic parent is allowed and whether it is AoA-aligned or evals-native.
-[`.agents/AGENTS.md`](.agents/AGENTS.md) routes maintained agent lanes.
+[`.agents/AGENTS.md`](.agents/AGENTS.md) routes local agent-facing work.
 [`skills/AGENTS.md`](skills/AGENTS.md) routes the canonical owner callable
 procedure and its generated projection.
 [`mechanics/README.md`](mechanics/README.md) is the operation atlas for active
@@ -293,7 +293,7 @@ Consult this file when adding, moving, or refactoring:
 
 - `AGENTS.md` cards;
 - maintained agent lanes under `.agents/<lane>/`;
-- the admitted owner skill under `skills/` or its `.agents/skills/` projection;
+- the admitted owner skill under `skills/` or its OS user-profile projection;
 - proof bundle route rules;
 - decision, quest, generated, receipt, runtime-candidate, or legacy guidance;
 - future mechanic package cards;

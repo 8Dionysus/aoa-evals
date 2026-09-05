@@ -165,9 +165,6 @@ def test_audit_and_release_support_provenance_validate_current_routes(
 ) -> None:
     protected_locations = {
         audit_paths_validator.AUDIT_MECHANIC_PROVENANCE_NAME,
-        audit_paths_validator.AUDIT_LEGACY_INDEX_NAME,
-        audit_paths_validator.AUDIT_LEGACY_DISTILLATION_LOG_NAME,
-        audit_paths_validator.AUDIT_LEGACY_RAW_README_NAME,
         release_support_validator.RELEASE_SUPPORT_MECHANIC_PROVENANCE_NAME,
         release_support_validator.RELEASE_SUPPORT_LEGACY_INDEX_NAME,
         release_support_validator.RELEASE_SUPPORT_LEGACY_DISTILLATION_LOG_NAME,
@@ -1055,9 +1052,6 @@ def test_audit_parts_index_rejects_stale_negative_admission_scaffold(
         audit_paths_validator.AUDIT_MECHANIC_AGENTS_NAME,
         audit_paths_validator.AUDIT_MECHANIC_PROVENANCE_NAME,
         audit_paths_validator.AUDIT_PARTS_README_NAME,
-        audit_paths_validator.AUDIT_LEGACY_INDEX_NAME,
-        audit_paths_validator.AUDIT_LEGACY_DISTILLATION_LOG_NAME,
-        audit_paths_validator.AUDIT_LEGACY_RAW_README_NAME,
         audit_paths_validator.AUDIT_SELECTED_EVIDENCE_PART_README_NAME,
         audit_paths_validator.AUDIT_ARTIFACT_VERDICT_HOOKS_PART_README_NAME,
         audit_paths_validator.AUDIT_CANDIDATE_READERS_PART_README_NAME,

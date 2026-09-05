@@ -12,17 +12,17 @@
     "by_classification": {
       "builder_or_projection": 5,
       "builder_with_check_mode": 16,
-      "deterministic_script_validator": 248,
-      "deterministic_test": 67,
-      "deterministic_validator": 227,
+      "deterministic_script_validator": 247,
+      "deterministic_test": 66,
+      "deterministic_validator": 226,
       "generated_readmodel_test": 9,
       "script_support": 12,
-      "trace_eval_test": 17
+      "trace_eval_test": 18
     },
     "by_kind": {
-      "script": 281,
+      "script": 280,
       "test": 93,
-      "validator": 227
+      "validator": 226
     },
     "by_lane": {
       "advisory": 29,
@@ -31,10 +31,10 @@
       "mechanics_part_local": 56,
       "pinned_sibling": 1,
       "release": 16,
-      "source_fast": 443
+      "source_fast": 441
     },
     "by_recommended_route": {
-      "apply_as_deterministic_eval_support": 476,
+      "apply_as_deterministic_eval_support": 474,
       "candidate_only_eval_support": 8,
       "component_only_use_owning_validator_or_lane_command": 83,
       "forbidden_as_eval_apply_until_manual_owner_review": 4,
@@ -48,22 +48,22 @@
       "candidate_only": 8,
       "not_eval_relevant": 5,
       "reviewed_forbidden": 4,
-      "rule_reviewed": 584
+      "rule_reviewed": 582
     },
     "by_semantic_class": {
       "bounded_measurement_support": 1,
-      "deterministic_validator": 466,
+      "deterministic_validator": 464,
       "generated_parity_check": 32,
       "ordinary_support": 5,
       "owner_skill_navigation_resource": 1,
       "runtime_candidate_support": 8,
-      "trace_trajectory_eval_support": 17,
-      "unit_contract_property_test": 67,
+      "trace_trajectory_eval_support": 18,
+      "unit_contract_property_test": 66,
       "unsafe_side_effect_script": 4
     },
-    "eval_lane_relevant": 437,
-    "safe_to_apply_directly": 476,
-    "total_surfaces": 601,
+    "eval_lane_relevant": 438,
+    "safe_to_apply_directly": 474,
+    "total_surfaces": 599,
     "unsafe_side_effect_scripts": 4
   },
   "surfaces": [
@@ -2134,7 +2134,7 @@
       "semantic_class": "deterministic_validator",
       "side_effects": "validation output only; checks former legacy parent wording in active route surfaces without owning legacy archive routing, provenance bridge posture, or mechanic payload meaning",
       "source_truth_count": 7,
-      "test_target": "tests/test_mechanic_legacy_archive_routes.py"
+      "test_target": "tests/test_mechanic_legacy_bridge.py"
     },
     {
       "classification": "deterministic_script_validator",
@@ -2408,7 +2408,7 @@
       "safe_to_apply_directly": false,
       "semantic_class": "deterministic_validator",
       "side_effects": "helper import only; provides audit route token lookup and validation-route companion text without owning audit route semantics, candidate evidence meaning, runtime evidence acceptance, or source bundle review",
-      "source_truth_count": 4,
+      "source_truth_count": 3,
       "test_target": "tests/test_mechanic_surface_contracts.py"
     },
     {
@@ -3946,36 +3946,6 @@
     {
       "classification": "deterministic_script_validator",
       "classification_evidence": [
-        "family: validator_module",
-        "owner_surface: docs/decisions/AOA-EV-D-0071-mechanic-legacy-skeleton-contract.md",
-        "side_effects: validation output only; checks archive skeleton coverage, archive route language, raw payload accounting, and aggregate legacy surfaces without owning active provenance bridge posture or mechanic payload meaning",
-        "validation_lane: source_fast"
-      ],
-      "classification_rule": "read_only_validator_script",
-      "eval_lane_relevant": false,
-      "failure_route": null,
-      "family": "validator_module",
-      "focused_target": null,
-      "forbidden_interpretations": [
-        "central_proof_acceptance"
-      ],
-      "kind": "script",
-      "lane": "source_fast",
-      "owner_surface": "docs/decisions/AOA-EV-D-0071-mechanic-legacy-skeleton-contract.md",
-      "path": "scripts/validators/mechanic_legacy_archive.py",
-      "recommended_route": "apply_as_deterministic_eval_support",
-      "relevance_reasons": [],
-      "review_reason": "read-only validator script has validation-only side effects and an owner surface",
-      "review_status": "rule_reviewed",
-      "safe_to_apply_directly": true,
-      "semantic_class": "deterministic_validator",
-      "side_effects": "validation output only; checks archive skeleton coverage, archive route language, raw payload accounting, and aggregate legacy surfaces without owning active provenance bridge posture or mechanic payload meaning",
-      "source_truth_count": 6,
-      "test_target": "tests/test_mechanic_legacy_archive_routes.py"
-    },
-    {
-      "classification": "deterministic_script_validator",
-      "classification_evidence": [
         "family: validator_helper",
         "owner_surface: scripts/AGENTS.md",
         "side_effects: helper import only; shared legacy/provenance constants and token lookup without owning archive, bridge, active wording, generated, release, or runtime semantics",
@@ -4004,7 +3974,7 @@
       "semantic_class": "deterministic_validator",
       "side_effects": "helper import only; shared legacy/provenance constants and token lookup without owning archive, bridge, active wording, generated, release, or runtime semantics",
       "source_truth_count": 2,
-      "test_target": "tests/test_mechanic_legacy_archive_routes.py"
+      "test_target": "tests/test_mechanic_legacy_bridge.py"
     },
     {
       "classification": "deterministic_script_validator",
@@ -6748,7 +6718,7 @@
       "safe_to_apply_directly": true,
       "semantic_class": "deterministic_validator",
       "side_effects": "validation output only; checks release-support route/provenance posture without report meaning, live GitHub state, tag/release publication, or goal-completion ownership",
-      "source_truth_count": 12,
+      "source_truth_count": 10,
       "test_target": "tests/test_mechanic_surface_contracts.py"
     },
     {
@@ -6880,7 +6850,7 @@
       "safe_to_apply_directly": true,
       "semantic_class": "deterministic_validator",
       "side_effects": "validation output only; checks root agent-lane and Spark route posture without owning agent index, audit route, memory boundary, or source proof meaning",
-      "source_truth_count": 6,
+      "source_truth_count": 4,
       "test_target": "tests/test_root_surface_roles.py"
     },
     {
@@ -11368,35 +11338,6 @@
       ],
       "classification_rule": "test_inventory_contract_or_invariant",
       "eval_lane_relevant": false,
-      "failure_route": "Fix legacy archive route language or move executable validation commands back to active AGENTS surfaces.",
-      "family": "mechanics/package-topology",
-      "focused_target": "mechanic legacy README and archive route-language contracts",
-      "forbidden_interpretations": [
-        "central_proof_acceptance"
-      ],
-      "kind": "test",
-      "lane": "source_fast",
-      "owner_surface": "mechanics/AGENTS.md",
-      "path": "tests/test_mechanic_legacy_archive_routes.py",
-      "recommended_route": "apply_as_deterministic_eval_support",
-      "relevance_reasons": [],
-      "review_reason": "test inventory entry constrains behavior through the owning test route",
-      "review_status": "rule_reviewed",
-      "safe_to_apply_directly": true,
-      "semantic_class": "unit_contract_property_test",
-      "side_effects": null,
-      "source_truth_count": null,
-      "test_target": null
-    },
-    {
-      "classification": "deterministic_test",
-      "classification_evidence": [
-        "family: mechanics/package-topology",
-        "owner_surface: mechanics/AGENTS.md",
-        "coverage_authority: validation_lanes.source_fast"
-      ],
-      "classification_rule": "test_inventory_contract_or_invariant",
-      "eval_lane_relevant": false,
       "failure_route": "Fix active-to-archive PROVENANCE routing before changing legacy bridge validators.",
       "family": "mechanics/package-topology",
       "focused_target": "mechanic legacy single-bridge and provenance bridge posture",
@@ -11932,6 +11873,40 @@
         "trace",
         "verdict",
         "artifact"
+      ],
+      "review_reason": "test inventory entry constrains behavior through the owning test route",
+      "review_status": "rule_reviewed",
+      "safe_to_apply_directly": true,
+      "semantic_class": "trace_trajectory_eval_support",
+      "side_effects": null,
+      "source_truth_count": null,
+      "test_target": null
+    },
+    {
+      "classification": "trace_eval_test",
+      "classification_evidence": [
+        "family: trace/eval-scenario",
+        "owner_surface: evals/boundary/aoa-organ-access-admission-integrity/EVAL.md",
+        "coverage_authority: validation_lanes.source_fast"
+      ],
+      "classification_rule": "test_family_trace_or_trajectory",
+      "eval_lane_relevant": true,
+      "failure_route": "Fix the progressive exposure fixtures, report schema, runner, or source-contract boundary without inferring activation, runtime execution, owner acceptance, or economy effect.",
+      "family": "trace/eval-scenario",
+      "focused_target": "matched default-off and explicit progressive-tool-exposure fixtures, deterministic visibility accounting, and fixed-false authority boundaries",
+      "forbidden_interpretations": [
+        "central_proof_acceptance"
+      ],
+      "kind": "test",
+      "lane": "source_fast",
+      "owner_surface": "evals/boundary/aoa-organ-access-admission-integrity/EVAL.md",
+      "path": "tests/test_progressive_exposure.py",
+      "recommended_route": "apply_as_deterministic_eval_support",
+      "relevance_reasons": [
+        "eval",
+        "report",
+        "runtime",
+        "trace"
       ],
       "review_reason": "test inventory entry constrains behavior through the owning test route",
       "review_status": "rule_reviewed",
@@ -14272,34 +14247,6 @@
       "classification": "deterministic_validator",
       "classification_evidence": [
         "mode: blocking",
-        "owner_surface: docs/decisions/AOA-EV-D-0071-mechanic-legacy-skeleton-contract.md"
-      ],
-      "classification_rule": "validator_inventory_entry",
-      "eval_lane_relevant": false,
-      "failure_route": "Fix the owning mechanic legacy archive route, raw payload accounting row, skeleton decision, or delegated PROVENANCE bridge issue; archive validation must not define mechanic payload meaning.",
-      "family": null,
-      "focused_target": null,
-      "forbidden_interpretations": [
-        "central_proof_acceptance"
-      ],
-      "kind": "validator",
-      "lane": "source_fast",
-      "owner_surface": "docs/decisions/AOA-EV-D-0071-mechanic-legacy-skeleton-contract.md",
-      "path": "scripts/validators/mechanic_legacy_archive.py",
-      "recommended_route": "apply_as_deterministic_eval_support",
-      "relevance_reasons": [],
-      "review_reason": "validator inventory entry is already command-authority support; use as deterministic support, not proof acceptance",
-      "review_status": "rule_reviewed",
-      "safe_to_apply_directly": true,
-      "semantic_class": "deterministic_validator",
-      "side_effects": null,
-      "source_truth_count": 6,
-      "test_target": null
-    },
-    {
-      "classification": "deterministic_validator",
-      "classification_evidence": [
-        "mode: blocking",
         "owner_surface: scripts/AGENTS.md"
       ],
       "classification_rule": "validator_inventory_entry",
@@ -14448,7 +14395,7 @@
       ],
       "classification_rule": "validator_inventory_entry",
       "eval_lane_relevant": false,
-      "failure_route": "Fix the parent PARTS index, lower parts README operating card, or AGENTS validation route; parent allowlist, direction contracts, guidance docs, part validation command reachability, and mechanic payload truth remain outside index-validator authority.",
+      "failure_route": "Fix the parent PARTS index, lower parts README operating card, or local VALIDATION route; parent allowlist, direction contracts, guidance docs, part validation command reachability, and mechanic payload truth remain outside index-validator authority.",
       "family": null,
       "focused_target": null,
       "forbidden_interpretations": [
@@ -14759,7 +14706,7 @@
       ],
       "classification_rule": "validator_inventory_entry",
       "eval_lane_relevant": false,
-      "failure_route": "Fix the owning part VALIDATION.md, parts AGENTS validation route, command target, payload anchor, or related decision record; this validator does not own helper constants, parser behavior, source collection helpers, PARTS index sync, part README contracts, source refs, or payload meaning.",
+      "failure_route": "Fix the owning part VALIDATION.md, local validation route, command target, payload anchor, or related decision record; this validator does not own helper constants, parser behavior, source collection helpers, PARTS index sync, part README contracts, source refs, or payload meaning.",
       "family": null,
       "focused_target": null,
       "forbidden_interpretations": [
@@ -16822,7 +16769,7 @@
       "safe_to_apply_directly": true,
       "semantic_class": "deterministic_validator",
       "side_effects": null,
-      "source_truth_count": 12,
+      "source_truth_count": 10,
       "test_target": null
     },
     {
@@ -16950,7 +16897,7 @@
       "safe_to_apply_directly": true,
       "semantic_class": "deterministic_validator",
       "side_effects": null,
-      "source_truth_count": 6,
+      "source_truth_count": 4,
       "test_target": null
     },
     {

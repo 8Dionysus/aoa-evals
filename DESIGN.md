@@ -235,8 +235,9 @@ authority classes.
 accepted-input, generated-projection, candidate-only, and provenance-bridge
 naming postures. It is a posture guide for routing old names through active
 surfaces and the `PROVENANCE.md` single controlled bridge from active mechanic
-surfaces into the legacy archive. `PROVENANCE.md` is the active-to-archive bridge;
-archive details stay inside the archive.
+surfaces into the legacy archive in pinned Git history. `PROVENANCE.md` is the active-to-archive bridge;
+archive details stay at the original immutable commit and path, outside the
+current checkout. Active parts and source bundles retain current work.
 [`mechanics/EVIDENCE_CLUSTERS.md`](mechanics/EVIDENCE_CLUSTERS.md) records the
 root-district reconnaissance and cross-root evidence standard for parent
 mechanics before files move into or between mechanic packages; it also classifies

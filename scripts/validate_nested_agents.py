@@ -17,15 +17,7 @@ REQUIRED_AGENTS: dict[str, tuple[str, ...]] = {
         ".agents/<lane>/",
         "top-level `skills/`",
         "owner-admitted",
-        ".agents/spark/",
         "proof authority",
-        "the on-demand [VALIDATION.md](VALIDATION.md) route",
-    ),
-    ".agents/spark/AGENTS.md": (
-        "fast-loop lane",
-        "one bounded claim",
-        "Bundle-local `EVAL.md`",
-        "generated surfaces",
         "the on-demand [VALIDATION.md](VALIDATION.md) route",
     ),
     "evals/AGENTS.md": (

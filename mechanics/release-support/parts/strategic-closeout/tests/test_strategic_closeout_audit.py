@@ -120,7 +120,7 @@ def test_strategic_closeout_audit_maps_original_plan_requirements() -> None:
 
     assert "repo:aoa-evals/docs/architecture/PROOF_TOPOLOGY.md" in requirements["phase_4_proof_topology"]["evidence_refs"]
     assert "repo:aoa-evals/mechanics/release-support/parts/readiness-audit/reports/release-support-readiness-audit-v1.json" in requirements["release_readiness"]["evidence_refs"]
-    assert "repo:aoa-evals/.agents/spark/AGENTS.md" in requirements["spark_agent_lane_cleanup"]["evidence_refs"]
+    assert "repo:aoa-evals/.agents/AGENTS.md" in requirements["spark_agent_lane_cleanup"]["evidence_refs"]
 
 
 def test_strategic_closeout_audit_names_traps_and_mitigations() -> None:
@@ -159,7 +159,7 @@ def test_strategic_closeout_audit_lists_verification_snapshot() -> None:
         "python -m pytest -q tests/test_mechanic_legacy_bridge.py -k mechanic_legacy_single_bridge",
         "python -m pytest -q tests/test_mechanic_legacy_bridge.py -k mechanic_provenance_bridge_posture",
         "python -m pytest -q tests/test_root_surface_roles.py -k legacy_naming_single_bridge_language",
-        "python -m pytest -q tests/test_mechanic_legacy_archive_routes.py -k active_legacy_parent_wording",
+            "python -m pytest -q tests/test_mechanic_legacy_bridge.py -k active_legacy_parent_wording",
         "python -m pytest -q tests/test_validate_repo.py -k mechanic_provenance_entry",
         "python -m pytest -q tests/test_mechanic_root_district_recon.py -k mechanic_root_district_recon",
         "python -m pytest -q tests/test_mechanics_topology.py",

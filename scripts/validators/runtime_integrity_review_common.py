@@ -30,13 +30,6 @@ RUNTIME_INTEGRITY_REVIEW_REQUIRED_TOKENS = (
     "Proof-canon pressure routes to bundle-local proof review.",
     "Runtime-continuity activation pressure routes to Experience and runtime-owner",
 )
-RUNTIME_INTEGRITY_REVIEW_LANDING_TOKENS = (
-    "mechanics/audit/parts/integrity-review/docs/RUNTIME_INTEGRITY_REVIEW.md",
-    "mechanics/audit/parts/integrity-review/schemas/runtime-integrity-review.schema.json",
-    "mechanics/audit/parts/integrity-review/examples/runtime_integrity_review.example.json",
-    "`candidate_only`",
-    "`human_review_needed`",
-)
 RUNTIME_INTEGRITY_REVIEW_EVIDENCE_REFS = (
     "repo:aoa-evals/mechanics/audit/parts/artifact-verdict-hooks/docs/TRACE_EVAL_BRIDGE.md",
     "repo:aoa-evals/mechanics/audit/parts/selected-evidence-packets/docs/RUNTIME_BENCH_PROMOTION_GUIDE.md",

@@ -257,7 +257,7 @@ def test_mechanic_parent_direction_rejects_missing_agents_entry_route(
     )
 
 
-def test_mechanic_provenance_entry_rejects_missing_legacy_readme_bridge(
+def test_mechanic_provenance_entry_rejects_missing_pinned_history_link(
     tmp_path: Path,
 ) -> None:
     write_valid_provenance_files(tmp_path)
@@ -272,7 +272,7 @@ def test_mechanic_provenance_entry_rejects_missing_legacy_readme_bridge(
     )
 
     assert any(
-        issue.location == readme_path and "legacy/README.md" in issue.message
+        issue.location == readme_path and "pinned Git history URI" in issue.message
         for issue in issues
     )
 

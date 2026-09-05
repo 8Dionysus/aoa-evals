@@ -93,7 +93,7 @@ the decision and validator route before proposing a new parent name.
 Root authored route residue is the entry-guidance companion guard. Root-facing
 authored surfaces such as `AUDIT.md`, `EVAL_INDEX.md`, `docs/README.md`,
 `docs/architecture/*.md`, `docs/guides/*.md`, `docs/operations/*.md`,
-`.agents/spark/SWARM.md`, root route cards, and `evals/AGENTS.md` should use
+root route cards and `evals/AGENTS.md` should use
 `evals/<family>/<eval>/...`, active `mechanics/...` routes, or root route cards
 instead of bare root payload paths from route-card-only districts.
 

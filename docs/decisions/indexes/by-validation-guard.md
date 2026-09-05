@@ -283,6 +283,7 @@
 - [AOA-EV-D-0214 Publication Receipts Intake Layer Split](../AOA-EV-D-0214-publication-receipts-intake-layer-split.md) (`docs/decisions/AOA-EV-D-0214-publication-receipts-intake-layer-split.md`)
 - [AOA-EV-D-0238 Distillation Validator Layer Split](../AOA-EV-D-0238-distillation-validator-layer-split.md) (`docs/decisions/AOA-EV-D-0238-distillation-validator-layer-split.md`)
 - [AOA-EV-D-0239 Readout Lane Orchestration Split](../AOA-EV-D-0239-readout-lane-orchestration-split.md) (`docs/decisions/AOA-EV-D-0239-readout-lane-orchestration-split.md`)
+- [AOA-EV-D-0257 Spark and Legacy Surface Retirement](../AOA-EV-D-0257-spark-and-legacy-surface-retirement.md) (`docs/decisions/AOA-EV-D-0257-spark-and-legacy-surface-retirement.md`)
 
 ## owner boundary
 
@@ -539,6 +540,7 @@
 - [AOA-EV-D-0247 aoa-evals-skills Owner Skill Bundle](../AOA-EV-D-0247-aoa-evals-owner-skill-bundle.md) (`docs/decisions/AOA-EV-D-0247-aoa-evals-owner-skill-bundle.md`)
 - [AOA-EV-D-0254 Validation-routing Peer-comparison Support](../AOA-EV-D-0254-validation-routing-peer-comparison-support.md) (`docs/decisions/AOA-EV-D-0254-validation-routing-peer-comparison-support.md`)
 - [AOA-EV-D-0256 Prompt-light Agent Routes and On-demand Validation](../AOA-EV-D-0256-prompt-light-agent-routes-and-on-demand-validation.md) (`docs/decisions/AOA-EV-D-0256-prompt-light-agent-routes-and-on-demand-validation.md`)
+- [AOA-EV-D-0257 Spark and Legacy Surface Retirement](../AOA-EV-D-0257-spark-and-legacy-surface-retirement.md) (`docs/decisions/AOA-EV-D-0257-spark-and-legacy-surface-retirement.md`)
 
 ## trace/eval
 

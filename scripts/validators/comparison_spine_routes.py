@@ -72,7 +72,6 @@ def validate_comparison_spine_route_surfaces(repo_root: Path) -> list[Validation
             COMPARISON_SPINE_VALIDATION_ROUTING_DECISION_REQUIRED_TOKENS,
         ),
         (COMPARISON_SPINE_PROVENANCE_NAME, COMPARISON_SPINE_PROVENANCE_REQUIRED_TOKENS),
-        (COMPARISON_SPINE_LEGACY_INDEX_NAME, COMPARISON_SPINE_LEGACY_INDEX_REQUIRED_TOKENS),
     ):
         require_tokens(repo_root=repo_root, path_name=path_name, tokens=tokens, issues=issues)
     return issues

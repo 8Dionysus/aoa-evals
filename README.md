@@ -61,7 +61,7 @@ Read only what matches the job.
 | Executable validation route | root [VALIDATION.md](VALIDATION.md), then the nearest path-specific `VALIDATION.md` after the owner lane is selected |
 
 Maintained agent lane routing is under [.agents/AGENTS.md](.agents/AGENTS.md)
-and [.agents/spark/AGENTS.md](.agents/spark/AGENTS.md).
+and the nearest owner-admitted agent-lane guidance under `.agents/`.
 
 ## Proof Check
 

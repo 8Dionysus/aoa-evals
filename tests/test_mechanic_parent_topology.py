@@ -11,7 +11,6 @@ if str(SCRIPTS_DIR) not in sys.path:
     sys.path.insert(0, str(SCRIPTS_DIR))
 
 import validate_repo
-from validators import mechanic_legacy_archive as mechanic_legacy_archive_validator
 from validators import mechanic_parent_allowlist as mechanic_parent_allowlist_validator
 from validators import mechanic_parent_direction as mechanic_parent_direction_validator
 from validators import mechanic_parent_guidance as mechanic_parent_guidance_validator
@@ -271,98 +270,6 @@ def test_mechanic_parent_readme_and_agents_files_cover_allowed_parents() -> None
 
     assert set(mechanic_parent_direction_validator.MECHANIC_PARENT_README_FILES) == expected_readmes
     assert set(mechanic_parent_direction_validator.MECHANIC_PARENT_AGENTS_FILES) == expected_agents
-
-
-def test_mechanic_legacy_raw_readmes_cover_allowed_parents() -> None:
-    expected = {
-        f"mechanics/{parent_name}/legacy/raw/README.md"
-        for parent_name in mechanics_validator.ACTIVE_MECHANIC_PARENT_NAMES
-    }
-
-    assert set(mechanic_legacy_archive_validator.MECHANIC_LEGACY_RAW_README_FILES) == expected
-
-
-def test_mechanic_legacy_skeleton_files_cover_allowed_parents() -> None:
-    expected = {
-        f"mechanics/{parent_name}/{suffix}"
-        for parent_name in mechanics_validator.ACTIVE_MECHANIC_PARENT_NAMES
-        for suffix in (
-            "PROVENANCE.md",
-            "legacy/README.md",
-            "legacy/INDEX.md",
-            "legacy/DISTILLATION_LOG.md",
-            "legacy/raw/README.md",
-        )
-    }
-
-    assert set(mechanic_legacy_archive_validator.MECHANIC_LEGACY_SKELETON_FILES) == expected
-
-
-def test_mechanic_legacy_skeleton_rejects_missing_legacy_index(
-    tmp_path: Path,
-) -> None:
-    copy_repo_text(tmp_path, "mechanics/README.md")
-    copy_repo_text(tmp_path, mechanics_validator.MECHANICS_EVIDENCE_CLUSTERS_NAME)
-    copy_repo_text(
-        tmp_path,
-        mechanic_parent_allowlist_validator.MECHANIC_PARENT_ALLOWLIST_DECISION_NAME,
-    )
-    copy_repo_text(
-        tmp_path,
-        mechanic_legacy_archive_validator.MECHANIC_LEGACY_SKELETON_DECISION_NAME,
-    )
-    copy_repo_text(tmp_path, root_context.PROOF_TOPOLOGY_NAME)
-    copy_repo_text(tmp_path, "docs/decisions/README.md")
-    for path_name in mechanic_parent_allowlist_validator.MECHANIC_ROUTE_CARD_FILES:
-        write_text(tmp_path / path_name, "# Route\n")
-    for path_name in mechanic_legacy_archive_validator.MECHANIC_LEGACY_SKELETON_FILES:
-        write_text(tmp_path / path_name, "# Legacy\n")
-    missing_path = "mechanics/questbook/legacy/INDEX.md"
-    (tmp_path / missing_path).unlink()
-
-    issues = mechanic_parent_allowlist_validator.validate_mechanics_parent_allowlist(tmp_path)
-
-    assert any(
-        issue.location == missing_path
-        and "archive-local legacy entry/accounting surfaces" in issue.message
-        for issue in issues
-    )
-
-
-def test_mechanic_legacy_readme_rejects_missing_provenance_route(
-    tmp_path: Path,
-) -> None:
-    copy_repo_text(tmp_path, "mechanics/README.md")
-    copy_repo_text(tmp_path, mechanics_validator.MECHANICS_EVIDENCE_CLUSTERS_NAME)
-    copy_repo_text(
-        tmp_path,
-        mechanic_parent_allowlist_validator.MECHANIC_PARENT_ALLOWLIST_DECISION_NAME,
-    )
-    copy_repo_text(
-        tmp_path,
-        mechanic_legacy_archive_validator.MECHANIC_LEGACY_SKELETON_DECISION_NAME,
-    )
-    copy_repo_text(tmp_path, root_context.PROOF_TOPOLOGY_NAME)
-    copy_repo_text(tmp_path, "docs/decisions/README.md")
-    for path_name in mechanic_parent_allowlist_validator.MECHANIC_ROUTE_CARD_FILES:
-        write_text(tmp_path / path_name, "# Route\n")
-    for path_name in mechanic_legacy_archive_validator.MECHANIC_LEGACY_SKELETON_FILES:
-        write_text(
-            tmp_path / path_name,
-            "# Legacy\n\n../PROVENANCE.md\nINDEX.md\nDISTILLATION_LOG.md\nraw/README.md\narchive-local route\ncurrent active route\n",
-        )
-    readme_path = "mechanics/titan/legacy/README.md"
-    write_text(
-        tmp_path / readme_path,
-        "# Titan Legacy\n\nINDEX.md\nDISTILLATION_LOG.md\nraw/README.md\narchive-local route\ncurrent active route\n",
-    )
-
-    issues = mechanic_parent_allowlist_validator.validate_mechanics_parent_allowlist(tmp_path)
-
-    assert any(
-        issue.location == readme_path and "../PROVENANCE.md" in issue.message
-        for issue in issues
-    )
 
 
 def test_mechanic_provenance_entry_files_validate_contract() -> None:

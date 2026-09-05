@@ -164,9 +164,6 @@ def validate_proof_loop_route_surfaces(repo_root: Path) -> list[ValidationIssue]
             ),
         ),
         (PROOF_LOOP_MECHANIC_PROVENANCE_NAME, PROOF_LOOP_MECHANIC_PROVENANCE_REQUIRED_TOKENS),
-        (PROOF_LOOP_LEGACY_INDEX_NAME, PROOF_LOOP_LEGACY_INDEX_REQUIRED_TOKENS),
-        (PROOF_LOOP_LEGACY_DISTILLATION_LOG_NAME, PROOF_LOOP_LEGACY_DISTILLATION_REQUIRED_TOKENS),
-        (PROOF_LOOP_LEGACY_RAW_README_NAME, PROOF_LOOP_LEGACY_RAW_README_REQUIRED_TOKENS),
         (PROOF_LOOP_MECHANIC_DECISION_NAME, PROOF_LOOP_MECHANIC_DECISION_REQUIRED_TOKENS),
     ):
         common.require_tokens(repo_root=repo_root, path_name=path_name, tokens=tokens, issues=issues)

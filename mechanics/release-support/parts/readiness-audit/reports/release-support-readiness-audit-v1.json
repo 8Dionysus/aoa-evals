@@ -153,7 +153,7 @@
       "claim_limit": "Focused legacy naming single-bridge tests constrain docs/architecture/LEGACY_NAMING.md wording; they do not prove every archived source has been distilled."
     },
     {
-      "command": "python -m pytest -q tests/test_mechanic_legacy_archive_routes.py -k active_legacy_parent_wording",
+      "command": "python -m pytest -q tests/test_mechanic_legacy_bridge.py -k active_legacy_parent_wording",
       "result": "passed",
       "claim_limit": "Focused active legacy parent wording tests constrain old parent-form vocabulary in active route wording without blocking schema filename compatibility or explicit provenance context."
     },

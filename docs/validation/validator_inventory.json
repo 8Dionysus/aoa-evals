@@ -1135,19 +1135,6 @@
       "disposition": "add"
     },
     {
-      "path": "scripts/validators/mechanic_legacy_archive.py",
-      "lane": "source_fast",
-      "layer": "mechanics/legacy archive boundary",
-      "mode": "blocking",
-      "owner_surface": "docs/decisions/AOA-EV-D-0071-mechanic-legacy-skeleton-contract.md",
-      "source_truth": ["mechanics/*/PROVENANCE.md", "mechanics/*/legacy/README.md", "mechanics/*/legacy/INDEX.md", "mechanics/*/legacy/DISTILLATION_LOG.md", "mechanics/*/legacy/raw/README.md", "docs/decisions/AOA-EV-D-0071-mechanic-legacy-skeleton-contract.md"],
-      "input": ["legacy archive route cards", "legacy raw payload accounting", "decision-index companion context", "mechanic provenance bridge aggregate"],
-      "output": ["legacy skeleton, archive route-language, raw accounting, and aggregate legacy issues"],
-      "command_sequences": ["source_fast", "release_check"],
-      "failure_route": "Fix the owning mechanic legacy archive route, raw payload accounting row, skeleton decision, or delegated PROVENANCE bridge issue; archive validation must not define mechanic payload meaning.",
-      "disposition": "add"
-    },
-    {
       "path": "scripts/validators/mechanic_legacy_common.py",
       "lane": "source_fast",
       "layer": "mechanics/legacy helper boundary",
@@ -1826,12 +1813,12 @@
     {
       "path": "scripts/validators/root_agent_lanes.py",
       "lane": "source_fast",
-      "layer": "root agent-lane and Spark route posture",
+      "layer": "root agent-lane route posture",
       "mode": "blocking",
       "owner_surface": ".agents/AGENTS.md",
-      "source_truth": [".agents/AGENTS.md", ".agents/spark/AGENTS.md", ".agents/spark/SWARM.md", "docs/decisions/AOA-EV-D-0017-spark-agent-lane-placement.md", "README.md", "docs/architecture/PROOF_TOPOLOGY.md"],
-      "input": ["root agent lane route cards", "Spark lane route cards", "Spark lane decision", "root README", "proof topology"],
-      "output": ["agent lane route, Spark route, and root-local Spark residue issues"],
+      "source_truth": [".agents/AGENTS.md", "docs/decisions/AOA-EV-D-0017-spark-agent-lane-placement.md", "README.md", "docs/architecture/PROOF_TOPOLOGY.md"],
+      "input": ["root agent lane route cards", "agent lane route cards", "agent-lane decision", "root README", "proof topology"],
+      "output": ["agent lane route and root-local route residue issues"],
       "command_sequences": ["source_fast", "release_check"],
       "failure_route": "Fix the owning .agents route card, Spark lane card, or Spark placement decision; this validator does not own agent index, audit routes, memory boundary, or proof meaning.",
       "disposition": "add"
@@ -2843,7 +2830,7 @@
       "layer": "release-support route, part-contract, provenance, and legacy boundary",
       "mode": "blocking",
       "owner_surface": "mechanics/release-support/README.md",
-      "source_truth": ["mechanics/release-support/README.md", "mechanics/release-support/AGENTS.md", "mechanics/release-support/PARTS.md", "mechanics/release-support/parts/README.md", "mechanics/release-support/parts/readiness-audit/README.md", "mechanics/release-support/parts/strategic-closeout/README.md", "mechanics/release-support/parts/pr-handoff/README.md", "mechanics/release-support/PROVENANCE.md", "mechanics/release-support/legacy/INDEX.md", "mechanics/release-support/legacy/DISTILLATION_LOG.md", "docs/decisions/AOA-EV-D-0014-release-support-mechanic-package.md", "docs/decisions/AOA-EV-D-0058-release-support-part-contract-guard.md"],
+      "source_truth": ["mechanics/release-support/README.md", "mechanics/release-support/AGENTS.md", "mechanics/release-support/PARTS.md", "mechanics/release-support/parts/README.md", "mechanics/release-support/parts/readiness-audit/README.md", "mechanics/release-support/parts/strategic-closeout/README.md", "mechanics/release-support/parts/pr-handoff/README.md", "mechanics/release-support/PROVENANCE.md", "docs/decisions/AOA-EV-D-0014-release-support-mechanic-package.md", "docs/decisions/AOA-EV-D-0058-release-support-part-contract-guard.md"],
       "input": ["release-support route cards", "part README contracts", "legacy provenance surfaces", "release-support decisions", "release validation command refs"],
       "output": ["release-support route, part-contract, provenance, legacy, and decision-token issues"],
       "command_sequences": ["source_fast", "release_check"],

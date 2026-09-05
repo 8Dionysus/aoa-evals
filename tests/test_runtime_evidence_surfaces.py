@@ -732,7 +732,6 @@ def test_validate_runtime_integrity_review_surface_accepts_repo_contract() -> No
 def test_validate_runtime_integrity_review_surface_requires_all_declared_doc_fields(tmp_path: Path) -> None:
     for relative_path in (
         "docs/README.md",
-        "mechanics/agon/legacy/raw/AGON_WAVE10_EVAL_LANDING.md",
         "mechanics/audit/parts/integrity-review/docs/RUNTIME_INTEGRITY_REVIEW.md",
         "mechanics/audit/parts/integrity-review/schemas/runtime-integrity-review.schema.json",
         "mechanics/audit/parts/integrity-review/examples/runtime_integrity_review.example.json",
@@ -755,7 +754,6 @@ def test_validate_runtime_integrity_review_surface_requires_all_declared_doc_fie
 def test_validate_runtime_integrity_review_surface_uses_repo_local_schema(tmp_path: Path) -> None:
     for relative_path in (
         "docs/README.md",
-        "mechanics/agon/legacy/raw/AGON_WAVE10_EVAL_LANDING.md",
         "mechanics/audit/parts/integrity-review/docs/RUNTIME_INTEGRITY_REVIEW.md",
         "mechanics/audit/parts/integrity-review/schemas/runtime-integrity-review.schema.json",
         "mechanics/audit/parts/integrity-review/examples/runtime_integrity_review.example.json",
@@ -783,7 +781,6 @@ def test_validate_runtime_integrity_review_surface_uses_repo_local_schema(tmp_pa
 def test_validate_runtime_integrity_review_surface_rejects_weakened_schema_contract(tmp_path: Path) -> None:
     for relative_path in (
         "docs/README.md",
-        "mechanics/agon/legacy/raw/AGON_WAVE10_EVAL_LANDING.md",
         "mechanics/audit/parts/integrity-review/docs/RUNTIME_INTEGRITY_REVIEW.md",
         "mechanics/audit/parts/integrity-review/schemas/runtime-integrity-review.schema.json",
         "mechanics/audit/parts/integrity-review/examples/runtime_integrity_review.example.json",
@@ -807,7 +804,6 @@ def test_validate_runtime_integrity_review_surface_rejects_weakened_schema_contr
 def test_validate_runtime_integrity_review_surface_rejects_open_top_level_schema(tmp_path: Path) -> None:
     for relative_path in (
         "docs/README.md",
-        "mechanics/agon/legacy/raw/AGON_WAVE10_EVAL_LANDING.md",
         "mechanics/audit/parts/integrity-review/docs/RUNTIME_INTEGRITY_REVIEW.md",
         "mechanics/audit/parts/integrity-review/schemas/runtime-integrity-review.schema.json",
         "mechanics/audit/parts/integrity-review/examples/runtime_integrity_review.example.json",
@@ -835,7 +831,6 @@ def test_validate_runtime_integrity_review_surface_rejects_missing_center_anchor
     repo_root = tmp_path / "aoa-evals"
     for relative_path in (
         "docs/README.md",
-        "mechanics/agon/legacy/raw/AGON_WAVE10_EVAL_LANDING.md",
         "mechanics/audit/parts/integrity-review/docs/RUNTIME_INTEGRITY_REVIEW.md",
         "mechanics/audit/parts/integrity-review/schemas/runtime-integrity-review.schema.json",
         "mechanics/audit/parts/integrity-review/examples/runtime_integrity_review.example.json",
@@ -896,7 +891,6 @@ def test_validate_runtime_integrity_review_surface_rejects_anchor_drift_in_evide
     repo_root = tmp_path / "aoa-evals"
     for relative_path in (
         "docs/README.md",
-        "mechanics/agon/legacy/raw/AGON_WAVE10_EVAL_LANDING.md",
         "mechanics/audit/parts/integrity-review/docs/RUNTIME_INTEGRITY_REVIEW.md",
         "mechanics/audit/parts/artifact-verdict-hooks/docs/TRACE_EVAL_BRIDGE.md",
         "mechanics/audit/parts/selected-evidence-packets/docs/RUNTIME_BENCH_PROMOTION_GUIDE.md",

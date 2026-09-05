@@ -126,7 +126,6 @@ the implementation is split by owner route. Current focused modules are:
 - `scripts/validators/growth_cycle_route_tokens.py`
 - `scripts/validators/growth_cycle_routes.py`
 - `scripts/validators/active_legacy_parent_wording.py`
-- `scripts/validators/mechanic_legacy_archive.py`
 - `scripts/validators/mechanic_legacy_common.py`
 - `scripts/validators/mechanic_provenance_bridge.py`
 - `scripts/validators/mechanic_evidence_dimensions.py`

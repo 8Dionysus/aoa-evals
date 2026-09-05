@@ -46,7 +46,7 @@ The architecture proof route remains `docs/architecture/PROOF_TOPOLOGY.md`.
 - Keep each part tied to one row in the parent `PARTS.md`.
 - Keep source proof meaning in bundles or source docs; validation text carries check route and evidence coverage.
 - Keep executable child validation commands in child VALIDATION.md files so README files stay route maps and contracts.
-- Route legacy placement through parent `PROVENANCE.md` and `legacy/` rather than recreating old root payload paths.
+- Resolve former placement through parent `PROVENANCE.md` and its pinned Git history; keep new payloads in the active owner, without recreating retired archive or root paths.
 
 ## Owner Routes
 

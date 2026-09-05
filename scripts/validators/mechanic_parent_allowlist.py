@@ -4,7 +4,6 @@ from __future__ import annotations
 
 from pathlib import Path
 
-from validators import mechanic_legacy_archive as mechanic_legacy_archive_validator
 from validators import mechanic_parent_guidance as mechanic_parent_guidance_validator
 from validators import mechanics as mechanics_validator
 from validators.common import ValidationIssue
@@ -161,12 +160,6 @@ def validate_mechanics_parent_allowlist(repo_root: Path) -> list[ValidationIssue
 
     allowed_files = set(MECHANICS_ROOT_ALLOWED_FILES)
     allowed_parents = set(mechanics_validator.ACTIVE_MECHANIC_PARENT_NAMES)
-    issues.extend(
-        ValidationIssue(issue.location, issue.message)
-        for issue in mechanic_legacy_archive_validator.validate_mechanic_legacy_skeleton_surfaces(
-            repo_root
-        )
-    )
     issues.extend(
         mechanic_parent_guidance_validator.validate_mechanic_parent_guidance_boundary(
             repo_root

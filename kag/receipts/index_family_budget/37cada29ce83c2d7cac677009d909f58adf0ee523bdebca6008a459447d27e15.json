@@ -9,8 +9,8 @@
     "contract_version": "aoa-kag:budget-receipt-candidate-identity-v2",
     "excluded_path": "kag/receipts/index_family_budget/37cada29ce83c2d7cac677009d909f58adf0ee523bdebca6008a459447d27e15.json",
     "family_digest": "37cada29ce83c2d7cac677009d909f58adf0ee523bdebca6008a459447d27e15",
-    "file_count": 2845,
-    "seal": "c4935ea0ff25963fb4447dc31adcbf9f94d8daac90af7854704c4b3ac1840b59",
+    "file_count": 2840,
+    "seal": "ecd42c94a0674c915b459ef8fe0b2b4dca253097f6c3a831c06c100624775d54",
     "source_epoch": "sha256:b74a22e5088482176f337dbbd336e4247f276ab27938185121e7259c5e971da2",
     "source_snapshot": "sha256:1aceaf843414d2b75719a854c5637db6b2665b62936579dbcc7db229f5ac5d87"
   },
@@ -1362,7 +1362,7 @@
     "revision_binding": "content-addressed-procedure-import-closure-portable-runtime-contract-and-descriptor-io-v1",
     "source_digest": "df3b43c667409671f5b5fc71b847a54b0f5aed3b4d9cafb2ca7046896f5c2c37"
   },
-  "reason": "AOA-EV-D-0257 operator-approved Spark and historical-tree retirement; align current source route law and immutable historical recovery without raising standing budgets.",
+  "reason": "approved retirement canonical receipt rebind",
   "repo": "aoa-evals",
   "schema_version": "aoa-repo-local-kag-budget-receipt-v2",
   "scope": "generated_delta_and_tracked_size",

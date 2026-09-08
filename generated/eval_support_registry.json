@@ -6825,7 +6825,7 @@
       "classification_evidence": [
         "family: validator_module",
         "owner_surface: .agents/AGENTS.md",
-        "side_effects: validation output only; checks root agent-lane and Spark route posture without owning agent index, audit route, memory boundary, or source proof meaning",
+        "side_effects: validation output only; checks root agent-lane route posture without owning agent index, audit route, memory boundary, or source proof meaning",
         "validation_lane: source_fast"
       ],
       "classification_rule": "read_only_validator_script",
@@ -6849,7 +6849,7 @@
       "review_status": "rule_reviewed",
       "safe_to_apply_directly": true,
       "semantic_class": "deterministic_validator",
-      "side_effects": "validation output only; checks root agent-lane and Spark route posture without owning agent index, audit route, memory boundary, or source proof meaning",
+      "side_effects": "validation output only; checks root agent-lane route posture without owning agent index, audit route, memory boundary, or source proof meaning",
       "source_truth_count": 4,
       "test_target": "tests/test_root_surface_roles.py"
     },
@@ -9312,7 +9312,7 @@
       "classification_evidence": [
         "family: validator_module",
         "owner_surface: docs/testing/TEST_TOPOLOGY.md",
-        "side_effects: validation output only; checks test inventory fields and discovery drift without owning lane manifest semantics, validator inventory, or script inventory entries",
+        "side_effects: validation output only; checks test inventory fields, owner and lane references, and discovery drift without owning lane command semantics, validator inventory, or script inventory entries",
         "validation_lane: source_fast"
       ],
       "classification_rule": "read_only_validator_script",
@@ -9333,9 +9333,9 @@
       "review_status": "rule_reviewed",
       "safe_to_apply_directly": true,
       "semantic_class": "deterministic_validator",
-      "side_effects": "validation output only; checks test inventory fields and discovery drift without owning lane manifest semantics, validator inventory, or script inventory entries",
+      "side_effects": "validation output only; checks test inventory fields, owner and lane references, and discovery drift without owning lane command semantics, validator inventory, or script inventory entries",
       "source_truth_count": 4,
-      "test_target": "tests/test_validation_topology.py"
+      "test_target": "tests/test_test_topology.py"
     },
     {
       "classification": "deterministic_script_validator",
@@ -12247,9 +12247,9 @@
       ],
       "classification_rule": "test_inventory_contract_or_invariant",
       "eval_lane_relevant": false,
-      "failure_route": "Fix test inventory before moving test homes.",
+      "failure_route": "Fix the inventory checker or its authored contract; current-tree inventory validation remains in root topology.",
       "family": "validation-topology/authority",
-      "focused_target": "test inventory and home scopes",
+      "focused_target": "test-inventory checker contracts on independent root and part-local fixtures, including owner and lane reference failures",
       "forbidden_interpretations": [
         "central_proof_acceptance"
       ],
@@ -19179,7 +19179,7 @@
       ],
       "classification_rule": "validator_inventory_entry",
       "eval_lane_relevant": false,
-      "failure_route": "Fix the test inventory entry or active test surface; lane command grouping, validator inventory, and script inventory belong to focused sibling validators.",
+      "failure_route": "Fix the test inventory entry, its owner or lane reference, or the active test surface; lane command semantics, validator inventory, and script inventory belong to focused sibling validators.",
       "family": null,
       "focused_target": null,
       "forbidden_interpretations": [

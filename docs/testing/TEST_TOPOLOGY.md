@@ -45,6 +45,9 @@ Test files are not command authority. Lane command sequences live in
 
 - Inventory entries must name a `focused_target`, not duplicate a full release
   command sequence.
+- `coverage_authority` must resolve to an existing lane in the command manifest,
+  not merely carry the `validation_lanes.` prefix. A declared advisory lane may
+  have no executable command; resolving its name does not make it blocking.
 - Root tests should split by owner surface as `test_validate_repo.py` shrinks.
 - Mechanic-part tests should stay part-local unless the checked invariant spans
   the repository.
@@ -52,3 +55,20 @@ Test files are not command authority. Lane command sequences live in
   from curated bounded fixtures and then feed release/nightly only when stable.
 - Release command order belongs in the lane manifest; tests may assert coverage
   but must not become a second command store.
+
+## Checker and Regression Responsibilities
+
+The test-inventory validator owns current-tree completeness and owner/lane
+reference checks. Root topology validation calls it, and the existing
+current-surface topology integration test covers that wiring.
+
+The focused test-topology suite exercises that checker with small independent
+root and mechanic-part fixtures, including missing owners, unclassified files,
+duplicate paths, invalid classifications, and unresolved lane authority. It
+must not reimplement discovery or copy the checker's allowed-value tables.
+Expected failures stay independent of the implementation under test.
+
+A disposition records a reviewable maintenance choice. Tests validate its
+contract without requiring a particular file to remain marked `split` forever.
+Changing the test surface requires an explicit account of retained behavior and
+removed overlap; fewer tests or assertions alone is not an improvement.

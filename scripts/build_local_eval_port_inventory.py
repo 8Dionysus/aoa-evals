@@ -7,6 +7,7 @@ import argparse
 import json
 import os
 from dataclasses import dataclass
+from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any, Iterable, Sequence
 
@@ -21,6 +22,7 @@ DEFAULT_WORKSPACE_ROOT = Path("/srv/AbyssOS")
 DEFAULT_MAX_DEPTH = 4
 SCHEMA_VERSION = "os_abyss_local_eval_port_inventory_v2"
 V1_SCHEMA_VERSION = "os_abyss_local_eval_port_inventory_v1"
+WORKSPACE_OBSERVATION_SCHEMA_VERSION = "os_abyss_workspace_eval_observation_v1"
 PROOF_OWNER_REPO = "aoa-evals"
 AUTHORITY_BOUNDARY = (
     "Repo-local eval ports carry intake, suites, reports, and pressure evidence "
@@ -184,6 +186,10 @@ def repo_relative(path: Path, root: Path) -> str:
     except ValueError:
         return path.as_posix()
     return "." if str(relative) == "." else relative.as_posix()
+
+
+def utc_now() -> str:
+    return datetime.now(timezone.utc).replace(microsecond=0).isoformat().replace("+00:00", "Z")
 
 
 def local_repo_id(path: Path, root: Path) -> str:
@@ -442,6 +448,8 @@ def build_repo_entry(repo_root: Path, workspace_root: Path, central_eval_names: 
         "owner_identity_sources": list(repo_identity.sources),
         "repo_path": repo_relative(repo_root, workspace_root),
         "repo_id": local_repo_id(repo_root, workspace_root),
+        "observation_id": f"workspace:{local_repo_id(repo_root, workspace_root)}",
+        "observation_scope": "workspace",
         "root": repo_root.as_posix(),
         "port_path": repo_relative(port_path, repo_root),
         "inventory_status": status,
@@ -506,8 +514,14 @@ def build_summary(entries: list[dict[str, Any]]) -> dict[str, int]:
     return summary
 
 
-def build_inventory_payload(workspace_root: Path, *, max_depth: int = DEFAULT_MAX_DEPTH) -> dict[str, Any]:
+def build_inventory_payload(
+    workspace_root: Path,
+    *,
+    max_depth: int = DEFAULT_MAX_DEPTH,
+    observed_at_utc: str | None = None,
+) -> dict[str, Any]:
     workspace_root = workspace_root.resolve()
+    observed_at_utc = observed_at_utc or utc_now()
     central_eval_names = load_central_eval_names()
     repo_roots = discover_repo_roots(workspace_root, max_depth=max_depth)
     excluded_repos = [
@@ -537,6 +551,20 @@ def build_inventory_payload(workspace_root: Path, *, max_depth: int = DEFAULT_MA
         "schema_version": SCHEMA_VERSION,
         "layer": "aoa-evals-local-port-inventory",
         "workspace_root": workspace_root.as_posix(),
+        "workspace_observation": {
+            "schema_version": WORKSPACE_OBSERVATION_SCHEMA_VERSION,
+            "scope": "filesystem_workspace",
+            "workspace_root": workspace_root.as_posix(),
+            "observed_at_utc": observed_at_utc,
+            "source": "scripts/build_local_eval_port_inventory.py",
+            "repo_id_basis": "workspace-relative-path",
+            "canonical_owner_field": "canonical_owner_repo",
+            "distinct_repo_instances_preserved": True,
+            "worktree_rule": (
+                "literal worktrees remain observed unless an explicit contract scope excludes them; "
+                "physical instances are never merged by canonical owner"
+            ),
+        },
         "proof_owner_repo": PROOF_OWNER_REPO,
         "authority_boundary": AUTHORITY_BOUNDARY,
         "source_of_truth": SOURCE_OF_TRUTH,

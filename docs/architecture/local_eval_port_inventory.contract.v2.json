@@ -25,6 +25,26 @@
     "ephemeral_worktree_paths_allowed": false,
     "rule": "Builders may read source from an isolated worktree, but generated dashboard and MCP runtime-status paths name the canonical owner checkout."
   },
+  "workspace_observation": {
+    "schema_version": "os_abyss_workspace_eval_observation_v1",
+    "scope": "filesystem_workspace",
+    "identity": "repo_id is the workspace-relative physical checkout path; canonical_owner_repo is a separate resolved owner identity",
+    "timestamp": "observed_at_utc is assigned when filesystem discovery runs",
+    "source_projection_boundary": "workspace observations are not source-derived parity inputs and must not be made fresh by source-only identity checks",
+    "worktree_rule": "literal worktrees remain visible unless an explicit contract scope excludes them; physical instances are never merged by canonical owner",
+    "pressure_rule": "pressure from distinct physical instances remains distinct so owner review cannot lose a candidate",
+    "required_fields": [
+      "schema_version",
+      "scope",
+      "workspace_root",
+      "observed_at_utc",
+      "source",
+      "repo_id_basis",
+      "canonical_owner_field",
+      "distinct_repo_instances_preserved",
+      "worktree_rule"
+    ]
+  },
   "compatibility": {
     "previous_contract_ref": "docs/architecture/local_eval_port_inventory.contract.v1.json",
     "current_contract_ref": "docs/architecture/local_eval_port_inventory.contract.v2.json",

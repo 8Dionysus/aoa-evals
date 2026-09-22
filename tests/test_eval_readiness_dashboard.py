@@ -137,6 +137,20 @@ def test_dashboard_builds_living_readmodel_without_live_checks(tmp_path: Path) -
         "can_execute_local_suites": False,
     }
     assert dashboard["local_eval_ports"]["summary"]["active"] == 1
+    assert dashboard["workspace_observation"]["scope"] == "filesystem_workspace"
+    assert dashboard["workspace_observation"]["observed_at_utc"] == "2026-06-25T00:00:00Z"
+    assert dashboard["live_observation"]["status"] == "not_observed"
+    assert dashboard["source_projection"]["identity"]
+    assert all(
+        item["source_kind"] != "local_eval_port"
+        for item in dashboard["candidate_queue"]["entries"]
+        if item["candidate_id"] in dashboard["candidate_queue"]["source_projection"]["entry_ids"]
+    )
+    assert all(
+        item["source_kind"] == "local_eval_port"
+        for item in dashboard["candidate_queue"]["entries"]
+        if item["candidate_id"] in dashboard["candidate_queue"]["workspace_observation"]["entry_ids"]
+    )
     assert dashboard["mcp_runtime_status"]["status"] == "skipped"
     assert dashboard["aoa_session_memory_freshness"]["status"] == "skipped"
     assert dashboard["repo_readiness"]["summary"]["actionable_repos"] == 1
@@ -365,12 +379,105 @@ def test_source_derived_refresh_preserves_recorded_live_snapshot() -> None:
     assert merged["aoa_session_memory_freshness"] == current[
         "aoa_session_memory_freshness"
     ]
-    assert merged["workspace_git_drift"] == current["workspace_git_drift"]
+    assert merged["workspace_git_drift"] == rebuilt["workspace_git_drift"]
     assert merged["aoa_eval_runtime_adoption"]["source_exists"] is True
     assert merged["aoa_eval_runtime_adoption"]["live_skill_exists"] is True
     assert (
         merged["aoa_eval_runtime_adoption"]["normal_user_profile_verified"]
         is True
+    )
+
+
+def test_source_projection_identity_excludes_workspace_observation() -> None:
+    source_entry = {
+        "candidate_id": "packet:example",
+        "source_kind": "session_episode",
+        "state": "observed",
+    }
+    workspace_entry = {
+        "candidate_id": "local-port:aoa-sdk",
+        "source_kind": "local_eval_port",
+        "state": "needs_owner_review",
+    }
+    queue = {
+        "source_projection": {
+            "entry_ids": [source_entry["candidate_id"]],
+            "summary": {"entries": 1, "by_state": {"observed": 1}, "by_source_kind": {"session_episode": 1}},
+        },
+        "workspace_observation": {
+            "entry_ids": [workspace_entry["candidate_id"]],
+            "summary": {"entries": 1},
+        },
+        "entries": [source_entry, workspace_entry],
+        "summary": {},
+    }
+    first = {
+        "candidate_queue": queue,
+        "central_catalog": {"total_evals": 1},
+    }
+    second = json.loads(json.dumps(first))
+    second["candidate_queue"]["entries"].append(
+        {
+            "candidate_id": "local-port:Tree-of-Sophia",
+            "source_kind": "local_eval_port",
+            "state": "needs_owner_review",
+        }
+    )
+    assert readiness.deterministic_dashboard_projection(first, include_skill_source_posture=False) == readiness.deterministic_dashboard_projection(
+        second,
+        include_skill_source_posture=False,
+    )
+    assert readiness.source_projection_identity(first) == readiness.source_projection_identity(second)
+
+
+def test_source_projection_shape_rejects_arbitrary_identity() -> None:
+    dashboard = json.loads(
+        (REPO_ROOT / "generated" / "eval_readiness_dashboard.json").read_text(
+            encoding="utf-8"
+        )
+    )
+    support = json.loads(
+        (REPO_ROOT / "generated" / "eval_support_registry.json").read_text(
+            encoding="utf-8"
+        )
+    )
+    dashboard["source_projection"]["identity"] = "0" * 64
+
+    issues = readiness.validate_dashboard_shape(dashboard, support)
+
+    assert "source_projection identity mismatch" in issues
+
+
+def test_source_projection_merge_recomputes_identity_for_legacy_posture_mode() -> None:
+    source_entry = {
+        "candidate_id": "packet:example",
+        "source_kind": "session_episode",
+        "state": "observed",
+    }
+    rebuilt = {
+        "schema_version": readiness.SCHEMA_VERSION,
+        "central_catalog": {"total_evals": 2},
+        "candidate_queue": {"entries": [source_entry], "summary": {}},
+        "aoa_eval_runtime_adoption": {"source_exists": True},
+        "source_projection": {
+            "schema_version": "os_abyss_eval_source_projection_v1",
+            "generated_at_utc": "2026-07-18T00:00:00Z",
+            "identity_basis": "deterministic source-derived dashboard projection",
+            "identity_includes_skill_source_posture": True,
+        },
+    }
+    rebuilt["source_projection"]["identity"] = readiness.source_projection_identity(rebuilt)
+
+    merged = readiness.merge_source_derived_dashboard(
+        {},
+        rebuilt,
+        include_skill_source_posture=False,
+    )
+
+    assert merged["source_projection"]["identity_includes_skill_source_posture"] is False
+    assert merged["source_projection"]["identity"] == readiness.source_projection_identity(
+        merged,
+        include_skill_source_posture=False,
     )
 
 

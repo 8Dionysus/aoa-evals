@@ -248,6 +248,15 @@ def test_inventory_contract_matches_builder_surface() -> None:
         "/srv/AbyssOS/aoa-evals"
     )
     assert contract["generated_path_boundary"]["ephemeral_worktree_paths_allowed"] is False
+    assert contract["workspace_observation"]["schema_version"] == (
+        "os_abyss_workspace_eval_observation_v1"
+    )
+    assert contract["workspace_observation"]["identity"].startswith(
+        "repo_id is the workspace-relative"
+    )
+    assert contract["workspace_observation"]["pressure_rule"].startswith(
+        "pressure from distinct"
+    )
     assert contract["compatibility"]["accepted_contract_schema_versions"] == [
         "aoa_local_eval_port_inventory_contract_v1",
         "aoa_local_eval_port_inventory_contract_v2",
@@ -368,6 +377,31 @@ def test_inventory_classifies_repo_port_states(tmp_path: Path) -> None:
     assert payload["summary"]["invalid"] == 1
     assert payload["summary"]["excluded_repos"] == 1
     assert missing.name == "missing-repo"
+
+
+def test_workspace_observation_keeps_distinct_worktree_pressure(tmp_path: Path) -> None:
+    workspace = tmp_path / "AbyssOS"
+    source_repo = make_repo(workspace, "aoa-sdk")
+    make_port(source_repo, status="active")
+    write_valid_intake(source_repo, name="source-pressure")
+
+    worktree_repo = make_repo(workspace, "worktrees/pr-1/aoa-sdk")
+    make_port(worktree_repo, status="active")
+    write_valid_intake(worktree_repo, name="worktree-pressure")
+
+    payload = inventory.build_inventory_payload(workspace)
+    entries = {entry["repo_id"]: entry for entry in payload["repos"]}
+
+    assert set(entries) == {"aoa-sdk", "worktrees/pr-1/aoa-sdk"}
+    assert entries["aoa-sdk"]["observation_id"] == "workspace:aoa-sdk"
+    assert entries["worktrees/pr-1/aoa-sdk"]["observation_id"] == (
+        "workspace:worktrees/pr-1/aoa-sdk"
+    )
+    assert entries["aoa-sdk"]["canonical_owner_repo"] == "aoa-sdk"
+    assert entries["worktrees/pr-1/aoa-sdk"]["canonical_owner_repo"] == "aoa-sdk"
+    assert payload["workspace_observation"]["scope"] == "filesystem_workspace"
+    assert payload["workspace_observation"]["distinct_repo_instances_preserved"] is True
+    assert payload["summary"]["with_detected_pressure"] == 2
 
 
 def test_central_overlap_routes_existing_eval_first(tmp_path: Path) -> None:

@@ -53,6 +53,12 @@ DETERMINISTIC_DASHBOARD_KEYS = (
     "local_to_central_promotion_path",
     "phase_coverage",
 )
+WORKSPACE_OBSERVED_DASHBOARD_KEYS = (
+    "local_eval_ports",
+    "workspace_observation",
+    "candidate_queue",
+    "workspace_git_drift",
+)
 DETERMINISTIC_ADOPTION_KEYS = (
     "posture",
     "source_skill_ref",
@@ -1996,6 +2002,24 @@ def candidate_entry_from_packet(record: dict[str, Any]) -> dict[str, Any]:
     )
 
 
+def candidate_queue_summary(
+    entries: Sequence[dict[str, Any]],
+    *,
+    base_summary: dict[str, Any] | None = None,
+) -> dict[str, Any]:
+    """Summarize one queue layer without collapsing physical observations."""
+
+    summary = dict(base_summary or {})
+    summary["entries"] = len(entries)
+    summary["by_state"] = normalize_counter(
+        Counter(str(entry.get("state")) for entry in entries)
+    )
+    summary["by_source_kind"] = normalize_counter(
+        Counter(str(entry.get("source_kind")) for entry in entries)
+    )
+    return summary
+
+
 def build_candidate_queue(
     local_inventory: dict[str, Any],
     runtime_candidates: dict[str, Any],
@@ -2007,7 +2031,8 @@ def build_candidate_queue(
             local_inventory
         )
     )
-    entries: list[dict[str, Any]] = []
+    source_entries: list[dict[str, Any]] = []
+    workspace_entries: list[dict[str, Any]] = []
     packet_records = (
         candidate_packets.get("packets", [])
         if isinstance(candidate_packets, dict)
@@ -2016,7 +2041,7 @@ def build_candidate_queue(
     if isinstance(packet_records, list):
         for record in packet_records:
             if isinstance(record, dict):
-                entries.append(candidate_entry_from_packet(record))
+                source_entries.append(candidate_entry_from_packet(record))
     repos = local_inventory.get("repos", []) if isinstance(local_inventory, dict) else []
     if isinstance(repos, list):
         for repo in repos:
@@ -2033,7 +2058,7 @@ def build_candidate_queue(
             central_matches = repo.get("central_eval_name_matches")
             has_central_overlap = isinstance(central_matches, list) and bool(central_matches)
             state = "duplicate_existing_eval" if has_central_overlap else "needs_owner_review"
-            entries.append(
+            workspace_entries.append(
                 candidate_entry(
                     candidate_id=f"local-port:{repo_id}",
                     source_kind="local_eval_port",
@@ -2048,7 +2073,7 @@ def build_candidate_queue(
             )
     runtime_count = int(runtime_candidates.get("count") or 0)
     if runtime_count:
-        entries.append(
+        source_entries.append(
             candidate_entry(
                 candidate_id="runtime-candidates:aoa-evals",
                 source_kind="runtime_candidate_export",
@@ -2071,7 +2096,7 @@ def build_candidate_queue(
             and record["payload"].get("source_kind") == "session_episode"
         )
     if session_packet_count == 0:
-        entries.append(
+        source_entries.append(
             candidate_entry(
                 candidate_id="session-mining:criteria-gated",
                 source_kind="session_memory_candidate",
@@ -2084,14 +2109,29 @@ def build_candidate_queue(
                 review_gate="manual_episode_review_with_reject_accounting",
             )
         )
-    entries.sort(key=lambda item: str(item["candidate_id"]))
-    by_state: Counter[str] = Counter(str(entry["state"]) for entry in entries)
-    by_source_kind: Counter[str] = Counter(str(entry["source_kind"]) for entry in entries)
+    source_entries.sort(key=lambda item: str(item["candidate_id"]))
+    workspace_entries.sort(key=lambda item: str(item["candidate_id"]))
+    entries = sorted(
+        [*source_entries, *workspace_entries],
+        key=lambda item: str(item["candidate_id"]),
+    )
     packet_count = (
         int(candidate_packets.get("packet_count") or 0)
         if isinstance(candidate_packets, dict)
         else 0
     )
+    source_summary = candidate_queue_summary(
+        source_entries,
+        base_summary={
+            "packet_count": packet_count,
+            "session_packet_count": session_packet_count,
+            "session_mining_reviewed_count": SESSION_MINING_STATUS.get("reviewed_count"),
+            "session_mining_report_refs": SESSION_MINING_STATUS.get("report_refs", []),
+            "central_catalog_total_evals": catalog_summary.get("total_evals"),
+        },
+    )
+    workspace_summary = candidate_queue_summary(workspace_entries)
+    workspace_observation = local_inventory.get("workspace_observation", {})
     return {
         "schema_version": "os_abyss_eval_candidate_queue_v1",
         "authority_boundary": (
@@ -2158,6 +2198,25 @@ def build_candidate_queue(
             "local ports require central overlap check before central draft",
             "packet imports remain candidate-only even when schema-valid",
         ],
+        "source_projection": {
+            "schema_version": "os_abyss_eval_candidate_queue_source_projection_v1",
+            "entry_ids": [
+                str(entry.get("candidate_id")) for entry in source_entries
+            ],
+            "summary": source_summary,
+        },
+        "workspace_observation": {
+            "schema_version": "os_abyss_eval_candidate_queue_workspace_observation_v1",
+            "scope": "filesystem_workspace",
+            "workspace_root": workspace_observation.get("workspace_root"),
+            "observed_at_utc": workspace_observation.get("observed_at_utc"),
+            "entry_ids": [
+                str(entry.get("candidate_id")) for entry in workspace_entries
+            ],
+            "summary": workspace_summary,
+            "repo_id_basis": "workspace-relative-path",
+            "distinct_pressure_preserved": True,
+        },
         "candidate_packet_import": {
             "packet_root": candidate_packets.get("packet_root") if isinstance(candidate_packets, dict) else CANDIDATE_PACKET_RELATIVE.as_posix(),
             "packet_count": packet_count,
@@ -2167,8 +2226,10 @@ def build_candidate_queue(
         },
         "summary": {
             "entries": len(entries),
-            "by_state": normalize_counter(by_state),
-            "by_source_kind": normalize_counter(by_source_kind),
+            "by_state": normalize_counter(Counter(str(entry["state"]) for entry in entries)),
+            "by_source_kind": normalize_counter(
+                Counter(str(entry["source_kind"]) for entry in entries)
+            ),
             "packet_count": packet_count,
             "session_packet_count": session_packet_count,
             "session_mining_reviewed_count": SESSION_MINING_STATUS.get("reviewed_count"),
@@ -2176,6 +2237,54 @@ def build_candidate_queue(
             "central_catalog_total_evals": catalog_summary.get("total_evals"),
         },
         "entries": entries,
+    }
+
+
+def candidate_queue_source_projection(queue: Any) -> dict[str, Any]:
+    """Return only source-derived queue data for deterministic parity checks.
+
+    Older snapshots predate the explicit layer fields.  Their local-port
+    entries are conservatively treated as workspace observations while all
+    packet/runtime/session entries remain source-derived.
+    """
+
+    if not isinstance(queue, dict):
+        return {"entries": [], "summary": {"entries": 0, "by_state": {}, "by_source_kind": {}}}
+    explicit = queue.get("source_projection")
+    if isinstance(explicit, dict):
+        entries = [
+            item
+            for item in queue.get("entries", [])
+            if isinstance(item, dict) and item.get("source_kind") != "local_eval_port"
+        ]
+        explicit_summary = explicit.get("summary") if isinstance(explicit.get("summary"), dict) else {}
+        base_summary = {
+            key: value
+            for key, value in explicit_summary.items()
+            if key not in {"entries", "by_state", "by_source_kind"}
+        }
+        return {
+            "schema_version": explicit.get(
+                "schema_version", "os_abyss_eval_candidate_queue_source_projection_v1"
+            ),
+            "entries": sorted(entries, key=lambda item: str(item.get("candidate_id"))),
+            "summary": candidate_queue_summary(entries, base_summary=base_summary),
+        }
+    entries = [
+        item
+        for item in queue.get("entries", [])
+        if isinstance(item, dict) and item.get("source_kind") != "local_eval_port"
+    ]
+    summary = queue.get("summary") if isinstance(queue.get("summary"), dict) else {}
+    base_summary = {
+        key: value
+        for key, value in summary.items()
+        if key not in {"entries", "by_state", "by_source_kind"}
+    }
+    return {
+        "schema_version": "os_abyss_eval_candidate_queue_source_projection_v1",
+        "entries": sorted(entries, key=lambda item: str(item.get("candidate_id"))),
+        "summary": candidate_queue_summary(entries, base_summary=base_summary),
     }
 
 
@@ -2802,6 +2911,9 @@ def build_freshness_sentinel(
         "authority_boundary": "Freshness sentinel reports stale or drifting routing surfaces; it does not clean, sync, or mutate sibling repos.",
         "tracked_dimensions": [
             "source repo branch/head/dirty state",
+            "source projection identity and generation time",
+            "workspace filesystem observation scope, roots, and pressure",
+            "live observation timestamp and probe status",
             "generated read-model presence and checkability",
             "aoa-evals-mcp selected root and runtime-status freshness",
             ".aoa session archive freshness",
@@ -2846,11 +2958,18 @@ def build_dashboard(
     include_live_checks: bool,
     live_timeout: int,
     observed_at_utc: str | None = None,
+    source_projection_generated_at_utc: str | None = None,
 ) -> tuple[dict[str, Any], dict[str, Any]]:
     observed_at_utc = observed_at_utc or utc_now()
+    source_projection_generated_at_utc = (
+        source_projection_generated_at_utc or observed_at_utc
+    )
     canonical_evals_root = canonical_evals_owner_root(evals_root, workspace_root)
     support_registry = build_support_registry(evals_root)
-    local_inventory = build_local_eval_port_inventory.build_inventory_payload(workspace_root)
+    local_inventory = build_local_eval_port_inventory.build_inventory_payload(
+        workspace_root,
+        observed_at_utc=observed_at_utc,
+    )
     catalog_summary = load_catalog_summary(evals_root)
     runtime_candidates = load_runtime_candidate_summary(evals_root)
     candidate_packets = load_candidate_packets(evals_root)
@@ -2965,6 +3084,32 @@ def build_dashboard(
             {"phase": 10, "status": "implemented_session_readiness_gate", "surface": "check_eval_forge_readiness.py + docs/guides/EVAL_FORGE_READINESS_LAYER.md"},
         ],
     }
+    dashboard["workspace_observation"] = {
+        **(
+            local_inventory.get("workspace_observation", {})
+            if isinstance(local_inventory.get("workspace_observation"), dict)
+            else {}
+        ),
+        "local_port_inventory_ref": "scripts/build_local_eval_port_inventory.py",
+    }
+    dashboard["live_observation"] = {
+        "schema_version": "os_abyss_eval_live_observation_v1",
+        "status": "observed" if include_live_checks else "not_observed",
+        "observed_at_utc": observed_at_utc if include_live_checks else None,
+        "owner": "aoa-evals live runtime and session probes",
+        "next_route": (
+            None
+            if include_live_checks
+            else "python scripts/build_eval_readiness_dashboard.py --write-generated"
+        ),
+    }
+    dashboard["source_projection"] = {
+        "schema_version": "os_abyss_eval_source_projection_v1",
+        "generated_at_utc": source_projection_generated_at_utc,
+        "identity_basis": "deterministic source-derived dashboard projection",
+        "identity_includes_skill_source_posture": True,
+        "identity": source_projection_identity(dashboard),
+    }
     return dashboard, support_registry
 
 
@@ -2981,6 +3126,27 @@ def build_markdown(dashboard: dict[str, Any], support_registry: dict[str, Any]) 
     mcp_status = dashboard["mcp_runtime_status"]
     repo_readiness = dashboard["repo_readiness"]
     git_summary = dashboard["workspace_git_drift"].get("summary", {})
+    source_projection = dashboard.get("source_projection")
+    workspace_observation = dashboard.get("workspace_observation")
+    live_observation = dashboard.get("live_observation")
+    source_projection_at = (
+        source_projection.get("generated_at_utc")
+        if isinstance(source_projection, dict)
+        else None
+    ) or "legacy/unknown"
+    workspace_observation_at = (
+        workspace_observation.get("observed_at_utc")
+        if isinstance(workspace_observation, dict)
+        else None
+    ) or "legacy/unknown"
+    live_observation_status = (
+        live_observation.get("status") if isinstance(live_observation, dict) else None
+    ) or "legacy/unknown"
+    live_observation_at = (
+        live_observation.get("observed_at_utc")
+        if isinstance(live_observation, dict)
+        else None
+    ) or "legacy/unknown"
     lines = [
         "# OS Abyss Eval Readiness Dashboard",
         "",
@@ -2993,7 +3159,9 @@ def build_markdown(dashboard: dict[str, Any], support_registry: dict[str, Any]) 
         "",
         "## Summary",
         "",
-        f"- Generated at: `{dashboard['generated_at_utc']}`",
+        f"- Source projection generated at: `{source_projection_at}`",
+        f"- Workspace observation at: `{workspace_observation_at}`",
+        f"- Live observation: `{live_observation_status}` at `{live_observation_at}`",
         f"- Workspace root: `{dashboard['workspace_root']}`",
         f"- Central evals: {catalog.get('total_evals', 'unknown')}",
         f"- Local active ports: {local_summary.get('active', 'unknown')}",
@@ -3239,6 +3407,13 @@ def build_generated_outputs(
         stack_root=stack_root,
     )
     public_dashboard = redact_generated_value(dashboard, ref_map)
+    public_source_projection = public_dashboard.get("source_projection")
+    if isinstance(public_source_projection, dict):
+        public_source_projection["identity_includes_skill_source_posture"] = True
+        public_source_projection["identity"] = source_projection_identity(
+            public_dashboard,
+            include_skill_source_posture=True,
+        )
     public_support_registry = redact_generated_value(support_registry, ref_map)
     markdown = build_markdown(public_dashboard, public_support_registry)
     return public_dashboard, public_support_registry, markdown
@@ -3254,6 +3429,10 @@ def deterministic_dashboard_projection(
     if not isinstance(payload, dict):
         return {}
     projection = {key: payload.get(key) for key in DETERMINISTIC_DASHBOARD_KEYS}
+    if "candidate_queue" in projection:
+        projection["candidate_queue"] = candidate_queue_source_projection(
+            payload.get("candidate_queue")
+        )
     if include_skill_source_posture:
         adoption = payload.get("aoa_eval_runtime_adoption")
         if isinstance(adoption, dict):
@@ -3261,6 +3440,37 @@ def deterministic_dashboard_projection(
                 key: adoption.get(key) for key in DETERMINISTIC_ADOPTION_KEYS
             }
     return projection
+
+
+def source_projection_identity(
+    payload: dict[str, Any], *, include_skill_source_posture: bool = True
+) -> str:
+    projection = deterministic_dashboard_projection(
+        payload,
+        include_skill_source_posture=include_skill_source_posture,
+    )
+    encoded = json.dumps(
+        projection,
+        ensure_ascii=False,
+        sort_keys=True,
+        separators=(",", ":"),
+    ).encode("utf-8")
+    return hashlib.sha256(encoded).hexdigest()
+
+
+def refresh_source_projection_identity(
+    payload: dict[str, Any], *, include_skill_source_posture: bool
+) -> None:
+    source_projection = payload.get("source_projection")
+    if not isinstance(source_projection, dict):
+        return
+    source_projection["identity_includes_skill_source_posture"] = (
+        include_skill_source_posture
+    )
+    source_projection["identity"] = source_projection_identity(
+        payload,
+        include_skill_source_posture=include_skill_source_posture,
+    )
 
 
 def merge_source_derived_dashboard(
@@ -3272,13 +3482,32 @@ def merge_source_derived_dashboard(
     """Refresh owner-derived fields while preserving the recorded live snapshot."""
 
     if not isinstance(current, dict):
-        return copy.deepcopy(rebuilt)
+        merged = copy.deepcopy(rebuilt)
+        refresh_source_projection_identity(
+            merged,
+            include_skill_source_posture=include_skill_source_posture,
+        )
+        return merged
     merged = copy.deepcopy(current)
     for key in DETERMINISTIC_DASHBOARD_KEYS:
         if key in rebuilt:
             merged[key] = copy.deepcopy(rebuilt[key])
         else:
             merged.pop(key, None)
+    for key in WORKSPACE_OBSERVED_DASHBOARD_KEYS:
+        if key in rebuilt:
+            merged[key] = copy.deepcopy(rebuilt[key])
+    if "source_projection" in rebuilt:
+        merged["source_projection"] = copy.deepcopy(rebuilt["source_projection"])
+    if "live_observation" not in merged:
+        legacy_generated_at = merged.get("generated_at_utc")
+        merged["live_observation"] = {
+            "schema_version": "os_abyss_eval_live_observation_v1",
+            "status": "legacy",
+            "observed_at_utc": legacy_generated_at,
+            "owner": "aoa-evals live runtime and session probes",
+            "next_route": "python scripts/build_eval_readiness_dashboard.py --write-generated",
+        }
     if include_skill_source_posture:
         rebuilt_adoption = rebuilt.get("aoa_eval_runtime_adoption")
         if isinstance(rebuilt_adoption, dict):
@@ -3294,6 +3523,100 @@ def merge_source_derived_dashboard(
                 else:
                     adoption.pop(key, None)
             merged["aoa_eval_runtime_adoption"] = adoption
+    refresh_source_projection_identity(
+        merged,
+        include_skill_source_posture=include_skill_source_posture,
+    )
+    return merged
+
+
+def dashboard_for_markdown_parity(
+    expected: dict[str, Any],
+    current: dict[str, Any],
+) -> dict[str, Any]:
+    """Keep ambient observations from the checked-in snapshot for markdown parity.
+
+    Markdown remains a combined human readout.  Source changes should still
+    render into it, while current workspace/live observations must not turn a
+    source-only parity check into an ambient-workspace gate.
+    """
+
+    merged = copy.deepcopy(expected)
+    for key in (
+        "generated_at_utc",
+        "local_eval_ports",
+        "workspace_observation",
+        "live_observation",
+        "workspace_git_drift",
+        "mcp_runtime_status",
+        "aoa_session_memory_freshness",
+        "repo_readiness",
+        "freshness_sentinel",
+    ):
+        if key in current:
+            merged[key] = copy.deepcopy(current[key])
+    current_source_projection = current.get("source_projection")
+    if isinstance(current_source_projection, dict):
+        source_projection = merged.get("source_projection")
+        if isinstance(source_projection, dict):
+            source_projection["generated_at_utc"] = current_source_projection.get(
+                "generated_at_utc"
+            )
+    current_queue = current.get("candidate_queue")
+    expected_queue = expected.get("candidate_queue")
+    if isinstance(expected_queue, dict) and isinstance(current_queue, dict):
+        source_layer = candidate_queue_source_projection(expected_queue)
+        observed_layer = current_queue.get("workspace_observation")
+        observed_entries = [
+            item
+            for item in current_queue.get("entries", [])
+            if isinstance(item, dict) and item.get("source_kind") == "local_eval_port"
+        ]
+        if not isinstance(observed_layer, dict):
+            observed_layer = {
+                "schema_version": "os_abyss_eval_candidate_queue_workspace_observation_v1",
+                "scope": "legacy_snapshot",
+                "workspace_root": current.get("workspace_root"),
+                "observed_at_utc": current.get("generated_at_utc"),
+                "entry_ids": [str(item.get("candidate_id")) for item in observed_entries],
+                "summary": candidate_queue_summary(observed_entries),
+                "repo_id_basis": "workspace-relative-path",
+                "distinct_pressure_preserved": True,
+            }
+        else:
+            observed_layer = copy.deepcopy(observed_layer)
+            observed_layer["entry_ids"] = [
+                str(item.get("candidate_id")) for item in observed_entries
+            ]
+        combined_entries = sorted(
+            [
+                *source_layer.get("entries", []),
+                *observed_entries,
+            ],
+            key=lambda item: str(item.get("candidate_id")),
+        )
+        queue = copy.deepcopy(expected_queue)
+        queue["source_projection"] = copy.deepcopy(source_layer)
+        queue["workspace_observation"] = copy.deepcopy(observed_layer)
+        queue["entries"] = combined_entries
+        source_summary = source_layer.get("summary") if isinstance(source_layer.get("summary"), dict) else {}
+        queue["summary"] = candidate_queue_summary(
+            combined_entries,
+            base_summary={
+                key: value
+                for key, value in source_summary.items()
+                if key not in {"entries", "by_state", "by_source_kind"}
+            },
+        )
+        merged["candidate_queue"] = queue
+    expected_adoption = expected.get("aoa_eval_runtime_adoption")
+    current_adoption = current.get("aoa_eval_runtime_adoption")
+    if isinstance(expected_adoption, dict) and isinstance(current_adoption, dict):
+        adoption = copy.deepcopy(expected_adoption)
+        for key, value in current_adoption.items():
+            if key not in DETERMINISTIC_ADOPTION_KEYS:
+                adoption[key] = copy.deepcopy(value)
+        merged["aoa_eval_runtime_adoption"] = adoption
     return merged
 
 
@@ -3305,6 +3628,41 @@ def validate_dashboard_shape(payload: Any, support_payload: Any) -> list[str]:
         issues.append("dashboard schema_version mismatch")
     if "/.worktrees/" in json.dumps(payload, sort_keys=True):
         issues.append("dashboard must not embed ephemeral absolute worktree paths")
+    source_projection = payload.get("source_projection")
+    if source_projection is not None:
+        if not isinstance(source_projection, dict):
+            issues.append("source_projection must be an object when present")
+        else:
+            if source_projection.get("schema_version") != "os_abyss_eval_source_projection_v1":
+                issues.append("source_projection schema_version mismatch")
+            if not isinstance(source_projection.get("identity"), str) or not source_projection.get("identity"):
+                issues.append("source_projection identity missing")
+            if not isinstance(source_projection.get("generated_at_utc"), str):
+                issues.append("source_projection generated_at_utc missing")
+            identity_includes_skill_source_posture = source_projection.get(
+                "identity_includes_skill_source_posture",
+                True,
+            )
+            if not isinstance(identity_includes_skill_source_posture, bool):
+                issues.append(
+                    "source_projection identity_includes_skill_source_posture must be boolean"
+                )
+            elif isinstance(source_projection.get("identity"), str):
+                expected_identity = source_projection_identity(
+                    payload,
+                    include_skill_source_posture=identity_includes_skill_source_posture,
+                )
+                if source_projection["identity"] != expected_identity:
+                    issues.append("source_projection identity mismatch")
+    workspace_observation = payload.get("workspace_observation")
+    if workspace_observation is not None:
+        if not isinstance(workspace_observation, dict):
+            issues.append("workspace_observation must be an object when present")
+        elif workspace_observation.get("scope") != "filesystem_workspace":
+            issues.append("workspace_observation scope mismatch")
+    live_observation = payload.get("live_observation")
+    if live_observation is not None and not isinstance(live_observation, dict):
+        issues.append("live_observation must be an object when present")
     required_keys = {
         "authority_boundary",
         "external_research_grounding",
@@ -3646,7 +4004,10 @@ def check_generated(
     elif "OS Abyss Eval Readiness Dashboard" not in current_markdown:
         issues.append("generated/eval_readiness_dashboard.md does not look like the readiness dashboard")
     elif isinstance(dashboard, dict) and isinstance(support, dict):
-        expected_markdown = build_markdown(dashboard, support)
+        expected_markdown = build_markdown(
+            dashboard_for_markdown_parity(expected_dashboard, dashboard),
+            expected_support,
+        )
         if current_markdown != expected_markdown:
             issues.append(
                 "generated/eval_readiness_dashboard.md is stale against its JSON snapshot; "

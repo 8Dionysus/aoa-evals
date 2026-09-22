@@ -63,11 +63,7 @@ The dashboard `--check` route compares source-derived fields and the checked-in
 JSON-to-Markdown snapshot. It does not treat naturally changed MCP, `.aoa`,
 Git, or local-port observations as source drift merely because they differ
 from the recorded snapshot; freshness is inspected through the live readiness
-route. The dashboard keeps `source_projection`, `workspace_observation`, and
-`live_observation` timestamps separate. `--no-live-checks` disables MCP/.aoa
-runtime probes but still performs filesystem workspace discovery; a no-live
-generated write updates the workspace observation while preserving the prior
-live observation.
+route.
 Use `--no-live-checks --write-generated` when source inventory or another
 owner-derived input changes: it refreshes deterministic owner fields and the
 support registry while preserving the recorded live OS/session snapshot. Use

@@ -1092,7 +1092,7 @@
         "local-port:worktrees/abyss-wave2-20260921/aoa-sdk",
         "local-port:worktrees/abyss-wave2-20260921/aoa-telegram-connector"
       ],
-      "observed_at_utc": "2026-09-22T07:24:21Z",
+      "observed_at_utc": "2026-09-22T07:34:27Z",
       "repo_id_basis": "workspace-relative-path",
       "schema_version": "os_abyss_eval_candidate_queue_workspace_observation_v1",
       "scope": "filesystem_workspace",
@@ -3206,9 +3206,10 @@
     "validation_inventory": "docs/validation/validator_inventory.json"
   },
   "source_projection": {
-    "generated_at_utc": "2026-09-22T07:24:21Z",
+    "generated_at_utc": "2026-09-22T07:34:27Z",
     "identity": "6f1972c1ff604cfaa5afa8a9e385e51dd6ac200680b3fddb09f49f3a921f7e1a",
     "identity_basis": "deterministic source-derived dashboard projection",
+    "identity_includes_skill_source_posture": true,
     "schema_version": "os_abyss_eval_source_projection_v1"
   },
   "trajectory_eval_slice": {
@@ -3890,7 +3891,7 @@
     "canonical_owner_field": "canonical_owner_repo",
     "distinct_repo_instances_preserved": true,
     "local_port_inventory_ref": "scripts/build_local_eval_port_inventory.py",
-    "observed_at_utc": "2026-09-22T07:24:21Z",
+    "observed_at_utc": "2026-09-22T07:34:27Z",
     "repo_id_basis": "workspace-relative-path",
     "schema_version": "os_abyss_workspace_eval_observation_v1",
     "scope": "filesystem_workspace",

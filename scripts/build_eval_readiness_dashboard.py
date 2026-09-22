@@ -3107,6 +3107,7 @@ def build_dashboard(
         "schema_version": "os_abyss_eval_source_projection_v1",
         "generated_at_utc": source_projection_generated_at_utc,
         "identity_basis": "deterministic source-derived dashboard projection",
+        "identity_includes_skill_source_posture": True,
         "identity": source_projection_identity(dashboard),
     }
     return dashboard, support_registry
@@ -3408,7 +3409,11 @@ def build_generated_outputs(
     public_dashboard = redact_generated_value(dashboard, ref_map)
     public_source_projection = public_dashboard.get("source_projection")
     if isinstance(public_source_projection, dict):
-        public_source_projection["identity"] = source_projection_identity(public_dashboard)
+        public_source_projection["identity_includes_skill_source_posture"] = True
+        public_source_projection["identity"] = source_projection_identity(
+            public_dashboard,
+            include_skill_source_posture=True,
+        )
     public_support_registry = redact_generated_value(support_registry, ref_map)
     markdown = build_markdown(public_dashboard, public_support_registry)
     return public_dashboard, public_support_registry, markdown
@@ -3437,10 +3442,12 @@ def deterministic_dashboard_projection(
     return projection
 
 
-def source_projection_identity(payload: dict[str, Any]) -> str:
+def source_projection_identity(
+    payload: dict[str, Any], *, include_skill_source_posture: bool = True
+) -> str:
     projection = deterministic_dashboard_projection(
         payload,
-        include_skill_source_posture=True,
+        include_skill_source_posture=include_skill_source_posture,
     )
     encoded = json.dumps(
         projection,
@@ -3449,6 +3456,21 @@ def source_projection_identity(payload: dict[str, Any]) -> str:
         separators=(",", ":"),
     ).encode("utf-8")
     return hashlib.sha256(encoded).hexdigest()
+
+
+def refresh_source_projection_identity(
+    payload: dict[str, Any], *, include_skill_source_posture: bool
+) -> None:
+    source_projection = payload.get("source_projection")
+    if not isinstance(source_projection, dict):
+        return
+    source_projection["identity_includes_skill_source_posture"] = (
+        include_skill_source_posture
+    )
+    source_projection["identity"] = source_projection_identity(
+        payload,
+        include_skill_source_posture=include_skill_source_posture,
+    )
 
 
 def merge_source_derived_dashboard(
@@ -3460,7 +3482,12 @@ def merge_source_derived_dashboard(
     """Refresh owner-derived fields while preserving the recorded live snapshot."""
 
     if not isinstance(current, dict):
-        return copy.deepcopy(rebuilt)
+        merged = copy.deepcopy(rebuilt)
+        refresh_source_projection_identity(
+            merged,
+            include_skill_source_posture=include_skill_source_posture,
+        )
+        return merged
     merged = copy.deepcopy(current)
     for key in DETERMINISTIC_DASHBOARD_KEYS:
         if key in rebuilt:
@@ -3496,6 +3523,10 @@ def merge_source_derived_dashboard(
                 else:
                     adoption.pop(key, None)
             merged["aoa_eval_runtime_adoption"] = adoption
+    refresh_source_projection_identity(
+        merged,
+        include_skill_source_posture=include_skill_source_posture,
+    )
     return merged
 
 
@@ -3608,6 +3639,21 @@ def validate_dashboard_shape(payload: Any, support_payload: Any) -> list[str]:
                 issues.append("source_projection identity missing")
             if not isinstance(source_projection.get("generated_at_utc"), str):
                 issues.append("source_projection generated_at_utc missing")
+            identity_includes_skill_source_posture = source_projection.get(
+                "identity_includes_skill_source_posture",
+                True,
+            )
+            if not isinstance(identity_includes_skill_source_posture, bool):
+                issues.append(
+                    "source_projection identity_includes_skill_source_posture must be boolean"
+                )
+            elif isinstance(source_projection.get("identity"), str):
+                expected_identity = source_projection_identity(
+                    payload,
+                    include_skill_source_posture=identity_includes_skill_source_posture,
+                )
+                if source_projection["identity"] != expected_identity:
+                    issues.append("source_projection identity mismatch")
     workspace_observation = payload.get("workspace_observation")
     if workspace_observation is not None:
         if not isinstance(workspace_observation, dict):

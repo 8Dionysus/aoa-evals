@@ -389,28 +389,26 @@ def test_source_derived_refresh_preserves_recorded_live_snapshot() -> None:
 
 
 def test_source_projection_identity_excludes_workspace_observation() -> None:
+    source_entry = {
+        "candidate_id": "packet:example",
+        "source_kind": "session_episode",
+        "state": "observed",
+    }
+    workspace_entry = {
+        "candidate_id": "local-port:aoa-sdk",
+        "source_kind": "local_eval_port",
+        "state": "needs_owner_review",
+    }
     queue = {
         "source_projection": {
-            "entries": [
-                {
-                    "candidate_id": "packet:example",
-                    "source_kind": "session_episode",
-                    "state": "observed",
-                }
-            ],
+            "entry_ids": [source_entry["candidate_id"]],
             "summary": {"entries": 1, "by_state": {"observed": 1}, "by_source_kind": {"session_episode": 1}},
         },
         "workspace_observation": {
-            "entries": [
-                {
-                    "candidate_id": "local-port:aoa-sdk",
-                    "source_kind": "local_eval_port",
-                    "state": "needs_owner_review",
-                }
-            ],
+            "entry_ids": [workspace_entry["candidate_id"]],
             "summary": {"entries": 1},
         },
-        "entries": [],
+        "entries": [source_entry, workspace_entry],
         "summary": {},
     }
     first = {
@@ -418,7 +416,7 @@ def test_source_projection_identity_excludes_workspace_observation() -> None:
         "central_catalog": {"total_evals": 1},
     }
     second = json.loads(json.dumps(first))
-    second["candidate_queue"]["workspace_observation"]["entries"].append(
+    second["candidate_queue"]["entries"].append(
         {
             "candidate_id": "local-port:Tree-of-Sophia",
             "source_kind": "local_eval_port",
@@ -430,6 +428,57 @@ def test_source_projection_identity_excludes_workspace_observation() -> None:
         include_skill_source_posture=False,
     )
     assert readiness.source_projection_identity(first) == readiness.source_projection_identity(second)
+
+
+def test_source_projection_shape_rejects_arbitrary_identity() -> None:
+    dashboard = json.loads(
+        (REPO_ROOT / "generated" / "eval_readiness_dashboard.json").read_text(
+            encoding="utf-8"
+        )
+    )
+    support = json.loads(
+        (REPO_ROOT / "generated" / "eval_support_registry.json").read_text(
+            encoding="utf-8"
+        )
+    )
+    dashboard["source_projection"]["identity"] = "0" * 64
+
+    issues = readiness.validate_dashboard_shape(dashboard, support)
+
+    assert "source_projection identity mismatch" in issues
+
+
+def test_source_projection_merge_recomputes_identity_for_legacy_posture_mode() -> None:
+    source_entry = {
+        "candidate_id": "packet:example",
+        "source_kind": "session_episode",
+        "state": "observed",
+    }
+    rebuilt = {
+        "schema_version": readiness.SCHEMA_VERSION,
+        "central_catalog": {"total_evals": 2},
+        "candidate_queue": {"entries": [source_entry], "summary": {}},
+        "aoa_eval_runtime_adoption": {"source_exists": True},
+        "source_projection": {
+            "schema_version": "os_abyss_eval_source_projection_v1",
+            "generated_at_utc": "2026-07-18T00:00:00Z",
+            "identity_basis": "deterministic source-derived dashboard projection",
+            "identity_includes_skill_source_posture": True,
+        },
+    }
+    rebuilt["source_projection"]["identity"] = readiness.source_projection_identity(rebuilt)
+
+    merged = readiness.merge_source_derived_dashboard(
+        {},
+        rebuilt,
+        include_skill_source_posture=False,
+    )
+
+    assert merged["source_projection"]["identity_includes_skill_source_posture"] is False
+    assert merged["source_projection"]["identity"] == readiness.source_projection_identity(
+        merged,
+        include_skill_source_posture=False,
+    )
 
 
 def test_repo_readiness_routes_suite_contract_states_without_executing_argv(

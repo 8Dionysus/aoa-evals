@@ -9,8 +9,8 @@ This generated read-model routes OS Abyss eval pressure. It is not a verdict, sc
 
 ## Summary
 
-- Source projection generated at: `2026-09-22T07:24:21Z`
-- Workspace observation at: `2026-09-22T07:24:21Z`
+- Source projection generated at: `2026-09-22T07:34:27Z`
+- Workspace observation at: `2026-09-22T07:34:27Z`
 - Live observation: `legacy` at `2026-07-18T10:27:58Z`
 - Workspace root: `workspace:OS_ABYSS`
 - Central evals: 44

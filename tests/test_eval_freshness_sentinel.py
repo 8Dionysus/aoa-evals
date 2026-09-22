@@ -6,6 +6,8 @@ import sys
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
 
+import pytest
+
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
 SCRIPTS_DIR = REPO_ROOT / "scripts"
@@ -191,3 +193,99 @@ def test_sentinel_marks_legacy_and_invalid_timestamps_explicitly(tmp_path: Path)
     assert signals["workspace_observation_age"]["status"] == "future"
     assert signals["live_observation_age"]["status"] == "not_observed"
     assert payload["overall_severity"] == "error"
+
+
+@pytest.mark.parametrize(
+    ("dashboard", "expected_status", "expected_severity"),
+    [
+        ({}, "legacy/unknown", "warning"),
+        ({"source_projection": {}}, "missing", "error"),
+        (
+            {"source_projection": {"generated_at_utc": None}},
+            "malformed",
+            "error",
+        ),
+        (
+            {"source_projection": {"generated_at_utc": False}},
+            "malformed",
+            "error",
+        ),
+        (
+            {"source_projection": {"generated_at_utc": 0}},
+            "malformed",
+            "error",
+        ),
+        (
+            {"source_projection": {"generated_at_utc": []}},
+            "malformed",
+            "error",
+        ),
+    ],
+    ids=["legacy-layer-absent", "new-layer-field-missing", "null", "false", "zero", "list"],
+)
+def test_sentinel_distinguishes_legacy_missing_and_malformed_source_timestamps(
+    tmp_path: Path,
+    dashboard: dict,
+    expected_status: str,
+    expected_severity: str,
+) -> None:
+    write_generated_dashboard(tmp_path, payload=dashboard)
+
+    result = sentinel.generated_age_signal(
+        tmp_path,
+        max_age_hours=24,
+        now=datetime(2026, 6, 25, tzinfo=timezone.utc),
+    )
+
+    assert result["status"] == expected_status
+    assert result["severity"] == expected_severity
+
+
+def test_sentinel_does_not_treat_broken_json_as_legacy(tmp_path: Path) -> None:
+    path = tmp_path / "generated" / "eval_readiness_dashboard.json"
+    path.parent.mkdir(parents=True)
+    path.write_text("{broken\n", encoding="utf-8")
+
+    signals = [
+        sentinel.generated_age_signal(
+            tmp_path,
+            max_age_hours=24,
+            now=datetime(2026, 6, 25, tzinfo=timezone.utc),
+        ),
+        sentinel.workspace_observation_age_signal(
+            tmp_path,
+            max_age_hours=24,
+            now=datetime(2026, 6, 25, tzinfo=timezone.utc),
+        ),
+        sentinel.live_observation_age_signal(
+            tmp_path,
+            max_age_hours=24,
+            now=datetime(2026, 6, 25, tzinfo=timezone.utc),
+        ),
+    ]
+
+    assert [item["status"] for item in signals] == ["malformed"] * 3
+    assert all(item["severity"] == "error" for item in signals)
+    assert all(item["status"] != "legacy/unknown" for item in signals)
+
+
+def test_sentinel_reports_dashboard_read_error_separately_from_legacy(
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    path = tmp_path / "generated" / "eval_readiness_dashboard.json"
+    path.parent.mkdir(parents=True)
+    path.write_text("{}\n", encoding="utf-8")
+
+    def fail_read(*_args: object, **_kwargs: object) -> str:
+        raise OSError("synthetic read failure")
+
+    monkeypatch.setattr(Path, "read_text", fail_read)
+    result = sentinel.generated_age_signal(
+        tmp_path,
+        max_age_hours=24,
+        now=datetime(2026, 6, 25, tzinfo=timezone.utc),
+    )
+
+    assert result["status"] == "read_error"
+    assert result["severity"] == "error"

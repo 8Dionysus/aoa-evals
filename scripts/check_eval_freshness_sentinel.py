@@ -69,6 +69,8 @@ def read_generated_dashboard(evals_root: Path) -> tuple[dict[str, Any] | None, s
         payload = json.loads(path.read_text(encoding="utf-8"))
     except FileNotFoundError:
         return None, "missing"
+    except UnicodeDecodeError:
+        return None, "malformed"
     except json.JSONDecodeError:
         return None, "malformed"
     except OSError:
@@ -218,8 +220,10 @@ def observation_timestamp(
         timestamp = observation.get(timestamp_key)
         not_observed = observation.get("status") == "not_observed"
     elif layer_present:
+        # A present observation layer must be an object.  Never let a scalar
+        # that happens to look like ISO-8601 stand in for the layer contract.
         field_present = True
-        timestamp = observation
+        timestamp = None
         not_observed = False
     else:
         field_present = False

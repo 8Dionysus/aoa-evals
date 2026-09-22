@@ -220,8 +220,21 @@ def test_sentinel_marks_legacy_and_invalid_timestamps_explicitly(tmp_path: Path)
             "malformed",
             "error",
         ),
+        (
+            {"source_projection": "2026-09-22T00:00:00Z"},
+            "malformed",
+            "error",
+        ),
     ],
-    ids=["legacy-layer-absent", "new-layer-field-missing", "null", "false", "zero", "list"],
+    ids=[
+        "legacy-layer-absent",
+        "new-layer-field-missing",
+        "null",
+        "false",
+        "zero",
+        "list",
+        "scalar-layer",
+    ],
 )
 def test_sentinel_distinguishes_legacy_missing_and_malformed_source_timestamps(
     tmp_path: Path,
@@ -267,6 +280,21 @@ def test_sentinel_does_not_treat_broken_json_as_legacy(tmp_path: Path) -> None:
     assert [item["status"] for item in signals] == ["malformed"] * 3
     assert all(item["severity"] == "error" for item in signals)
     assert all(item["status"] != "legacy/unknown" for item in signals)
+
+
+def test_sentinel_treats_invalid_utf8_as_malformed_dashboard(tmp_path: Path) -> None:
+    path = tmp_path / "generated" / "eval_readiness_dashboard.json"
+    path.parent.mkdir(parents=True)
+    path.write_bytes(b"\xff\xfe")
+
+    result = sentinel.generated_age_signal(
+        tmp_path,
+        max_age_hours=24,
+        now=datetime(2026, 6, 25, tzinfo=timezone.utc),
+    )
+
+    assert result["status"] == "malformed"
+    assert result["severity"] == "error"
 
 
 def test_sentinel_reports_dashboard_read_error_separately_from_legacy(

@@ -63,6 +63,110 @@ def signal(
     }
 
 
+def read_generated_dashboard(evals_root: Path) -> dict[str, Any] | None:
+    path = evals_root / "generated" / "eval_readiness_dashboard.json"
+    try:
+        payload = json.loads(path.read_text(encoding="utf-8"))
+    except (FileNotFoundError, json.JSONDecodeError, OSError):
+        return None
+    return payload if isinstance(payload, dict) else None
+
+
+def timestamp_age_signal(
+    *,
+    signal_id: str,
+    surface: str,
+    owner: str,
+    timestamp: Any,
+    now: datetime,
+    max_age_hours: float,
+    next_command: str,
+    legacy: bool = False,
+    not_observed: bool = False,
+) -> dict[str, Any]:
+    if not timestamp:
+        if not_observed:
+            return signal(
+                signal_id=signal_id,
+                severity="info",
+                surface=surface,
+                status="not_observed",
+                reason="this dashboard build did not execute the corresponding live probes",
+                owner=owner,
+                next_command=next_command,
+            )
+        return signal(
+            signal_id=signal_id,
+            severity="warning" if legacy else "error",
+            surface=surface,
+            status="legacy/unknown" if legacy else "missing",
+            reason=(
+                "legacy dashboard has no explicit timestamp for this observation"
+                if legacy
+                else "dashboard is missing the explicit timestamp required for freshness"
+            ),
+            owner=owner,
+            next_command=next_command,
+        )
+    if not isinstance(timestamp, str):
+        return signal(
+            signal_id=signal_id,
+            severity="error",
+            surface=surface,
+            status="malformed",
+            reason="freshness timestamp is not a string",
+            owner=owner,
+            next_command=next_command,
+        )
+    try:
+        parsed = datetime.fromisoformat(timestamp.replace("Z", "+00:00"))
+    except ValueError:
+        return signal(
+            signal_id=signal_id,
+            severity="error",
+            surface=surface,
+            status="malformed",
+            reason=f"freshness timestamp is not valid ISO-8601: {timestamp}",
+            owner=owner,
+            next_command=next_command,
+        )
+    if parsed.tzinfo is None:
+        return signal(
+            signal_id=signal_id,
+            severity="error",
+            surface=surface,
+            status="malformed",
+            reason="freshness timestamp must carry an explicit timezone",
+            owner=owner,
+            next_command=next_command,
+        )
+    parsed = parsed.astimezone(timezone.utc)
+    age_hours = (now - parsed).total_seconds() / 3600
+    if age_hours < 0:
+        return signal(
+            signal_id=signal_id,
+            severity="error",
+            surface=surface,
+            status="future",
+            reason=f"freshness timestamp is {-age_hours:.2f}h in the future",
+            owner=owner,
+            next_command=next_command,
+        )
+    severity = "warning" if age_hours > max_age_hours else "ok"
+    return signal(
+        signal_id=signal_id,
+        severity=severity,
+        surface=surface,
+        status=f"{age_hours:.2f}h",
+        reason=(
+            f"{surface} age is {age_hours:.2f}h; max configured age is "
+            f"{max_age_hours:.2f}h"
+        ),
+        owner=owner,
+        next_command=next_command if severity == "warning" else None,
+    )
+
+
 def generated_age_signal(evals_root: Path, *, max_age_hours: float, now: datetime) -> dict[str, Any]:
     path = evals_root / "generated" / "eval_readiness_dashboard.json"
     if not path.exists():
@@ -75,22 +179,62 @@ def generated_age_signal(evals_root: Path, *, max_age_hours: float, now: datetim
             owner="aoa-evals/generated",
             next_command="python scripts/build_eval_readiness_dashboard.py --write-generated",
         )
-    mtime = datetime.fromtimestamp(path.stat().st_mtime, tz=timezone.utc)
-    age_hours = max(0.0, (now - mtime).total_seconds() / 3600)
-    severity = "warning" if age_hours > max_age_hours else "ok"
-    return signal(
+    dashboard = read_generated_dashboard(evals_root)
+    projection = dashboard.get("source_projection") if isinstance(dashboard, dict) else None
+    timestamp = projection.get("generated_at_utc") if isinstance(projection, dict) else None
+    return timestamp_age_signal(
         signal_id="generated_dashboard_age",
-        severity=severity,
-        surface="generated/eval_readiness_dashboard.json",
-        status=f"{age_hours:.2f}h",
-        reason=(
-            f"generated dashboard age is {age_hours:.2f}h; max configured age is "
-            f"{max_age_hours:.2f}h"
-        ),
+        surface="source projection",
         owner="aoa-evals/generated",
-        next_command="python scripts/build_eval_readiness_dashboard.py --write-generated"
-        if severity == "warning"
-        else None,
+        timestamp=timestamp,
+        now=now,
+        max_age_hours=max_age_hours,
+        next_command="python scripts/build_eval_readiness_dashboard.py --no-live-checks --write-generated",
+        legacy=timestamp is None,
+    )
+
+
+def workspace_observation_age_signal(
+    evals_root: Path,
+    *,
+    max_age_hours: float,
+    now: datetime,
+) -> dict[str, Any]:
+    dashboard = read_generated_dashboard(evals_root)
+    observation = dashboard.get("workspace_observation") if isinstance(dashboard, dict) else None
+    timestamp = observation.get("observed_at_utc") if isinstance(observation, dict) else None
+    return timestamp_age_signal(
+        signal_id="workspace_observation_age",
+        surface="workspace filesystem observation",
+        owner="aoa-evals/local-port-inventory",
+        timestamp=timestamp,
+        now=now,
+        max_age_hours=max_age_hours,
+        next_command="python scripts/build_eval_readiness_dashboard.py --no-live-checks --write-generated",
+        legacy=timestamp is None,
+    )
+
+
+def live_observation_age_signal(
+    evals_root: Path,
+    *,
+    max_age_hours: float,
+    now: datetime,
+) -> dict[str, Any]:
+    dashboard = read_generated_dashboard(evals_root)
+    observation = dashboard.get("live_observation") if isinstance(dashboard, dict) else None
+    timestamp = observation.get("observed_at_utc") if isinstance(observation, dict) else None
+    not_observed = isinstance(observation, dict) and observation.get("status") == "not_observed"
+    return timestamp_age_signal(
+        signal_id="live_observation_age",
+        surface="live runtime/session observation",
+        owner="aoa-evals live runtime and session probes",
+        timestamp=timestamp,
+        now=now,
+        max_age_hours=max_age_hours,
+        next_command="python scripts/build_eval_readiness_dashboard.py --write-generated",
+        legacy=observation is None,
+        not_observed=not_observed,
     )
 
 
@@ -299,6 +443,16 @@ def build_sentinel_payload(
     now = now or datetime.now(timezone.utc)
     signals = [
         generated_age_signal(evals_root, max_age_hours=max_generated_age_hours, now=now),
+        workspace_observation_age_signal(
+            evals_root,
+            max_age_hours=max_generated_age_hours,
+            now=now,
+        ),
+        live_observation_age_signal(
+            evals_root,
+            max_age_hours=max_generated_age_hours,
+            now=now,
+        ),
         *mcp_signals(dashboard),
         *aoa_signals(dashboard),
         *support_registry_signals(support_registry),

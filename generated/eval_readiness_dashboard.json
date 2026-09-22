@@ -566,6 +566,19 @@
     "entries": [
       {
         "authority_boundary": "local pressure only; no central proof adoption without aoa-evals owner review",
+        "candidate_id": "local-port:Tree-of-Sophia",
+        "evidence_count": 2,
+        "next_route": "active_suite_note_review_or_execution_contract_design",
+        "owner_repo": "Tree-of-Sophia",
+        "promotion_allowed": false,
+        "proof_authority": false,
+        "review_gate": "repo_local_owner_review_then_aoa_evals_overlap_check",
+        "source_kind": "local_eval_port",
+        "source_ref": "Tree-of-Sophia",
+        "state": "needs_owner_review"
+      },
+      {
+        "authority_boundary": "local pressure only; no central proof adoption without aoa-evals owner review",
         "candidate_id": "local-port:aoa-kag",
         "evidence_count": 4,
         "next_route": "active_intake_select_then_apply_or_design",
@@ -594,7 +607,7 @@
         "authority_boundary": "local pressure only; no central proof adoption without aoa-evals owner review",
         "candidate_id": "local-port:aoa-sdk",
         "evidence_count": 7,
-        "next_route": "active_suite_apply_or_regression_check",
+        "next_route": "active_suite_contract_stale_review",
         "owner_repo": "aoa-sdk",
         "promotion_allowed": false,
         "proof_authority": false,
@@ -692,6 +705,71 @@
         "review_gate": "repo_local_owner_review_then_aoa_evals_overlap_check",
         "source_kind": "local_eval_port",
         "source_ref": "connectors/aoa-xda-connector",
+        "state": "needs_owner_review"
+      },
+      {
+        "authority_boundary": "local pressure only; no central proof adoption without aoa-evals owner review",
+        "candidate_id": "local-port:worktrees/abyss-wave1-20260907/aoa-sdk",
+        "evidence_count": 7,
+        "next_route": "active_suite_contract_stale_review",
+        "owner_repo": "worktrees/abyss-wave1-20260907/aoa-sdk",
+        "promotion_allowed": false,
+        "proof_authority": false,
+        "review_gate": "repo_local_owner_review_then_aoa_evals_overlap_check",
+        "source_kind": "local_eval_port",
+        "source_ref": "worktrees/abyss-wave1-20260907/aoa-sdk",
+        "state": "needs_owner_review"
+      },
+      {
+        "authority_boundary": "local pressure only; no central proof adoption without aoa-evals owner review",
+        "candidate_id": "local-port:worktrees/abyss-wave1-20260907/aoa-session-memory",
+        "evidence_count": 5,
+        "next_route": "active_suite_contract_stale_review",
+        "owner_repo": "worktrees/abyss-wave1-20260907/aoa-session-memory",
+        "promotion_allowed": false,
+        "proof_authority": false,
+        "review_gate": "repo_local_owner_review_then_aoa_evals_overlap_check",
+        "source_kind": "local_eval_port",
+        "source_ref": "worktrees/abyss-wave1-20260907/aoa-session-memory",
+        "state": "needs_owner_review"
+      },
+      {
+        "authority_boundary": "local pressure only; no central proof adoption without aoa-evals owner review",
+        "candidate_id": "local-port:worktrees/abyss-wave2-20260921/aoa-discord-connector",
+        "evidence_count": 1,
+        "next_route": "active_suite_note_review_or_execution_contract_design",
+        "owner_repo": "worktrees/abyss-wave2-20260921/aoa-discord-connector",
+        "promotion_allowed": false,
+        "proof_authority": false,
+        "review_gate": "repo_local_owner_review_then_aoa_evals_overlap_check",
+        "source_kind": "local_eval_port",
+        "source_ref": "worktrees/abyss-wave2-20260921/aoa-discord-connector",
+        "state": "needs_owner_review"
+      },
+      {
+        "authority_boundary": "local pressure only; no central proof adoption without aoa-evals owner review",
+        "candidate_id": "local-port:worktrees/abyss-wave2-20260921/aoa-sdk",
+        "evidence_count": 7,
+        "next_route": "active_suite_contract_stale_review",
+        "owner_repo": "worktrees/abyss-wave2-20260921/aoa-sdk",
+        "promotion_allowed": false,
+        "proof_authority": false,
+        "review_gate": "repo_local_owner_review_then_aoa_evals_overlap_check",
+        "source_kind": "local_eval_port",
+        "source_ref": "worktrees/abyss-wave2-20260921/aoa-sdk",
+        "state": "needs_owner_review"
+      },
+      {
+        "authority_boundary": "local pressure only; no central proof adoption without aoa-evals owner review",
+        "candidate_id": "local-port:worktrees/abyss-wave2-20260921/aoa-telegram-connector",
+        "evidence_count": 1,
+        "next_route": "active_suite_note_review_or_execution_contract_design",
+        "owner_repo": "worktrees/abyss-wave2-20260921/aoa-telegram-connector",
+        "promotion_allowed": false,
+        "proof_authority": false,
+        "review_gate": "repo_local_owner_review_then_aoa_evals_overlap_check",
+        "source_kind": "local_eval_port",
+        "source_ref": "worktrees/abyss-wave2-20260921/aoa-telegram-connector",
         "state": "needs_owner_review"
       },
       {
@@ -943,25 +1021,91 @@
       }
     ],
     "schema_version": "os_abyss_eval_candidate_queue_v1",
+    "source_projection": {
+      "entry_ids": [
+        "packet:runtime:external-luna-landing-l2-20260802",
+        "packet:session:aoa-eval-criteria-before-mining",
+        "packet:session:aoa-eval-goal-shrink-completion-overclaim",
+        "packet:session:aoa-eval-keyword-mining-blindspot",
+        "packet:session:aoa-eval-session-front-door-actionability-gap",
+        "packet:session:aoa-eval-working-process-fossilized-as-doctrine",
+        "runtime-candidates:aoa-evals"
+      ],
+      "schema_version": "os_abyss_eval_candidate_queue_source_projection_v1",
+      "summary": {
+        "by_source_kind": {
+          "runtime_candidate_export": 1,
+          "runtime_export": 1,
+          "session_episode": 5
+        },
+        "by_state": {
+          "needs_owner_review": 6,
+          "observed": 1
+        },
+        "central_catalog_total_evals": 44,
+        "entries": 7,
+        "packet_count": 6,
+        "session_mining_report_refs": [
+          "mechanics/audit/parts/candidate-readers/reports/session-mining/2026-06-25-aoa-eval-control.manual-review.md"
+        ],
+        "session_mining_reviewed_count": 20,
+        "session_packet_count": 5
+      }
+    },
     "summary": {
       "by_source_kind": {
-        "local_eval_port": 10,
+        "local_eval_port": 16,
         "runtime_candidate_export": 1,
         "runtime_export": 1,
         "session_episode": 5
       },
       "by_state": {
-        "needs_owner_review": 16,
+        "needs_owner_review": 22,
         "observed": 1
       },
       "central_catalog_total_evals": 44,
-      "entries": 17,
+      "entries": 23,
       "packet_count": 6,
       "session_mining_report_refs": [
         "mechanics/audit/parts/candidate-readers/reports/session-mining/2026-06-25-aoa-eval-control.manual-review.md"
       ],
       "session_mining_reviewed_count": 20,
       "session_packet_count": 5
+    },
+    "workspace_observation": {
+      "distinct_pressure_preserved": true,
+      "entry_ids": [
+        "local-port:Tree-of-Sophia",
+        "local-port:aoa-kag",
+        "local-port:aoa-memo",
+        "local-port:aoa-sdk",
+        "local-port:aoa-session-memory",
+        "local-port:connectors/aoa-4pda-connector",
+        "local-port:connectors/aoa-course-connector",
+        "local-port:connectors/aoa-discord-connector",
+        "local-port:connectors/aoa-stackoverflow-connector",
+        "local-port:connectors/aoa-telegram-connector",
+        "local-port:connectors/aoa-xda-connector",
+        "local-port:worktrees/abyss-wave1-20260907/aoa-sdk",
+        "local-port:worktrees/abyss-wave1-20260907/aoa-session-memory",
+        "local-port:worktrees/abyss-wave2-20260921/aoa-discord-connector",
+        "local-port:worktrees/abyss-wave2-20260921/aoa-sdk",
+        "local-port:worktrees/abyss-wave2-20260921/aoa-telegram-connector"
+      ],
+      "observed_at_utc": "2026-09-22T07:24:21Z",
+      "repo_id_basis": "workspace-relative-path",
+      "schema_version": "os_abyss_eval_candidate_queue_workspace_observation_v1",
+      "scope": "filesystem_workspace",
+      "summary": {
+        "by_source_kind": {
+          "local_eval_port": 16
+        },
+        "by_state": {
+          "needs_owner_review": 16
+        },
+        "entries": 16
+      },
+      "workspace_root": "workspace:OS_ABYSS"
     }
   },
   "central_catalog": {
@@ -1548,27 +1692,34 @@
   },
   "generated_at_utc": "2026-07-18T10:27:58Z",
   "layer": "aoa-evals",
+  "live_observation": {
+    "next_route": "python scripts/build_eval_readiness_dashboard.py --write-generated",
+    "observed_at_utc": "2026-07-18T10:27:58Z",
+    "owner": "aoa-evals live runtime and session probes",
+    "schema_version": "os_abyss_eval_live_observation_v1",
+    "status": "legacy"
+  },
   "local_eval_ports": {
     "authority_boundary": "Repo-local eval ports carry intake, suites, reports, and pressure evidence only. Central verdict, scoring, regression, proof doctrine, and central bundle adoption remain in aoa-evals.",
     "next_route": "inspect active or invalid ports before eval application/design",
     "source_ref": "generated by scripts/build_local_eval_port_inventory.py",
     "suite_execution_boundary": "suite execution states are inspected only; ready means source-contract-ready, not pinned runtime reproducibility; owner/apply must JIT-revalidate before invoking exact runner.argv and capture environment plus an execution receipt",
     "summary": {
-      "active": 9,
+      "active": 16,
       "excluded_repos": 1,
-      "invalid": 0,
-      "missing": 0,
-      "repos": 21,
-      "skeleton": 11,
-      "stale_candidate": 1,
-      "suite_execution_absent": 21,
+      "invalid": 1,
+      "missing": 9,
+      "repos": 44,
+      "skeleton": 10,
+      "stale_candidate": 8,
+      "suite_execution_absent": 39,
       "suite_execution_invalid": 0,
       "suite_execution_ready": 0,
-      "suite_execution_stale": 0,
-      "validator_failed": 1,
-      "validator_ok": 20,
-      "with_detected_pressure": 9,
-      "with_local_port": 20
+      "suite_execution_stale": 5,
+      "validator_failed": 14,
+      "validator_ok": 21,
+      "with_detected_pressure": 16,
+      "with_local_port": 27
     }
   },
   "local_to_central_promotion_path": {
@@ -3054,6 +3205,12 @@
     "test_inventory": "docs/testing/test_inventory.json",
     "validation_inventory": "docs/validation/validator_inventory.json"
   },
+  "source_projection": {
+    "generated_at_utc": "2026-09-22T07:24:21Z",
+    "identity": "6f1972c1ff604cfaa5afa8a9e385e51dd6ac200680b3fddb09f49f3a921f7e1a",
+    "identity_basis": "deterministic source-derived dashboard projection",
+    "schema_version": "os_abyss_eval_source_projection_v1"
+  },
   "trajectory_eval_slice": {
     "deterministic_cases": [
       {
@@ -3317,81 +3474,117 @@
     "repos": [
       {
         "branch": "main",
-        "branch_status": "## main...origin/main [ahead 1, behind 12]",
-        "dirty_count": 21,
-        "head": "7ff7bb4375154577b0793cfd31e37280c764b83d",
+        "branch_status": "## main...origin/main [ahead 2, behind 36]",
+        "dirty_count": 25,
+        "head": "778f551a301565537f5cfc979e31571aaa0ec86b",
         "repo": "8Dionysus",
         "repo_path": "workspace:OS_ABYSS/8Dionysus",
         "status": "ok"
       },
       {
         "branch": "main",
-        "branch_status": "## main...origin/main [behind 1]",
+        "branch_status": "## main...origin/main [behind 3]",
         "dirty_count": 0,
-        "head": "430c622654362eae2ff3ed35855b42bc172dd552",
+        "head": "e3b408d1988fc83d14d51c959151c7880aea0b96",
         "repo": "ATM10-Agent",
         "repo_path": "workspace:OS_ABYSS/ATM10-Agent",
         "status": "ok"
       },
       {
         "branch": "main",
-        "branch_status": "## main...origin/main [behind 1]",
+        "branch_status": "## main...origin/main [ahead 1, behind 16]",
         "dirty_count": 0,
-        "head": "fe67c18163f40435e5413748f25dfe91e5b5a27d",
+        "head": "6403d8c22f450ea23b7570508c62e75233299095",
         "repo": "Agents-of-Abyss",
         "repo_path": "workspace:OS_ABYSS/Agents-of-Abyss",
         "status": "ok"
       },
       {
         "branch": "main",
-        "branch_status": "## main...origin/main [behind 1]",
+        "branch_status": "## main...origin/main [behind 2]",
         "dirty_count": 0,
-        "head": "72031c63ffc296550777ff7db1a86e29f94f6768",
+        "head": "02ed96f83ca3cd22d0c95023ac948bf75b42185a",
         "repo": "Dionysus",
         "repo_path": "workspace:OS_ABYSS/Dionysus",
         "status": "ok"
       },
       {
-        "branch": "main",
-        "branch_status": "## main...origin/main [behind 1]",
-        "dirty_count": 0,
-        "head": "14aac6bb323627f73ff22a42047fcc94d5ddada4",
+        "branch": "codex/tos-foundation-v1-20260905",
+        "branch_status": "## codex/tos-foundation-v1-20260905...origin/codex/tos-foundation-v1-20260905 [gone]",
+        "dirty_count": 24,
+        "head": "da8fb0993298e7f1de20875cbf2bd19d9e2f5ed0",
         "repo": "Tree-of-Sophia",
         "repo_path": "workspace:OS_ABYSS/Tree-of-Sophia",
         "status": "ok"
       },
       {
         "branch": "main",
-        "branch_status": "## main...origin/main",
-        "dirty_count": 0,
-        "head": "ab5229bcb08f3ea0253ec6bb3aa7e8a854028f93",
+        "branch_status": "## main...origin/main [behind 138]",
+        "dirty_count": 83,
+        "head": "5d7831354de61aafae9dd63fdb27a22e159d25e8",
+        "repo": "abyss-machine",
+        "repo_path": "workspace:OS_ABYSS/abyss-machine",
+        "status": "ok"
+      },
+      {
+        "branch": "agent/actor-stats-feed-20260815",
+        "branch_status": "## agent/actor-stats-feed-20260815...origin/agent/actor-stats-feed-20260815 [gone]",
+        "dirty_count": 4,
+        "head": "144a60b33802fbd375abd908f2986862ae685866",
+        "repo": "abyss-stack-source",
+        "repo_path": "workspace:OS_ABYSS/abyss-stack-source",
+        "status": "ok"
+      },
+      {
+        "branch": "main",
+        "branch_status": "## main...origin/main [ahead 1, behind 18]",
+        "dirty_count": 1,
+        "head": "db7b7f7ac7465406b3a90ca26d3cf31ac81706fe",
         "repo": "aoa-agents",
         "repo_path": "workspace:OS_ABYSS/aoa-agents",
         "status": "ok"
       },
       {
         "branch": "main",
-        "branch_status": "## main...origin/main",
+        "branch_status": "## main",
         "dirty_count": 0,
-        "head": "347cf5b6c9b149f17371346e721bb047e15cb482",
+        "head": "35c2e74b2f0bd66efeddbd0cd4daf298a042fcad",
+        "repo": "aoa-agon",
+        "repo_path": "workspace:OS_ABYSS/aoa-agon",
+        "status": "ok"
+      },
+      {
+        "branch": "product/goal-space-t3",
+        "branch_status": "## product/goal-space-t3",
+        "dirty_count": 61,
+        "head": "d56407081bb62e429958200c32412eda47b83409",
+        "repo": "aoa-dashboard",
+        "repo_path": "workspace:OS_ABYSS/aoa-dashboard",
+        "status": "ok"
+      },
+      {
+        "branch": null,
+        "branch_status": "## HEAD (no branch)",
+        "dirty_count": 8,
+        "head": "1e228c1d5e0c2610b7e667513fbdbe068b49aef4",
         "repo": "aoa-evals",
         "repo_path": "repo:aoa-evals",
         "status": "ok"
       },
       {
-        "branch": "main",
-        "branch_status": "## main...origin/main",
+        "branch": null,
+        "branch_status": "## HEAD (no branch)",
         "dirty_count": 0,
-        "head": "47e7587154ee2828b913b4a5ca4b20ba646587dc",
+        "head": "36bed324e4206cb913f03a9dc3d041b9ddda3c69",
         "repo": "aoa-kag",
         "repo_path": "workspace:OS_ABYSS/aoa-kag",
         "status": "ok"
       },
       {
-        "branch": "main",
-        "branch_status": "## main...origin/main",
+        "branch": null,
+        "branch_status": "## HEAD (no branch)",
         "dirty_count": 0,
-        "head": "d5f813c5eea2f430f59c0aad291315ca6c66b0f0",
+        "head": "20737ecaee54c0196223eef07b0460c8cf0afe13",
         "repo": "aoa-memo",
         "repo_path": "workspace:OS_ABYSS/aoa-memo",
         "status": "ok"
@@ -3400,127 +3593,310 @@
         "branch": "main",
         "branch_status": "## main...origin/main [behind 1]",
         "dirty_count": 0,
-        "head": "a0e89191e39a7ed194cfad13e9d7d0a7513aa384",
-        "repo": "aoa-playbooks",
-        "repo_path": "workspace:OS_ABYSS/aoa-playbooks",
+        "head": "24835f908bf032767e3ee4f3bd57cd832e0c7fa1",
+        "repo": "aoa-models",
+        "repo_path": "workspace:OS_ABYSS/aoa-models",
         "status": "ok"
       },
       {
         "branch": "main",
         "branch_status": "## main...origin/main [behind 2]",
         "dirty_count": 0,
-        "head": "72f91d2a8e21438157a853becd136be30e72234e",
-        "repo": "aoa-routing",
-        "repo_path": "workspace:OS_ABYSS/aoa-routing",
+        "head": "41f10f29b61d9f697d3e2537e3dd89b0e2d19f4d",
+        "repo": "aoa-playbooks",
+        "repo_path": "workspace:OS_ABYSS/aoa-playbooks",
         "status": "ok"
       },
       {
         "branch": "main",
-        "branch_status": "## main...origin/main [behind 1]",
+        "branch_status": "## main...origin/main [behind 4]",
         "dirty_count": 0,
-        "head": "b735658c6e5e7a5708fba3416820b53455322444",
+        "head": "12ce2e403a547d30d5adc934343d91215eaab8f0",
         "repo": "aoa-sdk",
         "repo_path": "workspace:OS_ABYSS/aoa-sdk",
         "status": "ok"
       },
       {
         "branch": "main",
-        "branch_status": "## main...origin/main [ahead 1, behind 98]",
-        "dirty_count": 102,
-        "head": "f66ee11d3ba46486aa555ab2a806a80a711aae1d",
-        "repo": "aoa-skills",
-        "repo_path": "workspace:OS_ABYSS/aoa-skills",
+        "branch_status": "## main...origin/main [ahead 28, behind 56]",
+        "dirty_count": 6,
+        "head": "ddb51fc53da2830e14d39dda63f894e6c329c6de",
+        "repo": "aoa-session-memory",
+        "repo_path": "workspace:OS_ABYSS/aoa-session-memory",
         "status": "ok"
       },
       {
         "branch": "main",
-        "branch_status": "## main...origin/main [behind 1]",
+        "branch_status": "## main...origin/main [behind 5]",
         "dirty_count": 0,
-        "head": "24c3ae6e2844c2d24e0b15e5ce5b08c6999fd455",
+        "head": "aa8351a4de12b4a224c90799d1b29217ecfaaba2",
+        "repo": "aoa-skills",
+        "repo_path": "repo:aoa-skills",
+        "status": "ok"
+      },
+      {
+        "branch": null,
+        "branch_status": "## HEAD (no branch)",
+        "dirty_count": 0,
+        "head": "eadef646bc096285169124d995214ad13268fba3",
         "repo": "aoa-stats",
         "repo_path": "workspace:OS_ABYSS/aoa-stats",
         "status": "ok"
       },
       {
         "branch": "main",
-        "branch_status": "## main...origin/main [behind 1]",
+        "branch_status": "## main...origin/main [behind 3]",
         "dirty_count": 0,
-        "head": "9364662c7bde35b87fc67e17502f9c78f5934b64",
+        "head": "a71e2d62cf49d1829934342df383887fe37c382f",
         "repo": "aoa-techniques",
         "repo_path": "workspace:OS_ABYSS/aoa-techniques",
         "status": "ok"
       },
       {
         "branch": "main",
-        "branch_status": "## main...origin/main [behind 1]",
+        "branch_status": "## main...origin/main",
         "dirty_count": 0,
-        "head": "01170c4df4c926078a81f982c157edcbb4e3e227",
+        "head": "8ffaad90ff661c215b96140d810ce693080989ac",
         "repo": "aoa-4pda-connector",
         "repo_path": "workspace:OS_ABYSS/connectors/aoa-4pda-connector",
         "status": "ok"
       },
       {
         "branch": "main",
-        "branch_status": "## main...origin/main [behind 1]",
+        "branch_status": "## main",
         "dirty_count": 0,
-        "head": "10c7e75707cea43ee493496f005b4b6ceeab7281",
+        "head": "83de750bd76071d6f07909abc46fdd4a35f58305",
+        "repo": "aoa-chat-connector",
+        "repo_path": "workspace:OS_ABYSS/connectors/aoa-chat-connector",
+        "status": "ok"
+      },
+      {
+        "branch": "main",
+        "branch_status": "## main...origin/main [behind 4]",
+        "dirty_count": 0,
+        "head": "73288a6de89782e4ec5c38d7e050a2ace2c1175c",
         "repo": "aoa-course-connector",
         "repo_path": "workspace:OS_ABYSS/connectors/aoa-course-connector",
         "status": "ok"
       },
       {
         "branch": "main",
-        "branch_status": "## main...origin/main [behind 1]",
+        "branch_status": "## main...origin/main",
         "dirty_count": 0,
-        "head": "fc80cb361e65f9fe711dcd8607727fc9bf1a519e",
+        "head": "2f0160ca6a4bdf1629587800cf5fdaf34c4616c7",
         "repo": "aoa-discord-connector",
         "repo_path": "workspace:OS_ABYSS/connectors/aoa-discord-connector",
+        "status": "ok"
+      },
+      {
+        "branch": "feat/phase0-bootstrap",
+        "branch_status": "## feat/phase0-bootstrap...origin/feat/phase0-bootstrap",
+        "dirty_count": 2,
+        "head": "f6f89b08aa0c6969db35e0b96888d39698e560e1",
+        "repo": "aoa-gopro-connector",
+        "repo_path": "workspace:OS_ABYSS/connectors/aoa-gopro-connector",
         "status": "ok"
       },
       {
         "branch": "main",
         "branch_status": "## main...origin/main [behind 1]",
         "dirty_count": 0,
-        "head": "22546ecef31f9c2b6d2d5a328f3306ac7d80ddaa",
+        "head": "260f8a608b2edc1ab624216b1ad5ffd34c54e8d3",
+        "repo": "aoa-instagram-connector",
+        "repo_path": "workspace:OS_ABYSS/connectors/aoa-instagram-connector",
+        "status": "ok"
+      },
+      {
+        "branch": "main",
+        "branch_status": "## main...origin/main [behind 1]",
+        "dirty_count": 0,
+        "head": "022d7756b4d08d76db376782c111a7bed1ac918c",
+        "repo": "aoa-pinterest-connector",
+        "repo_path": "workspace:OS_ABYSS/connectors/aoa-pinterest-connector",
+        "status": "ok"
+      },
+      {
+        "branch": "main",
+        "branch_status": "## main...origin/main [behind 3]",
+        "dirty_count": 0,
+        "head": "142abe89b5fc8e2b4e5728fe532067087ab80149",
         "repo": "aoa-stackoverflow-connector",
         "repo_path": "workspace:OS_ABYSS/connectors/aoa-stackoverflow-connector",
         "status": "ok"
       },
       {
         "branch": "main",
-        "branch_status": "## main...origin/main [behind 1]",
+        "branch_status": "## main...origin/main [ahead 3]",
         "dirty_count": 0,
-        "head": "8dde4f6006fcd038314838a9995c0ecff09f980a",
+        "head": "005acce68cb441561cada83c83fc1611d4361280",
         "repo": "aoa-telegram-connector",
         "repo_path": "workspace:OS_ABYSS/connectors/aoa-telegram-connector",
         "status": "ok"
       },
       {
+        "branch": "codex/tiktok-phase1-bootstrap",
+        "branch_status": "## codex/tiktok-phase1-bootstrap...origin/codex/tiktok-phase1-bootstrap",
+        "dirty_count": 0,
+        "head": "c0cd8d163c782f01428cb4d09997a52f40b10035",
+        "repo": "aoa-tiktok-connector",
+        "repo_path": "workspace:OS_ABYSS/connectors/aoa-tiktok-connector",
+        "status": "ok"
+      },
+      {
         "branch": "main",
         "branch_status": "## main...origin/main [behind 1]",
+        "dirty_count": 23,
+        "head": "603be6134df13dacdf807800c30162320f5097b1",
+        "repo": "aoa-x-connector",
+        "repo_path": "workspace:OS_ABYSS/connectors/aoa-x-connector",
+        "status": "ok"
+      },
+      {
+        "branch": "main",
+        "branch_status": "## main...origin/main [behind 3]",
         "dirty_count": 0,
-        "head": "e7d1c7d8cc659b6643e6c5fe050d3c693e43253b",
+        "head": "58a53f69bd4ecb2d40a24534bd42f0ce0148367b",
         "repo": "aoa-xda-connector",
         "repo_path": "workspace:OS_ABYSS/connectors/aoa-xda-connector",
         "status": "ok"
       },
       {
         "branch": "main",
-        "branch_status": "## main",
+        "branch_status": "## main...origin/main [behind 1]",
         "dirty_count": 0,
-        "head": "c0cd90a7da32001e29c4a99d1f39b62a97b6fbb0",
+        "head": "822abbca911dd157a812671c736bb10359a9af31",
+        "repo": "aoa-youtube-connector",
+        "repo_path": "workspace:OS_ABYSS/connectors/aoa-youtube-connector",
+        "status": "ok"
+      },
+      {
+        "branch": "goal/video-anatomy-closeout",
+        "branch_status": "## goal/video-anatomy-closeout",
+        "dirty_count": 0,
+        "head": "5a90dfc6deeeb6e2746486ea8c3975c10cb7da19",
         "repo": "aoa-editing",
         "repo_path": "workspace:OS_ABYSS/media/aoa-editing",
+        "status": "ok"
+      },
+      {
+        "branch": "codex/first-wave-simplification-20260907",
+        "branch_status": "## codex/first-wave-simplification-20260907...origin/codex/first-wave-simplification-20260907 [ahead 1]",
+        "dirty_count": 0,
+        "head": "87e4e94ea14eda9a426c0cfe9cb3578b3d9fbe48",
+        "repo": "abyss-machine",
+        "repo_path": "workspace:OS_ABYSS/worktrees/abyss-wave1-20260907/abyss-machine",
+        "status": "ok"
+      },
+      {
+        "branch": "codex/first-wave-simplification-20260907",
+        "branch_status": "## codex/first-wave-simplification-20260907...origin/codex/first-wave-simplification-20260907 [ahead 1]",
+        "dirty_count": 0,
+        "head": "5ba73eb67e963d8fc09b46f5182d6669eaa74c9b",
+        "repo": "aoa-dashboard",
+        "repo_path": "workspace:OS_ABYSS/worktrees/abyss-wave1-20260907/aoa-dashboard",
+        "status": "ok"
+      },
+      {
+        "branch": "codex/first-wave-simplification-20260907",
+        "branch_status": "## codex/first-wave-simplification-20260907...origin/codex/first-wave-simplification-20260907 [behind 6]",
+        "dirty_count": 288,
+        "head": "7ce1a36758fdf6b31193d4bebba0ab927752f979",
+        "repo": "aoa-sdk",
+        "repo_path": "workspace:OS_ABYSS/worktrees/abyss-wave1-20260907/aoa-sdk",
+        "status": "ok"
+      },
+      {
+        "branch": "codex/first-wave-simplification-20260907",
+        "branch_status": "## codex/first-wave-simplification-20260907...origin/codex/first-wave-simplification-20260907",
+        "dirty_count": 0,
+        "head": "e85635bfa596473a576ebd24567a7609c0344ca2",
+        "repo": "aoa-session-memory",
+        "repo_path": "workspace:OS_ABYSS/worktrees/abyss-wave1-20260907/aoa-session-memory",
+        "status": "ok"
+      },
+      {
+        "branch": "codex/wave2-a22-discord-20260921",
+        "branch_status": "## codex/wave2-a22-discord-20260921",
+        "dirty_count": 0,
+        "head": "27d07d946440ed4c147cd84e9e50c2978fbe1177",
+        "repo": "aoa-discord-connector",
+        "repo_path": "workspace:OS_ABYSS/worktrees/abyss-wave2-20260921/aoa-discord-connector",
+        "status": "ok"
+      },
+      {
+        "branch": "codex/portability-wave2-20260921",
+        "branch_status": "## codex/portability-wave2-20260921",
+        "dirty_count": 0,
+        "head": "d9b27d499e471d519919c7c7afa30bab171151f1",
+        "repo": "aoa-sdk",
+        "repo_path": "workspace:OS_ABYSS/worktrees/abyss-wave2-20260921/aoa-sdk",
+        "status": "ok"
+      },
+      {
+        "branch": "codex/stats-relative-roots-wave2-20260921",
+        "branch_status": "## codex/stats-relative-roots-wave2-20260921",
+        "dirty_count": 0,
+        "head": "42bf5bb959609c646b8acd41b8912044c7e7e6c2",
+        "repo": "aoa-stats",
+        "repo_path": "workspace:OS_ABYSS/worktrees/abyss-wave2-20260921/aoa-stats",
+        "status": "ok"
+      },
+      {
+        "branch": null,
+        "branch_status": "## HEAD (no branch)",
+        "dirty_count": 0,
+        "head": "7326f40215d0d14b14aa2a9d1f4369cc004591a1",
+        "repo": "aoa-stats-baseline",
+        "repo_path": "workspace:OS_ABYSS/worktrees/abyss-wave2-20260921/aoa-stats-baseline",
+        "status": "ok"
+      },
+      {
+        "branch": "codex/wave2-a22-telegram-20260921",
+        "branch_status": "## codex/wave2-a22-telegram-20260921",
+        "dirty_count": 0,
+        "head": "52922deb24975a1bf67cc70cbfdf6affc3e8afb2",
+        "repo": "aoa-telegram-connector",
+        "repo_path": "workspace:OS_ABYSS/worktrees/abyss-wave2-20260921/aoa-telegram-connector",
+        "status": "ok"
+      },
+      {
+        "branch": "codex/release-v060-banner-fix",
+        "branch_status": "## codex/release-v060-banner-fix...origin/main [ahead 2, behind 6]",
+        "dirty_count": 0,
+        "head": "1c211ca852cb7a0ff8cc15131fe3a07c683bf3ee",
+        "repo": "aoa-techniques-release-banner-fix-v060",
+        "repo_path": "workspace:OS_ABYSS/worktrees/aoa-techniques-release-banner-fix-v060",
+        "status": "ok"
+      },
+      {
+        "branch": "codex/release-consolidate-v0.6.0-attempt-2",
+        "branch_status": "## codex/release-consolidate-v0.6.0-attempt-2...origin/main [ahead 5, behind 7]",
+        "dirty_count": 0,
+        "head": "f791ac26d7783a205337b267221d5e9f119b8ca9",
+        "repo": "aoa-techniques-release-consolidate-v060-attempt-2",
+        "repo_path": "workspace:OS_ABYSS/worktrees/aoa-techniques-release-consolidate-v060-attempt-2",
         "status": "ok"
       }
     ],
     "status": "ok",
     "summary": {
-      "dirty_repos": 2,
-      "repos": 22,
+      "dirty_repos": 11,
+      "repos": 45,
       "unavailable_repos": 0
     },
     "workspace_root": "workspace:OS_ABYSS"
+  },
+  "workspace_observation": {
+    "canonical_owner_field": "canonical_owner_repo",
+    "distinct_repo_instances_preserved": true,
+    "local_port_inventory_ref": "scripts/build_local_eval_port_inventory.py",
+    "observed_at_utc": "2026-09-22T07:24:21Z",
+    "repo_id_basis": "workspace-relative-path",
+    "schema_version": "os_abyss_workspace_eval_observation_v1",
+    "scope": "filesystem_workspace",
+    "source": "scripts/build_local_eval_port_inventory.py",
+    "workspace_root": "workspace:OS_ABYSS",
+    "worktree_rule": "literal worktrees remain observed unless an explicit contract scope excludes them; physical instances are never merged by canonical owner"
   },
   "workspace_root": "workspace:OS_ABYSS"
 }

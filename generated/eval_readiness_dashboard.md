@@ -9,14 +9,16 @@ This generated read-model routes OS Abyss eval pressure. It is not a verdict, sc
 
 ## Summary
 
-- Generated at: `2026-07-18T10:27:58Z`
+- Source projection generated at: `2026-09-22T07:24:21Z`
+- Workspace observation at: `2026-09-22T07:24:21Z`
+- Live observation: `legacy` at `2026-07-18T10:27:58Z`
 - Workspace root: `workspace:OS_ABYSS`
 - Central evals: 44
-- Local active ports: 9
-- Local invalid ports: 0
+- Local active ports: 16
+- Local invalid ports: 1
 - Actionable repo routes: 10
 - Runtime candidate exports: 14
-- Candidate queue entries: 17
+- Candidate queue entries: 23
 - Candidate packet imports: 6
 - Eval Forge archetypes: 18
 - Eval Forge candidate hints: 6
@@ -25,7 +27,7 @@ This generated read-model routes OS Abyss eval pressure. It is not a verdict, sc
 - Eval-relevant surfaces with unresolved manual review: 0
 - Unsafe side-effect scripts: 4
 - MCP runtime status: `ok`
-- Dirty repos: 2
+- Dirty repos: 11
 
 ## Research Grounding
 
@@ -73,9 +75,10 @@ This generated read-model routes OS Abyss eval pressure. It is not a verdict, sc
 
 | Candidate | State | Source | Owner | Evidence | Packet | Next Route |
 | --- | --- | --- | --- | ---: | --- | --- |
+| `local-port:Tree-of-Sophia` | needs_owner_review | local_eval_port | Tree-of-Sophia | 2 |  | active_suite_note_review_or_execution_contract_design |
 | `local-port:aoa-kag` | needs_owner_review | local_eval_port | aoa-kag | 4 |  | active_intake_select_then_apply_or_design |
 | `local-port:aoa-memo` | needs_owner_review | local_eval_port | aoa-memo | 1 |  | active_intake_select_then_apply_or_design |
-| `local-port:aoa-sdk` | needs_owner_review | local_eval_port | aoa-sdk | 7 |  | active_suite_apply_or_regression_check |
+| `local-port:aoa-sdk` | needs_owner_review | local_eval_port | aoa-sdk | 7 |  | active_suite_contract_stale_review |
 | `local-port:aoa-session-memory` | needs_owner_review | local_eval_port | aoa-session-memory | 5 |  | active_suite_contract_stale_review |
 | `local-port:connectors/aoa-4pda-connector` | needs_owner_review | local_eval_port | connectors/aoa-4pda-connector | 2 |  | active_suite_note_review_or_execution_contract_design |
 | `local-port:connectors/aoa-course-connector` | needs_owner_review | local_eval_port | connectors/aoa-course-connector | 11 |  | active_suite_note_review_or_execution_contract_design |
@@ -83,6 +86,11 @@ This generated read-model routes OS Abyss eval pressure. It is not a verdict, sc
 | `local-port:connectors/aoa-stackoverflow-connector` | needs_owner_review | local_eval_port | connectors/aoa-stackoverflow-connector | 1 |  | active_suite_note_review_or_execution_contract_design |
 | `local-port:connectors/aoa-telegram-connector` | needs_owner_review | local_eval_port | connectors/aoa-telegram-connector | 1 |  | active_suite_note_review_or_execution_contract_design |
 | `local-port:connectors/aoa-xda-connector` | needs_owner_review | local_eval_port | connectors/aoa-xda-connector | 1 |  | active_suite_note_review_or_execution_contract_design |
+| `local-port:worktrees/abyss-wave1-20260907/aoa-sdk` | needs_owner_review | local_eval_port | worktrees/abyss-wave1-20260907/aoa-sdk | 7 |  | active_suite_contract_stale_review |
+| `local-port:worktrees/abyss-wave1-20260907/aoa-session-memory` | needs_owner_review | local_eval_port | worktrees/abyss-wave1-20260907/aoa-session-memory | 5 |  | active_suite_contract_stale_review |
+| `local-port:worktrees/abyss-wave2-20260921/aoa-discord-connector` | needs_owner_review | local_eval_port | worktrees/abyss-wave2-20260921/aoa-discord-connector | 1 |  | active_suite_note_review_or_execution_contract_design |
+| `local-port:worktrees/abyss-wave2-20260921/aoa-sdk` | needs_owner_review | local_eval_port | worktrees/abyss-wave2-20260921/aoa-sdk | 7 |  | active_suite_contract_stale_review |
+| `local-port:worktrees/abyss-wave2-20260921/aoa-telegram-connector` | needs_owner_review | local_eval_port | worktrees/abyss-wave2-20260921/aoa-telegram-connector | 1 |  | active_suite_note_review_or_execution_contract_design |
 | `packet:runtime:external-luna-landing-l2-20260802` | needs_owner_review | runtime_export | aoa-evals + abyss-stack | 5 | `mechanics/audit/parts/candidate-readers/packets/external-luna-landing-l2-20260802.eval_candidate.json` | Run aoa-evals review-context against the exact linked manual report, preserve its candidate-only proof ceiling, and present retain_unadmitted_shadow_candidate to the sole human authority; do not infer admission or benefit from successful L2 transport. |
 | `packet:session:aoa-eval-criteria-before-mining` | needs_owner_review | session_episode | aoa-evals | 3 | `mechanics/audit/parts/candidate-readers/packets/session-mining/aoa-eval-criteria-before-mining.eval_candidate.json` | Use this packet to seed a criteria/rubric review before any larger session-mining wave. |
 | `packet:session:aoa-eval-goal-shrink-completion-overclaim` | needs_owner_review | session_episode | aoa-evals + aoa-skills | 3 | `mechanics/audit/parts/candidate-readers/packets/session-mining/aoa-eval-goal-shrink-completion-overclaim.eval_candidate.json` | Review the bounded source span against the current guide and decide whether this belongs in a trajectory eval slice or aoa-skills trigger case. |
@@ -174,8 +182,8 @@ This generated read-model routes OS Abyss eval pressure. It is not a verdict, sc
 
 ## Freshness Sentinel
 
-- Git repos: 22
-- Dirty repos: 2
+- Git repos: 45
+- Dirty repos: 11
 - MCP selected root: `repo:abyss-stack`
 - .aoa freshness status: `failed`
 

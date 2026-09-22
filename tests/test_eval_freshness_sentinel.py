@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import os
+import json
 import sys
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
@@ -14,10 +15,15 @@ if str(SCRIPTS_DIR) not in sys.path:
 import check_eval_freshness_sentinel as sentinel
 
 
-def write_generated_dashboard(root: Path, *, age_hours: float = 0.0) -> None:
+def write_generated_dashboard(
+    root: Path,
+    *,
+    age_hours: float = 0.0,
+    payload: dict | None = None,
+) -> None:
     path = root / "generated" / "eval_readiness_dashboard.json"
     path.parent.mkdir(parents=True)
-    path.write_text("{}\n", encoding="utf-8")
+    path.write_text(json.dumps(payload or {}) + "\n", encoding="utf-8")
     mtime = datetime(2026, 6, 25, tzinfo=timezone.utc) - timedelta(hours=age_hours)
     os.utime(path, (mtime.timestamp(), mtime.timestamp()))
 
@@ -92,7 +98,25 @@ def test_sentinel_errors_on_unresolved_support_registry_review(tmp_path: Path) -
 
 
 def test_sentinel_warns_on_stale_generated_dashboard(tmp_path: Path) -> None:
-    write_generated_dashboard(tmp_path, age_hours=30)
+    write_generated_dashboard(
+        tmp_path,
+        age_hours=0,
+        payload={
+            "source_projection": {
+                "schema_version": "os_abyss_eval_source_projection_v1",
+                "generated_at_utc": "2026-06-23T18:00:00Z",
+                "identity": "source",
+            },
+            "workspace_observation": {
+                "scope": "filesystem_workspace",
+                "observed_at_utc": "2026-06-24T18:00:00Z",
+            },
+            "live_observation": {
+                "status": "observed",
+                "observed_at_utc": "2026-06-24T18:00:00Z",
+            },
+        },
+    )
     support = {
         "summary": {
             "unsafe_side_effect_scripts": 0,
@@ -111,4 +135,59 @@ def test_sentinel_warns_on_stale_generated_dashboard(tmp_path: Path) -> None:
 
     age = {item["id"]: item for item in payload["signals"]}["generated_dashboard_age"]
     assert age["severity"] == "warning"
-    assert age["next_command"] == "python scripts/build_eval_readiness_dashboard.py --write-generated"
+    assert age["next_command"] == (
+        "python scripts/build_eval_readiness_dashboard.py --no-live-checks --write-generated"
+    )
+
+
+def test_sentinel_does_not_use_recent_mtime_as_projection_freshness(tmp_path: Path) -> None:
+    write_generated_dashboard(
+        tmp_path,
+        payload={
+            "source_projection": {
+                "schema_version": "os_abyss_eval_source_projection_v1",
+                "generated_at_utc": "2026-06-23T18:00:00Z",
+                "identity": "source",
+            }
+        },
+    )
+    payload = sentinel.build_sentinel_payload(
+        dashboard=base_dashboard(),
+        support_registry={"summary": {}},
+        evals_root=tmp_path,
+        max_generated_age_hours=24,
+        now=datetime(2026, 6, 25, tzinfo=timezone.utc),
+    )
+    age = {item["id"]: item for item in payload["signals"]}["generated_dashboard_age"]
+    assert age["severity"] == "warning"
+    assert age["status"] == "30.00h"
+
+
+def test_sentinel_marks_legacy_and_invalid_timestamps_explicitly(tmp_path: Path) -> None:
+    write_generated_dashboard(
+        tmp_path,
+        payload={
+            "source_projection": {
+                "schema_version": "os_abyss_eval_source_projection_v1",
+                "generated_at_utc": "not-a-timestamp",
+                "identity": "source",
+            },
+            "workspace_observation": {
+                "scope": "filesystem_workspace",
+                "observed_at_utc": "2030-01-01T00:00:00Z",
+            },
+            "live_observation": {"status": "not_observed", "observed_at_utc": None},
+        },
+    )
+    payload = sentinel.build_sentinel_payload(
+        dashboard=base_dashboard(),
+        support_registry={"summary": {}},
+        evals_root=tmp_path,
+        max_generated_age_hours=24,
+        now=datetime(2026, 6, 25, tzinfo=timezone.utc),
+    )
+    signals = {item["id"]: item for item in payload["signals"]}
+    assert signals["generated_dashboard_age"]["status"] == "malformed"
+    assert signals["workspace_observation_age"]["status"] == "future"
+    assert signals["live_observation_age"]["status"] == "not_observed"
+    assert payload["overall_severity"] == "error"

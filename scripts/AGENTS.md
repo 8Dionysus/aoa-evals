@@ -52,7 +52,9 @@ checked-out `aoa-stats` validator. Eval-local statistical meaning stays under
 
 The bounded proof posture is protected through precise failures that name the owner
 surface, field, and bounded claim being protected.
-Pair validator wording changes with focused tests in `tests/test_validate_repo.py`.
+Pair validator wording and behavior changes with focused tests in the owning
+test module. Keep cross-surface integration in `tests/test_validate_repo.py`;
+test-inventory checker regressions belong in `tests/test_test_topology.py`.
 
 ## Owner Routes
 

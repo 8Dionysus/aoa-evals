@@ -2909,10 +2909,10 @@
       "mode": "blocking",
       "owner_surface": "docs/testing/TEST_TOPOLOGY.md",
       "source_truth": ["docs/testing/test_inventory.json", "docs/validation/validation_lanes.json", "tests", "mechanics/*/parts/*/tests"],
-      "input": ["test inventory", "root tests", "part-local tests"],
-      "output": ["test inventory field and discovery drift issues"],
+      "input": ["test inventory", "declared validation lane names", "root tests", "part-local tests"],
+      "output": ["test inventory field, owner and lane reference, and discovery drift issues"],
       "command_sequences": ["source_fast", "release_check", "nightly"],
-      "failure_route": "Fix the test inventory entry or active test surface; lane command grouping, validator inventory, and script inventory belong to focused sibling validators.",
+      "failure_route": "Fix the test inventory entry, its owner or lane reference, or the active test surface; lane command semantics, validator inventory, and script inventory belong to focused sibling validators.",
       "disposition": "add"
     },
     {

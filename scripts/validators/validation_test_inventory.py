@@ -22,6 +22,12 @@ def validate_test_inventory(repo_root: Path) -> list[tuple[str, str]]:
     if inventory is None:
         return issues
 
+    manifest, manifest_issues = _load_json(repo_root, LANE_MANIFEST_PATH)
+    issues.extend(manifest_issues)
+    lanes = manifest.get("lanes") if manifest is not None else None
+    if manifest is not None and not isinstance(lanes, dict):
+        issues.append((LANE_MANIFEST_PATH.as_posix(), "test inventory coverage_authority requires a lanes object"))
+
     if inventory.get("owner") != TEST_TOPOLOGY_PATH.as_posix():
         issues.append((TEST_INVENTORY_PATH.as_posix(), "test inventory owner is wrong"))
     if inventory.get("command_authority") != LANE_MANIFEST_PATH.as_posix():
@@ -52,8 +58,11 @@ def validate_test_inventory(repo_root: Path) -> list[tuple[str, str]]:
             issues.append((location, f"test inventory family {entry['family']!r} is unknown"))
         if entry["home_scope"] not in ALLOWED_HOME_SCOPES:
             issues.append((location, "test inventory home_scope is invalid"))
-        if not isinstance(entry["coverage_authority"], str) or not entry["coverage_authority"].startswith("validation_lanes."):
+        authority = entry["coverage_authority"]
+        if not isinstance(authority, str) or not authority.startswith("validation_lanes."):
             issues.append((location, "test inventory coverage_authority must route through validation_lanes"))
+        elif isinstance(lanes, dict) and authority.removeprefix("validation_lanes.") not in lanes:
+            issues.append((location, f"test inventory coverage_authority {authority!r} names an unknown validation lane"))
         if entry["disposition"] not in ALLOWED_DISPOSITIONS:
             issues.append((location, "test inventory disposition is invalid"))
         for field in ("focused_target", "failure_route"):
